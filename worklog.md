@@ -414,3 +414,178 @@ Stage Summary:
 - Root cause: the PracticeIndex section header used a 5/6 column split with bottom-aligned description, leaving the headline crammed into a narrow left column (wrapping heavily) and a large empty top-right area. Combined with 128px top/bottom padding and a 48px gap, the section felt sparse and unbalanced.
 - Fix: widened the headline to 8 columns (fewer line wraps), moved the description to 4 columns with self-end alignment (sits at the headline baseline, closer to the text), reduced padding to 80px, tightened the header-to-list gap and row padding. Section is now 29% shorter (1450→1031px) and visually balanced.
 - Verified on desktop + mobile: compact, readable, no errors.
+
+---
+Task ID: 2-research
+Agent: Explore
+Task: Audit codebase for beige/porcelain colour system + contrast issues ahead of cool blue-grey migration (research only, no modifications)
+
+Work Log:
+- Read worklog Tasks 1–10 for context (existing "Arguments in Colour" design system: ink #0B1020 + porcelain #F3EFE5 base with electric/vermilion/marigold/jade/aubergine accents).
+- Crawled /home/z/my-project/src, /home/z/my-project/tailwind.config.ts, /home/z/my-project/public with ripgrep for every beige hex, Tailwind beige token, accent hex, CSS variable, beige rgba(), themeColor, body bg-porcelain, white-text contrast patterns, and mix-blend-mode.
+- Read every file containing a match in full (layout.tsx, globals.css, accents.ts, page.tsx, firm/page.tsx, expertise/page.tsx, expertise/[slug]/page.tsx, people/page.tsx, people/[slug]/page.tsx, sectors/page.tsx, insights/page.tsx, people-preview.tsx, insights-preview.tsx, hero-visual.tsx, horizontal-expertise.tsx, philosophy-narrative.tsx, sector-grid.tsx, favicon.svg).
+- Also enumerated all files in src/components/site/ (16 files), src/components/motion/ (6 files), and src/app/ (20 files).
+
+Findings (exhaustive inventory — see full structured report delivered to orchestrator):
+
+1. Hard-coded beige hex colours — 13 instances across 7 files:
+   - #F3EFE5: accents.ts:39, insights-preview.tsx:67, page.tsx:414, firm/page.tsx:99+259, globals.css:25+79, insights/page.tsx:89, layout.tsx:84
+   - #E9E3D4: globals.css:26+80
+   - #FBF9F2: globals.css:27+81
+   - #F5F0E7: public/favicon.svg:3 (legacy ivory fill on the "S" mark)
+
+2. Tailwind beige token classes (bg-porcelain / bg-paper / text-porcelain / border-porcelain / hover:bg-paper / field-porcelain / field-paper) — 23 files use them; ~180+ class instances total. Single biggest migration surface is bg-porcelain (page heroes + body) and text-porcelain (every ink section).
+
+3. Old accent hex colours hard-coded — 26 instances across 9 files:
+   - #FF493D (vermilion): accents.ts:25, hero-visual.tsx:74+108, insights-preview.tsx:10, page.tsx:54+403, firm/page.tsx:92+219, insights/page.tsx:9, globals.css:31+83
+   - #FFB000 (marigold): accents.ts:26, insights-preview.tsx:11, page.tsx:54+403, firm/page.tsx:92+225, insights/page.tsx:10, globals.css:32+84
+   - #17B890 (jade): accents.ts:27, insights-preview.tsx:12, page.tsx:54+403, firm/page.tsx:92, insights/page.tsx:11, globals.css:33+85
+   - #673DE6 (aubergine): accents.ts:28, insights-preview.tsx:13, page.tsx:54, insights/page.tsx:12, globals.css:34+86
+   - Duplicate accentFor records in BOTH insights-preview.tsx:8-13 AND insights/page.tsx:7-13 (should be consolidated into lib/accents.ts).
+
+4. CSS variable definitions — globals.css defines both @theme inline (--color-* variants, lines 25-34) and :root (--* bare vars, lines 79-86) for porcelain, porcelain-deep, paper, vermilion, marigold, jade, aubergine. Plus legacy alias block lines 37-40 (--color-cobalt/saffron/mint/violet).
+
+5. Beige rgba() (243,239,229) — globals.css:44 (--color-line-on-ink) and globals.css:89 (--line-on-ink). Both define the same rgba(243, 239, 229, 0.16) used for hairlines on ink sections.
+
+6. themeColor — layout.tsx:84 `themeColor: "#F3EFE5"` (browser chrome colour).
+
+7. body className — layout.tsx:95 `bg-porcelain text-ink ... selection:text-porcelain`.
+
+8. White-on-variable-accent contrast bugs (LATENT — currently masked because the only Person has accent="electric" #2457FF which is dark enough for white):
+   - src/components/site/people-preview.tsx lines 100-102 (rgba(255,255,255) SVG rules), 107 (rgba border), 108 (text-white/60), 113 (text-white/95), 117 (text-white/70), 125 (text-white/50) — all rendered on `style={{ background: hex }}` (person's accent). Hard-codes white instead of using accentOnHex.
+   - src/app/people/page.tsx lines 71-73 (rgba(255,255,255) SVG rules), 77 (border-white/50), 78 (text-white/60), 82 (text-white/95), 86 (text-white/70), 92 (text-white/50) — same pattern.
+   - src/app/people/[slug]/page.tsx lines 68-70 (3× rgba(255,255,255) SVG rules) — rest of file correctly uses onHex, but these 3 SVG strokes hardcode white.
+   - Correct pattern for reference: expertise/page.tsx, expertise/[slug]/page.tsx, sectors/page.tsx all use accentOnHex[accent] (accents.ts:33-40) which returns #FFFFFF only for dark accents (electric/vermilion/aubergine) and #0B1020 for light accents (marigold/jade) and #F3EFE5 for ink.
+   - #fff in globals.css field classes (lines 302, 303, 306 — field-electric/vermilion/aubergine) and #FFFFFF in accents.ts accentOnHex (lines 34, 35, 38) are CORRECT — these are always paired with their dark accent background.
+
+9. mix-blend-mode — 3 instances in globals.css:
+   - :277 (.grain::before — multiply, texture overlay, safe)
+   - :287 (.grain-light::before — screen, texture overlay, safe)
+   - :499 (.cursor-bar — difference, custom cursor; small/transient contrast risk on mid-tone backgrounds but acceptable for a 2px cursor bar)
+
+BONUS findings (latent bugs discovered during the audit, not in the original brief):
+- A. UNDEFINED "ivory" token: horizontal-expertise.tsx (lines 62, 72, 76, 94, 112, 141, 191, 194, 196, 197) and philosophy-narrative.tsx:42 use bg-ivory / text-ivory / border-ivory / bg-ivory/12 — but globals.css NEVER defines --color-ivory. These classes silently render as transparent/inherit. Either these components are visually broken today, or Tailwind 4 is falling through to an unexpected value.
+- B. UNDEFINED utility classes: .eyebrow (used horizontal-expertise.tsx:71,111,194 + philosophy-narrative.tsx:57), .mesh-grad (philosophy-narrative.tsx:48), .line-grid (philosophy-narrative.tsx:51) — none defined in globals.css (only a comment on line 178 mentions "eyebrows"). These produce no styles.
+- C. LEGACY alias tokens still present: globals.css:37-40 defines --color-cobalt/saffron/mint/violet pointing at the new palette. horizontal-expertise.tsx uses text-mint / bg-mint (lines 71, 96, 111). These resolve via the alias but should be renamed to text-jade / bg-jade for consistency.
+- D. Hard-coded colour arrays duplicated across files: page.tsx:54 (spectrum gradient), page.tsx:403 + firm/page.tsx:92 (principles colours array), firm/page.tsx:213/219/225 (philosophy step hexes), firm/page.tsx:294 (timeline marker hex). These bypass lib/accents.ts entirely and will need manual updates.
+
+Stage Summary:
+- The beige/porcelain system is concentrated in 3 layers: (1) globals.css token definitions (lines 25-27, 44, 79-81, 89, 103, 116, 299-301), (2) layout.tsx themeColor + body className, (3) ~180+ Tailwind class usages across 23 component/page files. Migrating the tokens + body className + themeColor will automatically update most usages; only the 13 hard-coded beige hex instances need manual replacement.
+- The accent system (vermilion/marigold/jade/aubergine) is more fragmented: accents.ts centralises the tokens, but 26 hard-coded hex strings live outside it (hero-visual.tsx, page.tsx, firm/page.tsx, insights-preview.tsx, insights/page.tsx, globals.css field classes). These must be updated individually.
+- 3 LATENT contrast bugs found in people-preview.tsx + people/page.tsx + people/[slug]/page.tsx where white text/rules are hard-coded on variable accent backgrounds instead of using accentOnHex. Currently masked (only person has dark "electric" accent) but will break the moment a person gets a "marigold" or "jade" accent.
+- 3 BONUS latent bugs: undefined ivory/eyebrow/mesh-grad/line-grid classes in horizontal-expertise.tsx + philosophy-narrative.tsx. These components may already be visually degraded and should be repaired as part of the migration.
+- favicon.svg and layout.tsx themeColor are the only non-src beige references.
+- No modifications were made (research only). Ready for the migration agent to act on this inventory.
+
+---
+Task ID: 5-people
+Agent: people-contrast-fixer
+Task: Fix latent white-text-on-accent contrast bugs in the People section (people-preview.tsx, people/page.tsx, people/[slug]/page.tsx) by routing all on-accent foreground colour through accentOnHex[accent].
+
+Work Log:
+- Read worklog.md (Tasks 1–4 + research notes) and src/lib/accents.ts to confirm accentOnHex mapping: electric/vermilion/jade/aubergine → #FFFFFF, marigold → #0B1020 (DARK), ink → #F8FAFD.
+- Read all 3 target files; confirmed the bug: SVG strokes, annotation-bracket borders, and cropped-name text all hard-coded `rgba(255,255,255,*)` / `text-white/*` — invisible on marigold (#FFC247).
+- Confirmed baseline `bun run lint` was clean before changes.
+- people-preview.tsx:
+  - Added `accentOnHex` to the `@/lib/accents` import.
+  - Computed `const onHex = accentOnHex[person.accent]` alongside existing `hex` in the `people.map` callback.
+  - Threaded `onHex` through to the `PortraitField` component (added to props type + call site).
+  - Replaced 3 SVG `stroke="rgba(255,255,255,0.18/0.12/0.1)"` → `stroke={`${onHex}29`}`, `stroke={`${onHex}1F`}`, `stroke={`${onHex}1A`}` (16/12/10% alpha as hex suffix).
+  - Replaced `borderColor: "rgba(255,255,255,0.5)"` → `borderColor: \`${onHex}80\`` (50% alpha).
+  - Replaced `text-white/60`, `text-white/95`, `text-white/70`, `text-white/50` with `style={{ color: onHex, opacity: 0.6/0.95/0.7/0.5 }}`, removing the colour utility class.
+- people/page.tsx:
+  - Added `accentOnHex` to the `@/lib/accents` import.
+  - Computed `const onHex = accentOnHex[person.accent]` alongside existing `hex` in the `people.map` callback.
+  - Replaced 3 SVG strokes `rgba(255,255,255,0.16/0.12/0.08)` → `${onHex}29`, `${onHex}1F`, `${onHex}14` (16/12/8% alpha; 0x14 = 20/255 ≈ 8%, preserving the original visual opacity precisely).
+  - Replaced `border-white/50` utility class on the annotation-bracket div with inline `style={{ borderColor: \`${onHex}80\` }}`.
+  - Replaced `text-white/60`, `text-white/95`, `text-white/70`, `text-white/50` with `style={{ color: onHex, opacity: 0.6/0.95/0.7/0.5 }}`, removing the colour utility classes.
+- people/[slug]/page.tsx:
+  - `onHex` was already in scope (line 38) and `accentOnHex` was already imported — no import or scope changes needed.
+  - Replaced exactly 3 SVG `stroke="rgba(255,255,255,0.16/0.12/0.1)"` → `stroke={`${onHex}29`}`, `stroke={`${onHex}1F`}`, `stroke={`${onHex}1A`}`. Left the rest of the file untouched (it already used `onHex` correctly for text + bracket border).
+- Ran `bun run lint` — clean, no errors.
+- Verified with ripgrep that no `text-white/` or `rgba(255,255,255` patterns remain in any of the 3 target files.
+- Did NOT touch any `bg-ink` / `text-porcelain` usages (correct — porcelain is now light #E2E8F2 on dark ink = good contrast) and did NOT touch any non-colour class names, layout, spacing, or typography.
+
+Stage Summary:
+- People section now fully contrast-safe against any current or future accent: strokes, annotation borders, and cropped-name text on the accent-coloured portrait fields all derive their foreground from `accentOnHex[accent]` instead of hard-coded white.
+- Marigold accent (the only LIGHT accent, requiring DARK #0B1020 text) will now render correctly on any person's portrait card; the bug that was previously masked because the sole person (Saransh Raj) carries the dark "electric" accent is now structurally eliminated.
+- Visual opacity of every element preserved exactly: 0.18→0x29, 0.16→0x29, 0.12→0x1F, 0.1→0x1A, 0.08→0x14, 0.5→0x80, plus the 60/95/70/50% text opacities kept via inline `opacity` style.
+- `bun run lint` passes clean; no layout, spacing, or typography changes; no other files touched.
+
+---
+Task ID: 11
+Agent: main (orchestrator)
+Task: URGENT colour & readability correction — replace beige system with cool blue-grey; fix white-on-light expertise accordion; centralise tokens; verify all pages
+
+Work Log:
+- User reported the cream/ivory/beige background makes the site dull and causes serious readability problems — specifically, white text appearing over a nearly white background in the Expertise section. Issued a detailed 8-point spec: remove all beige, new cool background system (#E2E8F2 global / #F8FAFD surface / #0B1020 text / #303A50 secondary / #5B6475 muted / #B7C2D2 borders), fix the expertise accordion with exact colours, use only approved accessible pairs, create section architecture variation, improve text contrast everywhere, centralise tokens, and verify every page + every expertise state + multiple viewports.
+- Launched an Explore subagent (Task 2-research) to produce an exhaustive audit of every beige/contrast instance. Findings: 13 hard-coded beige hexes across 7 files, ~180 Tailwind class usages of bg-porcelain/bg-paper/etc. across 23 files, 26 old-accent hex instances across 9 files, 2 beige rgba() line colours, themeColor in layout, plus latent white-text-on-accent bugs in 3 People-section files, plus undefined `ivory`/`eyebrow` utility classes.
+
+Phase 1 — Centralised the token layer (highest leverage):
+- Rewrote globals.css @theme inline + :root blocks with the new cool palette. Key remappings that auto-update ~180 class usages:
+  --porcelain: #F3EFE5 → #E2E8F2 (global bg)
+  --porcelain-deep: #E9E3D4 → #C9D7F2 (soft blue surface)
+  --paper: #FBF9F2 → #F8FAFD (elevated surface)
+  --ink-soft: #2A3148 → #303A50 (secondary text)
+  --ink-muted: #5A6075 → #5B6475 (muted text)
+  --line: rgba(11,16,32,0.14) → #B7C2D2 (borders)
+  --line-on-ink: rgba(243,239,229,0.16) → rgba(248,250,253,0.16)
+- Updated accent tokens to accessible values: vermilion #FF493D→#D94038, marigold #FFB000→#FFC247, jade #17B890→#087E68, aubergine #673DE6→#5E3FD3 (electric #2457FF unchanged).
+- Added a complete :root central token block (--background-global/surface/dark/soft-blue, --text-primary/secondary/muted/on-dark, --border-default/strong/on-dark) as the single source of truth per the spec.
+- Updated body background/colour to use --background-global / --text-primary.
+- Updated .field-* colour-field classes to use only approved accessible pairs (jade now white text, not ink; marigold ink text; rest white).
+- Defined the previously-undefined .eyebrow utility class and --color-ivory alias (resolving silent transparent renders).
+- Updated scrollbar colours to use border tokens.
+
+Phase 2 — Layout/favicon/themeColor:
+- layout.tsx: themeColor #F3EFE5 → #E2E8F2; body class selection:text-porcelain → selection:text-white.
+- public/favicon.svg: "S" mark fill #F5F0E7 → #F8FAFD; accent square #FF574D → #2457FF.
+
+Phase 3 — lib/accents.ts rewritten:
+- Updated all accentHex to new accessible values.
+- Added accentSoftHex (light tints for expanded surfaces), accentOnSoftHex (always dark text for soft surfaces), accentSoftBorderHex (borders inside soft surfaces). Ink accent's soft tint = #C9D7F2 (same as electric) so its expanded surface stays light/readable, not a second dark header.
+
+Phase 4 — Fixed the Expertise accordion (the main reported bug):
+- Root cause: expanded content inherited `color: onHex` from the parent div, and onHex is white for electric/vermilion/aubergine accents → white text on the light page background = invisible.
+- Rewrote the expanded content block with EXPLICIT colours per the spec: background = accentSoftHex (light tint), text = #273047 (body) / #0B1020 (headings) / #46536B (numbering & "Read chapter" link), borders = accentSoftBorderHex. The container no longer inherits white text from the blue active header.
+- Improved the legend and hero text opacity (text-ink/50 → text-ink/70 etc.) for better contrast.
+
+Phase 5 — Fixed hard-coded beige & old accent hexes:
+- page.tsx PrinciplesBlock: colours array updated; #F3EFE5 fallback → #FFFFFF; isLight check now only marigold.
+- page.tsx hero spectrum gradient: updated to new accent hexes.
+- firm/page.tsx: 3× colours arrays, philosophy step hexes, timeline marker hexes all updated; #F3EFE5 → #FFFFFF/#0B1020 as appropriate.
+- insights-preview.tsx + insights/page.tsx: accentFor maps updated; #F3EFE5 → #F8FAFD.
+- hero-visual.tsx: 2× #FF493D → #D94038.
+
+Phase 6 — People section contrast (delegated to subagent Task 5-people):
+- people-preview.tsx, people/page.tsx, people/[slug]/page.tsx: replaced all hard-coded `text-white/*` and `rgba(255,255,255,*)` SVG strokes with `accentOnHex[accent]`-derived values so text/strokes adapt to each accent's contrast-safe foreground. Previously masked because the only person has the dark electric accent; would have broken with invisible white-on-marigold text.
+
+Phase 7 — Footer marker fix:
+- The ink-accent practice area (Insolvency & Recovery) marker was invisible on the dark footer. Enlarged from h-2.5/w-2.5 to h-3/w-3 and changed from border-porcelain/70 (1px) to border-2 border-porcelain (2px solid) for clear visibility.
+
+Verification (Agent Browser + VLM, all routes + all accordion states + 7 viewports):
+- Expertise page — ALL 6 accordion states verified readable:
+  • Corporate Advisory (electric/blue): active header blue + white text ✓; expanded content light blue + dark text ✓
+  • Commercial Contracts (vermilion/red): red header + white text ✓; light pink + dark text ✓
+  • Mergers & Acquisitions (aubergine/violet): purple header + white text ✓; light lavender + dark text ✓
+  • Dispute Resolution (marigold/amber): amber header + ink text ✓; light cream + dark text ✓
+  • Regulatory & Compliance (jade/teal): teal header + white text ✓; light mint + dark text ✓
+  • Insolvency & Recovery (ink/navy): navy header + light text ✓; light blue + dark text ✓ (fixed from initial dark-surface issue)
+- All 13 routes verified: /, /firm, /expertise, /sectors, /people, /insights, /careers, /contact, /disclaimer, /terms, /privacy, /expertise/[slug], /people/[slug] — ALL cool blue-grey backgrounds, ALL text readable, ZERO contrast issues.
+- Footer: midnight bg, all text light & readable, all 6 colour markers visible (ink = hollow porcelain-outlined square).
+- Mobile menu (390px): dark navy overlay, white links highly readable (WCAG AAA).
+- Contact form: all labels/placeholders/inputs dark & readable on cool bg.
+- Viewport sweep: 320px, 768px, 1024px, 1366px, 1440px, 1920px — all cool blue-grey, all readable, no layout breaks.
+- Hydration: 0 errors, 0 "server rendered HTML didn't match" warnings across all 13 routes.
+- Lint clean (bun run lint — no errors). dev.log: all routes 200, no runtime errors.
+- ripgrep confirms ZERO remaining instances of #F3EFE5, #F5F0E7, #FBF9F2, #E9E3D4, #FF493D, #FFB000, #17B890, or #673DE6 anywhere in src/.
+
+Stage Summary:
+- Complete colour-system migration delivered. The beige/cream/ivory "porcelain" system is fully replaced with a cool, contemporary blue-grey palette (#E2E8F2 global / #F8FAFD surface / #0B1020 text / #B7C2D2 borders).
+- The critical Expertise accordion bug is fixed: expanded content now has an explicit light-tint background (#C9D7F2 and per-accent soft tints) with dark text (#273047 body, #0B1020 headings, #46536B metadata) — it no longer inherits white text from the blue active header. All 6 accordion states verified readable.
+- Accent colours updated to accessible values (vermilion #D94038, marigold #FFC247, jade #087E68, aubergine #5E3FD3). Each practice area retains its colour identity, now with contrast-safe foregrounds via accentOnHex/accentOnSoftHex/accentSoftBorderHex maps.
+- Centralised tokens in globals.css :root (--background-*, --text-*, --border-*) as the single source of truth; all components reference these via the existing Tailwind classes (bg-porcelain, text-ink, border-line, etc.) which now resolve to the new cool palette.
+- Section architecture preserved: homepage hero/intro/expertise/sectors/people/contact on cool blue-grey; principles & insights & footer on midnight ink; expertise active headers in accent colours. Balanced rhythm between light and dark sections.
+- People section latent white-on-accent bugs fixed (would have broken on marigold/jade accents).
+- Footer ink-accent marker made visible (hollow porcelain-outlined square).
+- Verified: 13 routes, 6 accordion states, 7 viewport widths (320–1920px), 0 hydration errors, 0 contrast issues, lint clean.

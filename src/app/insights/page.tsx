@@ -6,10 +6,10 @@ import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 
 const accentFor: Record<string, string> = {
   Corporate: "#2457FF",
-  Contracts: "#FF493D",
-  Disputes: "#FFB000",
-  Regulatory: "#17B890",
-  Insolvency: "#673DE6",
+  Contracts: "#D94038",
+  Disputes: "#FFC247",
+  Regulatory: "#087E68",
+  Insolvency: "#5E3FD3",
 };
 
 /**
@@ -86,7 +86,7 @@ export default function InsightsPage() {
                   }`}
                 >
                   {cat !== "All" && (
-                    <span className="h-2 w-2 rounded-full" style={{ background: active ? "#F3EFE5" : hex }} />
+                    <span className="h-2 w-2 rounded-full" style={{ background: active ? "#F8FAFD" : hex }} />
                   )}
                   <span className="mono-label">{cat}</span>
                 </button>

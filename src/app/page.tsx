@@ -51,7 +51,7 @@ export default function HomePage() {
                     <span
                       className="serif-italic"
                       style={{
-                        backgroundImage: "linear-gradient(105deg, #2457FF 0%, #673DE6 25%, #FF493D 55%, #FFB000 80%, #17B890 100%)",
+                        backgroundImage: "linear-gradient(105deg, #2457FF 0%, #5E3FD3 25%, #D94038 55%, #FFC247 80%, #087E68 100%)",
                         WebkitBackgroundClip: "text",
                         backgroundClip: "text",
                         WebkitTextFillColor: "transparent",
@@ -400,21 +400,24 @@ function PracticeIndex() {
    --------------------------------------------------------------- */
 function PrinciplesBlock() {
   const principles = firm.principles;
-  const colours = ["#2457FF", "#FF493D", "#FFB000", "#17B890"];
+  // Approved accessible accents: electric/vermilion/marigold/jade
+  const colours = ["#2457FF", "#D94038", "#FFC247", "#087E68"];
   return (
     <section className="relative">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {principles.map((p, i) => {
           const hex = colours[i % colours.length];
-          const isLight = hex === "#FFB000" || hex === "#17B890";
+          // Marigold (#FFC247) is light → ink text; others → white text
+          const isLight = hex === "#FFC247";
+          const onHex = isLight ? "#0B1020" : "#FFFFFF";
           return (
             <FadeUp key={p.title} delay={i * 0.08}>
               <div
                 className="relative h-full min-h-[16rem] p-8 md:p-10 flex flex-col justify-between border-r border-b border-line last:border-r-0"
-                style={{ background: hex, color: isLight ? "#0B1020" : "#F3EFE5" }}
+                style={{ background: hex, color: onHex }}
               >
                 <div className="flex items-start justify-between">
-                  <span className="mono-num text-[0.7rem] opacity-60">
+                  <span className="mono-num text-[0.7rem] opacity-70">
                     {String(i + 1).padStart(2, "0")} / 04
                   </span>
                   <span className="font-display text-5xl opacity-30 leading-none">
@@ -423,7 +426,7 @@ function PrinciplesBlock() {
                 </div>
                 <div>
                   <h3 className="font-display text-3xl md:text-4xl">{p.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed opacity-80 max-w-xs">{p.body}</p>
+                  <p className="mt-3 text-sm leading-relaxed opacity-85 max-w-xs">{p.body}</p>
                 </div>
               </div>
             </FadeUp>

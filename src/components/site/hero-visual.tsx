@@ -71,7 +71,7 @@ export function HeroVisual() {
         <div
           className="absolute left-[28%] top-[14%] w-[44%] h-[68%] bg-porcelain border-l-2"
           style={{
-            borderLeftColor: "#FF493D",
+            borderLeftColor: "#D94038",
             transform: `translateX(calc(var(--p) * 14px)) translateY(calc(var(--p) * 20px))`,
             transition: "transform 0.1s linear",
           }}
@@ -105,7 +105,7 @@ function SheetLines({ dark = false }: { dark?: boolean }) {
     <div className="absolute inset-0 p-5 flex flex-col gap-3.5">
       {Array.from({ length: 9 }).map((_, i) => (
         <div key={i} className="flex items-center gap-3">
-          <div className="h-1 w-1 rounded-full shrink-0" style={{ background: i === 2 ? "#FF493D" : color }} />
+          <div className="h-1 w-1 rounded-full shrink-0" style={{ background: i === 2 ? "#D94038" : color }} />
           <div
             className="h-px"
             style={{

@@ -18,30 +18,31 @@
   --font-display: var(--font-display), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 
-  /* === Core palette === */
-  --color-ink: #0B1020;          /* Midnight Ink */
-  --color-ink-soft: #2A3148;
-  --color-ink-muted: #5A6075;
-  --color-porcelain: #F3EFE5;    /* Porcelain */
-  --color-porcelain-deep: #E9E3D4;
-  --color-paper: #FBF9F2;
+  /* === Core palette — cool, contemporary blue-grey system === */
+  --color-ink: #0B1020;              /* Midnight Ink — primary text, dark sections */
+  --color-ink-soft: #303A50;         /* Secondary text */
+  --color-ink-muted: #5B6475;        /* Muted text / metadata */
+  --color-porcelain: #E2E8F2;        /* Global background (cool blue-grey) */
+  --color-porcelain-deep: #C9D7F2;   /* Soft blue — expanded surfaces, elevated tints */
+  --color-paper: #F8FAFD;            /* Elevated content surface (near-white cool) */
 
-  /* === Colour architecture === */
-  --color-electric: #2457FF;     /* Electric Blue */
-  --color-vermilion: #FF493D;    /* Vermilion */
-  --color-marigold: #FFB000;     /* Marigold */
-  --color-jade: #17B890;         /* Jade */
-  --color-aubergine: #673DE6;    /* Aubergine */
+  /* === Colour architecture — accessible accents === */
+  --color-electric: #2457FF;         /* Electric Blue */
+  --color-vermilion: #D94038;        /* Vermilion */
+  --color-marigold: #FFC247;         /* Marigold */
+  --color-jade: #087E68;             /* Jade */
+  --color-aubergine: #5E3FD3;        /* Violet */
 
-  /* Legacy aliases (used by existing accent maps) → map to new palette */
+  /* Legacy aliases → map to new palette (kept for back-compat) */
   --color-cobalt: #2457FF;
-  --color-saffron: #FFB000;
-  --color-mint: #17B890;
-  --color-violet: #673DE6;
+  --color-saffron: #FFC247;
+  --color-mint: #087E68;
+  --color-violet: #5E3FD3;
+  --color-ivory: #E2E8F2;            /* resolve undefined 'ivory' usages to new bg */
 
-  --color-line: rgba(11, 16, 32, 0.14);
-  --color-line-strong: rgba(11, 16, 32, 0.28);
-  --color-line-on-ink: rgba(243, 239, 229, 0.16);
+  --color-line: #B7C2D2;             /* Borders and dividers */
+  --color-line-strong: #8B97AB;
+  --color-line-on-ink: rgba(248, 250, 253, 0.16);
 
   /* shadcn aliases */
   --color-border: var(--line);
@@ -52,14 +53,14 @@
   --color-popover: var(--paper);
   --color-popover-foreground: var(--ink);
   --color-primary: var(--ink);
-  --color-primary-foreground: var(--porcelain);
+  --color-primary-foreground: #F8FAFD;
   --color-secondary: var(--porcelain-deep);
   --color-secondary-foreground: var(--ink);
   --color-muted: var(--porcelain-deep);
-  --color-muted-foreground: #6A6A60;
+  --color-muted-foreground: #5B6475;
   --color-accent: var(--electric);
   --color-accent-foreground: #ffffff;
-  --color-destructive: #d23b30;
+  --color-destructive: #D94038;
   --color-sidebar: var(--paper);
   --color-sidebar-foreground: var(--ink);
   --color-sidebar-border: var(--line);
@@ -73,20 +74,35 @@
 }
 
 :root {
+  /* Central design tokens — single source of truth */
+  --background-global: #E2E8F2;
+  --background-surface: #F8FAFD;
+  --background-dark: #0B1020;
+  --background-soft-blue: #C9D7F2;
+
+  --text-primary: #0B1020;
+  --text-secondary: #303A50;
+  --text-muted: #5B6475;
+  --text-on-dark: #F8FAFD;
+
+  --border-default: #B7C2D2;
+  --border-strong: #8B97AB;
+  --border-on-dark: rgba(248, 250, 253, 0.16);
+
   --ink: #0B1020;
-  --ink-soft: #2A3148;
-  --ink-muted: #5A6075;
-  --porcelain: #F3EFE5;
-  --porcelain-deep: #E9E3D4;
-  --paper: #FBF9F2;
+  --ink-soft: #303A50;
+  --ink-muted: #5B6475;
+  --porcelain: #E2E8F2;
+  --porcelain-deep: #C9D7F2;
+  --paper: #F8FAFD;
   --electric: #2457FF;
-  --vermilion: #FF493D;
-  --marigold: #FFB000;
-  --jade: #17B890;
-  --aubergine: #673DE6;
-  --line: rgba(11, 16, 32, 0.14);
-  --line-strong: rgba(11, 16, 32, 0.28);
-  --line-on-ink: rgba(243, 239, 229, 0.16);
+  --vermilion: #D94038;
+  --marigold: #FFC247;
+  --jade: #087E68;
+  --aubergine: #5E3FD3;
+  --line: #B7C2D2;
+  --line-strong: #8B97AB;
+  --line-on-ink: rgba(248, 250, 253, 0.16);
   color-scheme: light;
 }
 
@@ -100,8 +116,8 @@
     html { scroll-behavior: auto; }
   }
   body {
-    background-color: var(--porcelain);
-    color: var(--ink);
+    background-color: var(--background-global);
+    color: var(--text-primary);
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -113,7 +129,7 @@
     font-weight: 400;
     letter-spacing: -0.012em;
   }
-  ::selection { background: var(--electric); color: var(--porcelain); }
+  ::selection { background: var(--electric); color: #FFFFFF; }
   :focus-visible {
     outline: 2px solid var(--electric);
     outline-offset: 3px;
@@ -198,7 +214,7 @@
   font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
   line-height: 1.55;
   letter-spacing: -0.005em;
-  color: var(--ink-soft);
+  color: var(--text-secondary);
 }
 /* Condensed body — for tight editorial columns */
 .body-condensed {
@@ -253,7 +269,7 @@
   font-size: 0.6875rem;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  color: var(--ink-muted);
+  color: var(--text-muted);
 }
 
 /* Architectural measured grid — fine rule lines */
@@ -295,22 +311,23 @@
 
 /* ============================================================
    COLOUR FIELDS — full-width section transitions
+   Approved accessible pairs only.
    ============================================================ */
-.field-ink        { background: var(--ink);        color: var(--porcelain); }
-.field-porcelain  { background: var(--porcelain);  color: var(--ink); }
-.field-paper      { background: var(--paper);      color: var(--ink); }
-.field-electric   { background: var(--electric);   color: #fff; }
-.field-vermilion  { background: var(--vermilion);  color: #fff; }
-.field-marigold   { background: var(--marigold);   color: var(--ink); }
-.field-jade       { background: var(--jade);       color: var(--ink); }
-.field-aubergine  { background: var(--aubergine);  color: #fff; }
+.field-ink        { background: var(--ink);        color: var(--text-on-dark); }
+.field-porcelain  { background: var(--porcelain);  color: var(--text-primary); }
+.field-paper      { background: var(--paper);      color: var(--text-primary); }
+.field-electric   { background: var(--electric);   color: #FFFFFF; }
+.field-vermilion  { background: var(--vermilion);  color: #FFFFFF; }
+.field-marigold   { background: var(--marigold);   color: var(--text-primary); }
+.field-jade       { background: var(--jade);       color: #FFFFFF; }
+.field-aubergine  { background: var(--aubergine);  color: #FFFFFF; }
 
 /* Ink-on-colour line overrides */
 .field-electric  .line-on-color,
 .field-vermilion .line-on-color,
-.field-aubergine .line-on-color { border-color: rgba(255,255,255,0.22); }
-.field-marigold .line-on-color,
-.field-jade     .line-on-color { border-color: rgba(11,16,32,0.22); }
+.field-aubergine .line-on-color,
+.field-jade      .line-on-color { border-color: rgba(255,255,255,0.22); }
+.field-marigold .line-on-color { border-color: rgba(11,16,32,0.22); }
 
 /* ============================================================
    GRAPHIC LANGUAGE — annotation marks, brackets, rules
@@ -350,7 +367,7 @@
 
 /* Highlight mark — like a reviewed passage */
 .anno-highlight {
-  background: linear-gradient(180deg, transparent 55%, rgba(255, 176, 0, 0.38) 55%);
+  background: linear-gradient(180deg, transparent 55%, rgba(255, 194, 71, 0.45) 55%);
   padding: 0 0.1em;
 }
 
@@ -487,6 +504,15 @@
 /* ============================================================
    CUSTOM CURSOR — small, restrained, useful
    ============================================================ */
+/* Eyebrow — small section label (was previously undefined) */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .cursor-bar {
   position: fixed;
   top: 0;
@@ -513,12 +539,12 @@
    ============================================================ */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(11, 16, 32, 0.3) transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: rgba(11, 16, 32, 0.25); }
-*::-webkit-scrollbar-thumb:hover { background: rgba(11, 16, 32, 0.45); }
+*::-webkit-scrollbar-thumb { background: var(--border-default); }
+*::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
 /* ============================================================
    LAYOUT HELPERS

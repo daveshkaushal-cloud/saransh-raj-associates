@@ -7,10 +7,10 @@ import { FadeUp } from "@/components/motion/editorial";
 
 const accentFor: Record<string, string> = {
   Corporate: "#2457FF",
-  Contracts: "#FF493D",
-  Disputes: "#FFB000",
-  Regulatory: "#17B890",
-  Insolvency: "#673DE6",
+  Contracts: "#D94038",
+  Disputes: "#FFC247",
+  Regulatory: "#087E68",
+  Insolvency: "#5E3FD3",
 };
 
 /**
@@ -64,7 +64,7 @@ export function InsightsPreview() {
                 <div className="relative flex items-center justify-between">
                   <span
                     className="mono-label"
-                    style={{ color: hex === "#0B1020" ? "#F3EFE5" : hex }}
+                    style={{ color: hex === "#0B1020" ? "#F8FAFD" : hex }}
                   >
                     {topic.category}
                   </span>

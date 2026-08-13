@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#F3EFE5",
+  themeColor: "#E2E8F2",
   width: "device-width",
   initialScale: 1,
 };
@@ -92,7 +92,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${bodoniModa.variable} ${satoshi.variable} ${plexMono.variable} antialiased bg-porcelain text-ink font-sans selection:bg-electric selection:text-porcelain`}
+        className={`${bodoniModa.variable} ${satoshi.variable} ${plexMono.variable} antialiased bg-porcelain text-ink font-sans selection:bg-electric selection:text-white`}
       >
         <SiteShell>{children}</SiteShell>
         <Toaster />

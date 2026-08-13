@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { people } from "@/data/people";
-import { accentHex } from "@/lib/accents";
+import { accentHex, accentOnHex } from "@/lib/accents";
 import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
@@ -54,6 +54,7 @@ export default function PeoplePage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 space-y-8">
           {people.map((person, i) => {
             const hex = accentHex[person.accent];
+            const onHex = accentOnHex[person.accent];
             return (
               <FadeUp key={person.slug} delay={i * 0.08}>
                 <a
@@ -68,28 +69,28 @@ export default function PeoplePage() {
                     >
                       {/* architectural rule lines */}
                       <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
-                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
-                        <line x1="0" y1="75%" x2="100%" y2="75%" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-                        <line x1="45%" y1="0" x2="45%" y2="100%" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                        <line x1="0" y1="25%" x2="100%" y2="25%" stroke={`${onHex}29`} strokeWidth="1" />
+                        <line x1="0" y1="75%" x2="100%" y2="75%" stroke={`${onHex}1F`} strokeWidth="1" />
+                        <line x1="45%" y1="0" x2="45%" y2="100%" stroke={`${onHex}14`} strokeWidth="1" />
                       </svg>
                       {/* annotation bracket */}
                       <div className="absolute top-5 left-5 flex items-center gap-1.5">
-                        <div className="h-3 w-3 border-l border-t border-white/50" />
-                        <span className="mono-label text-white/60">Portrait · 0{i + 1}</span>
+                        <div className="h-3 w-3 border-l border-t" style={{ borderColor: `${onHex}80` }} />
+                        <span className="mono-label" style={{ color: onHex, opacity: 0.6 }}>Portrait · 0{i + 1}</span>
                       </div>
                       {/* large cropped name */}
                       <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10">
-                        <span className="font-display text-white/95 text-[3rem] md:text-[5rem] leading-[0.82] tracking-tight">
+                        <span className="font-display text-[3rem] md:text-[5rem] leading-[0.82] tracking-tight" style={{ color: onHex, opacity: 0.95 }}>
                           {person.name.split(" ")[0]}
                         </span>
                         {person.name.split(" ").slice(1).join(" ") && (
-                          <span className="font-display italic text-white/70 text-[1.5rem] md:text-[2.5rem] leading-tight mt-1">
+                          <span className="font-display italic text-[1.5rem] md:text-[2.5rem] leading-tight mt-1" style={{ color: onHex, opacity: 0.7 }}>
                             {person.name.split(" ").slice(1).join(" ")}
                           </span>
                         )}
                       </div>
                       <div className="absolute bottom-5 right-5 flex items-center gap-2">
-                        <span className="mono-num text-[0.6rem] text-white/50">{person.initials}/0{i + 1}</span>
+                        <span className="mono-num text-[0.6rem]" style={{ color: onHex, opacity: 0.5 }}>{person.initials}/0{i + 1}</span>
                       </div>
                     </div>
 

@@ -89,17 +89,18 @@ export default function FirmPage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {firm.principles.map((p, i) => {
-              const colours = ["#2457FF", "#FF493D", "#FFB000", "#17B890"];
+              const colours = ["#2457FF", "#D94038", "#FFC247", "#087E68"];
               const hex = colours[i % colours.length];
-              const isLight = hex === "#FFB000" || hex === "#17B890";
+              const isLight = hex === "#FFC247";
+              const onHex = isLight ? "#0B1020" : "#FFFFFF";
               return (
                 <FadeUp key={p.title} delay={i * 0.08}>
                   <div
                     className="relative h-full min-h-[15rem] p-7 flex flex-col justify-between border border-line"
-                    style={{ background: hex, color: isLight ? "#0B1020" : "#F3EFE5" }}
+                    style={{ background: hex, color: onHex }}
                   >
                     <div className="flex items-start justify-between">
-                      <span className="mono-num text-[0.7rem] opacity-60">
+                      <span className="mono-num text-[0.7rem] opacity-75">
                         {String(i + 1).padStart(2, "0")} / 04
                       </span>
                       <span className="font-display text-5xl opacity-25 leading-none">
@@ -216,13 +217,13 @@ function PhilosophyManifesto() {
       label: "§ 02 — Approach",
       title: "Depth, diligence and clarity",
       body: "Based in New Delhi, the firm advises on corporate structuring, commercial contracts, mergers and acquisitions, dispute resolution, regulatory compliance and insolvency proceedings — combining attention to legal detail with an understanding of commercial realities.",
-      hex: "#FF493D",
+      hex: "#D94038",
     },
     {
       label: "§ 03 — Principle",
       title: "Integrity, precision, client-first, clarity",
       body: "These principles shape how the firm works: ethically, with attention to detail, with the client's interests at the centre, and in language that makes the law understandable.",
-      hex: "#FFB000",
+      hex: "#FFC247",
     },
   ];
 
@@ -248,7 +249,8 @@ function PhilosophyManifesto() {
 
         <div id="philosophy" className="space-y-16 md:space-y-24">
           {steps.map((s, i) => {
-            const isLight = s.hex === "#FFB000";
+            const isLight = s.hex === "#FFC247";
+            const onHex = isLight ? "#0B1020" : "#FFFFFF";
             return (
               <FadeUp key={s.label} delay={i * 0.05}>
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
@@ -256,13 +258,13 @@ function PhilosophyManifesto() {
                   <div className="md:col-span-4">
                     <div
                       className="relative aspect-square max-w-[14rem] flex items-center justify-center overflow-hidden"
-                      style={{ background: s.hex, color: isLight ? "#0B1020" : "#F3EFE5" }}
+                      style={{ background: s.hex, color: onHex }}
                     >
                       <span className="font-display text-[8rem] leading-none opacity-90">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="absolute top-4 left-4 mono-label opacity-70">{s.label}</span>
-                      <span className="absolute bottom-4 right-4 mono-num text-[0.6rem] opacity-60">
+                      <span className="absolute top-4 left-4 mono-label opacity-80">{s.label}</span>
+                      <span className="absolute bottom-4 right-4 mono-num text-[0.6rem] opacity-75">
                         PHIL/0{i + 1}
                       </span>
                     </div>
@@ -270,7 +272,7 @@ function PhilosophyManifesto() {
                   {/* Right: title + body */}
                   <div className="md:col-span-8 md:pl-6 flex flex-col justify-center">
                     <h3 className="display-3 text-2xl md:text-4xl max-w-[18ch]">{s.title}</h3>
-                    <p className="lead mt-5 max-w-xl text-ink/70">{s.body}</p>
+                    <p className="lead mt-5 max-w-xl" style={{ color: "var(--text-secondary)" }}>{s.body}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -297,19 +299,19 @@ function ApproachTimeline() {
       year: "Practice",
       title: "Six areas of corporate & commercial law",
       body: "Corporate advisory, commercial contracts, M&A, dispute resolution, regulatory compliance and insolvency.",
-      hex: "#FF493D",
+      hex: "#D94038",
     },
     {
       year: "Approach",
       title: "Methodical, attentive, client-first",
       body: "Each engagement begins with understanding the objective, then moves through structured analysis toward clear, actionable counsel.",
-      hex: "#17B890",
+      hex: "#087E68",
     },
     {
       year: "Sectors",
       title: "Ten industries, one integrated practice",
       body: "From alcoholic beverages and FMCG to technology, renewable energy and hospitality.",
-      hex: "#673DE6",
+      hex: "#5E3FD3",
     },
   ];
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { people } from "@/data/people";
-import { accentHex } from "@/lib/accents";
+import { accentHex, accentOnHex } from "@/lib/accents";
 import { FadeUp, CropReveal } from "@/components/motion/editorial";
 
 /**
@@ -16,6 +16,7 @@ export function PeoplePreview() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       {people.map((person, i) => {
         const hex = accentHex[person.accent];
+        const onHex = accentOnHex[person.accent];
         return (
           <FadeUp key={person.slug} delay={i * 0.08}>
             <Link
@@ -28,7 +29,7 @@ export function PeoplePreview() {
                   className="relative col-span-2 overflow-hidden"
                   style={{ background: hex }}
                 >
-                  <PortraitField hex={hex} name={person.name} />
+                  <PortraitField hex={hex} onHex={onHex} name={person.name} />
                 </div>
                 {/* Details */}
                 <div className="col-span-3 p-6 md:p-7 flex flex-col">
@@ -89,7 +90,7 @@ export function PeoplePreview() {
  * Bodoni, cropped and layered with annotation marks and architectural
  * rules. No photography (none approved), no initials-in-gradient-boxes.
  */
-function PortraitField({ hex, name }: { hex: string; name: string }) {
+function PortraitField({ hex, onHex, name }: { hex: string; onHex: string; name: string }) {
   const first = name.split(" ")[0];
   const rest = name.split(" ").slice(1).join(" ");
   return (
@@ -97,24 +98,24 @@ function PortraitField({ hex, name }: { hex: string; name: string }) {
       <div className="crop-target absolute inset-0">
         {/* architectural rule lines */}
         <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
-          <line x1="0" y1="30%" x2="100%" y2="30%" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
-          <line x1="0" y1="70%" x2="100%" y2="70%" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-          <line x1="40%" y1="0" x2="40%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          <line x1="0" y1="30%" x2="100%" y2="30%" stroke={`${onHex}29`} strokeWidth="1" />
+          <line x1="0" y1="70%" x2="100%" y2="70%" stroke={`${onHex}1F`} strokeWidth="1" />
+          <line x1="40%" y1="0" x2="40%" y2="100%" stroke={`${onHex}1A`} strokeWidth="1" />
         </svg>
 
         {/* annotation bracket */}
         <div className="absolute top-4 left-4 flex items-center gap-1.5">
-          <div className="h-3 w-3 border-l border-t" style={{ borderColor: "rgba(255,255,255,0.5)" }} />
-          <span className="mono-label text-white/60">Portrait</span>
+          <div className="h-3 w-3 border-l border-t" style={{ borderColor: `${onHex}80` }} />
+          <span className="mono-label" style={{ color: onHex, opacity: 0.6 }}>Portrait</span>
         </div>
 
         {/* large cropped name */}
         <div className="absolute inset-0 flex flex-col justify-center px-4">
-          <span className="font-display text-white/95 text-[3.5rem] md:text-[4.5rem] leading-[0.82] tracking-tight">
+          <span className="font-display text-[3.5rem] md:text-[4.5rem] leading-[0.82] tracking-tight" style={{ color: onHex, opacity: 0.95 }}>
             {first}
           </span>
           {rest && (
-            <span className="font-display italic text-white/70 text-[1.5rem] md:text-[2rem] leading-tight mt-1">
+            <span className="font-display italic text-[1.5rem] md:text-[2rem] leading-tight mt-1" style={{ color: onHex, opacity: 0.7 }}>
               {rest}
             </span>
           )}
@@ -122,7 +123,7 @@ function PortraitField({ hex, name }: { hex: string; name: string }) {
 
         {/* bottom folio */}
         <div className="absolute bottom-3 right-4">
-          <span className="mono-num text-[0.6rem] text-white/50">SR/01</span>
+          <span className="mono-num text-[0.6rem]" style={{ color: onHex, opacity: 0.5 }}>SR/01</span>
         </div>
       </div>
     </CropReveal>

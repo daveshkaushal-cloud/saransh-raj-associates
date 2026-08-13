@@ -65,9 +65,9 @@ export default async function PersonPage({
                 >
                   {/* architectural rule lines */}
                   <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
-                    <line x1="0" y1="25%" x2="100%" y2="25%" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
-                    <line x1="0" y1="75%" x2="100%" y2="75%" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-                    <line x1="40%" y1="0" x2="40%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    <line x1="0" y1="25%" x2="100%" y2="25%" stroke={`${onHex}29`} strokeWidth="1" />
+                    <line x1="0" y1="75%" x2="100%" y2="75%" stroke={`${onHex}1F`} strokeWidth="1" />
+                    <line x1="40%" y1="0" x2="40%" y2="100%" stroke={`${onHex}1A`} strokeWidth="1" />
                   </svg>
                   {/* annotation bracket */}
                   <div className="absolute top-5 left-5 flex items-center gap-1.5">
