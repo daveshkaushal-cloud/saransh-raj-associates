@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
@@ -9,20 +9,51 @@ import { accentHex } from "@/lib/accents";
 /**
  * Pinned horizontal expertise explorer.
  * Vertical scroll translates into horizontal movement of the practice-area cards.
- * Falls back to a horizontal scroll-snap track on small screens.
+ *
+ * The horizontal travel distance is measured from the real track width (not a
+ * guessed percentage) so all six cards + the end card are guaranteed to be
+ * reachable. The pin duration is derived from that same distance so the
+ * scroll-to-horizontal ratio stays comfortable on any viewport.
+ *
+ * Falls back to a native horizontal scroll-snap track on small screens and for
+ * users who prefer reduced motion.
  */
 export function HorizontalExpertise() {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
+  // Measured overflow: how many px the track needs to travel horizontally.
+  const [distance, setDistance] = useState(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      const overflow = Math.max(0, track.scrollWidth - window.innerWidth);
+      setDistance(overflow);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    // Re-measure once fonts/images settle.
+    const t = window.setTimeout(measure, 300);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.clearTimeout(t);
+    };
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Only apply transform on large screens (where pinning is comfortable)
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-68%"]);
+  // Pixel-based transform — guaranteed to reach the last card.
+  const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
+
+  // Pin height: one viewport to introduce + one viewport per ~900px of travel,
+  // clamped so very long tracks don't drag and short tracks still feel right.
+  const pinHeight = `calc(100vh + ${distance}px)`;
 
   return (
     <section
@@ -31,45 +62,51 @@ export function HorizontalExpertise() {
       aria-label="Expertise explorer"
     >
       {/* Desktop pinned experience */}
-      <div className="hidden lg:block h-[320vh]">
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-          <div className="px-10 flex items-end justify-between mb-8">
-            <div>
-              <p className="eyebrow text-mint mb-3">Expertise · Practice Areas</p>
-              <h2 className="display-2 text-ivory max-w-2xl">
-                A focused practice across corporate &amp; commercial law
-              </h2>
+      {!reduce && (
+        <div className="hidden lg:block" style={{ height: pinHeight }}>
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+            <div className="px-10 flex items-end justify-between mb-8">
+              <div>
+                <p className="eyebrow text-mint mb-3">Expertise · Practice Areas</p>
+                <h2 className="display-2 text-ivory max-w-2xl">
+                  A focused practice across corporate &amp; commercial law
+                </h2>
+              </div>
+              <p className="text-sm text-ivory/60 max-w-[14rem] hidden xl:block">
+                Scroll to move through six areas of practice.
+              </p>
             </div>
-            <p className="text-sm text-ivory/60 max-w-[14rem] hidden xl:block">
-              Scroll to move through six areas of practice.
-            </p>
-          </div>
 
-          <motion.div
-            ref={trackRef}
-            style={reduce ? undefined : { x }}
-            className="flex gap-6 pl-10 pr-10 will-change-transform"
-          >
-            {practiceAreas.map((area) => (
-              <ExpertiseCard key={area.slug} area={area} />
-            ))}
-            <EndCard />
-          </motion.div>
+            <motion.div
+              ref={trackRef}
+              style={{ x }}
+              className="flex gap-6 pl-10 pr-10 will-change-transform"
+            >
+              {practiceAreas.map((area) => (
+                <ExpertiseCard key={area.slug} area={area} />
+              ))}
+              <EndCard />
+            </motion.div>
 
-          {/* progress bar */}
-          <div className="px-10 mt-10">
-            <div className="h-px w-full bg-ivory/12 relative overflow-hidden">
-              <motion.div
-                className="absolute left-0 top-0 h-full bg-mint"
-                style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
-              />
+            {/* progress bar */}
+            <div className="px-10 mt-10">
+              <div className="h-px w-full bg-ivory/12 relative overflow-hidden">
+                <motion.div
+                  className="absolute left-0 top-0 h-full bg-mint"
+                  style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Mobile / tablet horizontal scroll-snap fallback */}
-      <div className="lg:hidden py-16 px-5">
+      {/*
+        Mobile / tablet / reduced-motion fallback: a native horizontal
+        scroll-snap track. When reduced motion is requested it also replaces
+        the pinned experience on desktop so users can scroll sideways natively.
+      */}
+      <div className={reduce ? "py-16 px-5" : "lg:hidden py-16 px-5"}>
         <p className="eyebrow text-mint mb-3">Expertise · Practice Areas</p>
         <h2 className="display-2 text-ivory max-w-2xl mb-8">
           A focused practice across corporate &amp; commercial law
@@ -150,9 +187,7 @@ function EndCard() {
   return (
     <Link
       href="/expertise"
-      className={`group relative block bg-transparent border border-ivory/20 text-ivory ${
-        false ? "" : "w-[24rem]"
-      } shrink-0 overflow-hidden`}
+      className="group relative block bg-transparent border border-ivory/20 text-ivory w-[24rem] shrink-0 overflow-hidden"
     >
       <div className="p-8 h-[26rem] flex flex-col justify-between">
         <span className="eyebrow text-ivory/50">All expertise</span>

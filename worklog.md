@@ -95,3 +95,44 @@ Stage Summary:
 - All interactions verified end-to-end via Agent Browser (scroll, arrows, progress, disabled states)
 - VLM-confirmed premium editorial quality on both desktop and mobile
 - Lint clean, no runtime errors
+
+---
+Task ID: 4
+Agent: main (orchestrator)
+Task: Fix Expertise horizontal scroller that was stuck and did not reveal all 6 tiles
+
+Work Log:
+- Reproduced the bug with Agent Browser: scrolled through the pinned Expertise section measuring translateX + visible card indices at each step
+- Diagnosis: the transform used string percentages `useTransform(scrollYProgress, [0,1], ["1%", "-68%"])`. Framer Motion interprets "-68%" as -68% of the element's OWN width. The motion.div's own width = viewport width (1440px) because it is a flex child of a full-width sticky column — NOT the full track content width (~3256px). So the transform capped at -68% × 1440 = -979px, only revealing ~4 cards. Cards 5, 6 and the end card never entered view. The track appeared "stuck" short of its destination.
+- Measured values confirmed: translateX went 4 → -196 → -397 → -597 → -798 → -979 (capped), visible cards maxed at [3,4,5,6], end card never visible.
+- Root cause: percentage-based transforms on a flex container resolve against the container's own (viewport-constrained) width, not its overflowing content width.
+
+Fix (src/components/site/horizontal-expertise.tsx):
+- Added a `distance` state + a `useEffect` that measures `track.scrollWidth - window.innerWidth` on mount, on resize, and after a 300ms settle (fonts/layout). This is the exact px the track must travel.
+- Replaced the percentage transform with a pixel-based one: `useTransform(scrollYProgress, [0,1], [0, -distance])` — guaranteed to reach the last card on any viewport.
+- Made the pin height dynamic and proportional: `height = calc(100vh + ${distance}px)`. This gives a 1:1 vertical-to-horizontal ratio so the scroll pace is comfortable and there is exactly enough pinned scroll distance to traverse the whole track (no overshoot, no undershoot). Previously the fixed `h-[320vh]` was both wrong-sized and paired with the wrong transform.
+- Improved reduced-motion fallback: when prefers-reduced-motion is set, the pinned experience is not rendered at all and the native horizontal scroll-snap track replaces it on ALL viewports (previously reduced-motion users on desktop saw a frozen track showing only the first 3 cards). Non-reduced users get the pinned experience on lg+ and the native scroll-snap track below lg.
+- Cleaned up the EndCard's leftover `${false ? "" : "w-[24rem]"}` ternary into a plain `w-[24rem]`.
+- Lint clean (bun run lint — no errors).
+
+Verification (Agent Browser, desktop 1440×900):
+- Measured track: scrollWidth=3256px, viewport=1440px → distance=1816px. Section height=2716px (900+1816) — correct 1:1 ratio.
+- Stepped through the pinned section in 280px increments, recording translateX + visible card indices:
+  - Pin start: tx=0, visible [1,2,3]
+  - Step 1: tx=-249, visible [1,2,3,4]
+  - Step 2: tx=-529, visible [2,3,4,5]
+  - Step 3: tx=-809, visible [2,3,4,5]
+  - Step 4: tx=-1089, visible [3,4,5,6]  ← all six tiles now revealed
+  - Step 5: tx=-1369, visible [3,4,5,6]
+  - Step 6: tx=-1649, visible [4,5,6], endCardVisible=true  ← end card enters
+  - Step 7: tx=-1816 (max), visible [4,5,6], endCardVisible=true  ← transform reaches exact measured distance
+- All 6 practice-area tiles + the "View the full practice" end card are now reachable. Transform reaches exactly -1816px (the measured distance), proving the pixel-based transform is correct.
+- VLM (desktop end-state screenshot): confirms cards 05 (Regulatory & Compliance), 06 (Insolvency & Recovery) and the end card are visible — "horizontal scroll clearly working".
+- Mobile (390×844): native scroll-snap fallback works — scrolled the track horizontally (scrollLeft 0→660 of 2325), VLM confirmed Card 01 (Corporate Advisory) at start and Card 03 (Mergers & Acquisitions) after swipe with correct ~78vw card sizing and no overflow.
+- Browser console: only a non-fatal Framer Motion warning about container position (the section already has `relative`; measured behavior proves scroll offsets are correct). No runtime errors.
+
+Stage Summary:
+- Expertise horizontal scroller fixed: was stuck at -979px showing max 4 cards; now travels the full -1816px revealing all 6 tiles + end card.
+- Root cause was percentage-based transform resolving against viewport width instead of track content width; fixed with measured pixel-based transform + dynamic proportional pin height.
+- Reduced-motion fallback upgraded from a frozen track to a native scroll-snap track on all viewports.
+- Verified end-to-end on desktop and mobile via Agent Browser + VLM. Lint clean, no runtime errors.
