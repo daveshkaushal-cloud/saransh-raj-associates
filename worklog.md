@@ -136,3 +136,54 @@ Stage Summary:
 - Root cause was percentage-based transform resolving against viewport width instead of track content width; fixed with measured pixel-based transform + dynamic proportional pin height.
 - Reduced-motion fallback upgraded from a frozen track to a native scroll-snap track on all viewports.
 - Verified end-to-end on desktop and mobile via Agent Browser + VLM. Lint clean, no runtime errors.
+
+---
+Task ID: 5
+Agent: main (orchestrator)
+Task: Make all manually-dragged card scrollers respond to mouse wheel, one tile per scroll notch
+
+Work Log:
+- Audited all horizontal card scrollers in the codebase (grep for overflow-x-auto / snap-x / scrollLeft):
+  - SectorGrid scroller (homepage Sectors) — native horizontal scroll + arrow buttons, requires manual drag
+  - HorizontalExpertise mobile/reduced-motion fallback — native scroll-snap, but only shown on touch devices (no wheel) or reduced-motion users (minimal motion), so wheel-to-tile doesn't apply
+  - InsightsPreview + PeoplePreview — use CSS grids, not horizontal scroll (no change needed)
+  - HorizontalExpertise desktop — already converts page scroll to horizontal (no change needed)
+- Conclusion: the SectorGrid scroller is the target. Built a reusable hook so any future scroller can opt in.
+- Created src/components/motion/use-tile-scroller.ts:
+  - Returns { trackRef, scrollByTiles } — trackRef attaches to the horizontal scroll container
+  - On wheel event (fine-pointer devices only): if predominantly vertical, determine direction, check boundaries
+  - At start (scrollLeft<=1, scrolling back) or end (scrollLeft>=max-1, scrolling forward): do NOT preventDefault → page scrolls naturally (no scroll trap)
+  - In middle: preventDefault + scrollByTiles(direction) → moves exactly one tile
+  - scrollByTiles measures first child width + column-gap at call time → step is always current (responsive)
+  - Uses a 380ms lock: one wheel event = one tile move; rapid wheels during lock are absorbed (preventDefault holds page still but no new move) → precise "one notch = one tile" feel on both mouse wheels and trackpads
+  - Bails on (pointer: coarse) → touch devices keep native swipe scroll
+  - Bails on (prefers-reduced-motion: reduce) → reduced-motion users get native scroll
+  - Arrow buttons call the same scrollByTiles() → share the locked step logic (1 tile per click, consistent with wheel)
+- Refactored SectorGrid scroller (src/components/site/sector-grid.tsx):
+  - Replaced local trackRef + scrollTo() with useTileScroller()'s trackRef + scrollByTiles()
+  - Arrow onClick now calls scrollByTiles(-1)/scrollByTiles(1) (was a different 0.75×clientWidth step — now consistent 1-tile step)
+  - Kept progress tracking (scroll listener updates progress/canPrev/canNext) referencing the hook's trackRef
+  - Removed unused useReducedMotion + useRef imports
+  - Updated hint text: "Scroll the wheel · drag · or use the arrows — one sector per scroll"
+- Lint clean (bun run lint — no errors)
+
+Verification (Agent Browser, desktop 1440×900):
+- Measured tile geometry: firstTileWidth=352px, gap=16px → expected step=368px; track max scroll=2576px
+- Wheel down (synthetic deltaY=100): scrollLeft 40→408 (delta 368 = exactly 1 tile) ✓; defaultPrevented=true ✓
+- Sequential wheels: 40→408→776→1144 (each +368, three perfect tile moves) ✓
+- Lock test: 3 wheels dispatched in same eval → only +1 tile (1144→1512, delta 368) — lock correctly absorbed 2nd & 3rd ✓
+- Wheel up (deltaY=-100): 1512→1144 (delta -368 = exactly 1 tile back) ✓
+- Arrow Next click: 1144→1512 (+368 = 1 tile, shares locked step logic) ✓
+- Boundary at END (scrollLeft=max): wheel-down defaultPrevented=false → page scrolls naturally, no trap ✓
+- Boundary in MIDDLE (scrollLeft=500): wheel-down defaultPrevented=true → hook handles ✓
+- Native drag still works: programmatic scrollBy + snap-mandatory re-snaps; wheel works from any dragged position (408→776) ✓
+- Mobile (390px viewport): hook stays active because pointer is still "fine" (mouse) — correct, a mouse user at narrow viewport gets wheel control. Native touch swipe works on real touch devices (hook bails on pointer:coarse, verified code path; headless Chrome doesn't flip the pointer media feature even with device emulation, but the matchMedia check is standard and reliable on real iOS/Android).
+- No browser runtime errors; dev.log shows clean 200 responses.
+
+Stage Summary:
+- All manually-dragged card scrollers now respond to the mouse wheel, moving exactly one tile per scroll notch.
+- Reusable useTileScroller hook created (wheel→tile, lock, boundary-aware, touch/reduced-motion safe) — available for any future scroller.
+- SectorGrid scroller refactored to use the hook; arrows share the same locked 1-tile step.
+- Page is never trapped: at scroller boundaries the page scrolls naturally.
+- Touch devices and reduced-motion users keep native scroll (hook bails).
+- Verified end-to-end: 1 wheel = 1 tile (368px), lock prevents jumps, arrows consistent, boundaries safe, drag coexists. Lint clean, no runtime errors.

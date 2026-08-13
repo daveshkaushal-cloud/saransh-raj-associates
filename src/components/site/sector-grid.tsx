@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { useReducedMotion } from "framer-motion";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
 import { Rise } from "@/components/motion/reveal";
+import { useTileScroller } from "@/components/motion/use-tile-scroller";
 
 type Variant = "grid" | "scroller";
 
@@ -54,8 +54,9 @@ function SectorGridLayout() {
    --------------------------------------------------------------- */
 
 function SectorScroller() {
-  const reduce = useReducedMotion();
-  const trackRef = useRef<HTMLDivElement | null>(null);
+  // Wheel events over the track move exactly one tile at a time; arrow
+  // buttons share the same locked step logic via scrollByTiles.
+  const { trackRef, scrollByTiles } = useTileScroller();
   const [active, setActive] = useState<number | null>(null);
   const [progress, setProgress] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
@@ -69,7 +70,7 @@ function SectorScroller() {
     setProgress(p);
     setCanPrev(el.scrollLeft > 4);
     setCanNext(el.scrollLeft < max - 4);
-  }, []);
+  }, [trackRef]);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -81,14 +82,7 @@ function SectorScroller() {
       el.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [update]);
-
-  const scrollTo = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const amount = Math.min(el.clientWidth * 0.75, 380);
-    el.scrollBy({ left: dir * amount, behavior: reduce ? "auto" : "smooth" });
-  };
+  }, [update, trackRef]);
 
   const currentIndex = Math.min(
     sectors.length,
@@ -102,19 +96,19 @@ function SectorScroller() {
         <p className="text-[0.72rem] text-ink/45 tracking-wide">
           <span className="md:hidden">Swipe to explore sectors &rarr;</span>
           <span className="hidden md:inline">
-            Scroll &middot; drag &middot; or use the arrows to explore
+            Scroll the wheel &middot; drag &middot; or use the arrows — one sector per scroll
           </span>
         </p>
         <div className="hidden md:flex items-center gap-2">
           <SectorArrow
             direction="prev"
             disabled={!canPrev}
-            onClick={() => scrollTo(-1)}
+            onClick={() => scrollByTiles(-1)}
           />
           <SectorArrow
             direction="next"
             disabled={!canNext}
-            onClick={() => scrollTo(1)}
+            onClick={() => scrollByTiles(1)}
           />
         </div>
       </div>
