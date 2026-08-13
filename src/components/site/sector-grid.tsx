@@ -4,14 +4,14 @@ import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
-import { Rise } from "@/components/motion/reveal";
+import { FadeUp } from "@/components/motion/editorial";
 import { useTileScroller } from "@/components/motion/use-tile-scroller";
 
 type Variant = "grid" | "scroller";
 
 /**
  * Sector tiles. Two layouts share the same tile content:
- *  - "grid"     : responsive 3-col grid (used on /sectors index)
+ *  - "grid"     : editorial grid for the /sectors index (with anchor ids)
  *  - "scroller" : horizontal scroll-snap track with arrows + progress (homepage)
  */
 export function SectorGrid({ variant = "grid" }: { variant?: Variant }) {
@@ -19,45 +19,31 @@ export function SectorGrid({ variant = "grid" }: { variant?: Variant }) {
   return <SectorGridLayout />;
 }
 
-/* ---------------------------------------------------------------
-   Grid layout — /sectors index page
-   --------------------------------------------------------------- */
-
+/* ---- Grid layout — /sectors index ---- */
 function SectorGridLayout() {
-  const [active, setActive] = useState<number | null>(null);
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
       {sectors.map((sector, i) => {
         const hex = accentHex[sector.accent as Accent];
-        const isActive = active === i;
         return (
-          <Rise key={sector.slug} delay={i * 0.04}>
+          <FadeUp key={sector.slug} delay={i * 0.04}>
             <SectorTile
               sector={sector}
               index={i}
               total={sectors.length}
               hex={hex}
-              isActive={isActive}
-              onActivate={setActive}
               className="min-h-[12rem]"
             />
-          </Rise>
+          </FadeUp>
         );
       })}
     </div>
   );
 }
 
-/* ---------------------------------------------------------------
-   Scroller layout — homepage
-   --------------------------------------------------------------- */
-
+/* ---- Scroller layout — homepage ---- */
 function SectorScroller() {
-  // Wheel events over the track move exactly one tile at a time; arrow
-  // buttons share the same locked step logic via scrollByTiles.
   const { trackRef, scrollByTiles } = useTileScroller();
-  const [active, setActive] = useState<number | null>(null);
   const [progress, setProgress] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -91,29 +77,19 @@ function SectorScroller() {
 
   return (
     <div className="relative">
-      {/* Controls row */}
       <div className="flex items-center justify-between mb-6">
-        <p className="text-[0.72rem] text-ink/45 tracking-wide">
+        <p className="mono-label text-ink/45">
           <span className="md:hidden">Swipe to explore sectors &rarr;</span>
           <span className="hidden md:inline">
-            Scroll the wheel &middot; drag &middot; or use the arrows — one sector per scroll
+            Scroll &middot; drag &middot; or use the arrows — one sector per notch
           </span>
         </p>
         <div className="hidden md:flex items-center gap-2">
-          <SectorArrow
-            direction="prev"
-            disabled={!canPrev}
-            onClick={() => scrollByTiles(-1)}
-          />
-          <SectorArrow
-            direction="next"
-            disabled={!canNext}
-            onClick={() => scrollByTiles(1)}
-          />
+          <SectorArrow direction="prev" disabled={!canPrev} onClick={() => scrollByTiles(-1)} />
+          <SectorArrow direction="next" disabled={!canNext} onClick={() => scrollByTiles(1)} />
         </div>
       </div>
 
-      {/* Horizontal track */}
       <div
         ref={trackRef}
         aria-label="Sectors scrollable list"
@@ -121,7 +97,6 @@ function SectorScroller() {
       >
         {sectors.map((sector, i) => {
           const hex = accentHex[sector.accent as Accent];
-          const isActive = active === i;
           return (
             <SectorTile
               key={sector.slug}
@@ -129,8 +104,6 @@ function SectorScroller() {
               index={i}
               total={sectors.length}
               hex={hex}
-              isActive={isActive}
-              onActivate={setActive}
               className="w-[76vw] sm:w-[52vw] md:w-[24rem] lg:w-[22rem] h-[22rem] md:h-[24rem] snap-start"
               showNote
               showCta
@@ -138,34 +111,21 @@ function SectorScroller() {
           );
         })}
 
-        {/* End card — All sectors */}
         <Link
           href="/sectors"
-          className="group relative block snap-start shrink-0 w-[60vw] md:w-[18rem] lg:w-[16rem] bg-ink text-ivory border border-ink overflow-hidden"
+          className="group relative block snap-start shrink-0 w-[60vw] md:w-[18rem] lg:w-[16rem] bg-ink text-porcelain border border-ink overflow-hidden"
         >
-          <div className="absolute inset-0 opacity-50 mesh-grad" aria-hidden="true" />
           <div className="relative h-[22rem] md:h-[24rem] p-6 md:p-7 flex flex-col justify-between">
-            <span className="eyebrow text-ivory/50">All sectors</span>
+            <span className="mono-label text-porcelain/50">All sectors</span>
             <div>
-              <h3 className="display-3 text-ivory">View the full index</h3>
-              <p className="mt-2 text-sm text-ivory/55 leading-relaxed">
+              <h3 className="display-3 text-porcelain">View the full index</h3>
+              <p className="mt-2 text-sm text-porcelain/55 leading-relaxed">
                 Ten industries, one integrated practice.
               </p>
-              <div className="mt-5 flex items-center gap-2 text-[0.78rem] font-medium text-ivory/85 group-hover:text-mint transition-colors">
+              <div className="mt-5 flex items-center gap-2 text-[0.78rem] font-medium text-porcelain/85 group-hover:text-marigold transition-colors">
                 <span>See all</span>
-                <svg
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M5 12h14M13 6l6 6-6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
             </div>
@@ -173,18 +133,17 @@ function SectorScroller() {
         </Link>
       </div>
 
-      {/* Progress bar */}
       <div className="mt-6 flex items-center gap-4">
-        <span className="text-[0.7rem] tabular-nums text-ink/50 font-medium">
+        <span className="mono-num text-[0.7rem] text-ink/50 font-medium">
           {String(currentIndex).padStart(2, "0")}
         </span>
-        <div className="flex-1 h-px bg-ink/12 relative overflow-hidden">
+        <div className="flex-1 h-px bg-line relative overflow-hidden">
           <div
-            className="absolute left-0 top-0 h-full bg-ink transition-[width] duration-150 ease-out"
+            className="absolute left-0 top-0 h-full bg-electric transition-[width] duration-150 ease-out"
             style={{ width: `${Math.max(6, progress * 100)}%` }}
           />
         </div>
-        <span className="text-[0.7rem] tabular-nums text-ink/50 font-medium">
+        <span className="mono-num text-[0.7rem] text-ink/50 font-medium">
           {String(sectors.length).padStart(2, "0")}
         </span>
       </div>
@@ -192,17 +151,12 @@ function SectorScroller() {
   );
 }
 
-/* ---------------------------------------------------------------
-   Shared tile
-   --------------------------------------------------------------- */
-
+/* ---- Shared tile ---- */
 function SectorTile({
   sector,
   index,
   total,
   hex,
-  isActive,
-  onActivate,
   className = "",
   showNote = false,
   showCta = false,
@@ -211,8 +165,6 @@ function SectorTile({
   index: number;
   total: number;
   hex: string;
-  isActive: boolean;
-  onActivate: (i: number | null) => void;
   className?: string;
   showNote?: boolean;
   showCta?: boolean;
@@ -220,23 +172,18 @@ function SectorTile({
   return (
     <a
       href={`/sectors#${sector.slug}`}
-      onMouseEnter={() => onActivate(index)}
-      onMouseLeave={() => onActivate(null)}
-      onFocus={() => onActivate(index)}
-      onBlur={() => onActivate(null)}
       id={sector.slug}
-      className={`group relative block shrink-0 bg-paper border border-line overflow-hidden transition-colors duration-300 hover:border-ink/30 focus-visible:border-ink/40 flex flex-col ${className}`}
+      className={`group relative block shrink-0 bg-paper border border-line overflow-hidden transition-colors duration-300 hover:border-ink/30 focus-visible:border-electric flex flex-col ${className}`}
       style={{ scrollMarginTop: "6rem" }}
     >
-      {/* colour burst on hover/focus */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(at 85% 0%, ${hex}26, transparent 60%)`,
-        }}
+      {/* colour edge that grows on hover */}
+      <span
+        className="absolute left-0 top-0 bottom-0 w-1 transition-all duration-500 group-hover:w-2"
+        style={{ background: hex }}
+        aria-hidden="true"
       />
 
-      {/* large index watermark (scroller only) */}
+      {/* large index watermark */}
       {showNote && (
         <div
           className="absolute -top-4 -right-3 font-display text-[7rem] leading-none text-ink/[0.04] select-none pointer-events-none"
@@ -246,52 +193,24 @@ function SectorTile({
         </div>
       )}
 
-      {/* content */}
       <div className="relative p-6 md:p-7 flex flex-col flex-1">
         <div className="flex items-start justify-between">
-          <span className="font-sans text-[0.7rem] tabular-nums text-ink/40">
+          <span className="mono-num text-[0.7rem] text-ink/40">
             {showNote
               ? `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`
               : String(index + 1).padStart(2, "0")}
           </span>
-          <span
-            className="h-2.5 w-2.5 rounded-full transition-transform duration-300 group-hover:scale-150"
-            style={{
-              background: hex,
-              transform: isActive ? "scale(1.5)" : "scale(1)",
-            }}
-          />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
         </div>
 
         <div className="mt-auto pt-8">
           <h3 className="display-3 text-2xl md:text-[1.7rem]">{sector.name}</h3>
-          <p
-            className={`mt-2 text-sm text-ink/55 leading-relaxed transition-all duration-300 ${
-              showNote
-                ? "opacity-100 translate-y-0"
-                : isActive
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-2 sm:opacity-100 sm:translate-y-0"
-            }`}
-          >
-            {sector.note}
-          </p>
+          <p className="mt-2 text-sm text-ink/55 leading-relaxed">{sector.note}</p>
           {showCta && (
             <div className="mt-5 flex items-center gap-2 text-[0.78rem] font-medium text-ink/55 group-hover:text-ink transition-colors">
               <span>View sector</span>
-              <svg
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                <path
-                  d="M5 12h14M13 6l6 6-6 6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+              <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           )}
@@ -301,10 +220,7 @@ function SectorTile({
   );
 }
 
-/* ---------------------------------------------------------------
-   Arrow button
-   --------------------------------------------------------------- */
-
+/* ---- Arrow ---- */
 function SectorArrow({
   direction,
   disabled,
@@ -323,19 +239,8 @@ function SectorArrow({
       aria-label={isPrev ? "Previous sectors" : "Next sectors"}
       className="inline-flex items-center justify-center h-10 w-10 border border-line text-ink/70 hover:text-ink hover:border-ink/40 hover:bg-ink/[0.03] transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-line"
     >
-      <svg
-        className={`h-4 w-4 ${isPrev ? "" : "rotate-180"}`}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        aria-hidden="true"
-      >
-        <path
-          d="M19 12H5M11 6l-6 6 6 6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      <svg className={`h-4 w-4 ${isPrev ? "" : "rotate-180"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </button>
   );

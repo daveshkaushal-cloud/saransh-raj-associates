@@ -13,7 +13,7 @@ export type Person = {
   qualifications: string[];
   focus: string[];
   bar: string[];
-  accent: "cobalt" | "vermilion" | "saffron" | "mint" | "violet" | "ink";
+  accent: "electric" | "vermilion" | "marigold" | "jade" | "aubergine" | "ink";
 };
 
 export const people: Person[] = [
@@ -44,7 +44,7 @@ export const people: Person[] = [
       "Registered Advocate, Bar Council of India",
       "Registered Advocate, Bar Council of Delhi",
     ],
-    accent: "cobalt",
+    accent: "electric",
   },
 ];
 

@@ -1,51 +1,44 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * Refined custom cursor for pointer devices only.
- * Hidden on touch / coarse pointers via CSS.
+ * Restrained custom cursor — a thin vertical bar (like a text caret)
+ * that grows and turns electric-blue over links. No oversized glowing
+ * ring. Disabled on touch devices.
  */
 export function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement | null>(null);
-  const ringRef = useRef<HTMLDivElement | null>(null);
-  const [enabled, setEnabled] = useState(false);
+  const barRef = useRef<HTMLDivElement | null>(null);
+  const overLinkRef = useRef(false);
 
   useEffect(() => {
-    const fine =
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!fine) return;
-    setEnabled(true);
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let ringX = mouseX;
-    let ringY = mouseY;
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let curX = x;
+    let curY = y;
     let raf = 0;
-    let hovering = false;
 
     const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
-      }
-      const target = e.target as HTMLElement;
-      const interactive = target.closest(
+      x = e.clientX;
+      y = e.clientY;
+      const t = e.target as HTMLElement | null;
+      const interactive = !!t?.closest(
         'a, button, input, textarea, select, [role="button"], [data-cursor="hover"]'
       );
-      hovering = !!interactive;
+      if (interactive !== overLinkRef.current) {
+        overLinkRef.current = interactive;
+        barRef.current?.classList.toggle("over-link", interactive);
+      }
     };
 
     const loop = () => {
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      if (ringRef.current) {
-        const size = hovering ? 56 : 38;
-        ringRef.current.style.transform = `translate3d(${ringX - size / 2}px, ${ringY - size / 2}px, 0)`;
-        ringRef.current.style.width = `${size}px`;
-        ringRef.current.style.height = `${size}px`;
-        ringRef.current.style.opacity = hovering ? "1" : "0.7";
+      curX += (x - curX) * 0.35;
+      curY += (y - curY) * 0.35;
+      if (barRef.current) {
+        // offset so the bar sits centred on the caret position
+        barRef.current.style.transform = `translate3d(${curX - 1}px, ${curY - 11}px, 0)`;
       }
       raf = requestAnimationFrame(loop);
     };
@@ -58,11 +51,5 @@ export function CustomCursor() {
     };
   }, []);
 
-  if (!enabled) return null;
-  return (
-    <>
-      <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
-      <div ref={ringRef} className="cursor-ring" aria-hidden="true" />
-    </>
-  );
+  return <div ref={barRef} className="cursor-bar" aria-hidden="true" />;
 }

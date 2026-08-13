@@ -1,57 +1,76 @@
 /**
- * Maps brand accent tokens to concrete colour classes.
- * Keeps section-specific colour bursts consistent and typed.
+ * Maps brand accent tokens to the "Arguments in Colour" palette.
+ * Each practice area and sector carries an accent that drives its
+ * colour field, annotation marks and index treatment.
+ *
+ * Palette:
+ *   electric  → Electric Blue  #2457FF
+ *   vermilion → Vermilion      #FF493D
+ *   marigold  → Marigold       #FFB000
+ *   jade      → Jade           #17B890
+ *   aubergine → Aubergine      #673DE6
+ *   ink       → Midnight Ink   #0B1020
  */
 
 export type Accent =
-  | "cobalt"
+  | "electric"
   | "vermilion"
-  | "saffron"
-  | "mint"
-  | "violet"
+  | "marigold"
+  | "jade"
+  | "aubergine"
   | "ink";
 
 export const accentHex: Record<Accent, string> = {
-  cobalt: "#3157FF",
-  vermilion: "#FF574D",
-  saffron: "#FFB21A",
-  mint: "#70DEC0",
-  violet: "#8A65FF",
-  ink: "#10101A",
+  electric: "#2457FF",
+  vermilion: "#FF493D",
+  marigold: "#FFB000",
+  jade: "#17B890",
+  aubergine: "#673DE6",
+  ink: "#0B1020",
+};
+
+/** Foreground colour that meets contrast on the accent background. */
+export const accentOnHex: Record<Accent, string> = {
+  electric: "#FFFFFF",
+  vermilion: "#FFFFFF",
+  marigold: "#0B1020",
+  jade: "#0B1020",
+  aubergine: "#FFFFFF",
+  ink: "#F3EFE5",
 };
 
 export const accentText: Record<Accent, string> = {
-  cobalt: "text-cobalt",
+  electric: "text-electric",
   vermilion: "text-vermilion",
-  saffron: "text-saffron",
-  mint: "text-mint",
-  violet: "text-violet",
+  marigold: "text-marigold",
+  jade: "text-jade",
+  aubergine: "text-aubergine",
   ink: "text-ink",
 };
 
 export const accentBg: Record<Accent, string> = {
-  cobalt: "bg-cobalt",
+  electric: "bg-electric",
   vermilion: "bg-vermilion",
-  saffron: "bg-saffron",
-  mint: "bg-mint",
-  violet: "bg-violet",
+  marigold: "bg-marigold",
+  jade: "bg-jade",
+  aubergine: "bg-aubergine",
   ink: "bg-ink",
 };
 
-export const accentBgSoft: Record<Accent, string> = {
-  cobalt: "bg-cobalt/12",
-  vermilion: "bg-vermilion/12",
-  saffron: "bg-saffron/16",
-  mint: "bg-mint/18",
-  violet: "bg-violet/12",
-  ink: "bg-ink/8",
+export const accentField: Record<Accent, string> = {
+  electric: "field-electric",
+  vermilion: "field-vermilion",
+  marigold: "field-marigold",
+  jade: "field-jade",
+  aubergine: "field-aubergine",
+  ink: "field-ink",
 };
 
 export const accentBorder: Record<Accent, string> = {
-  cobalt: "border-cobalt/40",
-  vermilion: "border-vermilion/40",
-  saffron: "border-saffron/40",
-  mint: "border-mint/40",
-  violet: "border-violet/40",
-  ink: "border-ink/30",
+  electric: "border-electric",
+  vermilion: "border-vermilion",
+  marigold: "border-marigold",
+  jade: "border-jade",
+  aubergine: "border-aubergine",
+  ink: "border-ink",
 };

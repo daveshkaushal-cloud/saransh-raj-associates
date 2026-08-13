@@ -1,100 +1,101 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/site/page-hero";
+import { contact, firm } from "@/data/firm";
+import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 import { ContactForm } from "@/components/site/contact-form";
-import { Rise } from "@/components/motion/reveal";
-import { contact } from "@/data/firm";
 
 export const metadata: Metadata = {
   title: "Contact — Offices",
   description:
-    "Contact Saransh Raj & Associates. Office at G-14, LGF, Kalkaji, New Delhi – 110019. Phone +91 79067 08411.",
+    "Reach Saransh Raj & Associates in New Delhi. Office address, phone, email and hours, with a neutral enquiry form.",
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Contact · Offices"
-        title={<>Reach the</>}
-        titleAccent="firm."
-        intro={
-          <>
-            The firm welcomes enquiries about its work. Use the details below or
-            send a brief message; the firm will respond within one business day
-            where possible.
-          </>
-        }
-        accent="cobalt"
-      />
-
-      <section className="bg-ivory py-12 md:py-20">
+      {/* Hero — quiet, functional */}
+      <section className="relative bg-porcelain pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Details */}
-            <div className="lg:col-span-5">
-              <Rise>
-                <p className="eyebrow mb-6">Office</p>
-                <div className="space-y-8">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+            <span className="mono-label text-ink/50">Chapter 07 · Contact</span>
+            <span className="folio text-ink/45">008 / 018</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-4">Offices</p>
+                <p className="margin-note">
+                  A neutral enquiry form and the firm&apos;s verified contact details.
+                </p>
+              </FadeUp>
+            </div>
+            <div className="md:col-span-9">
+              <SheetReveal>
+                <h1 className="display-1 text-ink max-w-[14ch]">
+                  Reach the{" "}
+                  <span className="serif-italic text-vermilion">firm</span>
+                </h1>
+              </SheetReveal>
+              <FadeUp delay={0.15}>
+                <p className="lead mt-8 max-w-2xl text-ink/70">
+                  The firm welcomes enquiries about its work. Please use the form
+                  below or the contact details to the right to be in touch.
+                </p>
+              </FadeUp>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact grid: form + details */}
+      <section className="bg-porcelain py-16 md:py-24">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+            {/* Form — left, wider */}
+            <div className="md:col-span-7">
+              <FadeUp>
+                <div className="border-t border-ink pt-6">
+                  <p className="mono-label text-ink/55 mb-2">§ Enquiry</p>
+                  <h2 className="display-3 text-2xl md:text-3xl mb-8">
+                    Send a message
+                  </h2>
+                </div>
+                <ContactForm />
+              </FadeUp>
+            </div>
+
+            {/* Details — right */}
+            <div className="md:col-span-4 md:col-start-9">
+              <FadeUp delay={0.1}>
+                <div className="border-t border-ink pt-6 space-y-8">
                   <div>
-                    <p className="eyebrow text-ink/40 mb-2">Address</p>
+                    <p className="mono-label text-ink/55 mb-2">Address</p>
                     <p className="text-ink/85 leading-relaxed">
-                      {contact.address.line1}
-                      <br />
-                      {contact.address.line2}
-                      <br />
+                      {contact.address.line1}<br />
+                      {contact.address.line2}<br />
                       {contact.address.country}
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <p className="eyebrow text-ink/40 mb-2">Phone</p>
-                      <a href={contact.phoneHref} className="link-underline text-ink/85 hover:text-ink">
-                        {contact.phone}
-                      </a>
-                    </div>
-                    <div>
-                      <p className="eyebrow text-ink/40 mb-2">Email</p>
-                      <a href={contact.emailHref} className="link-underline text-ink/85 hover:text-ink break-all">
-                        {contact.email}
-                      </a>
-                    </div>
+                  <div>
+                    <p className="mono-label text-ink/55 mb-2">Phone</p>
+                    <a href={contact.phoneHref} className="link-underline text-ink/85 hover:text-ink">{contact.phone}</a>
                   </div>
                   <div>
-                    <p className="eyebrow text-ink/40 mb-2">Office hours</p>
+                    <p className="mono-label text-ink/55 mb-2">Email</p>
+                    <a href={contact.emailHref} className="link-underline text-ink/85 hover:text-ink break-all">{contact.email}</a>
+                  </div>
+                  <div>
+                    <p className="mono-label text-ink/55 mb-2">Office hours</p>
                     <p className="text-ink/85">{contact.hours}</p>
                   </div>
+                  <div className="pt-4 border-t border-line">
+                    <p className="mono-label text-ink/45 mb-2">Based in</p>
+                    <p className="text-sm text-ink/65">{firm.basedIn}, India</p>
+                    <p className="text-sm text-ink/55 mt-1">Serving across {firm.servesAcross}</p>
+                  </div>
                 </div>
-              </Rise>
-
-              {/* Map */}
-              <Rise delay={0.1}>
-                <div className="mt-10 relative aspect-[4/3] w-full bg-paper border border-line overflow-hidden">
-                  <iframe
-                    title="Office location map"
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=77.2550%2C28.5450%2C77.2700%2C28.5550&layer=mapnik&marker=28.5499%2C77.2625`}
-                    className="absolute inset-0 w-full h-full grayscale-[0.3] contrast-[0.95]"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                </div>
-                <p className="mt-3 text-xs text-ink/45">
-                  G-14, Kalkaji, New Delhi — indicative map view.
-                </p>
-              </Rise>
-            </div>
-
-            {/* Form */}
-            <div className="lg:col-span-6 lg:col-start-7">
-              <Rise delay={0.1}>
-                <div className="bg-paper border border-line p-7 md:p-9">
-                  <p className="eyebrow mb-2">Enquiry</p>
-                  <h2 className="display-3 text-2xl md:text-3xl mb-6">
-                    Send a message
-                  </h2>
-                  <ContactForm />
-                </div>
-              </Rise>
+              </FadeUp>
             </div>
           </div>
         </div>

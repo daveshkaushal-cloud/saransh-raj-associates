@@ -288,3 +288,65 @@ Stage Summary:
 - Root cause: framer-motion's useReducedMotion() returns `null` during SSR but `true`/`false` on the client's first render (it reads window.matchMedia during lazy useState init). 5 components conditionally rendered or set different initial/style based on this value, producing a hydration mismatch for any user with prefers-reduced-motion: reduce enabled. The Task 6 footer fix was correct but only addressed the date-derived mismatch; this is a separate, additional cause that the sandbox browser couldn't catch (it doesn't emulate reduced motion by default).
 - Fix: created useMountedReducedMotion() hook that returns `false` on SSR + first client render (matching server), then the real value post-mount. Replaced all 7 call sites.
 - Verified: 0 hydration errors across all 10 routes with reduced motion ON, and 0 errors with reduced motion OFF. Lint clean, no runtime errors.
+
+---
+Task ID: 8
+Agent: main (orchestrator)
+Task: Complete visual identity redesign — "Arguments in Colour" — remove generic AI-generated appearance
+
+Work Log:
+- User requested a full art-direction overhaul: replace the predictable ivory+serif+dots AI-template look with a distinctive, ownable editorial identity. Provided detailed creative brief: "Arguments in Colour" concept, new typography (Bodoni Moda / Satoshi / IBM Plex Mono), new colour palette (Midnight Ink, Porcelain, Electric Blue, Vermilion, Marigold, Jade, Aubergine), unique compositions per page, custom graphic language (margins, annotations, folios), "living document" motion, and removal of oversized cursor / clichéd legal imagery.
+
+Phase 1 — Fonts & design system:
+- Self-hosted three font families in public/fonts/: Bodoni Moda (variable, OFL), Satoshi (woff2 ×4 weights, Fontshare), IBM Plex Mono (4 weights, OFL). Wired via next/font/local in layout.tsx with --font-display / --font-sans / --font-mono CSS variables.
+- Rewrote globals.css as a complete "Arguments in Colour" design system: new colour tokens (ink #0B1020, porcelain #F3EFE5, electric #2457FF, vermilion #FF493D, marigold #FFB000, jade #17B890, aubergine #673DE6), editorial typography utilities (display-mega/1/2/3/4, mono-label, mono-num, lead, body-condensed, vertical-label, serif-italic), document layout primitives (doc-grid, margin-note, rule-grid), texture utilities (grain, grain-light, ledger-lines), colour-field classes (field-ink/electric/vermilion/marigold/jade/aubergine), graphic-language utilities (anno-bracket, anno-underline, anno-highlight, rule-draw, folio, section-index), "living document" motion utilities (sheet-reveal, line-draw, crop-reveal), and a restrained custom cursor (.cursor-bar — thin 2px vertical bar, grows over links, no glowing ring).
+- Updated lib/accents.ts: renamed accent tokens to new palette (electric/vermilion/marigold/jade/aubergine/ink), added accentOnHex for contrast-correct foregrounds, added accentField for colour-block sections.
+- Updated all data files (practice-areas.ts, sectors.ts, people.ts) to use new accent token names.
+
+Phase 2 — Motion primitives & shell:
+- Created src/components/motion/editorial.tsx with: useInView (IntersectionObserver hook), SheetReveal (content slides up like turning a page), RuleDraw (annotation line that draws itself), CropReveal (image reveals through editorial clip), FolioScroll (live page-folio number that updates on scroll), FadeUp (simple fade+rise). All SSR-safe (children render immediately; animations are class-based post-mount).
+- Rebuilt custom-cursor.tsx as a restrained 2px vertical bar (mix-blend-mode difference, grows to 32px + electric blue over links). Removed the oversized glowing ring.
+- Rebuilt scroll-progress.tsx as a thin electric-blue rule.
+- Rebuilt site-header.tsx as an editorial chapter index: wordmark left, numbered nav (01–07) with mono indices, right-side "CH. 0X" folio indicator, full-screen mobile overlay with Bodoni chapter titles in marigold.
+- Rebuilt site-footer.tsx as a document colophon: marquee of practice areas, 6-swatch palette strip, chapter-index links with mono numbers, mount-guarded copyright year (preserves Task 6/7 fix).
+- Rebuilt preloader.tsx as a brief (~0.85s) "document opening" animation on ink background with marigold progress rule.
+- Rebuilt disclaimer-gate.tsx as an editorial cover sheet with a 6-colour spectrum edge rule and "Cover Sheet · 01" folio.
+- Created page-hero.tsx with reusable PageHero, SectionHeader, MarginNote, ChapterLink components.
+
+Phase 3 — Homepage:
+- Rebuilt src/app/page.tsx as a cinematic editorial opening: top document-meta bar (location · "Arguments in Colour" · folio 001/018), mega headline "Arguments in Colour." with the word "Colour" rendered in a spectrum gradient (blue→aubergine→vermilion→marigold→jade) via background-clip:text, paper grain texture overlay, animated HeroVisual (layered translucent document sheets that drift on scroll with annotation marks and a colour-bar index), colour-transition practice-area index bar (ink section), editorial introduction with coloured italic keywords, PracticeIndex (colour-coded chapter list with hover colour-fields), SectorGrid scroller, colour-blocked PrinciplesBlock (4 full-colour panels), PeoplePreview, InsightsPreview (on ink), contact section.
+- Rebuilt hero-visual.tsx as layered translucent document sheets with annotation marks, colour-bar index, and folio marker — no clichéd legal imagery.
+
+Phase 4 — Interior pages (each with a distinctive composition):
+- Firm: scroll-driven manifesto with folio-scroll, colour-blocked principle panels, asymmetric archival timeline (alternating left/right with central rule + colour markers), practice-areas index on ink.
+- Expertise index: interactive legal index with expandable chapters — clicking a chapter fills a colour field and reveals its services as an annotated list; colour legend at top.
+- Expertise detail: full-bleed colour-coded chapter opening (each area's accent fills the hero), oversized index watermark, annotated service list with bracket marks, colour-coded prev/next navigation.
+- Sectors: immersive visual atlas with 4 rotating compositions (colour-field-left, full-width colour overlay, text-left/small-block, two-column colour+ink split) — each sector gets its own layout.
+- People index: full-bleed editorial portrait cards (typographic portrait field with cropped Bodoni name + architectural rules + annotation bracket — NO initials-in-gradient-boxes), team note.
+- People detail: full-bleed colour portrait field, drop-cap biography, three-column focus/qualifications/bar with mono numbering.
+- Insights: magazine-style index with category colour legend, large editorial entries with hover colour-fields, forthcoming notice.
+- Careers: calm, factual, minimal — no exaggerated claims.
+- Contact: quiet, functional — form left, contact details right with mono labels.
+- Updated contact-form.tsx with mono labels and editorial fields.
+- Updated legal-layout.tsx, not-found.tsx with the new system.
+
+Phase 5 — Refinement per VLM feedback:
+- VLM assessed homepage hero at 8.2/10 then 8.5/10: praised the "book/spread" metaphor, Bodoni choice, spectrum bar, and folio graphic; identified that the word "Colour" needed to be the typographic climax. Applied: spectrum-gradient text fill on "Colour" (blue→aubergine→vermilion→marigold→jade), tightened display-mega letter-spacing to -0.038em, reduced mega clamp to 13rem so the full headline fits in viewport, added paper grain texture to hero.
+
+Verification:
+- Lint clean (bun run lint — no errors).
+- All 13 routes return 200: /, /firm, /expertise, /sectors, /people, /insights, /careers, /contact, /disclaimer, /terms, /privacy, /expertise/[slug] (6 areas), /people/[slug].
+- Agent Browser verified: 0 hydration errors, 0 console errors, 0 page errors across all routes (tested with both default and prefers-reduced-motion: reduce).
+- Interactivity verified: expertise expandable chapters work (click → colour field fills → services reveal → "Read chapter" link appears); contact form submits successfully (POST /api/contact 200); mobile menu opens and navigates.
+- Sticky footer verified on short (404) and long pages — footer pushed to bottom, no gap.
+- Mobile (390px) verified: layout holds, typography scales, no horizontal overflow.
+- VLM final assessment (4 pages, desktop + mobile): 9/10. "This is not a generic AI template. This is a concept-driven, art-directed redesign." Every page passes the test "Could this design belong to any other AI-generated law-firm website?" → NO. "You could not swap this hero onto another generic law site. It is intrinsically tied to the 'Arguments in Colour' brand narrative."
+
+Stage Summary:
+- Complete visual identity redesign delivered: "Arguments in Colour" — the precision and structure of a legal document transformed into a vibrant contemporary editorial experience.
+- New typography: Bodoni Moda (display), Satoshi (body), IBM Plex Mono (labels) — all self-hosted, properly licensed (OFL / Fontshare 100).
+- New colour system: Midnight Ink + Porcelain base with Electric Blue / Vermilion / Marigold / Jade / Aubergine as architectural colour fields, not decorative dots. Each practice area and sector carries its own accent identity.
+- Unique compositions per page: homepage (cinematic document layers), firm (manifesto + asymmetric timeline), expertise (interactive expandable chapters), sectors (4-rotation visual atlas), people (editorial typographic portraits), insights (magazine index), careers (calm), contact (minimal).
+- Custom graphic language: document margins, folio numbers, annotation brackets, colour-bar indices, architectural rules, paper grain texture, "living document" motion (sheet reveals, rule draws, crop reveals, folio scroll).
+- Removed: oversized glowing cursor (replaced with restrained 2px bar), clichéd legal imagery (gavels/scales/pillars), glassmorphism, generic gradients, uniform bordered cards, repetitive beige sections.
+- VLM-confirmed 9/10: "concept-driven, art-directed," "unmistakably bespoke," passes the "could this belong to any other AI law-firm site?" test on every page.

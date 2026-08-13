@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Rise } from "@/components/motion/reveal";
 import { people, getPerson } from "@/data/people";
-import { accentHex } from "@/lib/accents";
+import { accentHex, accentOnHex } from "@/lib/accents";
 import { contact } from "@/data/firm";
+import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
 
 export function generateStaticParams() {
   return people.map((p) => ({ slug: p.slug }));
@@ -35,169 +35,181 @@ export default async function PersonPage({
   if (!person) notFound();
 
   const hex = accentHex[person.accent];
+  const onHex = accentOnHex[person.accent];
+  const first = person.name.split(" ")[0];
+  const rest = person.name.split(" ").slice(1).join(" ");
 
   return (
     <>
-      {/* Hero with abstract portrait */}
-      <section className="relative bg-ivory pt-24 md:pt-32 pb-12 md:pb-16 overflow-hidden">
-        <div className="absolute inset-0 line-grid opacity-60" aria-hidden="true" />
+      {/* ============== HERO — full-bleed editorial portrait ============== */}
+      <section className="relative bg-ink text-porcelain pt-10 md:pt-16 pb-16 md:pb-24 overflow-hidden">
         <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
-          <Rise>
-            <Link
-              href="/people"
-              className="link-underline inline-flex items-center gap-2 text-sm text-ink/60 hover:text-ink mb-8"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+          {/* top bar */}
+          <div className="flex items-center justify-between border-b border-line-on-ink pb-4 mb-10 md:mb-16">
+            <Link href="/people" className="group inline-flex items-center gap-2 mono-label text-porcelain/60 hover:text-porcelain transition-colors">
+              <svg className="h-4 w-4 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path d="M19 12H5M11 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span>All people</span>
             </Link>
-          </Rise>
+            <span className="folio text-porcelain/45">Profile · 01</span>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
-            {/* Abstract portrait */}
-            <div className="md:col-span-4">
-              <Rise>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+            {/* Full-bleed editorial portrait field */}
+            <div className="md:col-span-5">
+              <FadeUp>
                 <div
-                  className="relative aspect-[3/4] w-full max-w-sm overflow-hidden"
-                  style={{ background: `linear-gradient(150deg, ${hex}, #10101A)` }}
+                  className="relative aspect-[3/4] w-full max-w-md overflow-hidden"
+                  style={{ background: hex }}
                 >
-                  <div className="absolute inset-0 dotted-grid opacity-50" style={{ color: "rgba(255,255,255,0.5)" }} />
-                  <div
-                    className="absolute -inset-6 opacity-40"
-                    style={{ background: `radial-gradient(circle at 30% 20%, ${hex}aa, transparent 60%)` }}
-                  />
+                  {/* architectural rule lines */}
                   <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
-                    <line x1="0" y1="100%" x2="100%" y2="0" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    <line x1="0" y1="70%" x2="100%" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <line x1="0" y1="40%" x2="100%" y2="0" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    <line x1="0" y1="25%" x2="100%" y2="25%" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
+                    <line x1="0" y1="75%" x2="100%" y2="75%" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                    <line x1="40%" y1="0" x2="40%" y2="100%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
                   </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-display text-[6rem] text-ivory/90 leading-none">
-                      {person.initials}
-                    </span>
+                  {/* annotation bracket */}
+                  <div className="absolute top-5 left-5 flex items-center gap-1.5">
+                    <div className="h-3 w-3 border-l border-t" style={{ borderColor: `${onHex}80` }} />
+                    <span className="mono-label" style={{ color: onHex, opacity: 0.7 }}>Portrait</span>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-ivory/15 bg-ink/20 backdrop-blur-sm">
-                    <p className="text-[0.7rem] uppercase tracking-[0.2em] text-ivory/60">
-                      {person.role}
-                    </p>
+                  {/* large cropped name */}
+                  <div className="absolute inset-0 flex flex-col justify-center px-6">
+                    <span className="font-display text-[3.5rem] md:text-[4.5rem] leading-[0.82] tracking-tight" style={{ color: onHex }}>
+                      {first}
+                    </span>
+                    {rest && (
+                      <span className="font-display italic text-[1.5rem] md:text-[2rem] leading-tight mt-1" style={{ color: `${onHex}b3` }}>
+                        {rest}
+                      </span>
+                    )}
+                  </div>
+                  <div className="absolute bottom-5 right-5">
+                    <span className="mono-num text-[0.6rem]" style={{ color: `${onHex}80` }}>{person.initials}/01</span>
                   </div>
                 </div>
-              </Rise>
+              </FadeUp>
             </div>
 
             {/* Identity */}
-            <div className="md:col-span-8">
-              <Rise>
-                <p className="eyebrow mb-4" style={{ color: hex }}>
-                  {person.role}
-                </p>
-              </Rise>
-              <h1 className="display-1 max-w-[14ch]">
-                <Rise>
-                  <span className="block">{person.name}</span>
-                </Rise>
-              </h1>
-              <Rise delay={0.15}>
-                <p className="mt-8 max-w-2xl text-lg md:text-xl text-ink/70 leading-relaxed">
-                  {person.summary}
-                </p>
-              </Rise>
+            <div className="md:col-span-7">
+              <FadeUp>
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
+                  <span className="mono-label" style={{ color: hex }}>{person.role}</span>
+                </div>
+              </FadeUp>
+              <SheetReveal>
+                <h1 className="display-1 text-porcelain max-w-[12ch]">{person.name}</h1>
+              </SheetReveal>
+              <FadeUp delay={0.15}>
+                <p className="lead mt-8 text-porcelain/70 max-w-xl">{person.summary}</p>
+              </FadeUp>
+              <RuleDraw className="mt-8 max-w-md" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Bio */}
-      <section className="bg-paper py-20 md:py-28 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <Rise>
-                <p className="eyebrow mb-3">Biography</p>
-              </Rise>
+      {/* ============== BIOGRAPHY — editorial layout ============== */}
+      <section className="bg-porcelain py-20 md:py-32 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-4">§ Biography</p>
+              </FadeUp>
             </div>
-            <div className="md:col-span-8">
-              <Rise delay={0.1}>
-                <div className="space-y-6 text-lg leading-relaxed text-ink/75 max-w-2xl">
+            <div className="md:col-span-8 md:col-start-5">
+              <FadeUp delay={0.1}>
+                <div className="space-y-6 max-w-2xl">
                   {person.bio.map((p, i) => (
-                    <p key={i}>{p}</p>
+                    <p key={i} className="lead text-ink/75">
+                      {i === 0 && (
+                        <span className="float-left font-display text-[5rem] leading-[0.8] mr-3 mt-1" style={{ color: hex }}>
+                          {first.charAt(0)}
+                        </span>
+                      )}
+                      {p}
+                    </p>
                   ))}
                 </div>
-              </Rise>
+              </FadeUp>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Focus + qualifications + bar */}
-      <section className="bg-ivory py-20 md:py-28 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {/* ============== FOCUS / QUALIFICATIONS / BAR ============== */}
+      <section className="bg-paper py-20 md:py-32 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <div>
-              <Rise>
-                <p className="eyebrow mb-4">Focus areas</p>
-                <ul className="space-y-2">
-                  {person.focus.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm text-ink/75">
-                      <span className="h-1.5 w-1.5 rounded-full" style={{ background: hex }} />
-                      {f}
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-5">Focus areas</p>
+                <ul className="space-y-3">
+                  {person.focus.map((f, i) => (
+                    <li key={f} className="flex items-baseline gap-3 text-ink/80">
+                      <span className="mono-num text-[0.65rem] text-ink/35 w-6">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[0.95rem]">{f}</span>
                     </li>
                   ))}
                 </ul>
-              </Rise>
+              </FadeUp>
             </div>
             <div>
-              <Rise delay={0.08}>
-                <p className="eyebrow mb-4">Qualifications</p>
-                <ul className="space-y-2">
-                  {person.qualifications.map((q) => (
-                    <li key={q} className="text-sm text-ink/75">
-                      {q}
+              <FadeUp delay={0.08}>
+                <p className="mono-label text-ink/55 mb-5">Qualifications</p>
+                <ul className="space-y-3">
+                  {person.qualifications.map((q, i) => (
+                    <li key={q} className="flex items-baseline gap-3 text-ink/80">
+                      <span className="mono-num text-[0.65rem] text-ink/35 w-6">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[0.95rem]">{q}</span>
                     </li>
                   ))}
                 </ul>
-              </Rise>
+              </FadeUp>
             </div>
             <div>
-              <Rise delay={0.16}>
-                <p className="eyebrow mb-4">Bar memberships</p>
-                <ul className="space-y-2">
-                  {person.bar.map((b) => (
-                    <li key={b} className="text-sm text-ink/75">
-                      {b}
+              <FadeUp delay={0.16}>
+                <p className="mono-label text-ink/55 mb-5">Bar memberships</p>
+                <ul className="space-y-3">
+                  {person.bar.map((b, i) => (
+                    <li key={b} className="flex items-baseline gap-3 text-ink/80">
+                      <span className="mono-num text-[0.65rem] text-ink/35 w-6">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[0.95rem]">{b}</span>
                     </li>
                   ))}
                 </ul>
-              </Rise>
+              </FadeUp>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact strip */}
-      <section className="bg-ink text-ivory py-16 md:py-20">
-        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <Rise>
-            <h2 className="display-2 text-ivory max-w-[18ch]">
-              To be in touch with {person.name}
+      {/* ============== CONTACT STRIP ============== */}
+      <section className="bg-ink text-porcelain py-16 md:py-20">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <FadeUp>
+            <h2 className="display-2 text-porcelain max-w-[18ch]">
+              To be in touch with{" "}
+              <span className="serif-italic" style={{ color: hex }}>{person.name.split(" ")[0]}</span>
             </h2>
-          </Rise>
-          <Rise delay={0.1}>
-            <div className="text-ivory/75 space-y-1">
-              <p>
-                <a href={contact.emailHref} className="link-underline break-all">
-                  {contact.email}
-                </a>
-              </p>
-              <p>
-                <a href={contact.phoneHref} className="link-underline">
-                  {contact.phone}
-                </a>
-              </p>
-              <p className="text-ivory/55">{contact.hours}</p>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <div className="text-porcelain/75 space-y-1">
+              <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
+              <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
+              <p className="mono-label text-porcelain/50">{contact.hours}</p>
             </div>
-          </Rise>
+          </FadeUp>
         </div>
       </section>
     </>

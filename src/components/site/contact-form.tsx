@@ -7,6 +7,7 @@ import { toast } from "sonner";
 /**
  * Neutral contact form. Submits to an API route.
  * Uses neutral language only — no lead-generation framing.
+ * Editorial document-style fields with mono labels.
  */
 export function ContactForm() {
   const router = useRouter();
@@ -42,15 +43,15 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5" noValidate>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <form onSubmit={onSubmit} className="space-y-6" noValidate>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Field label="Full name" name="name" required />
         <Field label="Email address" name="email" type="email" required />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Field label="Phone number" name="phone" type="tel" />
         <div>
-          <label htmlFor="area" className="block eyebrow mb-2">
+          <label htmlFor="area" className="block mono-label text-ink/55 mb-2">
             Area of interest
           </label>
           <select
@@ -71,7 +72,7 @@ export function ContactForm() {
         </div>
       </div>
       <div>
-        <label htmlFor="message" className="block eyebrow mb-2">
+        <label htmlFor="message" className="block mono-label text-ink/55 mb-2">
           Message <span className="text-ink/40">*</span>
         </label>
         <textarea
@@ -94,7 +95,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-ink text-ivory text-sm font-semibold tracking-wide hover:bg-cobalt transition-colors duration-300 disabled:opacity-50"
+        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-ink text-porcelain text-sm font-semibold tracking-wide hover:bg-electric transition-colors duration-300 disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send message"}
         {!submitting && (
@@ -120,7 +121,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="block eyebrow mb-2">
+      <label htmlFor={name} className="block mono-label text-ink/55 mb-2">
         {label} {required && <span className="text-ink/40">*</span>}
       </label>
       <input

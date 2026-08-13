@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Rise } from "@/components/motion/reveal";
+import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 import { firm, contact } from "@/data/firm";
 
 /**
@@ -19,46 +19,49 @@ export function LegalLayout({
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-ivory pt-24 md:pt-32 pb-12 md:pb-16 overflow-hidden">
-        <div className="absolute inset-0 line-grid opacity-60" aria-hidden="true" />
-        <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
-          <Rise>
-            <p className="eyebrow mb-6">Legal · Informational</p>
-          </Rise>
+      <section className="relative bg-porcelain pt-10 md:pt-16 pb-12 md:pb-16 overflow-hidden border-b border-line">
+        <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+            <span className="mono-label text-ink/50">Legal · Informational</span>
+            <span className="folio text-ink/45">DOC</span>
+          </div>
+          <FadeUp>
+            <p className="mono-label text-ink/55 mb-6">Legal document</p>
+          </FadeUp>
           <h1 className="display-1 max-w-[16ch]">
-            <Rise>
+            <SheetReveal>
               <span className="block">{title}</span>
-            </Rise>
+            </SheetReveal>
           </h1>
-          <Rise delay={0.15}>
-            <p className="mt-6 text-sm text-ink/55">
+          <FadeUp delay={0.15}>
+            <p className="mt-6 mono-label text-ink/50">
               Last updated: {updated}
             </p>
-          </Rise>
-          <Rise delay={0.2}>
-            <div className="mt-8 max-w-2xl text-lg text-ink/70 leading-relaxed">
+          </FadeUp>
+          <FadeUp delay={0.2}>
+            <div className="mt-8 max-w-2xl lead text-ink/70">
               {intro}
             </div>
-          </Rise>
+          </FadeUp>
         </div>
       </section>
 
       {/* Body */}
-      <section className="bg-paper py-16 md:py-24 border-t border-line">
-        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+      <section className="bg-porcelain py-16 md:py-24">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
             {/* TOC */}
             <aside className="md:col-span-3">
               <div className="sticky top-24">
-                <p className="eyebrow mb-4">Contents</p>
+                <p className="mono-label text-ink/55 mb-4">Contents</p>
                 <ol className="space-y-2">
                   {sections.map((s, i) => (
                     <li key={s.id}>
                       <a
                         href={`#${s.id}`}
-                        className="link-underline text-sm text-ink/65 hover:text-ink"
+                        className="link-underline text-sm text-ink/65 hover:text-ink inline-flex items-baseline gap-2"
                       >
-                        <span className="text-ink/40 mr-2 tabular-nums">
+                        <span className="mono-num text-ink/40">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         {s.heading}
@@ -75,7 +78,7 @@ export function LegalLayout({
                 {sections.map((s, i) => (
                   <article key={s.id} id={s.id} className="scroll-mt-24">
                     <div className="flex items-baseline gap-4 mb-4">
-                      <span className="font-sans text-[0.7rem] tabular-nums text-ink/40">
+                      <span className="mono-num text-[0.7rem] text-ink/40">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <h2 className="display-3 text-2xl md:text-3xl">{s.heading}</h2>
@@ -89,7 +92,7 @@ export function LegalLayout({
 
               {/* Contact note */}
               <div className="mt-16 pt-8 border-t border-line">
-                <p className="eyebrow mb-3">Questions</p>
+                <p className="mono-label text-ink/55 mb-3">Questions</p>
                 <p className="text-sm text-ink/65 leading-relaxed max-w-xl">
                   For questions about this document, please contact {firm.name}{" "}
                   at{" "}

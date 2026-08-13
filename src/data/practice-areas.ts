@@ -10,7 +10,7 @@ export type PracticeArea = {
   short: string;
   overview: string;
   services: string[];
-  accent: "cobalt" | "vermilion" | "saffron" | "mint" | "violet" | "ink";
+  accent: "electric" | "vermilion" | "marigold" | "jade" | "aubergine" | "ink";
 };
 
 export const practiceAreas: PracticeArea[] = [
@@ -27,7 +27,7 @@ export const practiceAreas: PracticeArea[] = [
       "Board governance & compliance",
       "Corporate restructuring & reorganisation",
     ],
-    accent: "cobalt",
+    accent: "electric",
   },
   {
     slug: "commercial-contracts",
@@ -57,7 +57,7 @@ export const practiceAreas: PracticeArea[] = [
       "Regulatory filings & approvals",
       "Post-merger integration support",
     ],
-    accent: "violet",
+    accent: "aubergine",
   },
   {
     slug: "dispute-resolution",
@@ -72,7 +72,7 @@ export const practiceAreas: PracticeArea[] = [
       "Debt recovery & enforcement",
       "Pre-litigation advisory",
     ],
-    accent: "saffron",
+    accent: "marigold",
   },
   {
     slug: "regulatory-and-compliance",
@@ -87,7 +87,7 @@ export const practiceAreas: PracticeArea[] = [
       "Compliance programme design",
       "Liaison with regulatory authorities",
     ],
-    accent: "mint",
+    accent: "jade",
   },
   {
     slug: "insolvency-and-recovery",

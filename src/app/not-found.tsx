@@ -2,22 +2,21 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-ivory overflow-hidden">
-      <div className="absolute inset-0 line-grid opacity-60" aria-hidden="true" />
-      <div className="absolute inset-0 grain" aria-hidden="true" />
+    <section className="relative min-h-[70vh] flex items-center justify-center bg-porcelain overflow-hidden">
       <div className="relative z-10 text-center px-6 max-w-xl">
-        <p className="eyebrow mb-6">Error · 404</p>
-        <h1 className="display-1 text-ink">
-          Page not <span className="italic text-vermilion">found</span>
+        <p className="mono-label text-ink/55 mb-6">Error · 404</p>
+        <h1 className="display-mega text-ink">
+          Page not{" "}
+          <span className="serif-italic text-vermilion">found</span>
         </h1>
-        <p className="mt-8 text-lg text-ink/65 leading-relaxed">
+        <p className="lead mt-8 text-ink/65">
           The page you are looking for may have moved or does not exist. Please
           return to the homepage or use the navigation to continue.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 px-6 py-3.5 bg-ink text-ivory text-sm font-medium hover:bg-cobalt transition-colors duration-300"
+            className="group inline-flex items-center gap-2 px-6 py-3.5 bg-ink text-porcelain text-sm font-medium hover:bg-electric transition-colors duration-300"
           >
             <span>Return home</span>
             <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -30,6 +29,15 @@ export default function NotFound() {
           >
             Contact
           </Link>
+        </div>
+        {/* colour bar */}
+        <div className="mt-16 grid grid-cols-6 h-1.5 max-w-xs mx-auto">
+          <div className="bg-electric" />
+          <div className="bg-vermilion" />
+          <div className="bg-marigold" />
+          <div className="bg-jade" />
+          <div className="bg-aubergine" />
+          <div className="bg-ink" />
         </div>
       </div>
     </section>

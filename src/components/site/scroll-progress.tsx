@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 /**
- * Thin scroll-progress indicator fixed to the top of the viewport.
+ * Editorial scroll progress — a thin electric-blue rule at the top
+ * of the viewport that grows as the user reads down the "document".
  */
 export function ScrollProgress() {
   const [progress, setProgress] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
       const h = document.documentElement;
       const scrollTop = h.scrollTop || document.body.scrollTop;
-      const max = (h.scrollHeight - h.clientHeight) || 1;
+      const max = h.scrollHeight - h.clientHeight || 1;
       setProgress(Math.min(1, Math.max(0, scrollTop / max)));
     };
     onScroll();
@@ -22,7 +25,7 @@ export function ScrollProgress() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div
@@ -30,8 +33,8 @@ export function ScrollProgress() {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-gradient-to-r from-cobalt via-violet to-vermilion origin-left transition-transform duration-75 ease-out"
-        style={{ transform: `scaleX(${progress})` }}
+        className="h-full bg-electric origin-left"
+        style={{ transform: `scaleX(${progress})`, transition: "transform 0.08s linear" }}
       />
     </div>
   );
