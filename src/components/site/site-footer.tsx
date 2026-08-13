@@ -1,11 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { footerNav, legalNav } from "@/data/navigation";
 import { firm, contact, legalPages } from "@/data/firm";
 
 export function SiteFooter() {
-  const year = new Date().getFullYear().toString();
+  // Compute the year only after mount. The sandbox server clock and the
+  // visitor's browser clock can disagree (different timezones, or a skewed
+  // server date), and calling `new Date().getFullYear()` during render would
+  // embed one value in the SSR HTML and another during client hydration,
+  // triggering a hydration error. Empty on the first client render so it
+  // matches the server, then filled in post-mount.
+  const [year, setYear] = useState("");
+
+  useEffect(() => {
+    setYear(String(new Date().getFullYear()));
+  }, []);
 
   return (
     <footer className="mt-auto bg-ink text-ivory relative overflow-hidden">
@@ -130,7 +141,7 @@ export function SiteFooter() {
             </Link>
           </div>
           <p className="text-[0.72rem] text-ivory/40">
-            © {year} {firm.name}. All rights reserved.
+            ©{year ? ` ${year} ` : " "}{firm.name}. All rights reserved.
           </p>
         </div>
 

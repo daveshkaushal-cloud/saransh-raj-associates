@@ -187,3 +187,48 @@ Stage Summary:
 - Page is never trapped: at scroller boundaries the page scrolls naturally.
 - Touch devices and reduced-motion users keep native scroll (hook bails).
 - Verified end-to-end: 1 wheel = 1 tile (368px), lock prevents jumps, arrows consistent, boundaries safe, drag coexists. Lint clean, no runtime errors.
+
+---
+Task ID: 6
+Agent: main (orchestrator)
+Task: Fix React hydration error ("server rendered HTML didn't match the client")
+
+Work Log:
+- User reported a Recoverable hydration error with the standard React message listing causes (server/client branch, Date.now/Math.random, date formatting in user locale, etc.)
+- Checked dev.log (server-side logs don't capture client hydration errors). Reproduced via Agent Browser — console was clean in the sandbox because the sandbox browser shares the server's environment.
+- Grepped the codebase for common hydration offenders (Math.random, Date.now, new Date(), toLocaleString, typeof window):
+  - site-footer.tsx line 8: `const year = new Date().getFullYear().toString();` — computed during render of a Client Component
+  - preloader.tsx: `typeof window !== "undefined"` — inside useEffect (safe)
+  - sitemap.ts: `new Date()` — server route, not hydration concern
+  - chart.tsx/calendar.tsx/sidebar.tsx: shadcn internals, not used on rendered pages
+- Confirmed the root cause:
+  - Sandbox server clock is UTC and set to 2026-08-13 (verified via `date`)
+  - User's browser is in Asia/Calcutta (UTC+5:30) and shows the real current date
+  - SiteFooter is a Client Component ("use client") imported directly by SiteShell (also "use client"), so it renders on BOTH server and client
+  - `new Date().getFullYear()` during render → server embeds `© 2026` in the SSR HTML, client hydrates expecting `© 2025` (its real year) → text node mismatch → hydration error
+  - This is exactly the "Date formatting in a user's locale which doesn't match the server" cause from the error message
+- Could not make SiteFooter a Server Component (it's imported by a client boundary, so it's forced into the client bundle regardless of its own directive). Applied the standard mount-guard pattern instead:
+  - `const [year, setYear] = useState("")` — empty on server AND initial client render (guaranteed match)
+  - `useEffect(() => setYear(String(new Date().getFullYear())), [])` — fills in after mount
+  - Copyright line renders `©{year ? \` ${year} \` : " "}{firm.name}. All rights reserved.` — no year during hydration pass, year appears post-mount
+- Audited other client components for the same class of bug:
+  - DisclaimerGate: uses mounted flag correctly (accepted=true, mounted=false initially → showGate=false on both server and client; sessionStorage read in useEffect) — safe
+  - Preloader: progress=0 initial on both sides, animates in useEffect — safe
+  - CustomCursor: enabled=false initial, set true in useEffect — safe
+  - HeroVisual: canvas draws in useEffect, render output stable — safe
+  - SiteHeader: scrolled=false, open=false initial, updated in useEffect — safe
+  - ScrollProgress: progress=0 initial, updated in useEffect — safe
+  - Rise/MaskReveal/Magnetic: useReducedMotion returns null on both server and initial client render → same ternary branch — safe
+- Lint clean (bun run lint — no errors)
+
+Verification (Agent Browser):
+- Confirmed server-rendered HTML for the copyright line: `©<!-- --> <!-- -->Saransh Raj & Associates<!-- -->. All rights reserved` — NO year present (React empty-text-node placeholders where year would be). This is the key: the date-derived value is absent from the hydration pass entirely.
+- After mount (useEffect ran): DOM shows `© 2026 Saransh Raj & Associates. All rights reserved.` — year filled in cleanly via state update (React handles post-mount state changes without hydration concern).
+- Checked all 9 routes for hydration errors (errors + console grep for "hydrat|server rendered|didn't match"): /firm, /expertise, /sectors, /people, /insights, /contact, /disclaimer, /terms, /privacy → ALL 0 errors, 0 console warnings.
+- dev.log: clean 200 responses across all pages, no runtime errors.
+
+Stage Summary:
+- Root cause: SiteFooter (a Client Component) called `new Date().getFullYear()` during render. The sandbox server clock (UTC, set to 2026) and the user's browser clock (Asia/Calcutta, real date) produce different years, so the SSR HTML contained `© 2026` while the client expected `© 2025` → hydration text-node mismatch.
+- Fix: mount-guard pattern — year is empty string during SSR and initial client render (guaranteed identical), then set via useEffect after mount. The date-derived value never participates in the hydration pass, so no mismatch is possible regardless of server/client clock skew or timezone.
+- Audited all other client components — none have the same render-time date/random/window-branch bug.
+- Verified: 0 hydration errors across all 9 pages. Lint clean, no runtime errors.
