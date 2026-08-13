@@ -11,7 +11,6 @@ import { InsightsPreview } from "@/components/site/insights-preview";
 import { MaskReveal, Rise } from "@/components/motion/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import { firm, contact } from "@/data/firm";
-import { sectors } from "@/data/sectors";
 
 export default function HomePage() {
   const reduce = useReducedMotion();
@@ -169,25 +168,7 @@ export default function HomePage() {
               </Link>
             </Rise>
           </div>
-          <SectorGrid />
-
-          {/* Inline marquee of sector names */}
-          <div className="mt-14 overflow-hidden marquee-paused border-y border-line">
-            <div className="marquee-track py-5" style={{ ["--marquee-duration" as string]: "48s" }}>
-              {Array.from({ length: 2 }).map((_, dup) => (
-                <span key={dup} className="inline-flex items-center">
-                  {sectors.map((s, i) => (
-                    <span key={`${dup}-${i}`} className="inline-flex items-center">
-                      <span className="font-display text-2xl md:text-3xl text-ink/70 px-5">
-                        {s.name}
-                      </span>
-                      <span className="inline-block h-1 w-1 rounded-full bg-cobalt mx-1" />
-                    </span>
-                  ))}
-                </span>
-              ))}
-            </div>
-          </div>
+          <SectorGrid variant="scroller" />
         </div>
       </section>
 
