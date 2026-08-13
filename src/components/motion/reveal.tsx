@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { type ReactNode } from "react";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * Masked headline reveal. Animates each line upwards from a mask.
@@ -18,7 +19,7 @@ export function MaskReveal({
   className?: string;
   as?: "div" | "h1" | "h2" | "h3" | "p" | "span";
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
   const MotionTag = motion[As] as typeof motion.div;
   return (
     <MotionTag
@@ -53,7 +54,7 @@ export function Rise({
   y?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
   return (
     <motion.div
       className={className}

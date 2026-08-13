@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 import { firm } from "@/data/firm";
 
 /**
@@ -9,7 +10,7 @@ import { firm } from "@/data/firm";
  * Pinned sequence with progressive paragraph reveals and a colour-field transition.
  */
 export function PhilosophyNarrative() {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,

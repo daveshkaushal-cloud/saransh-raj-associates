@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 import { HeroVisual } from "@/components/site/hero-visual";
 import { HorizontalExpertise } from "@/components/site/horizontal-expertise";
 import { SectorGrid } from "@/components/site/sector-grid";
@@ -13,7 +14,7 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { firm, contact } from "@/data/firm";
 
 export default function HomePage() {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
 
   return (
     <>

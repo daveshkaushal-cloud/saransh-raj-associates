@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * Magnetic wrapper: gently pulls its child toward the cursor on hover.
@@ -17,7 +18,7 @@ export function Magnetic({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
 
   function onMove(e: React.MouseEvent) {
     if (reduce || !ref.current) return;

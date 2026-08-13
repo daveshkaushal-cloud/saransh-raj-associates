@@ -232,3 +232,59 @@ Stage Summary:
 - Fix: mount-guard pattern — year is empty string during SSR and initial client render (guaranteed identical), then set via useEffect after mount. The date-derived value never participates in the hydration pass, so no mismatch is possible regardless of server/client clock skew or timezone.
 - Audited all other client components — none have the same render-time date/random/window-branch bug.
 - Verified: 0 hydration errors across all 9 pages. Lint clean, no runtime errors.
+
+---
+Task ID: 7
+Agent: main (orchestrator)
+Task: Fix remaining hydration error — server rendered HTML didn't match the client (reported still present after Task 6 footer fix)
+
+Work Log:
+- User reported the hydration error was still present after the Task 6 SiteFooter year fix. The sandbox browser showed no errors because it shares the server's environment (no clock skew, no reduced-motion preference by default), so the previous verification couldn't catch this class of bug.
+- Systematically audited every client component for SSR/client render-time divergence. Grepped for useReducedMotion, typeof window, matchMedia, Math.random, Date.now, new Date(), localStorage, sessionStorage, navigator.
+- Inspected framer-motion's installed source (v12.26.2) to confirm the exact behaviour of useReducedMotion():
+    // framer-motion/dist/framer-motion.dev.js
+    const prefersReducedMotion = { current: null };          // module-level mutable
+    function initPrefersReducedMotion() {
+        if (!isBrowser) return;                               // SSR no-op → stays null
+        const mq = window.matchMedia("(prefers-reduced-motion)");
+        prefersReducedMotion.current = mq.matches;            // client: true/false immediately
+    }
+    function useReducedMotion() {
+        !hasReducedMotionListener.current && initPrefersReducedMotion();
+        const [shouldReduceMotion] = React.useState(prefersReducedMotion.current);
+        return shouldReduceMotion;                            // SSR: null, client: true|false
+    }
+  This is the smoking gun: useReducedMotion() returns `null` during SSR but returns the real `true`/`false` on the client's FIRST render (via lazy useState init from a module-level mutable that matchMedia populates synchronously). Any component that branches on this value renders different markup/style on server vs client for users with prefers-reduced-motion: reduce.
+- Identified 5 components that conditionally render or set different initial/style based on `reduce` at render time (the actual hydration offenders):
+    1. horizontal-expertise.tsx — `{!reduce && (<desktop pinned track/>)}` renders the entire desktop experience on server (reduce=null=falsy) but omits it on client when reduce=true → entire subtree mismatch
+    2. char-reveal.tsx — `if (reduce) return <span>{text}</span>` returns completely different JSX (plain span vs character-split spans) → severe content mismatch
+    3. reveal.tsx (MaskReveal + Rise) — `initial={reduce ? {opacity:0} : {opacity:0, y}}` sets a different framer-motion initial style → inline style attribute mismatch on the motion.div/h2/h3 element
+    4. philosophy-narrative.tsx — `style={reduce ? undefined : { y: yBg, opacity }}` toggles the entire style object between undefined and a MotionValue object → style attribute mismatch
+    5. page.tsx (HomePage) — same `initial={reduce ? {opacity:0} : {opacity:0, y:N}}` pattern on 4 motion elements in the hero → inline style mismatch
+  Also updated 2 components that use useReducedMotion only inside event handlers / useEffect (hero-visual.tsx, magnetic.tsx) — they were already SSR-safe but were migrated for consistency so no future refactor accidentally introduces a render-time branch.
+- Created src/components/motion/use-mounted-reduced-motion.ts — a drop-in SSR-safe replacement:
+    export function useMountedReducedMotion(): boolean {
+      const reduce = useReducedMotion();
+      const [mounted, setMounted] = useState(false);
+      useEffect(() => setMounted(true), []);
+      return mounted ? Boolean(reduce) : false;
+    }
+  Returns `false` during SSR AND the client's first render (guaranteed to match the server's null-as-falsy behaviour), then flips to the real preference after mount. Components that branch on the returned value render identical markup on both sides and only diverge after a post-mount state update — which React handles cleanly with no hydration error.
+- Replaced all 7 `useReducedMotion()` call sites across the codebase with `useMountedReducedMotion()`. Grep confirms zero remaining `useReducedMotion` imports from framer-motion in any component (only the new hook file imports it, which is correct).
+- Lint clean (bun run lint — no errors).
+
+Verification (Agent Browser with prefers-reduced-motion emulated):
+- Set browser media to "reduce" to reproduce the exact condition that triggered the user's hydration error (server renders animated branch because reduce=null=falsy; client renders reduced branch because reduce=true).
+- Clean first visit (close → open) to http://localhost:3000/ with reduced motion ON:
+    console: only React DevTools info + HMR connected (no hydration warning, no "server rendered HTML didn't match" message)
+    errors: none
+    page errors: none
+- Accepted disclaimer gate, verified homepage renders all sections (hero, introduction, expertise explorer, sectors, philosophy narrative, principles, people, insights, contact) — full content present, reduced-motion fallbacks active.
+- Checked all 9 routes with reduced motion ON: /, /firm, /expertise, /sectors, /people, /insights, /contact, /disclaimer, /terms, /privacy — ALL clean (0 hydration errors, 0 page errors). Only non-fatal framer-motion "container position" warnings (pre-existing, cosmetic).
+- Switched media back to "no-preference" and did a clean first visit — also clean (0 errors), confirming the fix doesn't break the default animated experience.
+- dev.log: all routes return 200, no runtime errors.
+
+Stage Summary:
+- Root cause: framer-motion's useReducedMotion() returns `null` during SSR but `true`/`false` on the client's first render (it reads window.matchMedia during lazy useState init). 5 components conditionally rendered or set different initial/style based on this value, producing a hydration mismatch for any user with prefers-reduced-motion: reduce enabled. The Task 6 footer fix was correct but only addressed the date-derived mismatch; this is a separate, additional cause that the sandbox browser couldn't catch (it doesn't emulate reduced motion by default).
+- Fix: created useMountedReducedMotion() hook that returns `false` on SSR + first client render (matching server), then the real value post-mount. Replaced all 7 call sites.
+- Verified: 0 hydration errors across all 10 routes with reduced motion ON, and 0 errors with reduced motion OFF. Lint clean, no runtime errors.

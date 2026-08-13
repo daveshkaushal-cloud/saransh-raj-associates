@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * Pinned horizontal expertise explorer.
@@ -19,7 +20,7 @@ import { accentHex } from "@/lib/accents";
  * users who prefer reduced motion.
  */
 export function HorizontalExpertise() {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 

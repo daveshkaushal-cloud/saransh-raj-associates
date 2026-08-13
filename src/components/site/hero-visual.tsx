@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * Original animated hero visual — abstract interpretation of legal
@@ -11,7 +11,7 @@ import { useReducedMotion } from "framer-motion";
  */
 export function HeroVisual() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * Character-by-character text reveal for kinetic typography.
@@ -17,7 +18,7 @@ export function CharReveal({
   delay?: number;
   stagger?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useMountedReducedMotion();
   if (reduce) {
     return <span className={className}>{text}</span>;
   }
