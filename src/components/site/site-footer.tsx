@@ -4,55 +4,75 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { footerNav, legalNav } from "@/data/navigation";
 import { firm, contact, legalPages } from "@/data/firm";
+import { practiceAreas } from "@/data/practice-areas";
+import { accentHex } from "@/lib/accents";
 
 /**
- * Document-style footer: a colour-blocked colophon with a marquee of
- * practice areas, a contact panel, legal links and a non-solicitation
- * notice. Year is mount-guarded to avoid SSR/client clock mismatch.
+ * Document-style footer: a colour-blocked colophon with a complete
+ * practice-areas index (each marked with its own accent colour),
+ * a contact panel, legal links and a non-solicitation notice.
+ * Year is mount-guarded to avoid SSR/client clock mismatch.
  */
 export function SiteFooter() {
   const [year, setYear] = useState("");
   useEffect(() => setYear(String(new Date().getFullYear())), []);
 
   const palette: { label: string; hex: string }[] = [
-    { label: "Electric", hex: "#2457FF" },
-    { label: "Vermilion", hex: "#FF493D" },
-    { label: "Marigold", hex: "#FFB000" },
-    { label: "Jade", hex: "#17B890" },
-    { label: "Aubergine", hex: "#673DE6" },
-    { label: "Ink", hex: "#0B1020" },
+    { label: "Electric", hex: accentHex.electric },
+    { label: "Vermilion", hex: accentHex.vermilion },
+    { label: "Marigold", hex: accentHex.marigold },
+    { label: "Jade", hex: accentHex.jade },
+    { label: "Aubergine", hex: accentHex.aubergine },
+    { label: "Ink", hex: accentHex.ink },
   ];
 
   return (
     <footer className="mt-auto bg-ink text-porcelain relative overflow-hidden">
-      {/* Marquee strip — practice areas as a running editorial header */}
-      <div className="relative border-b border-line-on-ink overflow-hidden">
-        <div className="flex">
-          <div className="marquee-track py-5 md:py-7 shrink-0">
-            {Array.from({ length: 2 }).map((_, dup) => (
-              <span key={dup} className="inline-flex items-center">
-                {["Corporate Advisory", "Commercial Contracts", "Mergers & Acquisitions", "Dispute Resolution", "Regulatory & Compliance", "Insolvency & Recovery"].map((t, i) => (
-                  <span key={`${dup}-${i}`} className="inline-flex items-center">
-                    <span className="font-display text-3xl md:text-5xl text-porcelain/90 px-5">{t}</span>
-                    <span className="inline-block h-1.5 w-1.5 bg-marigold mx-2" aria-hidden="true" />
-                  </span>
-                ))}
-              </span>
-            ))}
+      {/* Practice-areas index — complete, non-truncated editorial header.
+          Each area is marked with its own accent colour, reinforcing the
+          "Arguments in Colour" identity. All six chapters are always visible. */}
+      <div className="relative border-b border-line-on-ink">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 py-8 md:py-12">
+          <div className="flex items-baseline justify-between gap-6 mb-6 md:mb-8">
+            <p className="mono-label text-porcelain/50">
+              Practice Areas
+            </p>
+            <p className="mono-num text-porcelain/40">
+              06 chapters
+            </p>
           </div>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-6">
+            {practiceAreas.map((area) => {
+              // The "ink" accent matches the footer background, so render it
+              // as a porcelain-outlined hollow square — the foundation chapter.
+              const isInk = area.accent === "ink";
+              return (
+                <li key={area.slug}>
+                  <Link
+                    href={`/expertise/${area.slug}`}
+                    className="group inline-flex items-center gap-3"
+                  >
+                    <span
+                      className={
+                        "inline-block h-2.5 w-2.5 shrink-0 transition-transform duration-300 group-hover:scale-125 " +
+                        (isInk ? "border border-porcelain/70" : "")
+                      }
+                      style={
+                        isInk
+                          ? { background: "transparent" }
+                          : { background: accentHex[area.accent] }
+                      }
+                      aria-hidden="true"
+                    />
+                    <span className="font-display text-2xl md:text-4xl text-porcelain/90 leading-none transition-colors duration-300 group-hover:text-porcelain">
+                      {area.title}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <style>{`
-          .marquee-track {
-            display: inline-flex;
-            white-space: nowrap;
-            will-change: transform;
-            animation: footer-marquee 38s linear infinite;
-          }
-          @keyframes footer-marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-          }
-        `}</style>
       </div>
 
       {/* Palette swatches — colour identity strip */}

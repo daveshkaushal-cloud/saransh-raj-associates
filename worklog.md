@@ -350,3 +350,37 @@ Stage Summary:
 - Custom graphic language: document margins, folio numbers, annotation brackets, colour-bar indices, architectural rules, paper grain texture, "living document" motion (sheet reveals, rule draws, crop reveals, folio scroll).
 - Removed: oversized glowing cursor (replaced with restrained 2px bar), clichéd legal imagery (gavels/scales/pillars), glassmorphism, generic gradients, uniform bordered cards, repetitive beige sections.
 - VLM-confirmed 9/10: "concept-driven, art-directed," "unmistakably bespoke," passes the "could this belong to any other AI law-firm site?" test on every page.
+
+---
+Task ID: 9
+Agent: main (orchestrator)
+Task: Fix incomplete footer — "Mergers & Acqui..." truncated in the practice-areas marquee
+
+Work Log:
+- User reported (with screenshot) that the footer was "not complete" — "Mergers & Acqui" was cut off mid-word in the top strip of the footer.
+- Inspected the screenshot via VLM: confirmed the footer's top strip showed "Corporate Advisory · Commercial Contracts · Mergers & Acquis..." with the third item truncated at the right viewport edge.
+- Inspected src/components/site/site-footer.tsx: the top strip was an infinite CSS marquee (`.marquee-track` with `animation: footer-marquee 38s linear infinite; translateX(0 → -50%)`). The marquee contained 2 duplicates of the 6 practice-area names in large serif type.
+- Verified via Agent Browser that the marquee animation WAS technically running (animationName=footer-marquee, animationPlayState=running, transform=translateX(-467px) at capture). The truncation was the normal behaviour of a scrolling marquee — at any given moment some text is scrolled off-screen — but it read as "broken/incomplete" to the user.
+- Decision: replace the infinite marquee with a STATIC, complete practice-areas index so every chapter is always fully visible. This preserves the editorial "Arguments in Colour" aesthetic while eliminating the truncation.
+- Rewrote the footer's top strip:
+  - Removed the `.marquee-track` div, the inline `<style>` keyframes, and the hardcoded practice-area string array.
+  - Added a header row: "Practice Areas" (mono label) on the left, "06 chapters" (mono num) on the right.
+  - Added a wrapping flex `<ul>` that maps over `practiceAreas` from data (single source of truth — no more hardcoded duplicate of the list).
+  - Each item is a `<Link href={/expertise/[slug]}>` containing an accent-coloured square marker + the area title in `font-display` (text-2xl mobile / text-4xl desktop).
+  - Each marker uses the area's own accent colour via `accentHex[area.accent]` (electric=blue, vermilion=red, aubergine=purple, marigold=gold, jade=teal) — reinforcing the "each practice area has its own colour" identity system.
+  - Special-cased the "ink" accent (Insolvency & Recovery): since ink (#0B1020) matches the footer background, its marker is rendered as a porcelain-outlined hollow square instead of an invisible solid fill.
+  - Hover: marker scales 1.25×, title brightens to full porcelain.
+- Kept the palette swatch strip, brand/chapters/office columns, legal links, mount-guarded copyright year, and non-solicitation notice unchanged.
+- Lint clean (bun run lint — no errors).
+
+Verification (Agent Browser + VLM):
+- Desktop (1440×900) homepage footer: VLM confirms all 6 practice areas fully visible with NO truncation. "Mergers & Acquisitions" appears in full. Each area has its accent-coloured marker (blue/red/purple/gold/teal), and Insolvency & Recovery has a visible hollow outlined marker.
+- Mobile (390×844) full-page: VLM confirms all 6 practice areas fully visible, list wraps cleanly to a vertical stack, "Mergers & Acquisitions" fully readable.
+- Firm page (/firm) footer: VLM confirms all 6 areas fully visible, "Mergers & Acquisitions" complete.
+- Interactivity: clicked "Mergers & Acquisitions" in the footer → navigated correctly to /expertise/mergers-and-acquisitions.
+- Console: 0 hydration errors, 0 runtime errors, 0 page errors (only React DevTools info + HMR connected).
+
+Stage Summary:
+- Root cause: the footer's top strip was an infinite CSS marquee. At any given scroll position, practice-area names were cut off at the viewport edge — "Mergers & Acqui..." — which read as an incomplete/broken footer to the user, even though the animation was running.
+- Fix: replaced the marquee with a static, complete practice-areas index. All 6 chapters are now always fully visible, each marked with its own accent colour (reinforcing the "Arguments in Colour" identity). The "ink"-accented chapter (Insolvency & Recovery) uses a porcelain-outlined hollow marker so it's visible against the ink background. The list is now data-driven (maps over `practiceAreas`) instead of a hardcoded duplicate string array.
+- Verified on desktop + mobile + firm page: all 6 areas fully visible, no truncation, links work, no errors.
