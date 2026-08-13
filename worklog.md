@@ -384,3 +384,33 @@ Stage Summary:
 - Root cause: the footer's top strip was an infinite CSS marquee. At any given scroll position, practice-area names were cut off at the viewport edge — "Mergers & Acqui..." — which read as an incomplete/broken footer to the user, even though the animation was running.
 - Fix: replaced the marquee with a static, complete practice-areas index. All 6 chapters are now always fully visible, each marked with its own accent colour (reinforcing the "Arguments in Colour" identity). The "ink"-accented chapter (Insolvency & Recovery) uses a porcelain-outlined hollow marker so it's visible against the ink background. The list is now data-driven (maps over `practiceAreas`) instead of a hardcoded duplicate string array.
 - Verified on desktop + mobile + firm page: all 6 areas fully visible, no truncation, links work, no errors.
+
+---
+Task ID: 10
+Agent: main (orchestrator)
+Task: Fix excessive blank space in homepage "§ 02 · Expertise" (PracticeIndex) section — make it compact and readable
+
+Work Log:
+- User reported (with screenshot) that the "§ 02 · Expertise" section on the homepage had "too many blank space" and needed to be "compact so it is good to see for someone who can read that."
+- Used VLM to analyze the user's screenshot: confirmed the PracticeIndex section (§ 02 · Expertise) with headline "A focused practice across corporate & commercial law". The headline occupied only the left ~40% of the viewport (col-span-5), wrapped to multiple lines in its narrow column, and the right ~55% was empty except for a small description paragraph bottom-aligned at the far right. Large top/bottom padding (128px each) added further vertical emptiness.
+- Located the section in src/app/page.tsx → PracticeIndex() function (lines ~330-396).
+- Measured the original section: height=1450px, paddingTop=128px (py-32), paddingBottom=128px. Header grid was col-span-5 (headline) + col-span-6 col-start-7 (description, items-end aligned), mb-12.
+- Redesigned the header for compactness and readability:
+  - Reduced section vertical padding: py-20 md:py-32 → py-14 md:py-20 (128px → 80px).
+  - Widened the headline column: col-span-5 → col-span-8, with max-w-[20ch] so the headline breathes but doesn't stretch absurdly wide. The headline now wraps to fewer lines.
+  - Narrowed the description column: col-span-6 → col-span-4, with md:pl-4 lg:pl-6 and md:self-end so it sits at the baseline of the headline (natural editorial alignment) instead of being pushed to the far edge.
+  - Tightened the gap between header and chapter list: mb-12 → mb-8 md:mb-10.
+  - Tightened the chapter row vertical padding: py-6 md:py-7 → py-5 md:py-6.
+  - Reduced header grid gap: gap-8 → gap-6 md:gap-8.
+- Lint clean (bun run lint — no errors).
+
+Verification (Agent Browser + VLM):
+- Measured new section: height=1031px (down from 1450px — 29% more compact), padding=80px (down from 128px).
+- Desktop (1440×900) screenshot: VLM confirms "blank space is now reasonable and balanced", headline is "highly readable and well-positioned", 5 of 6 practice-area chapters visible in the viewport, section "feels compact yet spacious — excellent for readability." The right-side empty area is gone because the headline now spans 8 columns and the description sits closer to it.
+- Mobile (390×844): VLM confirms headline fully readable (wraps cleanly to 3 lines), layout compact and clean, no truncation, no horizontal overflow, list items display correctly.
+- Console: 0 hydration errors, 0 runtime errors, 0 page errors.
+
+Stage Summary:
+- Root cause: the PracticeIndex section header used a 5/6 column split with bottom-aligned description, leaving the headline crammed into a narrow left column (wrapping heavily) and a large empty top-right area. Combined with 128px top/bottom padding and a 48px gap, the section felt sparse and unbalanced.
+- Fix: widened the headline to 8 columns (fewer line wraps), moved the description to 4 columns with self-end alignment (sits at the headline baseline, closer to the text), reduced padding to 80px, tightened the header-to-list gap and row padding. Section is now 29% shorter (1450→1031px) and visually balanced.
+- Verified on desktop + mobile: compact, readable, no errors.

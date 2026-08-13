@@ -329,22 +329,22 @@ export default function HomePage() {
    --------------------------------------------------------------- */
 function PracticeIndex() {
   return (
-    <section className="relative bg-porcelain py-20 md:py-32 border-b border-line">
+    <section className="relative bg-porcelain py-14 md:py-20 border-b border-line">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-          <div className="md:col-span-5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-8 md:mb-10">
+          <div className="md:col-span-8">
             <FadeUp>
               <p className="mono-label text-ink/55 mb-3">§ 02 · Expertise</p>
-              <h2 className="display-2">
+              <h2 className="display-2 max-w-[20ch]">
                 A focused practice across{" "}
                 <span className="serif-italic text-electric">corporate</span> &amp;{" "}
                 <span className="serif-italic text-vermilion">commercial</span> law
               </h2>
             </FadeUp>
           </div>
-          <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
+          <div className="md:col-span-4 md:pl-4 lg:pl-6 md:self-end">
             <FadeUp delay={0.1}>
-              <p className="body-condensed text-ink/60 max-w-md">
+              <p className="body-condensed text-ink/60 max-w-sm">
                 Six areas of practice, each a chapter of the firm&apos;s work.
                 Select a chapter to read its scope and services.
               </p>
@@ -360,7 +360,7 @@ function PracticeIndex() {
               <FadeUp key={area.slug} delay={i * 0.05}>
                 <Link
                   href={`/expertise/${area.slug}`}
-                  className="group relative grid grid-cols-12 gap-4 items-center py-6 md:py-7 border-b border-line hover:bg-paper transition-colors"
+                  className="group relative grid grid-cols-12 gap-4 items-center py-5 md:py-6 border-b border-line hover:bg-paper transition-colors"
                 >
                   {/* colour field that expands on hover */}
                   <span
