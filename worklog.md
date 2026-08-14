@@ -589,3 +589,33 @@ Stage Summary:
 - People section latent white-on-accent bugs fixed (would have broken on marigold/jade accents).
 - Footer ink-accent marker made visible (hollow porcelain-outlined square).
 - Verified: 13 routes, 6 accordion states, 7 viewport widths (320–1920px), 0 hydration errors, 0 contrast issues, lint clean.
+
+---
+Task ID: 11-verify
+Agent: main (orchestrator)
+Task: Re-verification of Task 11 (URGENT colour & readability correction) after context continuation — confirm the cool blue-grey migration is intact and the Expertise accordion bug remains fixed.
+
+Work Log:
+- Read worklog.md to recover Task 11 context (previous session completed the full 8-point colour correction).
+- Verified dev server running (next-server v16.1.3, PID 16643) with all 13 routes returning 200 in dev.log.
+- ripgrep confirmed ZERO remaining instances of beige/porcelain hexes (#F3EFE5, #F5F0E7, #FBF9F2, #E9E3D4) or old accent hexes (#FF493D, #FFB000, #17B890, #673DE6) anywhere in src/ or public/.
+- bun run lint passes clean (no errors).
+- Agent Browser verification (viewport 1440×900):
+  • Body computed style: background rgb(226,232,242) = #E2E8F2 (cool blue-grey ✓), color rgb(11,16,32) = #0B1020 (midnight ink ✓).
+  • Homepage 8 sections inspected: Hero/Intro/PracticeIndex/People = #E2E8F2 + #0B1020 text; Sectors = #F8FAFD paper + #0B1020 text; Marquee + Principles = #0B1020 ink + #E2E8F2 light text. Section architecture matches spec exactly.
+  • Expertise page — ALL 6 accordion states programmatically inspected (clicked each chapter, read computed styles):
+    - Corporate Advisory (electric #2457FF): header white text on blue ✓; panel #C9D7F2 + body #273047 + heading #0B1020 ✓
+    - Commercial Contracts (vermilion #D94038): header white on red ✓; panel #F2C9CD + dark text ✓
+    - Mergers & Acquisitions (aubergine #5E3FD3): header white on violet ✓; panel #D2C7F0 + dark text ✓
+    - Dispute Resolution (marigold #FFC247): header INK #0B1020 on amber (correctly dark on light!) ✓; panel #FFE5B0 + dark text ✓
+    - Regulatory & Compliance (jade #087E68): header white on teal ✓; panel #C2DED5 + dark text ✓
+    - Insolvency & Recovery (ink #0B1020): header #F8FAFD light on navy ✓; panel #C9D7F2 + dark text ✓ (ink accent soft tint = light blue, not a second dark surface)
+  • Console: 0 errors, 0 hydration warnings (only Fast Refresh / HMR / React DevTools info).
+  • VLM visual verification of expertise page screenshot: confirmed (1) background is cool blue-grey not beige, (2) all text readable with strong contrast, (3) expanded accordion panel shows DARK body text on light-tinted background — NO white-on-light invisibility, (4) headings and body text all highly legible.
+
+Stage Summary:
+- Task 11 (URGENT COLOUR AND READABILITY CORRECTION) is fully intact and verified after context continuation. No regression.
+- The beige/cream/ivory "porcelain" system is completely gone (0 hex instances remain). The cool blue-grey palette (#E2E8F2 / #F8FAFD / #0B1020 / #B7C2D2) is live across all 13 routes.
+- The critical Expertise accordion bug (white text inheriting into light expanded-content panels) is structurally eliminated: every expanded panel now uses explicit dark text (#273047 body / #0B1020 headings / #46536B metadata) on per-accent light-tint backgrounds. Verified across all 6 chapters.
+- Centralised design tokens in globals.css :root (--background-*, --text-*, --border-*) remain the single source of truth; all components reference them via existing Tailwind classes (bg-porcelain, text-ink, border-line) which resolve to the new cool palette.
+- Lint clean, dev server healthy, 0 console errors, VLM-confirmed readability. Task is complete.
