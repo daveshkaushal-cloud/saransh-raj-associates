@@ -3,6 +3,7 @@ import Link from "next/link";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
 import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
+import { SectorList } from "@/components/site/sector-list";
 
 export const metadata: Metadata = {
   title: "Sectors",
@@ -54,25 +55,24 @@ export default function SectorsPage() {
       {/* ============== Sector index — compact annotated list ============== */}
       <section className="bg-porcelain py-16 md:py-24 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          {/* header row */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
-            <div className="md:col-span-4">
-              <FadeUp>
-                <p className="mono-label text-ink/55 mb-3">§ The index</p>
-                <h2 className="display-2 max-w-[14ch]">
-                  Ten sectors, one integrated practice
-                </h2>
-              </FadeUp>
-            </div>
-            <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
-              <FadeUp delay={0.1}>
-                <p className="body-condensed text-ink/60 max-w-md">
-                  Each sector is colour-coded to the practice area most active
-                  within it. The notes below describe the type of work the firm
-                  carries — specific engagements are not published on this page.
-                </p>
-              </FadeUp>
-            </div>
+          {/* header — stacked so the heading breaks into exactly two lines
+              and there is no wide horizontal gap beside it */}
+          <div className="mb-10">
+            <FadeUp>
+              <p className="mono-label text-ink/55 mb-3">§ The index</p>
+              <h2 className="display-2">
+                Ten sectors,
+                <br />
+                one integrated practice
+              </h2>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <p className="body-condensed text-ink/60 max-w-md mt-6">
+                Each sector is colour-coded to the practice area most active
+                within it. Select any sector to read how the firm works within
+                it — specific engagements are not published on this page.
+              </p>
+            </FadeUp>
           </div>
 
           {/* colour legend */}
@@ -101,63 +101,8 @@ export default function SectorsPage() {
             </div>
           </FadeUp>
 
-          {/* annotated rows — uniform, compact, scannable */}
-          <div className="border-t border-line">
-            {sectors.map((sector, i) => {
-              const hex = accentHex[sector.accent as Accent];
-              const num = String(i + 1).padStart(2, "0");
-              return (
-                <FadeUp key={sector.slug} delay={i * 0.04}>
-                  <a
-                    id={sector.slug}
-                    href={`#${sector.slug}`}
-                    className="group relative grid grid-cols-12 gap-4 items-center border-b border-line py-5 md:py-6 hover:bg-paper transition-colors scroll-mt-24"
-                    aria-label={`${sector.name} — ${sector.note}`}
-                  >
-                    {/* index */}
-                    <span className="col-span-2 md:col-span-1 mono-num text-sm text-ink/45 transition-colors group-hover:text-ink/70">
-                      {num}
-                    </span>
-
-                    {/* colour marker + name */}
-                    <div className="col-span-10 md:col-span-5 flex items-center gap-3">
-                      <span
-                        className="h-3 w-3 rounded-full shrink-0 transition-transform group-hover:scale-125"
-                        style={{ background: hex }}
-                        aria-hidden="true"
-                      />
-                      <h3 className="font-display text-xl md:text-2xl text-ink leading-tight">
-                        {sector.name}
-                      </h3>
-                    </div>
-
-                    {/* note */}
-                    <p className="col-span-12 md:col-span-5 text-[0.92rem] leading-relaxed text-ink/65 md:col-start-7">
-                      {sector.note}
-                    </p>
-
-                    {/* arrow affordance */}
-                    <span className="hidden md:flex col-span-1 items-center justify-end">
-                      <svg
-                        className="h-4 w-4 text-ink/35 transition-all duration-300 group-hover:text-ink group-hover:translate-x-1"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M5 12h14M13 6l6 6-6 6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </a>
-                </FadeUp>
-              );
-            })}
-          </div>
+          {/* annotated rows — uniform, compact, scannable; click to expand */}
+          <SectorList />
           <RuleDraw className="mt-8 max-w-md" />
         </div>
       </section>

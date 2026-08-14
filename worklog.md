@@ -816,3 +816,39 @@ Stage Summary:
 - Added substantive editorial content to /sectors: colour legend (clickable anchors), "How the firm serves its sectors" approach section with 3 note cards, and a cross-link to /expertise — giving the page substance without enormous tiles.
 - All text uses the cool blue-grey palette with accessible contrast (#0B1020 ink on #E2E8F2 porcelain / #F8FAFD paper; coloured dots/markers for sector identity only).
 - Verified desktop + mobile, 0 errors, lint clean. VLM-confirmed readability and layout consistency.
+
+---
+Task ID: 16
+Agent: main (orchestrator)
+Task: On /sectors — (1) remove the huge wide horizontal gap beside the "Ten sectors, one integrated practice" heading and make the heading break onto two lines; (2) when a sector row is clicked, instead of only scrolling, reveal 2–3 lines of editorial content about the firm's work in that sector.
+
+Work Log:
+- Read the existing /sectors page (src/app/sectors/page.tsx) and sectors data (src/data/sectors.ts). Confirmed the header row used a 12-col grid with the heading in md:col-span-4 (cols 1–4) and the description in md:col-span-6 md:col-start-7 (cols 7–12), leaving cols 5–6 empty = the "huge wide space" the user reported. Confirmed sector rows were plain <a href="#slug"> anchors that only scrolled, with no expandable content.
+- Added a required `description` field (2–3 line editorial paragraph) to every sector in src/data/sectors.ts. First pass was too long (4 rendered lines); revised each to ~180–220 chars so it renders as exactly 3 lines at the readable max-w-2xl (672px) measure. Verified sector-grid.tsx uses (typeof sectors)[number] so the new field does not break the homepage tiles (they only read `note`).
+- Created src/components/site/sector-list.tsx — a "use client" component replacing the inline anchor list:
+  • Each row is a <button> with aria-expanded / aria-controls; clicking toggles an expand/collapse panel.
+  • The panel animates via the grid-template-rows 0fr→1fr technique (smooth, animates to actual content height, no fixed max-height jank).
+  • The description sits in a col-span-10 md:col-start-2 block with a 2px left border in the sector's accent colour (vermilion / marigold / electric / ink / aubergine / jade) — visually anchoring the expanded content to the sector's colour identity.
+  • The chevron arrow rotates 90° when open.
+  • The legend links (#slug) still work: a hashchange listener opens the matching sector and scroll-mt-24 keeps it clear of the sticky header.
+- Updated src/app/sectors/page.tsx header section: removed the 12-col side-by-side grid (which caused the wide gap) and stacked the heading + description vertically. The <h2> now uses an explicit <br /> ("Ten sectors," / "one integrated practice") so it breaks onto exactly two lines at the full content width (1360px) — previously the narrow col-span-5 column forced "one integrated practice" to wrap to 3–4 extra lines. Updated the intro copy to "Select any sector to read how the firm works within it" to signal the new expand behaviour.
+- Replaced the inline sector <a> rows with <SectorList />.
+
+Verification (Agent Browser + VLM):
+- bun run lint: clean, 0 errors.
+- Programmatic inspection (desktop 1440×900):
+  • Heading: approxLines = 2, headingWidth = 1360 (full width), innerHTML = "Ten sectors, [BR] one integrated practice". Exactly two lines, no narrow-column wrapping.
+  • No horizontal gap beside the heading — it is stacked above the description (the old cols 5–6 empty gap is gone).
+  • 10 sector buttons present, all with aria-expanded / aria-controls.
+  • Click first sector (Alcoholic Beverages): ariaExpanded true, panelHeight 102px (was 0), descLineCount = 3, descCharCount = 281, descWidth = 672. Content reveals as exactly 3 lines.
+  • Toggle: clicking again collapses (ariaExpanded false, panelHeight 0).
+  • Second sector (FMCG): expands to 3 lines of distinct content. Multiple sectors can be explored.
+  • Console: 0 errors (only normal HMR/Fast Refresh logs).
+- VLM (sectors-heading.png): confirmed heading "Ten sectors, one integrated practice" on two lines, layout "tight and flush to the left" with no large empty horizontal gap, sector list rows clearly visible with numbers / coloured dots / names / notes / arrows.
+- VLM (sectors-expanded.png): confirmed the first sector row is expanded, revealing descriptive text with a vertical red/orange (vermilion) accent border on the left, indented, readable serif text, clear separation from the next row.
+
+Stage Summary:
+- The "Ten sectors, one integrated practice" heading now sits on exactly two lines (via an explicit <br />) at full content width, and the huge horizontal gap beside it is eliminated by stacking the heading above its intro paragraph instead of using a 12-col side-by-side grid with empty columns.
+- Sector rows are now interactive accordions: clicking a sector expands a 2–3 line editorial description of the firm's work in that sector (accent-coloured left border, smooth grid-rows animation, rotating chevron). Clicking again collapses it. Legend links (#slug) auto-open the matching sector.
+- Added a `description` field to all 10 sectors in src/data/sectors.ts; created src/components/site/sector-list.tsx (client component) to host the expandable behaviour; updated src/app/sectors/page.tsx to use the stacked header + <SectorList />.
+- Lint clean, VLM-verified (heading two lines + no gap; expanded content 3 lines with accent border), 0 console errors.
