@@ -676,3 +676,61 @@ Stage Summary:
 - All expanded-panel text is explicitly dark (#273047 body / #46536B metadata) on a #F8FAFD surface — no risk of inheriting a light foreground from the accent-coloured active row.
 - Accessibility: each toggle is a <button> with aria-expanded + aria-controls + focus-visible ring.
 - Verified on all 6 detail pages, desktop + mobile, 0 errors. Lint clean.
+
+---
+Task ID: 13
+Agent: main (orchestrator)
+Task: Add more content to the People section (/people listing + /people/[slug] detail) while preserving Bar Council of India compliance (no fabricated team members, client names, case results, or invented qualifications).
+
+Work Log:
+- User asked to "add more content" to the people section. Audited current state: /people had only the founder card + a short "team note" (2 sections total); /people/[slug] had hero + bio (2 paragraphs) + focus/qualifications/bar + contact (5 sections); the data layer (people.ts) had only name/role/summary/bio/qualifications/focus/bar/accent fields.
+- Compliance constraint reaffirmed: the source site names only the founder. No additional team members, degrees, speaking engagements, or specific client/case details may be invented. All new content must be generic, defensible, and consistent with the verified facts (founder, LLB+LLM Amity Rajasthan, BCI+BCD, 6 practice areas, New Delhi).
+
+Phase 1 — Data layer (src/data/people.ts):
+- Added 3 new fields to the Person type: `approach: string[]`, `representativeWork: RepresentativeEngagement[]`, `quote: { text, attribution }`.
+- Extended founder bio from 2 → 5 paragraphs (added: corporate-lifecycle continuity view; intersection of structuring + contracting + regulatory + disputes; education summary).
+- Wrote 3 approach paragraphs (methodology: objective-first; commercial reality as part of legal advice; long-term relationship view).
+- Wrote 6 representativeWork entries (one per practice area) — generic TYPE descriptions only (e.g. "Structuring of corporate groups, including the incorporation of holding and operating companies..." — NO client names, deal values, dates, or outcomes).
+- Added quote: "Law is the structure; the client's objective is the purpose. Counsel is the bridge between them." framed as "Guiding principle of the firm's practice" (editorial framing, not a fabricated verbatim quotation).
+- Added 2 new exported data objects: `teamPracticeModel` (4 pillars: direct founder involvement, integrated across practice areas, documented & defensible, measured growth) and `joiningTheFirm` (3 pathways: internships, associate roles, mentorship + application contact note). Both describe the firm's approach WITHOUT inventing specific positions, openings, or colleagues.
+
+Phase 2 — /people listing page (src/app/people/page.tsx):
+- Expanded from 2 → 6 sections with proper cool blue-grey alternating architecture:
+  1. Hero (bg-porcelain #E2E8F2) — unchanged.
+  2. People list (bg-porcelain) — founder card + team note, unchanged.
+  3. NEW: Pull-quote callout (bg-paper #F8FAFD) — large editorial quote with oversized opening quotation mark in accent colour at 22% opacity, attribution + founder name.
+  4. NEW: How the team works (bg-porcelain) — 4-pillar grid using gap-px bg-line dividers for hairline-separated cards, each with numbered label (01-04 in accent colour), pillar title, body text.
+  5. NEW: Joining the firm (bg-paper) — 3 pathway rows (Internships / Associate roles / Mentorship) in annotated-index style + dark ink application CTA block with the verified firm email (mailto:Office@saranshrajassociates.co.in).
+  6. NEW: Firm values strip (bg-porcelain) — 4 principles (Integrity, Precision, Client-first, Clarity) from firm.ts, each in a border-top card.
+
+Phase 3 — /people/[slug] detail page (src/app/people/[slug]/page.tsx):
+- Expanded from 5 → 7 sections:
+  1. Hero (bg-ink) — added a 4-cell quick-facts <dl> (Based in: New Delhi; Practice: Corporate & Commercial; Bar: Bar Council of Delhi; Focus areas: 6 chapters) below the summary.
+  2. Biography (bg-porcelain) — now renders 5 bio paragraphs (was 2) with the drop-cap on the first.
+  3. NEW: Approach (bg-paper) — 3 methodology paragraphs, each in a left-border (accent colour) container with a coloured bullet marker, numbered 01/03, 02/03, 03/03.
+  4. NEW: Pull-quote (accent-coloured full-bleed section, #2457FF electric for the founder) — large editorial quote with oversized quotation mark, attribution.
+  5. Focus / Qualifications / Bar (bg-paper) — unchanged 3-column list.
+  6. NEW: Representative engagements (bg-porcelain) — 6 rows (one per practice area) in annotated-index style with numbered label, area title, generic description. Includes an editorial note: "Client names, deal values and case outcomes are not published on this page."
+  7. Contact strip (bg-ink) — unchanged.
+
+Verification (Agent Browser + VLM):
+- bun run lint: clean, 0 errors.
+- dev.log: /people and /people/saransh-raj both compile and return 200.
+- /people programmatic inspection: 6 sections, 3 H2s (Saransh Raj, How the team works, Joining the firm), 4 pillar cards (Direct involvement / Integrated across practice areas / Documented and defensible / Measured growth), 3 pathways (Internships / Associate roles / Mentorship), quote text present, apply CTA = mailto:Office@saranshrajassociates.co.in (verified firm email).
+- /people/saransh-raj programmatic inspection: 7 sections, H1 "Saransh Raj", H2s "The shape of the work" + "To be in touch with Saransh", 4 quick-facts labels (Based in / Practice / Bar / Focus areas), 3 approach items, 6 engagement rows, quote present.
+- Pull-quote section colours: bg rgb(36,87,255) = #2457FF electric, text rgb(255,255,255) white — fully readable.
+- VLM (desktop 1440×900):
+  • Pillars section: confirmed 4 pillar cards in a row with correct titles, dark text on light bg, numbered 01-04 "PILLAR" labels in blue.
+  • Approach section: confirmed 3 numbered items with blue circular markers on a left blue border, dark readable text on off-white bg.
+  • Representative engagements: confirmed heading "The shape of the work", rows for Corporate Advisory / Commercial Contracts / M&A / Dispute Resolution / Regulatory & Compliance (6th, Insolvency, below fold), numbered 01-05+, all dark readable text on light blue-grey bg.
+  • Pull-quote: confirmed large quotation mark, white serif quote text on blue bg, attribution "GUIDING PRINCIPLE OF THE FIRM'S PRACTICE".
+- VLM (mobile 390×844): pillars stack vertically single-column, no horizontal overflow (docWidth=390=winWidth), text readable, typography hierarchy clean.
+- Console: 0 errors, 0 hydration warnings, 0 runtime errors on both pages.
+
+Stage Summary:
+- People section content expanded substantially while maintaining full Bar Council of India compliance: no fabricated team members, no invented qualifications, no client names or case outcomes, no solicitation language.
+- /people listing grew from 2 → 6 sections: founder card + team note + pull-quote + 4-pillar "How the team works" + 3-pathway "Joining the firm" with application CTA + 4-principle firm values strip.
+- /people/[slug] detail grew from 5 → 7 sections: hero (now with quick-facts dl) + extended 5-paragraph bio + new Approach (3 methodology paragraphs) + new accent-coloured pull-quote + focus/qualifications/bar + new Representative Engagements (6 rows, one per practice area, generic descriptions) + contact.
+- Data layer gained 3 new Person fields (approach, representativeWork, quote) + 2 new exported objects (teamPracticeModel, joiningTheFirm) — all reusable if future colleagues are added.
+- All new content uses the cool blue-grey palette and accessible colour pairs (#273047 body / #0B1020 headings on light surfaces; white on electric blue pull-quote; accent-coloured markers and rules).
+- Verified desktop + mobile, 0 errors, lint clean.

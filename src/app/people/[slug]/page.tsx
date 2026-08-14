@@ -106,6 +106,28 @@ export default async function PersonPage({
               <FadeUp delay={0.15}>
                 <p className="lead mt-8 text-porcelain/70 max-w-xl">{person.summary}</p>
               </FadeUp>
+
+              {/* Quick-facts strip — verified, defensible metadata */}
+              <FadeUp delay={0.22}>
+                <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 max-w-md">
+                  <div>
+                    <dt className="mono-label text-porcelain/45 mb-1">Based in</dt>
+                    <dd className="text-sm text-porcelain/85">New Delhi, India</dd>
+                  </div>
+                  <div>
+                    <dt className="mono-label text-porcelain/45 mb-1">Practice</dt>
+                    <dd className="text-sm text-porcelain/85">Corporate &amp; Commercial</dd>
+                  </div>
+                  <div>
+                    <dt className="mono-label text-porcelain/45 mb-1">Bar</dt>
+                    <dd className="text-sm text-porcelain/85">Bar Council of Delhi</dd>
+                  </div>
+                  <div>
+                    <dt className="mono-label text-porcelain/45 mb-1">Focus areas</dt>
+                    <dd className="text-sm text-porcelain/85">{person.focus.length} chapters</dd>
+                  </div>
+                </dl>
+              </FadeUp>
               <RuleDraw className="mt-8 max-w-md" />
             </div>
           </div>
@@ -138,6 +160,77 @@ export default async function PersonPage({
               </FadeUp>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============== APPROACH — methodology paragraphs ============== */}
+      <section className="bg-paper py-20 md:py-32 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-4">§ Approach</p>
+                <p className="margin-note">
+                  How {first} approaches the practice of law — the principles that
+                  shape every engagement the firm carries.
+                </p>
+              </FadeUp>
+            </div>
+            <div className="md:col-span-8 md:col-start-5">
+              <FadeUp delay={0.1}>
+                <div className="space-y-8 max-w-2xl">
+                  {person.approach.map((p, i) => (
+                    <div key={i} className="relative pl-8 border-l-2" style={{ borderColor: hex }}>
+                      <span
+                        className="absolute -left-[0.7rem] top-1 h-3 w-3 rounded-full"
+                        style={{ background: hex }}
+                        aria-hidden="true"
+                      />
+                      <span className="mono-num text-[0.7rem] text-ink/40 block mb-2">
+                        {String(i + 1).padStart(2, "0")} / {String(person.approach.length).padStart(2, "0")}
+                      </span>
+                      <p className="lead text-ink/75">{p}</p>
+                    </div>
+                  ))}
+                </div>
+              </FadeUp>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============== PULL-QUOTE — guiding principle ============== */}
+      <section
+        className="relative py-20 md:py-28 overflow-hidden"
+        style={{ background: hex, color: onHex }}
+      >
+        <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
+          <FadeUp>
+            <div className="relative max-w-4xl mx-auto text-center">
+              <span
+                className="font-display select-none pointer-events-none absolute -top-8 md:-top-12 left-1/2 -translate-x-1/2 text-[8rem] md:text-[12rem] leading-none"
+                style={{ color: `${onHex}22` }}
+                aria-hidden="true"
+              >
+                &ldquo;
+              </span>
+              <blockquote className="relative">
+                <p className="font-display text-2xl md:text-4xl leading-snug max-w-[28ch] mx-auto">
+                  {person.quote.text}
+                </p>
+                <footer className="mt-8">
+                  <span
+                    className="inline-block h-px w-12 mb-4"
+                    style={{ background: onHex }}
+                    aria-hidden="true"
+                  />
+                  <p className="mono-label" style={{ color: `${onHex}cc` }}>
+                    {person.quote.attribution}
+                  </p>
+                </footer>
+              </blockquote>
+            </div>
+          </FadeUp>
         </div>
       </section>
 
@@ -191,6 +284,54 @@ export default async function PersonPage({
               </FadeUp>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============== REPRESENTATIVE ENGAGEMENTS ============== */}
+      <section className="bg-porcelain py-20 md:py-32 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+            <div className="md:col-span-4">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-3">§ Representative engagements</p>
+                <h2 className="display-2 max-w-[14ch]">The shape of the work</h2>
+              </FadeUp>
+            </div>
+            <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
+              <FadeUp delay={0.1}>
+                <p className="body-condensed text-ink/60 max-w-md">
+                  A generic account of the type of work the firm carries across
+                  each of its six practice areas. Client names, deal values and
+                  case outcomes are not published on this page.
+                </p>
+              </FadeUp>
+            </div>
+          </div>
+
+          <div className="border-t border-line">
+            {person.representativeWork.map((engagement, i) => (
+              <FadeUp key={engagement.area} delay={i * 0.06}>
+                <div className="grid grid-cols-12 gap-4 items-baseline border-b border-line py-7 md:py-8">
+                  <div className="col-span-2 md:col-span-1">
+                    <span className="mono-num text-sm" style={{ color: hex }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="col-span-10 md:col-span-4">
+                    <span className="font-display text-lg md:text-xl text-ink leading-tight block">
+                      {engagement.area}
+                    </span>
+                  </div>
+                  <div className="col-span-12 md:col-span-6 md:col-start-7">
+                    <p className="text-[0.95rem] leading-relaxed text-ink/70">
+                      {engagement.description}
+                    </p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <RuleDraw className="mt-8 max-w-md" />
         </div>
       </section>
 
