@@ -5,6 +5,7 @@ import { practiceAreas, getPracticeArea } from "@/data/practice-areas";
 import { accentHex, accentOnHex } from "@/lib/accents";
 import { contact } from "@/data/firm";
 import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
+import { ExpandableServiceList } from "@/components/site/expandable-service-list";
 
 export function generateStaticParams() {
   return practiceAreas.map((p) => ({ slug: p.slug }));
@@ -109,32 +110,18 @@ export default async function PracticeAreaPage({
               <FadeUp delay={0.1}>
                 <p className="body-condensed text-ink/60 max-w-md">
                   The scope of the firm&apos;s {area.title.toLowerCase()} practice,
-                  set out as an annotated index.
+                  set out as an annotated index. Select any service to read what it covers.
                 </p>
               </FadeUp>
             </div>
           </div>
 
-          {/* annotated service list */}
-          <div className="border-t border-line">
-            {area.services.map((s, i) => (
-              <FadeUp key={s} delay={i * 0.06}>
-                <div className="group grid grid-cols-12 gap-4 items-center border-b border-line py-6 md:py-7 hover:bg-paper transition-colors">
-                  <span className="col-span-2 md:col-span-1 mono-num text-sm text-ink/40">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="col-span-8 md:col-span-9 font-display text-xl md:text-3xl text-ink">
-                    {s}
-                  </span>
-                  <span className="col-span-2 flex items-center justify-end gap-3">
-                    {/* annotation bracket mark */}
-                    <span className="h-3 w-3 border-r border-t" style={{ borderColor: hex }} />
-                    <span className="h-2 w-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity" style={{ background: hex }} />
-                  </span>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
+          {/* annotated service list — expandable rows with editorial detail */}
+          <ExpandableServiceList
+            services={area.services}
+            serviceDetails={area.serviceDetails}
+            hex={hex}
+          />
           <RuleDraw className="mt-8 max-w-md" />
         </div>
       </section>

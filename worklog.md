@@ -619,3 +619,60 @@ Stage Summary:
 - The critical Expertise accordion bug (white text inheriting into light expanded-content panels) is structurally eliminated: every expanded panel now uses explicit dark text (#273047 body / #0B1020 headings / #46536B metadata) on per-accent light-tint backgrounds. Verified across all 6 chapters.
 - Centralised design tokens in globals.css :root (--background-*, --text-*, --border-*) remain the single source of truth; all components reference them via existing Tailwind classes (bg-porcelain, text-ink, border-line) which resolve to the new cool palette.
 - Lint clean, dev server healthy, 0 console errors, VLM-confirmed readability. Task is complete.
+
+---
+Task ID: 12
+Agent: main (orchestrator)
+Task: Make "What this covers" services expandable on expertise detail pages + add 2-3 line descriptions for every service across all 6 practice areas.
+
+Work Log:
+- User reported: on /expertise/[slug] detail pages, the "What this covers" section lists services as static (non-expandable) rows. Wanted each service to be expandable with a 2-3 line description.
+- Audited current state: src/data/practice-areas.ts had `services: string[]` (titles only, no descriptions); src/app/expertise/[slug]/page.tsx rendered them as a static `div` list (lines 119-137, now replaced); the page is a Server Component so useState was not directly available.
+- Verified `services` field is also consumed by horizontal-expertise.tsx (slice 3, title-only) and expertise/page.tsx (title-only in accordion) — both use the string directly, so keeping `services: string[]` intact and adding a parallel `serviceDetails: string[]` avoids touching those 2 files.
+
+Phase 1 — Data (src/data/practice-areas.ts):
+- Added `serviceDetails: string[]` to the PracticeArea type.
+- Wrote 24 unique, factual, 2-3 line editorial descriptions (one per service, all 6 practice areas):
+  • Corporate Advisory: entity-type selection & MOA/AOA drafting; SHA/JVA terms (board, transfer, drag/tag, deadlock); Companies Act governance & secretarial standards; schemes of arrangement/demergers/amalgamations + NCLT.
+  • Commercial Contracts: bespoke drafting (scope, liability, indemnities, termination); supply/distribution/franchise/SLA terms; tech licensing/SaaS/IP assignment; pre-litigation notice & cure-period advisory.
+  • M&A: asset vs share vs slump sale structuring; legal DD risk register; CCI/RBI/SEBI/Form FC-GPR approvals; post-close integration & entity wind-down.
+  • Dispute Resolution: A&C Act 1996 arbitrations (SIAC/LCIA/DIAC/MCIA) + award enforcement; S.241-242 oppression & mismanagement; SARFAESI/IBC/civil execution; pre-litigation limitation & merits assessment.
+  • Regulatory & Compliance: SEBI LODR/insider-trading + RBI NBFC + sectoral; compliance audits & risk registers; policy/training/SDD/whistle-blower programme design; regulator representation (show-cause, consent, settlement).
+  • Insolvency & Recovery: CIRP/fast-track/pre-pack under IBC 2016; creditor representation (S.7/9, CoC); resolution plan drafting (feasibility, waterfall, CCI, IBBI); decree/award/SARFAESI enforcement.
+- All descriptions are India-jurisdiction-specific, cite the correct statutes/regulations, and run 230-295 characters (2-3 substantive lines at the lead type size).
+
+Phase 2 — Component (src/components/site/expandable-service-list.tsx, NEW):
+- "use client" component so useState works inside the otherwise-server detail page.
+- Props: services (string[]), serviceDetails (string[]), hex (accent colour string).
+- Single-open accordion pattern (mirrors the expertise index page): `useState<number | null>` — clicking an open row closes it; clicking a new row closes the previous.
+- Each row is a <button> with aria-expanded + aria-controls for accessibility; focus-visible ring on electric blue.
+- + glyph rotates 45° to × when open (same motion as the expertise chapter accordion — visual consistency).
+- Collapsed row: porcelain bg (#E2E8F2 via parent), ink title (#0B1020), muted number (#5B6475), hover lifts to paper (#F8FAFD).
+- Expanded panel: paper bg (#F8FAFD), border-top #B7C2D2, body text #273047 (dark, explicit — does NOT inherit any light colour), accent-coloured 48px rule mark, "Service 0X · Click the title above to collapse" metadata in #46536B.
+- Wrapped each row in <FadeUp> for staggered entrance, preserving the original page's editorial motion.
+
+Phase 3 — Wiring (src/app/expertise/[slug]/page.tsx):
+- Imported ExpandableServiceList.
+- Replaced the 18-line static services map (border-t/div/FadeUp/...) with a single <ExpandableServiceList services={area.services} serviceDetails={area.serviceDetails} hex={hex} />.
+- Updated the section intro paragraph from "set out as an annotated index." → "set out as an annotated index. Select any service to read what it covers." to signal the new interactivity.
+- RuleDraw accent line below the list retained.
+
+Verification (Agent Browser + VLM):
+- bun run lint: clean, 0 errors.
+- dev.log: all 6 /expertise/[slug] routes compile and return 200.
+- Programmatic test across ALL 6 detail pages (corporate-advisory, commercial-contracts, mergers-and-acquisitions, dispute-resolution, regulatory-and-compliance, insolvency-and-recovery):
+  • Each page renders 4 expandable service buttons with aria-expanded.
+  • Clicking the first service expands it: panel bg = rgb(248,250,253) = #F8FAFD ✓, text = rgb(39,48,71) = #273047 (dark) ✓.
+  • Each page shows its UNIQUE correct description (verified text previews: "Selection of entity type...", "End-to-end drafting...", "Structuring the transaction...", "Representation in domestic and international arbitrations...", "Ongoing compliance support for listed entities...", "Advising creditors, debtors and resolution professionals...").
+  • Description lengths 231-292 chars = 2-3 substantive lines.
+- Single-open accordion verified: clicking service #2 closes #1 and opens #2 (panelCount stays 1, openButtonCount stays 1, panel content updates to the 2nd service's text).
+- VLM (desktop 1440×900): confirmed (1) expanded description is DARK text on light/near-white card, (2) + / × toggle icons visible, (3) ~3 lines of detailed text, (4) collapsed siblings show titles + "EXPAND +" label.
+- VLM (mobile 390×844): layout fully responsive, no horizontal overflow, dark-on-light readable, touch-sized targets, long legal terms wrap naturally.
+- Console: 0 errors, 0 hydration warnings, 0 runtime errors across all 6 pages.
+
+Stage Summary:
+- "What this covers" on /expertise/[slug] is now a fully expandable annotated index. Each of the 24 services across all 6 practice areas carries a factual 2-3 line India-jurisdiction-specific description (citing the correct statutes: Companies Act 2013, A&C Act 1996, IBC 2016, SARFAESI 2002, SEBI LODR, etc.).
+- Expand/collapse uses a single-open accordion matching the expertise index page's visual language (+ rotates to ×, accent-coloured title when active, paper surface for the expanded panel).
+- All expanded-panel text is explicitly dark (#273047 body / #46536B metadata) on a #F8FAFD surface — no risk of inheriting a light foreground from the accent-coloured active row.
+- Accessibility: each toggle is a <button> with aria-expanded + aria-controls + focus-visible ring.
+- Verified on all 6 detail pages, desktop + mobile, 0 errors. Lint clean.
