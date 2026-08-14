@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { sectors } from "@/data/sectors";
-import { accentHex, accentOnHex, type Accent } from "@/lib/accents";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
+import { accentHex, type Accent } from "@/lib/accents";
+import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
   title: "Sectors",
@@ -27,8 +27,8 @@ export default function SectorsPage() {
               <FadeUp>
                 <p className="mono-label text-ink/55 mb-4">Industry Atlas</p>
                 <p className="margin-note">
-                  Ten sectors, each given its own colour field and composition.
-                  Select a sector to read its scope.
+                  Ten sectors, each given its own colour marker. Select a sector
+                  to anchor its scope.
                 </p>
               </FadeUp>
             </div>
@@ -51,169 +51,218 @@ export default function SectorsPage() {
         </div>
       </section>
 
-      {/* Atlas — distinctive composition per sector via alternating layouts */}
-      <section className="bg-porcelain">
-        {sectors.map((sector, i) => {
-          const hex = accentHex[sector.accent as Accent];
-          const onHex = accentOnHex[sector.accent as Accent];
-          const layout = i % 4; // rotate through 4 distinct compositions
-          return (
-            <SectorBlock
-              key={sector.slug}
-              slug={sector.slug}
-              name={sector.name}
-              note={sector.note}
-              index={i}
-              total={sectors.length}
-              hex={hex}
-              onHex={onHex}
-              layout={layout}
-            />
-          );
-        })}
-      </section>
-    </>
-  );
-}
-
-function SectorBlock({
-  slug,
-  name,
-  note,
-  index,
-  total,
-  hex,
-  onHex,
-  layout,
-}: {
-  slug: string;
-  name: string;
-  note: string;
-  index: number;
-  total: number;
-  hex: string;
-  onHex: string;
-  layout: number;
-}) {
-  const isLight = onHex === "#0B1020";
-  const num = String(index + 1).padStart(2, "0");
-
-  // Layout 0: colour field left, text right
-  // Layout 1: full-width colour field with text overlay
-  // Layout 2: text left, colour block right (small)
-  // Layout 3: two-column colour + ink split
-  if (layout === 0) {
-    return (
-      <FadeUp>
-        <div id={slug} className="grid grid-cols-1 md:grid-cols-12 border-b border-line" style={{ scrollMarginTop: "6rem" }}>
-          {/* colour field with oversized number */}
-          <div
-            className="md:col-span-5 relative min-h-[16rem] md:min-h-[24rem] overflow-hidden flex items-center justify-center"
-            style={{ background: hex, color: onHex }}
-          >
-            <span className="font-display text-[12rem] md:text-[18rem] leading-none opacity-90 select-none">
-              {num}
-            </span>
-            <span className="absolute top-5 left-5 mono-label opacity-70">Sector {num}</span>
-            <span className="absolute bottom-5 right-5 mono-num text-[0.6rem] opacity-60">{slug.substring(0, 8)}</span>
+      {/* ============== Sector index — compact annotated list ============== */}
+      <section className="bg-porcelain py-16 md:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          {/* header row */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
+            <div className="md:col-span-4">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-3">§ The index</p>
+                <h2 className="display-2 max-w-[14ch]">
+                  Ten sectors, one integrated practice
+                </h2>
+              </FadeUp>
+            </div>
+            <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
+              <FadeUp delay={0.1}>
+                <p className="body-condensed text-ink/60 max-w-md">
+                  Each sector is colour-coded to the practice area most active
+                  within it. The notes below describe the type of work the firm
+                  carries — specific engagements are not published on this page.
+                </p>
+              </FadeUp>
+            </div>
           </div>
-          {/* text */}
-          <div className="md:col-span-7 p-8 md:p-12 flex flex-col justify-center">
-            <h2 className="display-2 max-w-[14ch]">{name}</h2>
-            <p className="lead mt-5 text-ink/70 max-w-md">{note}</p>
-            <Link href={`/sectors#${slug}`} className="mt-6 inline-flex items-center gap-2 mono-label text-ink hover:text-electric transition-colors">
-              <span>View note</span>
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+
+          {/* colour legend */}
+          <FadeUp>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-8 pb-6 border-b border-line">
+              <span className="mono-label text-ink/55">Legend</span>
+              {sectors.map((sector) => {
+                const hex = accentHex[sector.accent as Accent];
+                return (
+                  <a
+                    key={sector.slug}
+                    href={`#${sector.slug}`}
+                    className="flex items-center gap-2 group"
+                  >
+                    <span
+                      className="h-2.5 w-2.5 rounded-full transition-transform group-hover:scale-125"
+                      style={{ background: hex }}
+                      aria-hidden="true"
+                    />
+                    <span className="mono-label text-ink/70 group-hover:text-ink transition-colors">
+                      {sector.name}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </FadeUp>
+
+          {/* annotated rows — uniform, compact, scannable */}
+          <div className="border-t border-line">
+            {sectors.map((sector, i) => {
+              const hex = accentHex[sector.accent as Accent];
+              const num = String(i + 1).padStart(2, "0");
+              return (
+                <FadeUp key={sector.slug} delay={i * 0.04}>
+                  <a
+                    id={sector.slug}
+                    href={`#${sector.slug}`}
+                    className="group relative grid grid-cols-12 gap-4 items-center border-b border-line py-5 md:py-6 hover:bg-paper transition-colors scroll-mt-24"
+                    aria-label={`${sector.name} — ${sector.note}`}
+                  >
+                    {/* index */}
+                    <span className="col-span-2 md:col-span-1 mono-num text-sm text-ink/45 transition-colors group-hover:text-ink/70">
+                      {num}
+                    </span>
+
+                    {/* colour marker + name */}
+                    <div className="col-span-10 md:col-span-5 flex items-center gap-3">
+                      <span
+                        className="h-3 w-3 rounded-full shrink-0 transition-transform group-hover:scale-125"
+                        style={{ background: hex }}
+                        aria-hidden="true"
+                      />
+                      <h3 className="font-display text-xl md:text-2xl text-ink leading-tight">
+                        {sector.name}
+                      </h3>
+                    </div>
+
+                    {/* note */}
+                    <p className="col-span-12 md:col-span-5 text-[0.92rem] leading-relaxed text-ink/65 md:col-start-7">
+                      {sector.note}
+                    </p>
+
+                    {/* arrow affordance */}
+                    <span className="hidden md:flex col-span-1 items-center justify-end">
+                      <svg
+                        className="h-4 w-4 text-ink/35 transition-all duration-300 group-hover:text-ink group-hover:translate-x-1"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M5 12h14M13 6l6 6-6 6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </FadeUp>
+              );
+            })}
+          </div>
+          <RuleDraw className="mt-8 max-w-md" />
+        </div>
+      </section>
+
+      {/* ============== How the firm serves sectors ============== */}
+      <section className="bg-paper py-16 md:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-4">
+              <FadeUp>
+                <p className="mono-label text-ink/55 mb-3">§ Approach</p>
+                <h2 className="display-2 max-w-[14ch]">
+                  How the firm serves its sectors
+                </h2>
+              </FadeUp>
+            </div>
+            <div className="md:col-span-7 md:col-start-6">
+              <FadeUp delay={0.1}>
+                <div className="space-y-5 max-w-2xl">
+                  <p className="lead text-ink/75">
+                    Sector knowledge sits alongside, not in place of, legal
+                    discipline. The firm&apos;s sector work is grounded in the
+                    corporate and commercial practice that carries across every
+                    industry it serves.
+                  </p>
+                  <p className="text-[0.95rem] leading-relaxed text-ink/65">
+                    What changes from one sector to the next is the regulatory
+                    regime, the commercial conventions, and the counterparties
+                    a client is likely to encounter. The firm carries an
+                    integrated view — corporate structuring, contracting,
+                    regulatory compliance and, where required, dispute resolution
+                    — calibrated to the sector the client operates within.
+                  </p>
+                </div>
+              </FadeUp>
+            </div>
+          </div>
+
+          {/* three short notes */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-line">
+            {[
+              {
+                title: "Sector-aware, not sector-bound",
+                body: "The firm brings the same legal discipline to every sector. Sector context informs the advice; it does not replace the analysis.",
+              },
+              {
+                title: "Connected to the practice areas",
+                body: "Each sector maps to the practice areas most active within it — corporate advisory, contracts, regulatory and disputes work.",
+              },
+              {
+                title: "Regulatory at the core",
+                body: "Several of the sectors the firm serves are heavily regulated. Regulatory familiarity is woven into the commercial advice, not bolted on.",
+              },
+            ].map((note, i) => (
+              <FadeUp key={note.title} delay={i * 0.08}>
+                <div className="bg-paper p-6 md:p-8 h-full">
+                  <span className="mono-num text-sm text-ink/35 block mb-3">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display text-lg md:text-xl text-ink mb-2 leading-tight">
+                    {note.title}
+                  </h3>
+                  <p className="text-[0.9rem] leading-relaxed text-ink/65">
+                    {note.body}
+                  </p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============== Cross-link to practice areas ============== */}
+      <section className="bg-porcelain py-16 md:py-20">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <FadeUp>
+            <h2 className="display-2 text-ink max-w-[20ch]">
+              The practice behind{" "}
+              <span className="serif-italic text-jade">the sectors</span>
+            </h2>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <Link
+              href="/expertise"
+              className="group inline-flex items-center gap-2 mono-label text-ink hover:text-electric transition-colors"
+            >
+              <span>View the expertise index</span>
+              <svg
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </Link>
-          </div>
+          </FadeUp>
         </div>
-      </FadeUp>
-    );
-  }
-
-  if (layout === 1) {
-    // Full-width colour field with text overlay
-    return (
-      <FadeUp>
-        <div
-          id={slug}
-          className="relative border-b border-line overflow-hidden py-16 md:py-24"
-          style={{ background: hex, color: onHex, scrollMarginTop: "6rem" }}
-        >
-          {/* architectural rule lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="20%" y1="0" x2="20%" y2="100%" stroke={isLight ? "rgba(11,16,32,0.1)" : "rgba(255,255,255,0.12)"} strokeWidth="1" />
-            <line x1="80%" y1="0" x2="80%" y2="100%" stroke={isLight ? "rgba(11,16,32,0.1)" : "rgba(255,255,255,0.12)"} strokeWidth="1" />
-          </svg>
-          <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
-            <div className="flex items-start justify-between mb-8">
-              <span className="mono-label opacity-70">Sector {num} / {String(total).padStart(2, "0")}</span>
-              <span className="font-display text-3xl opacity-30">{num}</span>
-            </div>
-            <h2 className="display-mega max-w-[12ch]" style={{ color: onHex }}>{name}</h2>
-            <p className="lead mt-6 max-w-xl" style={{ color: `${onHex}dd` }}>{note}</p>
-          </div>
-        </div>
-      </FadeUp>
-    );
-  }
-
-  if (layout === 2) {
-    // Text left, small colour block right
-    return (
-      <FadeUp>
-        <div id={slug} className="grid grid-cols-1 md:grid-cols-12 border-b border-line" style={{ scrollMarginTop: "6rem" }}>
-          <div className="md:col-span-8 p-8 md:p-12 flex flex-col justify-center">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
-              <span className="mono-label text-ink/55">Sector {num} / {String(total).padStart(2, "0")}</span>
-            </div>
-            <h2 className="display-2 max-w-[14ch]">{name}</h2>
-            <p className="lead mt-5 text-ink/70 max-w-md">{note}</p>
-          </div>
-          <div
-            className="md:col-span-4 relative min-h-[12rem] md:min-h-[20rem] flex items-center justify-center overflow-hidden"
-            style={{ background: hex }}
-          >
-            <span className="font-display text-[7rem] md:text-[10rem] leading-none select-none" style={{ color: onHex, opacity: 0.9 }}>
-              {num}
-            </span>
-            {/* annotation bracket */}
-            <div className="absolute top-4 right-4 flex items-center gap-1.5">
-              <div className="h-3 w-3 border-r border-t" style={{ borderColor: onHex, opacity: 0.5 }} />
-            </div>
-          </div>
-        </div>
-      </FadeUp>
-    );
-  }
-
-  // Layout 3: two-column colour + ink split
-  return (
-    <FadeUp>
-      <div id={slug} className="grid grid-cols-1 md:grid-cols-2 border-b border-line" style={{ scrollMarginTop: "6rem" }}>
-        <div className="relative min-h-[14rem] md:min-h-[22rem] p-8 md:p-12 flex flex-col justify-between" style={{ background: hex, color: onHex }}>
-          <div className="flex items-center justify-between">
-            <span className="mono-label opacity-70">Sector {num}</span>
-            <span className="font-display text-2xl opacity-40">{num}</span>
-          </div>
-          <div>
-            <h2 className="display-3 text-3xl md:text-4xl" style={{ color: onHex }}>{name}</h2>
-          </div>
-        </div>
-        <div className="bg-ink text-porcelain p-8 md:p-12 flex flex-col justify-center">
-          <span className="mono-label text-porcelain/50 mb-4">Note</span>
-          <p className="lead text-porcelain/80 max-w-md">{note}</p>
-          <Link href={`/sectors#${slug}`} className="mt-6 inline-flex items-center gap-2 mono-label text-porcelain/70 hover:text-marigold transition-colors">
-            <span>View sector</span>
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-        </div>
-      </div>
-    </FadeUp>
+      </section>
+    </>
   );
 }

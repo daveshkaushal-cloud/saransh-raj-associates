@@ -769,3 +769,50 @@ Stage Summary:
 - The "Apply" CTA block in the Joining the firm section is now fully readable: every line uses solid foreground colours (#F8FAFD near-white for label + body, #FFC247 marigold for the email link) against the #0B1020 ink background, clearing WCAG AAA contrast. An accent-coloured dot anchors the label visually, and the email wraps cleanly on narrow screens.
 - Root cause was opacity-suffixed Tailwind utilities (text-porcelain/55, text-porcelain/85) dropping luminance below the accessibility threshold; fixed by switching to solid inline colours.
 - Lint clean, VLM-verified, 0 errors.
+
+---
+Task ID: 15
+Agent: main (orchestrator)
+Task: Recreate the Sectors section entirely — the old design used 4 rotating full-height layouts on /sectors and oversized tiles on the homepage, making the section look "odd" and "not good to eyes".
+
+Work Log:
+- User reported the Sectors section was "not looking good to eyes and having a very big tiles which is making the entire section very odd". VLM analysis of the /sectors page confirmed: each sector block was 22-24rem tall (352-384px), used 4 different rotating layouts (split / full-bleed-overlay / text-left-small-block / two-column-ink-split), creating an inconsistent, very long page with excessive whitespace.
+
+Phase 1 — Redesigned /sectors page (src/app/sectors/page.tsx):
+- Removed the 4-layout SectorBlock component entirely (was ~140 lines of alternating layouts).
+- Replaced with a single, uniform, compact ANNOTATED INDEX — the same editorial pattern used successfully on the Expertise page:
+  • Section header: "§ The index" + "Ten sectors, one integrated practice" headline + intro paragraph.
+  • Colour legend: all 10 sectors as inline pills with coloured dots + names, clickable to jump to the sector's anchor.
+  • 10 uniform rows: each row = grid-cols-12 with [01] number | colour-dot + sector name | note | arrow affordance. All rows identical height (79px measured), separated by hairline borders, hover lifts to bg-paper.
+  • RuleDraw accent line below the list.
+- Added a "How the firm serves its sectors" approach section with:
+  • 2-paragraph editorial intro on sector-aware vs sector-bound practice.
+  • 3 note cards in a hairline-separated grid: "Sector-aware, not sector-bound" / "Connected to the practice areas" / "Regulatory at the core".
+- Added a cross-link section at the bottom: "The practice behind the sectors" → links to /expertise.
+- Page body height reduced from very long (each block 22-24rem × 10 = ~3500px just for sectors) to 4232px total (including hero + index + approach + cross-link). Each sector row is now 79px — 4-5× more compact.
+
+Phase 2 — Redesigned homepage SectorGrid component (src/components/site/sector-grid.tsx):
+- SectorTile (homepage scroller): reduced from h-[22rem] md:h-[24rem] (352-384px) → h-[11rem] md:h-[12rem] (176-192px). Tile width reduced from w-[24rem] lg:w-[22rem] → w-[16rem] lg:[14rem] (more tiles visible per viewport).
+- SectorCard (/sectors grid variant, previously min-h-[12rem] with showNote/showCta flags): rewritten as a clean compact card with colour edge, number/dot header, name, note, and "View sector" affordance — min-h-[10rem], consistent layout.
+- End card ("View the full index"): reduced from h-[22rem] md:h-[24rem] → h-[11rem] md:h-[12rem] to match tile height.
+- Arrow buttons: reduced from h-10 w-10 → h-9 w-9 for proportional compactness.
+- Removed the now-unused showNote/showCta props and the oversized index watermark (text-[7rem]) — tiles are cleaner without it.
+- Added line-clamp-2 to tile notes so long descriptions don't break the uniform height.
+- Progress bar and scroll-snap behaviour retained.
+
+Verification (Agent Browser + VLM):
+- bun run lint: clean, 0 errors.
+- /sectors programmatic inspection: 10 sector rows, each exactly 79px tall (uniform), body height 4232px (was much taller).
+- VLM (desktop 1440×900, /sectors index section): confirmed header "Ten sectors, one integrated practice", colour legend with all 10 sector names + coloured dots, list of 10 sector rows each with number/coloured marker/name/description, all rows uniform height, text highly readable.
+- VLM (desktop, /sectors approach section): confirmed "How the firm serves its sectors" heading + 3 note cards (Sector-aware / Connected to practice areas / Regulatory at the core), readable.
+- Homepage scroller: 11 tiles (10 sectors + 1 end card), each 194px tall (was 384px — 50% more compact), next-button scroll works (scrollLeft 0→402).
+- VLM (homepage sectors): confirmed compact horizontal scroller, tiles reasonably sized, each tile shows number/coloured dot/name/note, arrow buttons present, progress bar 01→10, text readable.
+- VLM (mobile 390×844, /sectors): rows stack properly (number+name on one line, note below), no horizontal overflow, text readable, mobile-optimized.
+- Console: 0 errors, 0 hydration warnings, 0 runtime errors on both /sectors and /.
+
+Stage Summary:
+- Sectors section fully recreated. The /sectors page went from 4 inconsistent rotating full-height layouts (22-24rem per block, ~3500px+ just for sectors) to a single uniform annotated index where each sector is a 79px row — 4-5× more compact, fully consistent, scannable.
+- Homepage sector tiles went from 384px tall (h-[24rem]) to 192px tall (h-[12rem]) — 50% more compact, more tiles visible per viewport, cleaner.
+- Added substantive editorial content to /sectors: colour legend (clickable anchors), "How the firm serves its sectors" approach section with 3 note cards, and a cross-link to /expertise — giving the page substance without enormous tiles.
+- All text uses the cool blue-grey palette with accessible contrast (#0B1020 ink on #E2E8F2 porcelain / #F8FAFD paper; coloured dots/markers for sector identity only).
+- Verified desktop + mobile, 0 errors, lint clean. VLM-confirmed readability and layout consistency.
