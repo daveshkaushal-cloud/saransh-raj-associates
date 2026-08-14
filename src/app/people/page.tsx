@@ -260,22 +260,33 @@ export default function PeoplePage() {
             ))}
           </div>
 
-          {/* Application note */}
+          {/* Application note — dark ink CTA block.
+              Foreground uses solid porcelain + warm accent so every line
+              clears WCAG AA against the #0B1020 background (no dimmed
+              opacity variants that fall below 4.5:1). */}
           <FadeUp delay={0.16}>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-ink text-porcelain p-8 md:p-12">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-ink p-8 md:p-12 border border-line-on-ink">
               <div className="md:col-span-8">
-                <p className="mono-label text-porcelain/55 mb-3">Apply</p>
-                <p className="lead text-porcelain/85 max-w-2xl">
+                <div className="flex items-center gap-2 mb-4">
+                  <span
+                    className="h-2.5 w-2.5 rounded-full"
+                    style={{ background: founderHex }}
+                    aria-hidden="true"
+                  />
+                  <p className="mono-label" style={{ color: "#F8FAFD" }}>Apply</p>
+                </div>
+                <p className="lead max-w-2xl" style={{ color: "#F8FAFD" }}>
                   {joiningTheFirm.contactNote}
                 </p>
               </div>
               <div className="md:col-span-4 md:text-right">
                 <a
                   href={contact.emailHref}
-                  className="inline-flex items-center gap-2 link-underline text-marigold font-medium"
+                  className="inline-flex items-center gap-2 link-underline font-medium"
+                  style={{ color: "#FFC247" }}
                 >
-                  <span>{contact.email}</span>
-                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <span className="break-all">{contact.email}</span>
+                  <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>

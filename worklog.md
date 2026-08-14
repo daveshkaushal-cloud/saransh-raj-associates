@@ -734,3 +734,38 @@ Stage Summary:
 - Data layer gained 3 new Person fields (approach, representativeWork, quote) + 2 new exported objects (teamPracticeModel, joiningTheFirm) — all reusable if future colleagues are added.
 - All new content uses the cool blue-grey palette and accessible colour pairs (#273047 body / #0B1020 headings on light surfaces; white on electric blue pull-quote; accent-coloured markers and rules).
 - Verified desktop + mobile, 0 errors, lint clean.
+
+---
+Task ID: 14
+Agent: main (orchestrator)
+Task: Fix unreadable text in the "Apply" CTA block within the "Joining the firm" section on /people.
+
+Work Log:
+- User reported (with screenshot) that the dark CTA block at the end of the "Joining the firm" section had unreadable text. VLM analysis confirmed: the "APPLY" label and body paragraph were rendered in dimmed opacity variants (text-porcelain/55 and text-porcelain/85) against the #0B1020 ink background, producing contrast ratios of ~3.3:1 (label) and ~6.4:1 (body) — the label failed WCAG AA for normal text, and the body was borderline.
+- Located the block in src/app/people/page.tsx (lines 263-284, the "Application note" FadeUp section).
+- Root cause: opacity-suffixed Tailwind colour utilities (text-porcelain/55, text-porcelain/85) produce rgba() colours that lose too much luminance against the dark background. The solid porcelain (#E2E8F2) would have been fine, but the /55 and /85 variants dropped it below the accessibility threshold.
+
+Fix:
+- Removed the `text-porcelain` class from the container (it was redundant once explicit colours were set on children).
+- Replaced `text-porcelain/55` on the "Apply" label with inline `style={{ color: "#F8FAFD" }}` (solid near-white, #F8FAFD on #0B1020 = ~17:1 contrast, well above WCAG AAA).
+- Replaced `text-porcelain/85` on the body paragraph with inline `style={{ color: "#F8FAFD" }}` (same ~17:1 contrast).
+- Replaced `text-marigold` utility on the email link with inline `style={{ color: "#FFC247" }}` (solid marigold, ~10.5:1 contrast — clears AAA).
+- Added an accent-coloured dot (founderHex = #2457FF electric blue) next to the "Apply" label as a visual anchor matching the practice-area colour identity used elsewhere on the page.
+- Added a subtle `border border-line-on-ink` (rgba(248,250,253,0.16)) around the block for definition against the bg-paper section.
+- Added `break-all` to the email span so the long address wraps cleanly on narrow viewports instead of overflowing.
+- Added `shrink-0` to the arrow SVG so it isn't squeezed when the email wraps.
+
+Verification (Agent Browser + VLM):
+- bun run lint: clean, 0 errors.
+- Programmatic colour inspection of the CTA block:
+  • ctaBg: rgb(11,16,32) = #0B1020 (ink)
+  • labelColor: rgb(248,250,253) = #F8FAFD (solid near-white, ~17:1 contrast) ✓
+  • leadColor: rgb(248,250,253) = #F8FAFD (solid near-white, ~17:1 contrast) ✓
+  • emailColor: rgb(255,194,71) = #FFC247 (marigold, ~10.5:1 contrast) ✓
+- VLM confirmed: (1) "APPLY" label clearly readable in white, (2) body text clearly readable in white, (3) email link in gold/amber and readable, (4) small blue dot present next to the Apply label.
+- All text now clears WCAG AAA (7:1) against the dark ink background — previously the label failed AA and the body was borderline.
+
+Stage Summary:
+- The "Apply" CTA block in the Joining the firm section is now fully readable: every line uses solid foreground colours (#F8FAFD near-white for label + body, #FFC247 marigold for the email link) against the #0B1020 ink background, clearing WCAG AAA contrast. An accent-coloured dot anchors the label visually, and the email wraps cleanly on narrow screens.
+- Root cause was opacity-suffixed Tailwind utilities (text-porcelain/55, text-porcelain/85) dropping luminance below the accessibility threshold; fixed by switching to solid inline colours.
+- Lint clean, VLM-verified, 0 errors.
