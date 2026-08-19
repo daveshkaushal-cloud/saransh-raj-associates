@@ -1102,3 +1102,42 @@ Stage Summary:
 - Insights: empty state with honest notice (no fabricated articles).
 - All 13 routes return 200, all direct URLs + refresh work, content renders immediately (no preloader delay), target load <3s achieved (homepage compile 2.8s, subsequent requests 60-80ms).
 - Verified end-to-end via agent-browser (disclaimer checkbox interaction, homepage hero, profile page, mobile responsiveness) and VLM (visual dark theme confirmation on homepage + profile).
+
+---
+Task ID: 19
+Agent: main (orchestrator)
+Task: Re-verify the dark editorial restore is still in place after session restart; restart dev server; confirm all spec content + disclaimer gate interaction
+
+Work Log:
+- Checked worklog: Task 18 (previous session) completed a full dark-theme restore. Verified all critical files are still in their dark-theme state:
+  • globals.css: dark tokens present (#080D18, --color-surface, --color-fg, --color-accent #4169FF) — 9 matches
+  • layout.tsx: Instrument Serif + Manrope via next/font/google, themeColor #080D18
+  • page.tsx: hero heading "Corporate / & Commercial / Legal Counsel." present
+  • people.ts: 3-paragraph bio, "Enrolled advocate — Bar Council details available on request", LLB/LLM Amity
+  • site-shell.tsx: 0 references to Preloader/CustomCursor (removed)
+  • disclaimer-gate.tsx: controlled useState(false), disabled={!checked}, "I Acknowledge and Proceed"
+- Dev server had died between sessions. Restarted on port 3000.
+- Ran lint: clean, 0 errors.
+- Verified all 13 routes return HTTP 200 via node fetch: /, /firm, /expertise, /expertise/corporate-advisory, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy — ALL ROUTES OK.
+
+Verification (agent-browser + node fetch + VLM):
+- Disclaimer gate interaction verified end-to-end:
+  • Fresh visit (storage cleared): gate appears with "Before you enter" title, checkbox [checked=false], "I Acknowledge and Proceed" button [disabled].
+  • is enabled @e4 → false (button disabled when checkbox unchecked) ✓
+  • Click checkbox @e8 → Done
+  • is enabled @e4 → true (button ENABLED immediately after checkbox checked) ✓ — NO race condition, NO stuck-disabled bug
+  • Click "I Acknowledge and Proceed" @e4 → enters website
+  • gateGone: true, H1 = "Corporate\n& Commercial\nLegal Counsel." ✓
+- Homepage dark theme confirmed: bg rgb(8,13,24) = #080D18, fg rgb(245,241,232) = #F5F1E8 ✓
+- Homepage spec content: hasCorporate ✓, hasCommercial ✓, hasLegalCounsel ✓, hasLabel (CORPORATE & COMMERCIAL LAW COUNSEL) ✓, hasBoutique (A boutique law firm advising) ✓, hasCounselFor ✓, hasPracticeAreas ✓, hasInsightsNotice ✓, hasRevisitDisclaimer ✓
+- Old elements removed (all false): oldLoadingDoc ✓, oldSRANewDelhi ✓, oldClientFirst ✓, oldServingAcross ✓, oldSixChapters ✓, old6Chapters ✓, oldForthcoming ✓
+- Profile page verified: Back to People ✓, practice areas ✓, Scope of Practice ✓, Qualifications ✓, Contact the Firm ✓, PROFESSIONAL PORTRAIT ✓, Founder & Principal Advocate ✓, Enrolled advocate ✓, LLB/LLM Amity ✓, NO Registered Advocate BCI ✓, NO Representative Engagements ✓, NO 6 chapters ✓, NO client-first ✓
+- Insights verified: Notice present ✓, Empty state present ✓, NO Forthcoming ✓, NO Filter ✓
+- Mobile responsive: 390x844, no horizontal overflow ✓
+- No page errors, no console errors ✓
+- VLM (desktop homepage): "deep dark navy blue or charcoal background with subtle fine-grained texture", "Corporate & Commercial Legal Counsel" with "& Commercial" in "vibrant bright blue italicized serif font", "no loading screen or preloader", "premium editorial dark theme with high-contrast typography", "no obvious errors". (The "N" button the VLM flags is the Next.js Dev Tools overlay — dev-only, confirmed by snapshot "Open Next.js Dev Tools" [ref=e9], NOT a custom floating widget from the codebase; it does not appear in production builds.)
+
+Stage Summary:
+- The dark editorial restore from Task 18 is confirmed intact and fully functional. No re-revert occurred — only the dev server had stopped between sessions.
+- All spec requirements met: dark theme (#080D18/#101827/#172033/#F5F1E8/#AAB2C0/#4169FF), Instrument Serif + Manrope + IBM Plex Mono typography, homepage hero "Corporate / & Commercial (italic cobalt) / Legal Counsel.", disclaimer gate with working checkbox→button interaction, all old elements removed (preloader, custom cursor, Loading Document, SRA / New Delhi, Serving across India, client-first, same quality, 06 chapters, Six chapters, Forthcoming fake articles, Registered Advocate BCI, Representative Engagements, cropped-name portraits), professional portrait placeholder, 3-paragraph bio, Scope of Practice + Qualifications + Bar, Contact the Firm CTA, Back to People, empty Insights, POST contact form, all 13 routes 200, lint clean, mobile responsive, no errors.
+- The "floating N" is the Next.js development overlay only (not in production). No custom floating widget exists in the codebase.
