@@ -51,14 +51,14 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Field label="Phone number" name="phone" type="tel" />
         <div>
-          <label htmlFor="area" className="block mono-label text-ink/55 mb-2">
+          <label htmlFor="area" className="block mono-label text-fg-muted mb-2">
             Area of interest
           </label>
           <select
             id="area"
             name="area"
             defaultValue=""
-            className="w-full bg-paper border border-line px-4 py-3 text-sm text-ink focus:border-ink outline-none transition-colors"
+            className="w-full bg-surface-soft border border-line px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors"
           >
             <option value="">Select a practice area</option>
             <option>Corporate Advisory</option>
@@ -72,30 +72,30 @@ export function ContactForm() {
         </div>
       </div>
       <div>
-        <label htmlFor="message" className="block mono-label text-ink/55 mb-2">
-          Message <span className="text-ink/40">*</span>
+        <label htmlFor="message" className="block mono-label text-fg-muted mb-2">
+          Message <span className="text-fg-subtle">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
-          className="w-full bg-paper border border-line px-4 py-3 text-sm text-ink focus:border-ink outline-none transition-colors resize-y"
+          className="w-full bg-surface-soft border border-line px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors resize-y"
           placeholder="Please share a brief, neutral description of your enquiry."
         />
       </div>
 
-      <p className="text-xs text-ink/50 leading-relaxed">
+      <p className="text-xs text-fg-subtle leading-relaxed">
         Submitting this form does not create a lawyer-client relationship. The
         information you share should not be confidential. By submitting, you
         acknowledge that you have read and agree to the{" "}
-        <a href="/disclaimer" className="link-underline text-ink/70">disclaimer</a>.
+        <a href="/disclaimer" className="link-underline text-fg-muted hover:text-accent">disclaimer</a>.
       </p>
 
       <button
         type="submit"
         disabled={submitting}
-        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-ink text-porcelain text-sm font-semibold tracking-wide hover:bg-electric transition-colors duration-300 disabled:opacity-50"
+        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-white text-sm font-semibold tracking-wide hover:bg-coral transition-colors duration-300 disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send message"}
         {!submitting && (
@@ -121,15 +121,15 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="block mono-label text-ink/55 mb-2">
-        {label} {required && <span className="text-ink/40">*</span>}
+      <label htmlFor={name} className="block mono-label text-fg-muted mb-2">
+        {label} {required && <span className="text-fg-subtle">*</span>}
       </label>
       <input
         id={name}
         name={name}
         type={type}
         required={required}
-        className="w-full bg-paper border border-line px-4 py-3 text-sm text-ink focus:border-ink outline-none transition-colors"
+        className="w-full bg-surface-soft border border-line px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors"
       />
     </div>
   );

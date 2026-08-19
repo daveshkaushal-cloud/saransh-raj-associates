@@ -27,12 +27,12 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative bg-porcelain pt-10 md:pt-16 pb-12 md:pb-20 border-b border-line">
+    <section className="relative bg-surface pt-10 md:pt-16 pb-12 md:pb-20 border-b border-line">
       {/* top folio bar */}
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-          <span className="mono-label text-ink/50">{chapter}</span>
-          <span className="folio text-ink/45">{folio}</span>
+          <span className="mono-label text-fg-muted">{chapter}</span>
+          <span className="folio text-fg-subtle">{folio}</span>
         </div>
       </div>
 
@@ -43,16 +43,16 @@ export function PageHero({
               {accentHex && (
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: accentHex }} aria-hidden="true" />
               )}
-              <span className="mono-label text-ink/55">{eyebrow}</span>
+              <span className="mono-label text-fg-muted">{eyebrow}</span>
             </div>
           </div>
           <div className="md:col-span-9">
             <SheetReveal>
-              <h1 className="display-1 text-ink">{title}</h1>
+              <h1 className="display-1 text-fg">{title}</h1>
             </SheetReveal>
             {intro && (
               <FadeUp delay={0.15}>
-                <p className="lead mt-6 md:mt-8 max-w-2xl text-ink/70">{intro}</p>
+                <p className="lead mt-6 md:mt-8 max-w-2xl text-fg-muted">{intro}</p>
               </FadeUp>
             )}
             {children}
@@ -87,7 +87,7 @@ export function SectionHeader({
       {index && (
         <span
           className="section-index absolute -top-8 -left-2 md:-top-12 md:-left-4 select-none pointer-events-none leading-none"
-          style={{ color: accentHex || "rgba(11,16,32,0.06)" }}
+          style={{ color: accentHex || "rgba(245,241,232,0.06)" }}
           aria-hidden="true"
         >
           {index}
@@ -97,10 +97,10 @@ export function SectionHeader({
         {accentHex && (
           <span className="h-2 w-2 rounded-full" style={{ background: accentHex }} aria-hidden="true" />
         )}
-        <span className="mono-label text-ink/55">{eyebrow}</span>
+        <span className="mono-label text-fg-muted">{eyebrow}</span>
       </div>
       <SheetReveal>
-        <h2 className="display-2 text-ink max-w-[20ch]">{title}</h2>
+        <h2 className="display-2 text-fg max-w-[20ch]">{title}</h2>
       </SheetReveal>
       {note && (
         <p className="margin-note mt-4 max-w-xs">{note}</p>
@@ -129,8 +129,8 @@ export function ChapterLink({
   index?: string;
 }) {
   return (
-    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-ink hover:text-electric transition-colors">
-      {index && <span className="mono-num text-[0.65rem] text-ink/40 group-hover:text-electric transition-colors">{index}</span>}
+    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-fg hover:text-accent transition-colors">
+      {index && <span className="mono-num text-[0.65rem] text-fg-subtle group-hover:text-accent transition-colors">{index}</span>}
       <span className="link-underline">{label}</span>
       <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

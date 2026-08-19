@@ -43,7 +43,7 @@ export default async function PracticeAreaPage({
 
   return (
     <>
-      {/* ============== HERO — colour-coded chapter opening ============== */}
+      {/* ============== HERO — colour-coded practice-area opening ============== */}
       <section
         className="relative pt-10 md:pt-16 pb-16 md:pb-24 overflow-hidden"
         style={{ background: hex, color: onHex }}
@@ -57,7 +57,7 @@ export default async function PracticeAreaPage({
               </svg>
               <span>All expertise</span>
             </Link>
-            <span className="folio opacity-60">Chapter {area.index} / 06</span>
+            <span className="folio opacity-60">Practice area {area.index} / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -97,18 +97,18 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== SERVICES — annotated list ============== */}
-      <section className="bg-porcelain py-20 md:py-32 border-b border-line">
+      <section className="bg-surface py-20 md:py-32 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
             <div className="md:col-span-4">
               <FadeUp>
-                <p className="mono-label text-ink/55 mb-3">§ Services</p>
+                <p className="mono-label text-fg-muted mb-3">§ Services</p>
                 <h2 className="display-2">What this covers</h2>
               </FadeUp>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
               <FadeUp delay={0.1}>
-                <p className="body-condensed text-ink/60 max-w-md">
+                <p className="body-condensed text-fg-muted max-w-md">
                   The scope of the firm&apos;s {area.title.toLowerCase()} practice,
                   set out as an annotated index. Select any service to read what it covers.
                 </p>
@@ -127,31 +127,31 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== APPROACH ============== */}
-      <section className="bg-paper py-20 md:py-32 border-b border-line">
+      <section className="bg-surface-soft py-20 md:py-32 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5">
               <FadeUp>
-                <p className="mono-label text-ink/55 mb-3">§ Approach</p>
+                <p className="mono-label text-fg-muted mb-3">§ Approach</p>
                 <h2 className="display-2 max-w-[14ch]">
                   Methodical, attentive,{" "}
-                  <span className="serif-italic" style={{ color: hex }}>client-focused</span>
+                  <span className="serif-italic" style={{ color: hex }}>considered</span>
                 </h2>
               </FadeUp>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6">
               <FadeUp delay={0.1}>
-                <p className="lead text-ink/70">
+                <p className="lead text-fg-muted">
                   The firm approaches {area.title.toLowerCase()} with attention
                   to detail and to the commercial realities of those it advises.
                   Each engagement begins with understanding the objective, then
                   moves through structured analysis toward clear, actionable
                   counsel.
                 </p>
-                <p className="mt-6 body-condensed text-ink/55">
+                <p className="mt-6 body-condensed text-fg-muted">
                   For an overview of the firm&apos;s approach across all practice
                   areas, see{" "}
-                  <Link href="/firm" className="link-underline text-ink">The Firm</Link>.
+                  <Link href="/firm" className="link-underline text-fg">The Firm</Link>.
                 </p>
               </FadeUp>
             </div>
@@ -160,32 +160,32 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== CONTACT STRIP ============== */}
-      <section className="bg-ink text-porcelain py-16 md:py-20">
+      <section className="bg-surface-soft text-fg py-16 md:py-20">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <FadeUp>
-            <h2 className="display-2 text-porcelain max-w-[18ch]">
+            <h2 className="display-2 text-fg max-w-[18ch]">
               Questions about{" "}
               <span className="serif-italic" style={{ color: hex }}>{area.title.toLowerCase()}</span>?
             </h2>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <div className="text-porcelain/75 space-y-1">
+            <div className="text-fg-muted space-y-1">
               <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
               <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
-              <p className="mono-label text-porcelain/50">{contact.hours}</p>
+              <p className="mono-label text-fg-muted">{contact.hours}</p>
             </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* ============== PREV / NEXT — chapter navigation ============== */}
-      <nav className="bg-porcelain border-t border-line" aria-label="Practice area navigation">
+      {/* ============== PREV / NEXT — practice-area navigation ============== */}
+      <nav className="bg-surface border-t border-line" aria-label="Practice area navigation">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 grid grid-cols-2">
           <Link
             href={`/expertise/${prev.slug}`}
             className="group border-r border-line py-8 md:py-10 pr-4 flex flex-col"
           >
-            <span className="mono-label text-ink/40 mb-2">← Previous chapter</span>
+            <span className="mono-label text-fg-subtle mb-2">← Previous practice area</span>
             <span className="display-3 text-xl md:text-2xl flex items-center gap-3">
               <span className="mono-num text-sm" style={{ color: accentHex[prev.accent] }}>{prev.index}</span>
               {prev.title}
@@ -195,7 +195,7 @@ export default async function PracticeAreaPage({
             href={`/expertise/${next.slug}`}
             className="group py-8 md:py-10 pl-4 flex flex-col items-end text-right"
           >
-            <span className="mono-label text-ink/40 mb-2">Next chapter →</span>
+            <span className="mono-label text-fg-subtle mb-2">Next practice area →</span>
             <span className="display-3 text-xl md:text-2xl flex items-center gap-3">
               {next.title}
               <span className="mono-num text-sm" style={{ color: accentHex[next.accent] }}>{next.index}</span>

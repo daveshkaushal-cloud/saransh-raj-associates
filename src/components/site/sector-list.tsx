@@ -48,11 +48,11 @@ export function SectorList() {
                 onClick={() => setOpenSlug(isOpen ? null : sector.slug)}
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                className="group relative w-full grid grid-cols-12 gap-4 items-center py-5 md:py-6 hover:bg-paper transition-colors text-left"
+                className="group relative w-full grid grid-cols-12 gap-4 items-center py-5 md:py-6 hover:bg-surface-soft transition-colors text-left"
                 aria-label={`${sector.name} — ${sector.note}. ${isOpen ? "Collapse" : "Expand"} details.`}
               >
                 {/* index */}
-                <span className="col-span-2 md:col-span-1 mono-num text-sm text-ink/45 transition-colors group-hover:text-ink/70">
+                <span className="col-span-2 md:col-span-1 mono-num text-sm text-fg-subtle transition-colors group-hover:text-fg-muted">
                   {num}
                 </span>
 
@@ -63,20 +63,20 @@ export function SectorList() {
                     style={{ background: hex }}
                     aria-hidden="true"
                   />
-                  <h3 className="font-display text-xl md:text-2xl text-ink leading-tight">
+                  <h3 className="font-display text-xl md:text-2xl text-fg leading-tight">
                     {sector.name}
                   </h3>
                 </div>
 
                 {/* note */}
-                <p className="col-span-12 md:col-span-5 text-[0.92rem] leading-relaxed text-ink/65 md:col-start-7">
+                <p className="col-span-12 md:col-span-5 text-[0.92rem] leading-relaxed text-fg-muted md:col-start-7">
                   {sector.note}
                 </p>
 
                 {/* chevron affordance — rotates when open */}
                 <span className="hidden md:flex col-span-1 items-center justify-end">
                   <svg
-                    className={`h-4 w-4 text-ink/35 transition-all duration-300 group-hover:text-ink ${
+                    className={`h-4 w-4 text-fg-subtle transition-all duration-300 group-hover:text-fg ${
                       isOpen ? "rotate-90" : ""
                     }`}
                     viewBox="0 0 24 24"
@@ -101,14 +101,12 @@ export function SectorList() {
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <div
-                    className="grid grid-cols-12 gap-4 pb-6 md:pb-7"
-                  >
+                  <div className="grid grid-cols-12 gap-4 pb-6 md:pb-7 bg-surface-soft">
                     <div
                       className="col-span-12 md:col-span-10 md:col-start-2 pl-4 md:pl-6 border-l-2"
                       style={{ borderColor: hex }}
                     >
-                      <p className="text-[0.95rem] leading-relaxed text-ink/75 max-w-2xl">
+                      <p className="text-[0.95rem] leading-relaxed text-fg-muted max-w-2xl">
                         {sector.description}
                       </p>
                     </div>

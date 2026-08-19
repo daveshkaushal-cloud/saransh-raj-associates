@@ -7,9 +7,14 @@ import Link from "next/link";
 const STORAGE_KEY = "sra_disclaimer_accepted_v1";
 
 /**
- * Mandatory full-screen disclaimer gateway — redesigned as an editorial
- * cover sheet. Requires active "I Agree" selection; remembers acceptance
- * for the browser session; allows direct deep-links to legal pages.
+ * Mandatory full-screen disclaimer gateway.
+ *
+ * Renders immediately on first paint (no blank animation). Uses a
+ * controlled React checkbox state — when the checkbox is checked the
+ * "I Acknowledge and Proceed" button becomes enabled instantly. Acceptance
+ * is persisted to sessionStorage for the visitor's session. Legal pages
+ * (/disclaimer, /terms, /privacy) bypass the gate so deep-links work.
+ * A "Revisit Disclaimer" link lives in the site footer.
  */
 export function DisclaimerGate({ children }: { children: React.ReactNode }) {
   const [accepted, setAccepted] = useState(true);
@@ -39,11 +44,15 @@ export function DisclaimerGate({ children }: { children: React.ReactNode }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="disclaimer-title"
-        className="fixed inset-0 z-[200] bg-ink text-porcelain overflow-y-auto"
+        className="fixed inset-0 z-[200] bg-surface text-fg overflow-y-auto"
       >
         <DisclaimerContent
           onAgree={() => {
-            try { sessionStorage.setItem(STORAGE_KEY, "1"); } catch {}
+            try {
+              sessionStorage.setItem(STORAGE_KEY, "1");
+            } catch {
+              /* storage unavailable — keep gate for this session only */
+            }
             setAccepted(true);
           }}
         />
@@ -55,39 +64,47 @@ export function DisclaimerGate({ children }: { children: React.ReactNode }) {
 }
 
 function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
-  const [tick, setTick] = useState(false);
+  // Single source of truth for the checkbox state. The button is
+  // disabled={checked === false} — when checked is true the button
+  // is enabled immediately. No CSS peer-checked reliance, no duplicate
+  // state, no race condition.
+  const [checked, setChecked] = useState(false);
 
   return (
     <div className="relative w-full min-h-full flex flex-col">
-      {/* colour edge rule */}
-      <div className="grid grid-cols-7 h-1.5 shrink-0">
-        <div className="bg-electric" />
-        <div className="bg-vermilion" />
-        <div className="bg-marigold" />
-        <div className="bg-jade" />
-        <div className="bg-aubergine" />
-        <div className="bg-porcelain" />
-        <div className="bg-porcelain/40" />
+      {/* Top accent rule — practice-area colour identity */}
+      <div className="grid grid-cols-6 h-1.5 shrink-0">
+        <div className="bg-accent" />
+        <div className="bg-coral" />
+        <div className="bg-saffron" />
+        <div className="bg-teal" />
+        <div className="bg-violet" />
+        <div className="bg-surface-soft" />
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col">
-        {/* top bar */}
-        <div className="px-6 md:px-12 pt-8 md:pt-10 flex items-center justify-between border-b border-line-on-ink pb-5">
-          <span className="mono-label text-porcelain/60">Saransh Raj &amp; Associates</span>
-          <span className="mono-label text-porcelain/40">Cover Sheet · 01</span>
+        {/* Top bar */}
+        <div className="px-6 md:px-12 pt-8 md:pt-10 flex items-center justify-between border-b border-line pb-5">
+          <span className="mono-label text-fg-muted">
+            Saransh Raj &amp; Associates
+          </span>
+          <span className="mono-label text-fg-subtle">Cover Sheet · 01</span>
         </div>
 
         <div className="flex-1 flex items-center px-6 md:px-12 py-10">
           <div className="max-w-3xl mx-auto w-full">
-            <p className="mono-label text-marigold mb-5">Please read carefully</p>
-            <h1 id="disclaimer-title" className="display-2 text-porcelain mb-8 max-w-[16ch]">
+            <p className="mono-label text-saffron mb-5">Please read carefully</p>
+            <h1
+              id="disclaimer-title"
+              className="display-2 text-fg mb-8 max-w-[16ch]"
+            >
               Before you enter
             </h1>
 
-            <div className="space-y-5 text-porcelain/75 text-[15px] md:text-base leading-relaxed">
+            <div className="space-y-5 text-fg-muted text-[15px] md:text-base leading-relaxed">
               <p>
                 This website is the online presence of{" "}
-                <span className="text-porcelain">Saransh Raj &amp; Associates</span>,
+                <span className="text-fg">Saransh Raj &amp; Associates</span>,
                 a law firm based in New Delhi, India. It has been prepared and is
                 maintained solely for informational purposes.
               </p>
@@ -106,52 +123,93 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                 acting on any information presented. The firm accepts no liability
                 for any reliance placed on this website.
               </p>
-              <p className="text-porcelain/55 text-sm">
+              <p className="text-fg-subtle text-sm">
                 The Bar Council of India does not permit advertisement or
                 solicitation by advocates in any form or manner. By proceeding,
                 you acknowledge that you have read and understood this disclaimer
                 and the{" "}
-                <Link href="/terms" className="link-underline text-porcelain">Terms of Use</Link>{" "}
+                <Link href="/terms" className="link-underline text-fg">
+                  Terms of Use
+                </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="link-underline text-porcelain">Privacy Policy</Link>.
+                <Link href="/privacy" className="link-underline text-fg">
+                  Privacy Policy
+                </Link>
+                .
               </p>
             </div>
 
-            <label className="mt-9 flex items-start gap-3 cursor-pointer select-none group">
-              <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                <input
-                  type="checkbox"
-                  checked={tick}
-                  onChange={(e) => setTick(e.target.checked)}
-                  className="peer sr-only"
-                />
-                <span className="block h-5 w-5 border border-porcelain/40 transition-colors peer-checked:border-marigold" />
-                {tick && (
-                  <svg viewBox="0 0 24 24" className="absolute h-5 w-5 text-marigold" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                    <path d="M5 12l5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-              </span>
-              <span className="text-sm text-porcelain/75 leading-snug">
-                I have read and understood the disclaimer and confirm that I wish
-                to enter the website.
-              </span>
-            </label>
+            {/* Checkbox + label — properly associated via htmlFor/id */}
+            <div className="mt-9">
+              <label
+                htmlFor="disclaimer-ack"
+                className="flex items-start gap-3 cursor-pointer select-none group"
+              >
+                <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                  <input
+                    id="disclaimer-ack"
+                    type="checkbox"
+                    checked={checked}
+                    onChange={(e) => setChecked(e.target.checked)}
+                    className="h-5 w-5 cursor-pointer accent-[#4169FF] opacity-0 absolute inset-0"
+                  />
+                  <span
+                    className={`block h-5 w-5 border transition-colors ${
+                      checked
+                        ? "border-accent bg-accent"
+                        : "border-line-strong group-hover:border-fg-muted"
+                    }`}
+                  />
+                  {checked && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="absolute h-5 w-5 text-white pointer-events-none"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 12l5 5L20 7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </span>
+                <span className="text-sm text-fg-muted leading-snug">
+                  I have read and understood the disclaimer and confirm that I
+                  wish to enter the website.
+                </span>
+              </label>
+            </div>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
+                type="button"
                 onClick={onAgree}
-                disabled={!tick}
-                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-porcelain text-ink text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-marigold transition-colors duration-300"
+                disabled={!checked}
+                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-white text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-coral transition-colors duration-300"
               >
-                <span>I Agree &amp; Enter</span>
-                <svg className="h-4 w-4 transition-transform duration-300 group-enabled:group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                <span>I Acknowledge and Proceed</span>
+                <svg
+                  className="h-4 w-4 transition-transform duration-300 group-enabled:group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               <Link
                 href="/disclaimer"
-                className="inline-flex items-center justify-center px-7 py-3.5 border border-porcelain/30 text-porcelain/80 text-sm font-medium hover:border-porcelain hover:text-porcelain transition-colors duration-300"
+                className="inline-flex items-center justify-center px-7 py-3.5 border border-line-strong text-fg-muted text-sm font-medium hover:border-fg hover:text-fg transition-colors duration-300"
               >
                 Read full disclaimer
               </Link>
@@ -159,8 +217,8 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
           </div>
         </div>
 
-        <div className="px-6 md:px-12 pb-8 border-t border-line-on-ink pt-5">
-          <p className="mono-label text-porcelain/40">
+        <div className="px-6 md:px-12 pb-8 border-t border-line pt-5">
+          <p className="mono-label text-fg-subtle">
             If you do not agree with the above, please refrain from accessing this website.
           </p>
         </div>

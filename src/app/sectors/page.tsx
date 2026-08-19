@@ -16,17 +16,17 @@ export default function SectorsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-porcelain pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
+      <section className="relative bg-surface pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-            <span className="mono-label text-ink/50">Chapter 03 · Sectors</span>
-            <span className="folio text-ink/45">004 / 018</span>
+            <span className="mono-label text-fg-muted">Index 03 · Sectors</span>
+            <span className="folio text-fg-subtle">004 / 018</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <FadeUp>
-                <p className="mono-label text-ink/55 mb-4">Industry Atlas</p>
+                <p className="mono-label text-fg-muted mb-4">Industry Atlas</p>
                 <p className="margin-note">
                   Ten sectors, each given its own colour marker. Select a sector
                   to anchor its scope.
@@ -35,13 +35,13 @@ export default function SectorsPage() {
             </div>
             <div className="md:col-span-9">
               <SheetReveal>
-                <h1 className="display-1 text-ink max-w-[14ch]">
+                <h1 className="display-1 text-fg max-w-[14ch]">
                   A visual{" "}
-                  <span className="serif-italic text-jade">atlas</span> of sectors
+                  <span className="serif-italic text-teal">atlas</span> of sectors
                 </h1>
               </SheetReveal>
               <FadeUp delay={0.15}>
-                <p className="lead mt-8 max-w-2xl text-ink/70">
+                <p className="lead mt-8 max-w-2xl text-fg-muted">
                   The firm advises across ten of India&apos;s dynamic industries.
                   Each sector below carries its own colour identity and a note on
                   the firm&apos;s work within it.
@@ -53,13 +53,13 @@ export default function SectorsPage() {
       </section>
 
       {/* ============== Sector index — compact annotated list ============== */}
-      <section className="bg-porcelain py-16 md:py-24 border-b border-line">
+      <section className="bg-surface py-16 md:py-24 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           {/* header — stacked so the heading breaks into exactly two lines
               and there is no wide horizontal gap beside it */}
           <div className="mb-10">
             <FadeUp>
-              <p className="mono-label text-ink/55 mb-3">§ The index</p>
+              <p className="mono-label text-fg-muted mb-3">§ The index</p>
               <h2 className="display-2">
                 Ten sectors,
                 <br />
@@ -67,7 +67,7 @@ export default function SectorsPage() {
               </h2>
             </FadeUp>
             <FadeUp delay={0.1}>
-              <p className="body-condensed text-ink/60 max-w-md mt-6">
+              <p className="body-condensed text-fg-muted max-w-md mt-6">
                 Each sector is colour-coded to the practice area most active
                 within it. Select any sector to read how the firm works within
                 it — specific engagements are not published on this page.
@@ -78,7 +78,7 @@ export default function SectorsPage() {
           {/* colour legend */}
           <FadeUp>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-8 pb-6 border-b border-line">
-              <span className="mono-label text-ink/55">Legend</span>
+              <span className="mono-label text-fg-muted">Legend</span>
               {sectors.map((sector) => {
                 const hex = accentHex[sector.accent as Accent];
                 return (
@@ -92,7 +92,7 @@ export default function SectorsPage() {
                       style={{ background: hex }}
                       aria-hidden="true"
                     />
-                    <span className="mono-label text-ink/70 group-hover:text-ink transition-colors">
+                    <span className="mono-label text-fg-muted group-hover:text-fg transition-colors">
                       {sector.name}
                     </span>
                   </a>
@@ -108,12 +108,12 @@ export default function SectorsPage() {
       </section>
 
       {/* ============== How the firm serves sectors ============== */}
-      <section className="bg-paper py-16 md:py-24 border-b border-line">
+      <section className="bg-surface-soft py-16 md:py-24 border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-4">
               <FadeUp>
-                <p className="mono-label text-ink/55 mb-3">§ Approach</p>
+                <p className="mono-label text-fg-muted mb-3">§ Approach</p>
                 <h2 className="display-2 max-w-[14ch]">
                   How the firm serves its sectors
                 </h2>
@@ -122,13 +122,13 @@ export default function SectorsPage() {
             <div className="md:col-span-7 md:col-start-6">
               <FadeUp delay={0.1}>
                 <div className="space-y-5 max-w-2xl">
-                  <p className="lead text-ink/75">
+                  <p className="lead text-fg-muted">
                     Sector knowledge sits alongside, not in place of, legal
                     discipline. The firm&apos;s sector work is grounded in the
                     corporate and commercial practice that carries across every
                     industry it serves.
                   </p>
-                  <p className="text-[0.95rem] leading-relaxed text-ink/65">
+                  <p className="text-[0.95rem] leading-relaxed text-fg-muted">
                     What changes from one sector to the next is the regulatory
                     regime, the commercial conventions, and the counterparties
                     a client is likely to encounter. The firm carries an
@@ -158,14 +158,14 @@ export default function SectorsPage() {
               },
             ].map((note, i) => (
               <FadeUp key={note.title} delay={i * 0.08}>
-                <div className="bg-paper p-6 md:p-8 h-full">
-                  <span className="mono-num text-sm text-ink/35 block mb-3">
+                <div className="bg-surface-soft p-6 md:p-8 h-full">
+                  <span className="mono-num text-sm text-fg-subtle block mb-3">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display text-lg md:text-xl text-ink mb-2 leading-tight">
+                  <h3 className="font-display text-lg md:text-xl text-fg mb-2 leading-tight">
                     {note.title}
                   </h3>
-                  <p className="text-[0.9rem] leading-relaxed text-ink/65">
+                  <p className="text-[0.9rem] leading-relaxed text-fg-muted">
                     {note.body}
                   </p>
                 </div>
@@ -176,18 +176,18 @@ export default function SectorsPage() {
       </section>
 
       {/* ============== Cross-link to practice areas ============== */}
-      <section className="bg-porcelain py-16 md:py-20">
+      <section className="bg-surface py-16 md:py-20">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <FadeUp>
-            <h2 className="display-2 text-ink max-w-[20ch]">
+            <h2 className="display-2 text-fg max-w-[20ch]">
               The practice behind{" "}
-              <span className="serif-italic text-jade">the sectors</span>
+              <span className="serif-italic text-teal">the sectors</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.1}>
             <Link
               href="/expertise"
-              className="group inline-flex items-center gap-2 mono-label text-ink hover:text-electric transition-colors"
+              className="group inline-flex items-center gap-2 mono-label text-fg hover:text-accent transition-colors"
             >
               <span>View the expertise index</span>
               <svg

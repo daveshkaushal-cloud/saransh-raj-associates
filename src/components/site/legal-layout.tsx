@@ -19,27 +19,27 @@ export function LegalLayout({
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-porcelain pt-10 md:pt-16 pb-12 md:pb-16 overflow-hidden border-b border-line">
+      <section className="relative bg-surface pt-10 md:pt-16 pb-12 md:pb-16 overflow-hidden border-b border-line">
         <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-            <span className="mono-label text-ink/50">Legal · Informational</span>
-            <span className="folio text-ink/45">DOC</span>
+            <span className="mono-label text-fg-muted">Legal · Informational</span>
+            <span className="folio text-fg-subtle">DOC</span>
           </div>
           <FadeUp>
-            <p className="mono-label text-ink/55 mb-6">Legal document</p>
+            <p className="mono-label text-fg-muted mb-6">Legal document</p>
           </FadeUp>
-          <h1 className="display-1 max-w-[16ch]">
+          <h1 className="display-1 text-fg max-w-[16ch]">
             <SheetReveal>
               <span className="block">{title}</span>
             </SheetReveal>
           </h1>
           <FadeUp delay={0.15}>
-            <p className="mt-6 mono-label text-ink/50">
+            <p className="mt-6 mono-label text-fg-subtle">
               Last updated: {updated}
             </p>
           </FadeUp>
           <FadeUp delay={0.2}>
-            <div className="mt-8 max-w-2xl lead text-ink/70">
+            <div className="mt-8 max-w-2xl lead text-fg-muted">
               {intro}
             </div>
           </FadeUp>
@@ -47,21 +47,21 @@ export function LegalLayout({
       </section>
 
       {/* Body */}
-      <section className="bg-porcelain py-16 md:py-24">
+      <section className="bg-surface py-16 md:py-24">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
             {/* TOC */}
             <aside className="md:col-span-3">
               <div className="sticky top-24">
-                <p className="mono-label text-ink/55 mb-4">Contents</p>
+                <p className="mono-label text-fg-muted mb-4">Contents</p>
                 <ol className="space-y-2">
                   {sections.map((s, i) => (
                     <li key={s.id}>
                       <a
                         href={`#${s.id}`}
-                        className="link-underline text-sm text-ink/65 hover:text-ink inline-flex items-baseline gap-2"
+                        className="link-underline text-sm text-fg-muted hover:text-fg inline-flex items-baseline gap-2"
                       >
-                        <span className="mono-num text-ink/40">
+                        <span className="mono-num text-fg-subtle">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         {s.heading}
@@ -78,12 +78,12 @@ export function LegalLayout({
                 {sections.map((s, i) => (
                   <article key={s.id} id={s.id} className="scroll-mt-24">
                     <div className="flex items-baseline gap-4 mb-4">
-                      <span className="mono-num text-[0.7rem] text-ink/40">
+                      <span className="mono-num text-[0.7rem] text-fg-subtle">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h2 className="display-3 text-2xl md:text-3xl">{s.heading}</h2>
+                      <h2 className="display-3 text-fg text-2xl md:text-3xl">{s.heading}</h2>
                     </div>
-                    <div className="md:pl-10 space-y-4 text-[0.95rem] leading-relaxed text-ink/70 max-w-2xl">
+                    <div className="md:pl-10 space-y-4 text-[0.95rem] leading-relaxed text-fg-muted max-w-2xl">
                       {s.body}
                     </div>
                   </article>
@@ -92,15 +92,15 @@ export function LegalLayout({
 
               {/* Contact note */}
               <div className="mt-16 pt-8 border-t border-line">
-                <p className="mono-label text-ink/55 mb-3">Questions</p>
-                <p className="text-sm text-ink/65 leading-relaxed max-w-xl">
+                <p className="mono-label text-fg-muted mb-3">Questions</p>
+                <p className="text-sm text-fg-muted leading-relaxed max-w-xl">
                   For questions about this document, please contact {firm.name}{" "}
                   at{" "}
-                  <a href={contact.emailHref} className="link-underline text-ink break-all">
+                  <a href={contact.emailHref} className="link-underline text-fg break-all">
                     {contact.email}
                   </a>{" "}
                   or{" "}
-                  <a href={contact.phoneHref} className="link-underline text-ink">
+                  <a href={contact.phoneHref} className="link-underline text-fg">
                     {contact.phone}
                   </a>
                   .

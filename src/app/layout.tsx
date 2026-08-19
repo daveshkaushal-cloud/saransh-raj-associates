@@ -1,30 +1,29 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Instrument_Serif, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SiteShell } from "@/components/site/site-shell";
 
 /* Self-hosted, properly-licensed fonts:
- *  - Bodoni Moda  (SIL OFL)        — display headings
- *  - Satoshi      (Fontshare 100)  — body & navigation
- *  - IBM Plex Mono (SIL OFL)       — labels, numbering, metadata
+ *  - Instrument Serif (SIL OFL, via Google Fonts)  — display headings
+ *  - Manrope         (SIL OFL, via Google Fonts)    — body & navigation
+ *  - IBM Plex Mono   (SIL OFL, local)               — labels, numbering, metadata
+ *
+ * All fonts use display:"swap" so content renders immediately and
+ * reflows gracefully once the webfont arrives.
  */
-const bodoniModa = localFont({
-  src: [
-    { path: "../../public/fonts/bodonimoda.ttf", weight: "400 700", style: "normal" },
-    { path: "../../public/fonts/bodonimoda-italic.ttf", weight: "400 700", style: "italic" },
-  ],
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const satoshi = localFont({
-  src: [
-    { path: "../../public/fonts/satoshi-400.woff2", weight: "400", style: "normal" },
-    { path: "../../public/fonts/satoshi-500.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/satoshi-700.woff2", weight: "700", style: "normal" },
-    { path: "../../public/fonts/satoshi-900.woff2", weight: "900", style: "normal" },
-  ],
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -81,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#E2E8F2",
+  themeColor: "#080D18",
   width: "device-width",
   initialScale: 1,
 };
@@ -92,7 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${bodoniModa.variable} ${satoshi.variable} ${plexMono.variable} antialiased bg-porcelain text-ink font-sans selection:bg-electric selection:text-white`}
+        className={`${instrumentSerif.variable} ${manrope.variable} ${plexMono.variable} antialiased bg-surface text-fg font-sans selection:bg-accent selection:text-white`}
       >
         <SiteShell>{children}</SiteShell>
         <Toaster />

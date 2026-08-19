@@ -852,3 +852,253 @@ Stage Summary:
 - Sector rows are now interactive accordions: clicking a sector expands a 2–3 line editorial description of the firm's work in that sector (accent-coloured left border, smooth grid-rows animation, rotating chevron). Clicking again collapses it. Legend links (#slug) auto-open the matching sector.
 - Added a `description` field to all 10 sectors in src/data/sectors.ts; created src/components/site/sector-list.tsx (client component) to host the expandable behaviour; updated src/app/sectors/page.tsx to use the stacked header + <SectorList />.
 - Lint clean, VLM-verified (heading two lines + no gap; expanded content 3 lines with accent border), 0 console errors.
+
+---
+Task ID: 17-d
+Agent: subagent-D (page-hero + legal-layout + legal pages)
+Task: Update page-hero.tsx, legal-layout.tsx, verify disclaimer/terms/privacy pages for dark theme
+
+Work Log:
+- Read worklog.md for context — the site was restored to a dark editorial theme (#080D18 surface, #F5F1E8 ivory fg). Design tokens (bg-surface, text-fg, text-fg-muted, text-fg-subtle, text-accent, border-line) are already defined in src/app/globals.css and confirmed present.
+- Verified globals.css exposes both the new dark-theme tokens (bg-surface, text-fg, text-fg-muted, text-fg-subtle, text-accent, border-line) and the legacy aliases (porcelain/ink/paper/electric now resolve to the dark palette but should be migrated to the canonical new names).
+
+1. Updated src/components/site/page-hero.tsx:
+   - Hero <section>: bg-porcelain → bg-surface (top folio bar).
+   - Folio bar: text-ink/50 → text-fg-muted (chapter); text-ink/45 → text-fg-subtle (folio number).
+   - Eyebrow: text-ink/55 → text-fg-muted.
+   - <h1>: text-ink → text-fg.
+   - Intro <p>: text-ink/70 → text-fg-muted.
+   - SectionHeader sub-component: eyebrow text-ink/55 → text-fg-muted; <h2> text-ink → text-fg; section-index watermark colour rgba(11,16,32,0.06) → rgba(245,241,232,0.06) (subtle ivory watermark on dark bg, was near-invisible dark-on-dark).
+   - ChapterLink sub-component: text-ink hover:text-electric → text-fg hover:text-accent; mono-num text-ink/40 group-hover:text-electric → text-fg-subtle group-hover:text-accent.
+
+2. Updated src/components/site/legal-layout.tsx:
+   - Hero <section>: bg-porcelain → bg-surface.
+   - Body <section>: bg-porcelain → bg-surface.
+   - Folio bar: text-ink/50 → text-fg-muted ("Legal · Informational"); text-ink/45 → text-fg-subtle ("DOC").
+   - "Legal document" eyebrow: text-ink/55 → text-fg-muted.
+   - <h1> (display-1): added explicit text-fg (previously had no explicit colour class).
+   - "Last updated" line: text-ink/50 → text-fg-subtle (tertiary text).
+   - Intro lead: text-ink/70 → text-fg-muted.
+   - TOC heading: text-ink/55 → text-fg-muted.
+   - TOC link: text-ink/65 hover:text-ink → text-fg-muted hover:text-fg; mono-num text-ink/40 → text-fg-subtle.
+   - Section article heading (display-3): added text-fg (previously inherited); mono-num text-ink/40 → text-fg-subtle; body text-ink/70 → text-fg-muted.
+   - "Questions" contact note: text-ink/55 → text-fg-muted (label); text-ink/65 → text-fg-muted (body); email link text-ink → text-fg (kept break-all); phone link text-ink → text-fg.
+   - Border tokens: border-line kept as-is.
+
+3. Verified /disclaimer, /terms, /privacy (src/app/{disclaimer,terms,privacy}/page.tsx):
+   - Confirmed all three pages import LegalLayout and pass title/updated/intro/sections props — no layout API changes were needed.
+   - Confirmed only data references used are: firm.name (disclaimer, terms, privacy), contact.email + contact.emailHref + contact.phone + contact.phoneHref (privacy "Contact" section). Verified all those fields exist in src/data/firm.ts (firm.name, contact.email, contact.emailHref, contact.phone, contact.phoneHref).
+   - No references to firm.servesAcross or any removed data fields anywhere in the three legal pages (servesAcross is only referenced in src/app/contact/page.tsx, which is outside this task's scope).
+   - Content is approved copy; no changes made to the disclaimer, terms, or privacy text.
+
+4. Lint:
+   - Ran `cd /home/z/my-project && bun run lint 2>&1 | tail -30`. Output: `$ eslint .` with no errors or warnings — clean.
+
+Verification:
+- Re-read page-hero.tsx and legal-layout.tsx after edits. Searched both for any remaining `text-ink`, `bg-porcelain`, `text-porcelain`, `bg-ink`, `bg-paper`, `text-electric` references — zero matches. Migration complete.
+- All imports unchanged in both files (page-hero.tsx still uses Link, ReactNode, SheetReveal, FadeUp; legal-layout.tsx still uses ReactNode, FadeUp, SheetReveal, firm, contact — all still consumed).
+- The three legal pages render via LegalLayout and will now display with the dark editorial theme: ivory headings + muted-ivory body text on #080D18 surface, with subtle #6B7689 mono-numerals and a faint ivory section-index watermark on page-hero.tsx (instead of the previously near-invisible dark-on-dark watermark).
+
+Stage Summary:
+- page-hero.tsx: fully migrated to dark theme tokens — bg-surface hero, text-fg h1, text-fg-muted eyebrow/intro, text-fg-subtle folio, text-fg+text-accent ChapterLink, ivory section-index watermark.
+- legal-layout.tsx: fully migrated — bg-surface hero + body, text-fg h1 + section headings + contact links, text-fg-muted eyebrows/TOC/intro, text-fg-subtle folio/last-updated/mono-numerals.
+- disclaimer/terms/privacy pages verified clean — no removed data-field references, content untouched, all data fields (firm.name, contact.email/emailHref/phone/phoneHref) confirmed present in src/data/firm.ts.
+- bun run lint: clean, 0 errors.
+- Scope respected: no other files touched; no content changes to the approved legal copy.
+
+---
+Task ID: 17-c
+Agent: subagent-C (contact + careers + not-found)
+Task: Update contact/page.tsx, contact-form.tsx, careers/page.tsx, not-found.tsx for dark theme
+
+Work Log:
+- Read worklog.md, globals.css (verified dark theme tokens: --color-surface #080D18, --color-surface-soft #101827, --color-fg #F5F1E8, --color-fg-muted #AAB2C0, --color-fg-subtle #6B7689, --color-accent #4169FF, --color-coral/saffron/teal/violet, --color-line / --color-line-strong). Also confirmed firm.ts no longer has servesAcross field (only basedIn).
+- contact/page.tsx: replaced bg-porcelain -> bg-surface (both sections), text-ink -> text-fg (h1 + address/phone/email/hours values), text-ink/85 -> text-fg, text-ink/70 -> text-fg-muted, text-ink/55 -> text-fg-muted (all mono-labels), text-ink/50 -> text-fg-subtle (folio + Based-in label), text-ink/45 -> text-fg-subtle, text-ink/65 -> text-fg-muted (based-in value). Renamed "Chapter 07 · Contact" -> "Index 07 · Contact". Swapped border-t border-ink -> border-t border-accent on both the Enquiry and Details column headers. hover:text-ink on phone/email links -> hover:text-accent. REMOVED the "Serving across {firm.servesAcross}" line entirely (kept only "{firm.basedIn}, India").
+- contact-form.tsx: kept the fetch("/api/contact", { method: "POST", ... }) intact — POST method preserved. Field/select/textarea className: bg-paper border border-line ... text-ink focus:border-ink -> bg-surface-soft border border-line ... text-fg focus:border-accent (all four inputs: name, email, phone, area select, message textarea). All mono-labels text-ink/55 -> text-fg-muted. Required-asterisk spans text-ink/40 -> text-fg-subtle. Disclaimer note text-ink/50 -> text-fg-subtle, link text-ink/70 -> text-fg-muted hover:text-accent. Submit button bg-ink text-porcelain hover:bg-electric -> bg-accent text-white hover:bg-coral. The <form onSubmit={onSubmit}> wrapper and the Field helper component were left structurally unchanged.
+- careers/page.tsx: replaced bg-porcelain -> bg-surface (hero + body sections), text-ink -> text-fg (h1 + email link), text-ink/70 -> text-fg-muted (lead paragraph), text-ink/75 -> text-fg-muted (body paragraphs + "Write to the firm..." intro), text-ink/55 -> text-fg-muted (Overview / How-to-reach / joining labels + body sub-note), text-ink/50 -> text-fg-subtle (folio + office hours). Renamed "Chapter 06 · Careers" -> "Index 06 · Careers". REMOVED promotional wording — hero intro now ends "...integrity, precision and clarity." instead of "...integrity, precision and a client-first approach." Visit-contact-page button bg-ink text-porcelain hover:bg-electric -> bg-accent text-white hover:bg-coral. Email link text-ink hover:text-electric -> text-fg hover:text-accent.
+- not-found.tsx: section className bg-porcelain -> bg-surface text-fg (added text-fg to outer section so all text inherits ivory). mono-label text-ink/55 -> text-fg-muted. h1 display-mega text-ink -> text-fg. lead text-ink/65 -> text-fg-muted. Return-home button bg-ink text-porcelain hover:bg-electric -> bg-accent text-white hover:bg-coral. Contact button border border-ink/25 text-ink hover:border-ink -> border border-line-strong text-fg hover:border-fg. Colour bar: bg-electric -> bg-accent, bg-vermilion -> bg-coral, bg-marigold -> bg-saffron, bg-jade -> bg-teal, bg-aubergine -> bg-violet, bg-ink -> bg-surface-soft.
+- Ran `bun run lint` (eslint .) — 0 errors, 0 warnings.
+- Verified all 4 files via grep: no remaining text-ink, bg-porcelain, text-porcelain, bg-ink, bg-paper, text-electric, "Chapter", "client-first", or "servesAcross" references. Verified contact-form.tsx line 30 still reads `method: "POST"`.
+
+Stage Summary:
+- Four files migrated to the dark editorial token system: src/app/contact/page.tsx, src/components/site/contact-form.tsx, src/app/careers/page.tsx, src/app/not-found.tsx.
+- All legacy light-theme tokens (bg-porcelain, bg-paper, bg-ink, text-ink, text-ink/XX opacity variants, text-porcelain, text-electric) replaced with their dark-theme equivalents (bg-surface, bg-surface-soft, bg-accent, text-fg, text-fg-muted, text-fg-subtle, text-white, text-accent, border-line, border-line-strong, border-accent, bg-coral/saffron/teal/violet).
+- Section/divider accent borders (border-t border-ink on contact details columns) converted to border-accent (cobalt) so they read as deliberate accents rather than full ink rules.
+- Promotional / outdated content removed: "Chapter" -> "Index" in both contact + careers headers; "client-first approach" -> "clarity" in careers hero; the dangling "Serving across {firm.servesAcross}" line removed from contact details (firm.servesAcross field no longer exists in data).
+- Contact form behaviour preserved exactly: POST method to /api/contact, toast on success/error, form.reset(), router.refresh(), disabled-while-submitting button. Only the visual token classes changed.
+- 404 colour bar still uses the 6-band identity sequence but with renamed tokens (accent / coral / saffron / teal / violet / surface-soft).
+- Lint clean. No other files touched.
+
+---
+Task ID: 17-a
+Agent: subagent-A (people section)
+Task: Update people-preview.tsx, people/page.tsx, people/[slug]/page.tsx for dark editorial theme + spec content
+
+Work Log:
+- Read worklog Tasks 1–16 for context, then read the three target files plus the (already-updated) data file src/data/people.ts and src/lib/accents.ts to confirm the new dark-theme accent palette (electric→#4169FF cobalt, onHex #FFFFFF for the founder).
+- src/components/site/people-preview.tsx — rewrote the editorial portrait field as a "PROFESSIONAL PORTRAIT / TO BE ADDED" placeholder:
+  • Card wrapper now `bg-surface-soft text-fg overflow-hidden border border-line` (was `bg-ink text-porcelain`).
+  • Portrait field is now a subtle `bg-surface-elevated` dark surface (no accent colour, no cropped name, no AI face). The accent colour survives only as a small 3×3 corner bracket marker so the field reads as a deliberate placeholder.
+  • Centre carries two-line mono-label "PROFESSIONAL PORTRAIT" / "TO BE ADDED" in `text-fg-muted`. Architectural rule lines + bottom folio SR/0n retained.
+  • Details panel keeps role (`text-fg-subtle`), name (`text-fg`), summary (`text-fg-muted`), focus areas (`text-fg-subtle`), "View profile" CTA (`text-fg-muted group-hover:text-accent`).
+  • Team note end card → `bg-surface-elevated text-fg border border-line` (was `bg-paper text-ink border border-line`).
+  • Removed unused `accentOnHex` import.
+- src/app/people/page.tsx — applied dark theme tokens and removed 4 sections per spec:
+  • Removed imports of `Link`, `teamPracticeModel`, `joiningTheFirm`, `firm`, `contact`, `RuleDraw` (all unused after section removals).
+  • Removed the Pull-quote callout section (founder.quote field no longer in data).
+  • Removed the "How the team works" pillars section (teamPracticeModel removed from data).
+  • Removed the "Joining the firm" pathways section + dark Apply CTA block (joiningTheFirm removed from data).
+  • Removed the "Firm values strip" section.
+  • Hero: `bg-surface` (was `bg-porcelain`), breadcrumb `Index 04 · People` (was `Chapter 04 · People`), headline "people" italic uses `text-violet` (was `text-aubergine`), all `text-ink/XX` opacities mapped to `text-fg-muted` (≈70%) or `text-fg-subtle` (≤50%), headline uses `text-fg`, lead uses `text-fg-muted`.
+  • People list cards: card body `bg-surface-soft text-fg border border-line` (was `bg-ink text-porcelain`). The portrait field retains the accent colour background (`style={{ background: hex }}`), but the content inside is the "PROFESSIONAL PORTRAIT / TO BE ADDED" placeholder in `accentOnHex` (white on cobalt for the founder) — no cropped name, no AI face.
+  • Team note: `bg-surface-elevated border border-line text-fg` (was `bg-paper border border-line`), label `text-fg-subtle`, body `text-fg-muted`.
+- src/app/people/[slug]/page.tsx — applied dark theme tokens AND applied all spec content changes:
+  • Top "All people" link → "Back to People".
+  • Hero section: `bg-surface-soft text-fg` (was `bg-ink text-porcelain`); top border `border-line` (was `border-line-on-ink`).
+  • Hero portrait field: retains accent colour background (`style={{ background: hex }}` = #4169FF cobalt for the founder) but content is the "PROFESSIONAL PORTRAIT / TO BE ADDED" placeholder in `accentOnHex` (#FFFFFF white on cobalt) — no cropped name, no AI face. Annotation bracket retained.
+  • Quick-facts dl: "Focus areas" value changed from `{person.focus.length} chapters` to `{person.focus.length} practice areas`. "Bar" value changed to "Enrolled advocate" (matching the new single bar entry in data). All dt labels → `text-fg-subtle`; all dd values → `text-fg-muted`.
+  • Biography section: `bg-surface` (was `bg-porcelain`); renders the 3 bio paragraphs from data; drop-cap on first paragraph still uses accent hex.
+  • REMOVED the "Approach" section entirely (no `person.approach` field in data).
+  • REMOVED the "Pull-quote" section entirely (no `person.quote` field in data).
+  • Renamed "Focus areas" → "Scope of Practice" (per spec). Kept "Qualifications" and "Bar memberships" labels. Section bg = `bg-surface` (matches biography, separated by border-b border-line).
+  • REMOVED the "Representative Engagements" section entirely (no `person.representativeWork` field in data).
+  • Contact strip: `bg-surface-soft text-fg` (was `bg-ink text-porcelain`). Heading renamed from "To be in touch with {firstName}" → "Contact the Firm" with "Firm" in serif-italic accent colour. Email/phone/hours use `text-fg-muted` and `text-fg-subtle` (was `text-porcelain/XX`).
+  • `generateStaticParams` and `generateMetadata` retained unchanged.
+- Verification:
+  • `bun run lint` → 0 errors, 0 warnings (1-line output: `$ eslint .`).
+  • `bunx tsc --noEmit` → no TS errors in any of the three updated files (other errors are in `examples/websocket/` and `skills/` — unrelated to this task).
+  • Dev server: `GET /people 200` (compile 489ms, render 342ms) and `GET /people/saransh-raj 200` (compile 1799ms, render 307ms). Homepage / also 200.
+  • Content checks via curl:
+    – /people/saransh-raj contains: "Back to People", "practice areas", "Scope of Practice", "Contact the", "PROFESSIONAL PORTRAIT".
+    – /people/saransh-raj contains NO occurrences of: "approach", "quote", "representativeWork", "pull-quote", "All people", "Chapter 04" (case-insensitive).
+    – /people contains: "Index 04 · People", "PROFESSIONAL PORTRAIT". No "Chapter 04", "How the team works", "Joining the firm", "What guides the practice", "teamPracticeModel", "joiningTheFirm".
+    – Homepage PeoplePreview contains: "PROFESSIONAL PORTRAIT", "Meet the people", "View profile", "The team".
+
+Stage Summary:
+- All three People-section files now use the dark editorial theme tokens (bg-surface / bg-surface-soft / bg-surface-elevated, text-fg / text-fg-muted / text-fg-subtle, text-accent for hover, border-line). No remaining references to bg-porcelain, bg-paper, bg-ink, text-ink, text-porcelain, text-aubergine, or border-line-on-ink in any of the three files.
+- /people page reduced from 6 sections → 2 sections (Hero + People list with team note) by removing the Pull-quote, How-the-team-works pillars, Joining-the-firm pathways + Apply CTA, and Firm values strip — all of which referenced data fields (founder.quote, teamPracticeModel, joiningTheFirm, firm.principles) that were removed from the data layer.
+- /people/[slug] profile page reduced from 7 sections → 4 sections (Hero + Biography + Scope-of-Practice/Qualifications/Bar + Contact strip) by removing the Approach, Pull-quote, and Representative Engagements sections. Quick-facts now reads "X practice areas" (not "chapters"); hero CTA back-link now "Back to People"; bottom CTA now "Contact the Firm".
+- Every portrait field across all three files now shows the "PROFESSIONAL PORTRAIT / TO BE ADDED" placeholder — no AI face, no cropped Bodoni name. The PeoplePreview homepage component places the placeholder on `bg-surface-elevated` (subtle dark); the /people list and /people/[slug] hero place it on the accent colour background (cobalt blue for the founder) with `accentOnHex` foreground (white) — meeting the WCAG AA pair documented in src/lib/accents.ts.
+- Lint clean, TypeScript clean for the three files, dev server returns 200 on /people and /people/saransh-raj. Verified content via curl on the rendered HTML.
+
+---
+Task ID: 17-b
+Agent: subagent-B (firm + expertise + sectors)
+Task: Update firm/page.tsx, expertise/page.tsx, expertise/[slug]/page.tsx, sectors/page.tsx, sector-grid.tsx, sector-list.tsx for dark theme
+
+Work Log:
+- Read worklog.md and confirmed prior context (Tasks 1–16: existing site audit, redesign, recolour palette, sectors/philosophy work). Site was restored to dark editorial theme; my job is to migrate firm + expertise + sectors surface files to the new dark tokens and strip "chapters"/promotional wording.
+- Read all 6 target files plus expandable-service-list.tsx and confirmed globals.css + accents.ts already carry the dark tokens (bg-surface/bg-surface-soft/bg-surface-elevated, text-fg/text-fg-muted/text-fg-subtle, text-accent/text-coral/text-saffron/text-teal/text-violet, border-line/border-line-strong).
+- Rewrote /home/z/my-project/src/app/firm/page.tsx:
+  • Hero: "Chapter 01 · The Firm" → "Index 01 · The Firm"; metadata description rewritten to drop "client-first"; hero intro paragraph shortened to the spec text ("The firm advises companies, individuals and families on corporate and commercial law.").
+  • PhilosophyManifesto step 03 title → "Integrity, precision, clarity, continuity"; body rewritten to "These principles shape how the firm works: ethically, with attention to detail, and in language that makes the law understandable." (drops "with the client's interests at the centre").
+  • ApproachTimeline milestone 03 title → "Methodical, attentive, considered" (was "Methodical, attentive, client-first"). Body kept as-is (no client-first wording).
+  • Principle-grid inline hex values migrated to the new dark palette: #4169FF / #FF6B5C / #F0A050 / #0FA98C, with onHex for the saffron tile = #080D18 (dark text).
+  • Practice Areas Index section: `bg-ink text-porcelain` → `bg-surface-soft text-fg` with `border-y border-line`; "Six chapters of practice" → "Six practice areas"; "each a chapter in its own right" body → "The firm's work is organised across six practice areas."; `border-line-on-ink` → `border-line`; `hover:bg-white/[0.03]` → `hover:bg-surface-elevated`; all `text-porcelain/XX` opacity variants → `text-fg-subtle`/`text-fg-muted`.
+  • All sub-component Tailwind tokens swapped: `bg-porcelain`→`bg-surface`, `bg-paper`→`bg-surface-soft`, `text-ink`→`text-fg`, `text-ink/XX`→`text-fg-muted`/`text-fg-subtle`, `text-marigold`→`text-saffron`, `text-vermilion`→`text-coral`, `text-aubergine`→`text-violet`, `text-jade`→`text-teal`, `text-electric`→`text-accent`, `bg-electric`→`bg-accent`; ApproachTimeline marker `border-porcelain`→`border-surface-soft`.
+- Rewrote /home/z/my-project/src/app/expertise/page.tsx:
+  • "Chapter 02 · Expertise" → "Index 02 · Expertise".
+  • Margin-note: "Six chapters of practice, each colour-coded. Select a chapter to expand its scope." → "Six practice areas, each colour-coded. Select an area to expand its scope."
+  • Hero lead: "Each chapter below sets out its scope..." → "Each area below sets out its scope and the services it covers."
+  • "Read chapter" link text → "Read area".
+  • Removed unused `accentSoftHex`/`accentSoftBorderHex` imports.
+  • Closed accordion header inline colors: `#5B6475`→`var(--color-fg-muted)`, `#0B1020`→`var(--color-fg)`, `#303A50`→`var(--color-fg-muted)`.
+  • Expanded panel: replaced the light-tinted soft surface (`accentSoftHex` + `#273047`/`#0B1020`/`#46536B` text + `accentSoftBorderHex` border) with `bg-surface-elevated` + `border-line` dividers and `var(--color-fg-muted)`/`var(--color-fg)`/`var(--color-fg-subtle)` text colors.
+  • Hover `hover:bg-paper` → `hover:bg-surface-soft`. Tailwind bg/border utilities swapped to dark tokens throughout.
+- Rewrote /home/z/my-project/src/app/expertise/[slug]/page.tsx:
+  • All surface/text Tailwind tokens migrated: `bg-porcelain`→`bg-surface`, `bg-paper`→`bg-surface-soft`, `bg-ink text-porcelain` (contact strip) → `bg-surface-soft text-fg`, `text-ink`→`text-fg`, `text-ink/XX`→`text-fg-muted`/`text-fg-subtle`, `text-porcelain/XX`→`text-fg-muted`/`text-fg-subtle`.
+  • Hero folio: "Chapter {area.index} / 06" → "Practice area {area.index} / 06". Prev/Next nav labels: "Previous chapter"/"Next chapter" → "Previous practice area"/"Next practice area".
+  • Approach section heading: "Methodical, attentive, client-focused" → "Methodical, attentive, considered" (removed promotional "client" wording to mirror the firm page).
+- Rewrote /home/z/my-project/src/app/sectors/page.tsx:
+  • "Chapter 03 · Sectors" → "Index 03 · Sectors".
+  • All Tailwind tokens swapped to dark equivalents (`bg-porcelain`→`bg-surface`, `bg-paper`→`bg-surface-soft`, `text-ink`/`text-ink/XX`→`text-fg`/`text-fg-muted`/`text-fg-subtle`, `text-jade`→`text-teal`, `hover:text-electric`→`hover:text-accent`, `group-hover:text-ink`→`group-hover:text-fg`).
+  • Three sector-aware note cards on the Approach section: tile backgrounds `bg-paper`→`bg-surface-soft`, muted text colors swapped to `text-fg-muted`/`text-fg-subtle`.
+- Rewrote /home/z/my-project/src/components/site/sector-grid.tsx:
+  • End card "View the full index": `bg-ink text-porcelain border-ink` → `bg-surface-elevated text-fg border-line-strong`.
+  • Arrow buttons: now `border-line-strong text-fg-muted` with `hover:text-fg hover:bg-surface-elevated` (replaced `border-line text-ink/70 hover:bg-ink/[0.03]`).
+  • Tile/card hover borders: `hover:border-ink/30`→`hover:border-line-strong`; focus ring `focus-visible:border-electric`→`focus-visible:border-accent`.
+  • Progress bar fill: `bg-electric`→`bg-accent`; progress labels: `text-ink/50`→`text-fg-subtle`.
+  • All tile/card surfaces: `bg-paper`→`bg-surface-soft`, all `text-ink`/`text-ink/XX`→`text-fg`/`text-fg-muted`/`text-fg-subtle`.
+  • End-card "See all" hover: `text-porcelain/85 group-hover:text-marigold`→`text-fg-muted group-hover:text-saffron`.
+- Rewrote /home/z/my-project/src/components/site/sector-list.tsx:
+  • Row hover `hover:bg-paper`→`hover:bg-surface-soft`; index number `text-ink/45 group-hover:text-ink/70`→`text-fg-subtle group-hover:text-fg-muted`.
+  • Sector name `text-ink`→`text-fg`; note `text-ink/65`→`text-fg-muted`; chevron `text-ink/35 group-hover:text-ink`→`text-fg-subtle group-hover:text-fg`.
+  • Expanded description panel: added `bg-surface-soft` lift to the inner container; description body `text-ink/75`→`text-fg-muted`.
+- Rewrote /home/z/my-project/src/components/site/expandable-service-list.tsx (included because expertise/[slug] depends on it and the spec asked to migrate it too):
+  • Docstring rewritten to drop porcelain/paper references and reflect the dark elevated pattern.
+  • Closed header inline colors: `#5B6475`→`var(--color-fg-muted)`, `#0B1020`→`var(--color-fg)`, `#46536B`→`var(--color-fg-subtle)`.
+  • Expanded panel: replaced `background: #F8FAFD` + `borderTop: 1px solid #B7C2D2` + `color: #273047` with `bg-surface-elevated` + `border-t border-line`; lead paragraph color → `var(--color-fg-muted)`; service-number label → `var(--color-fg-subtle)`; service-title → `var(--color-fg)`; "Service 0X · Click the title above to collapse" → `var(--color-fg-subtle)`.
+  • Hover `hover:bg-paper`→`hover:bg-surface-soft`; focus ring `focus-visible:ring-electric`→`focus-visible:ring-accent`.
+
+Verification:
+- `bun run lint` → 0 errors, exit 0.
+- Dev server confirmed all 4 routes return HTTP 200: `/firm`, `/expertise`, `/expertise/corporate-advisory`, `/sectors`.
+- Curl-grep of rendered HTML across all 4 target routes found ZERO remaining matches for `bg-porcelain`, `text-ink`, `bg-ink`, `bg-paper`, `text-electric`, `text-porcelain`, `border-line-on-ink`, `hover:bg-white`.
+- Curl-grep of rendered HTML found ZERO remaining matches for "Chapter [0-9]", "chapters of", "client-first", "client-focused".
+- Inspected the streamed React payload for `/firm` to confirm spec strings render correctly: "Index 01 · The Firm", "Six practice areas", "The firm's work is organised across six practice areas.", "advises companies, individuals and families on corporate and commercial law.", "Integrity, precision, clarity, continuity", "Methodical, attentive, considered".
+- Inspected `/expertise` rendered HTML: "Index 02 · Expertise", "Six practice areas, each colour-coded. Select an area to expand its scope.", "Each area below sets out its scope and the services it covers.", "Read area" link text — all present.
+- Inspected `/sectors` rendered HTML: "Index 03 · Sectors".
+- Confirmed the compiled CSS at `/_next/static/chunks/[root-of-the-server]__3399754c._.css` defines `--color-fg: #f5f1e8`, `--color-fg-muted: #aab2c0`, `--color-fg-subtle: #6b7689` at :root — so the new inline `var(--color-fg-*)` styles on expertise/page.tsx and expandable-service-list.tsx resolve correctly.
+- Did NOT touch any data files, layout.tsx, globals.css, or other components outside the specified 7-file scope.
+
+Stage Summary:
+- All 7 in-scope files migrated to the dark editorial theme (bg-surface / bg-surface-soft / bg-surface-elevated; text-fg / text-fg-muted / text-fg-subtle; text-accent + the coral/saffron/teal/violet practice-area accents; border-line / border-line-strong). No light-theme tokens (`bg-porcelain`, `bg-paper`, `bg-ink`, `text-ink`, `text-porcelain`, `text-electric`, `border-line-on-ink`) remain in any of them.
+- "Chapter" wording retired across the firm/expertise/sectors surface: hero folios are now "Index 01/02/03", expertise accordion labels use "practice area"/"area", expertise detail prev/next nav reads "Previous/Next practice area", sector tiles and notes still say "sector" (unchanged), and no "chapters of" / "Six chapters" wording remains anywhere in these files.
+- "client-first" promotional wording removed everywhere in scope: firm metadata description rewritten; PhilosophyManifesto principle step renamed to "Integrity, precision, clarity, continuity"; PhilosophyManifesto + ApproachTimeline bodies rewritten to drop the phrase; ApproachTimeline milestone renamed to "Methodical, attentive, considered"; expertise/[slug] Approach heading likewise migrated to "considered".
+- Accordion expanded panels on /expertise and on the practice-area detail page now sit on `bg-surface-elevated` with ivory text (`var(--color-fg)`/`var(--color-fg-muted)`/`var(--color-fg-subtle)`) and `border-line` dividers — replacing the old light-tinted `accentSoftHex` panels with dark `#273047` text.
+- Lint clean (exit 0); all 4 routes return 200 in the dev server; verified no remaining light-theme tokens or "chapter"/"client-first" wording in the rendered HTML.
+
+---
+Task ID: 18
+Agent: main (orchestrator)
+Task: Restore the latest approved dark editorial theme + apply technical reliability fixes (disclaimer checkbox, remove preloader/cursor, performance, content spec)
+
+Work Log:
+- Read full worklog (Tasks 1-17) to understand the site had reverted from the dark editorial theme (Task 7) to the light "Arguments in Colour" theme (Task 8) with old elements (preloader, custom cursor, "Arguments in Colour" main heading, "Serving across India", "client-first", "Same quality typically reserved for large institutions", "06 chapters", fake Forthcoming articles, "Registered Advocate Bar Council of India", "Representative Engagements", cropped-name portraits).
+- Phase 1: Rewrote src/app/globals.css with the dark editorial theme — new semantic tokens (surface #080D18, surface-soft #101827, surface-elevated #172033, fg #F5F1E8, fg-muted #AAB2C0, fg-subtle #6B7689, accent #4169FF cobalt, coral #FF6B5C, saffron #F0A050, teal #0FA98C, violet #8E7BFF, translucent line borders). Kept legacy aliases mapped to dark-theme values for back-compat. Updated grain texture, colour fields, scrollbar, all utility classes for dark bg.
+- Phase 2: Rewrote src/app/layout.tsx — switched fonts from Bodoni Moda + Satoshi to Instrument Serif + Manrope (via next/font/google, display:"swap"), kept IBM Plex Mono local. Set body class to bg-surface text-fg. viewport.themeColor = #080D18.
+- Phase 3: Rewrote src/lib/accents.ts — accentHex now returns cobalt #4169FF / coral #FF6B5C / saffron #F0A050 / teal #0FA98C / violet #8E7BFF / surface #101827. accentSoftHex returns dark elevated tints (for dark theme). accentOnHex returns white-on-accent or dark-on-saffron.
+- Phase 4: Updated data files:
+  - firm.ts: removed "client-first approach" from summary, removed servesAcross field, removed "client-first" principle (replaced with "Continuity"), kept verified contact (G-14 LGF Kalkaji, +91 79067 08411, office@saranshrajassociates.co.in, Mon-Sat 10-7).
+  - people.ts: reduced bio to 3 concise paragraphs, removed approach/quote/representativeWork fields, updated bar to "Enrolled advocate — Bar Council details available on request", kept qualifications LLB/LLM Amity University Rajasthan, role "Founder & Principal Advocate".
+  - practice-areas.ts: updated `short` field for all 6 areas to match spec exactly (Corporate structuring/governance/ongoing advisory; Drafting and review of commercial agreements; Transaction structuring/documentation/due diligence; Commercial litigation and arbitration; Business and sector-specific regulatory advice; Insolvency proceedings and recovery matters).
+  - insights.ts: deleted all 6 fake Forthcoming article topics + categories. Now exports only insightsNotice and insightsEmpty.
+- Phase 5: Rewrote src/components/site/site-shell.tsx — removed Preloader import + component, removed CustomCursor import + component, removed the `ready` opacity:0 delay (main now renders with opacity:1 immediately). Kept ScrollProgress (thin top bar). Content appears instantly.
+- Phase 6: Rewrote src/components/site/disclaimer-gate.tsx — THE CRITICAL FIX. Single controlled React state `const [checked, setChecked] = useState(false)`. Button `disabled={!checked}` — when checkbox is checked, button enables immediately. No CSS peer-checked reliance, no duplicate state, no race condition. Checkbox has proper id="disclaimer-ack" + htmlFor label association. Button label "I Acknowledge and Proceed". sessionStorage persistence retained. Gate renders after mount (mounted flag) to avoid SSR hydration mismatch. Dark theme styling (bg-surface, text-fg, accent button).
+- Phase 7: Rewrote src/components/site/site-header.tsx (dark theme, "INDEX" not "CH.") and site-footer.tsx (dark theme, "06 practice areas" not "06 chapters", "Revisit Disclaimer" link retained).
+- Phase 8: Rewrote src/app/page.tsx (homepage) — NEW hero heading "Corporate / & Commercial / Legal Counsel." with "& Commercial" in italic cobalt blue (var(--color-accent)). Above: "CORPORATE & COMMERCIAL LAW COUNSEL" mono label. Below: "Saransh Raj & Associates · New Delhi. A boutique law firm advising on corporate and commercial law." Removed "Serving across India", removed "Same quality typically reserved for large institutions", removed "client-first". Introduction uses "Counsel for companies, individuals and families." Practice index uses "Six practice areas". Insights section shows only the notice (no fake articles).
+- Phase 9: Updated src/components/site/hero-visual.tsx for dark theme (elevated surface sheets, cobalt tint, coral edge, dark colour bar).
+- Phase 10: Rewrote src/components/site/insights-preview.tsx — deleted all 6 fake Forthcoming cards + category filters. Now shows only a single notice card with insightsNotice + insightsEmpty.
+- Phase 11: Rewrote src/app/insights/page.tsx — deleted all fake Forthcoming articles + filter buttons. Shows only the empty-state notice.
+- Dispatched 4 parallel subagents (17-a, 17-b, 17-c, 17-d) to update remaining pages:
+  - 17-a: people-preview.tsx (PROFESSIONAL PORTRAIT TO BE ADDED placeholder, no AI face), people/page.tsx (removed pull-quote/approach/representative-work/pillars/joining sections), people/[slug]/page.tsx (Back to People, 6 practice areas, 3-para bio, Scope of Practice + Qualifications + Bar, Contact the Firm CTA, no Representative Engagements, no Registered Advocate BCI).
+  - 17-b: firm/page.tsx (removed client-first, Six chapters→Six practice areas), expertise/page.tsx + [slug]/page.tsx (dark theme, Read area not Read chapter), sectors/page.tsx + sector-grid.tsx + sector-list.tsx (dark theme), expandable-service-list.tsx (dark theme).
+  - 17-c: contact/page.tsx (dark theme, removed Serving across India), contact-form.tsx (dark theme, POST method preserved), careers/page.tsx (dark theme, removed client-first), not-found.tsx (dark theme).
+  - 17-d: page-hero.tsx (dark theme), legal-layout.tsx (dark theme), verified disclaimer/terms/privacy pages render correctly.
+- All 4 subagents reported success, lint clean, 0 errors.
+
+Verification (agent-browser + VLM + node fetch):
+- Dev server runs on port 3000, all 13 routes return HTTP 200 (/, /firm, /expertise, /expertise/[slug], /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy).
+- Disclaimer gate interaction verified end-to-end via agent-browser:
+  • Fresh visit: gate appears with "Before you enter" title, checkbox unchecked, "I Acknowledge and Proceed" button [disabled] (is enabled → false).
+  • Click checkbox → button becomes enabled (is enabled → true). NO race condition, NO stuck-disabled bug.
+  • Click "I Acknowledge and Proceed" → enters website, homepage renders.
+- Homepage verified: H1 = "Corporate\n& Commercial\nLegal Counsel." (exact spec). bgColor rgb(8,13,24) = #080D18. fgColor rgb(245,241,232) = #F5F1E8. "CORPORATE & COMMERCIAL LAW COUNSEL" label present. "A boutique law firm advising" present. "Counsel for companies, individuals and families" present. "06 practice areas" / "Six practice areas" present. "Insights and publications will be added here" + "No articles have been published yet" present. "Revisit Disclaimer" footer link present. All OLD elements absent: Loading document, SRA / New Delhi, Serving across, same quality, client-first, 06 chapters, Six chapters, Arguments in Colour as main heading.
+- Saransh Raj profile verified: H1 "Saransh Raj". "BACK TO PEOPLE" link. "FOUNDER & PRINCIPAL ADVOCATE" role. "PROFESSIONAL PORTRAIT / TO BE ADDED" placeholder (no AI face). "SCOPE OF PRACTICE", "QUALIFICATIONS", "BAR MEMBERSHIPS" labels. "Enrolled advocate — Bar Council details available on request". LLB + LLM Amity University Rajasthan. "practice areas" (not chapters). "Contact the Firm" CTA. NO "Representative Engagements". NO "Registered Advocate, Bar Council of India". NO "6 chapters". NO "client-first".
+- Mobile responsiveness: 390x844 viewport, no horizontal overflow (hasHorizontalOverflow: false).
+- No page errors, no console errors (only React DevTools info + HMR connected).
+- VLM (desktop homepage): "dark, deep navy blue or charcoal background with subtle fine-grained texture", "Corporate & Commercial Legal Counsel" with "Commercial" in vibrant blue serif, "no loading screen or preloader", "premium editorial dark theme with high-contrast typography", "no obvious errors".
+- VLM (profile page): "very dark, almost black deep navy background", "large blue rectangular placeholder with PROFESSIONAL PORTRAIT TO BE ADDED", "BACK TO PEOPLE link", "no Representative Engagements section", "premium editorial dark theme, sophisticated minimalist layout, elegant serif typography".
+- Contact form POST method preserved (fetch "/api/contact" with method: "POST"), no GET, no URL leakage.
+- bun run lint: clean, 0 errors.
+
+Stage Summary:
+- The latest approved dark editorial theme has been restored across every page. Primary bg #080D18, secondary #101827, elevated #172033, primary text #F5F1E8 (warm ivory), secondary #AAB2C0, accent #4169FF (cobalt). Practice-area accents (coral/saffron/teal/violet) used only for practice-area identification. Thin translucent borders, subtle paper-grain texture, high text contrast.
+- Typography restored to Instrument Serif (display) + Manrope (body) + IBM Plex Mono (labels) via next/font/google with display:"swap".
+- Homepage hero: "Corporate / & Commercial (italic cobalt) / Legal Counsel." with "CORPORATE & COMMERCIAL LAW COUNSEL" label above and "Saransh Raj & Associates · New Delhi. A boutique law firm advising on corporate and commercial law." below. Dark two-column editorial hero with The Firm CTA, Expertise CTA, Founded by Advocate Saransh Raj, Kalkaji address, six practice-area index.
+- Disclaimer gate FIXED: controlled React state, checkbox unchecked → button disabled, checkbox checked → button immediately enabled, click "I Acknowledge and Proceed" → enters website, sessionStorage persistence, footer "Revisit Disclaimer" link. No blank animation — gate renders immediately after mount.
+- Preloader removed (no "Loading Document" / "SRA / New Delhi"). CustomCursor removed (no glowing cursor). Floating "N" widget was never custom code (only Next.js Dev Tools button, dev-only, not in production). No fake Forthcoming article cards. No "Representative Engagements". No "Registered Advocate, Bar Council of India". No "client-first". No "Same quality typically reserved for large institutions". No "Serving across India". No "06 chapters" / "Six chapters" — now "06 practice areas" / "Six practice areas".
+- People section: PROFESSIONAL PORTRAIT TO BE ADDED placeholder (no AI face), 3-paragraph bio, Scope of Practice + Qualifications + Bar memberships, Contact the Firm CTA, Back to People navigation.
+- Insights: empty state with honest notice (no fabricated articles).
+- All 13 routes return 200, all direct URLs + refresh work, content renders immediately (no preloader delay), target load <3s achieved (homepage compile 2.8s, subsequent requests 60-80ms).
+- Verified end-to-end via agent-browser (disclaimer checkbox interaction, homepage hero, profile page, mobile responsiveness) and VLM (visual dark theme confirmation on homepage + profile).

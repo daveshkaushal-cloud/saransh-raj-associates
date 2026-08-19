@@ -8,31 +8,30 @@ export const firm = {
   name: "Saransh Raj & Associates",
   shortName: "Saransh Raj & Associates",
   descriptor:
-    "A New Delhi-based law firm providing counsel across corporate and commercial law.",
+    "A boutique law firm advising on corporate and commercial law.",
   summary:
-    "Saransh Raj & Associates is a boutique corporate and commercial law firm built on the principles of integrity, precision and a client-first approach to counsel.",
+    "A boutique corporate & commercial law firm. Counsel for companies, individuals and families.",
   purpose:
-    "Founded by Advocate Saransh Raj, the firm was established to provide companies, individuals and families with considered corporate legal counsel.",
+    "Founded by Advocate Saransh Raj, the firm advises on corporate and commercial law from New Delhi.",
   principles: [
     {
       title: "Integrity",
-      body: "We hold ourselves to the highest ethical standards in every matter we undertake.",
+      body: "The firm holds itself to the standards expected of the profession in every matter it undertakes.",
     },
     {
       title: "Precision",
-      body: "Legal outcomes often turn on detail. We approach each matter with disciplined attention to the record.",
-    },
-    {
-      title: "Client-first",
-      body: "The interests of those we advise guide every decision we make.",
+      body: "Legal outcomes often turn on detail. Each matter is approached with disciplined attention to the record.",
     },
     {
       title: "Clarity",
-      body: "We work to make the law understandable, translating complexity into clear, actionable guidance.",
+      body: "The firm works to translate legal complexity into clear, considered guidance that can be acted upon.",
+    },
+    {
+      title: "Continuity",
+      body: "Decisions taken today shape what is possible tomorrow. Long-term consequences are weighed before choices are made.",
     },
   ],
   basedIn: "New Delhi",
-  servesAcross: "India",
   establishedNote: "Founded by Advocate Saransh Raj",
 } as const;
 
@@ -45,8 +44,8 @@ export const contact = {
   },
   phone: "+91 79067 08411",
   phoneHref: "tel:+917906708411",
-  email: "Office@saranshrajassociates.co.in",
-  emailHref: "mailto:Office@saranshrajassociates.co.in",
+  email: "office@saranshrajassociates.co.in",
+  emailHref: "mailto:office@saranshrajassociates.co.in",
   hours: "Monday – Saturday, 10:00 AM – 7:00 PM",
   mapQuery: "G-14, Kalkaji, New Delhi 110019",
 } as const;

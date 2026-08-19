@@ -4,67 +4,75 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   Saransh Raj & Associates — "Arguments in Colour"
-   Editorial design system: legal-document precision as a
-   vibrant contemporary editorial experience.
+   Saransh Raj & Associates — Dark Editorial Theme
+   A premium editorial dark theme: legal-document precision
+   expressed as a contemporary editorial experience.
    ============================================================ */
 
 @theme inline {
-  --color-background: var(--porcelain);
-  --color-foreground: var(--ink);
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-fg);
 
   /* Self-hosted font stacks */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 
-  /* === Core palette — cool, contemporary blue-grey system === */
-  --color-ink: #0B1020;              /* Midnight Ink — primary text, dark sections */
-  --color-ink-soft: #303A50;         /* Secondary text */
-  --color-ink-muted: #5B6475;        /* Muted text / metadata */
-  --color-porcelain: #E2E8F2;        /* Global background (cool blue-grey) */
-  --color-porcelain-deep: #C9D7F2;   /* Soft blue — expanded surfaces, elevated tints */
-  --color-paper: #F8FAFD;            /* Elevated content surface (near-white cool) */
+  /* === Core palette — dark editorial === */
+  --color-surface: #080D18;            /* Primary background */
+  --color-surface-soft: #101827;      /* Secondary surface */
+  --color-surface-elevated: #172033;  /* Elevated sections */
+  --color-fg: #F5F1E8;                /* Primary text (warm ivory) */
+  --color-fg-muted: #AAB2C0;          /* Secondary text (cool muted) */
+  --color-fg-subtle: #6B7689;         /* Tertiary/muted text */
 
-  /* === Colour architecture — accessible accents === */
-  --color-electric: #2457FF;         /* Electric Blue */
-  --color-vermilion: #D94038;        /* Vermilion */
-  --color-marigold: #FFC247;         /* Marigold */
-  --color-jade: #087E68;             /* Jade */
-  --color-aubergine: #5E3FD3;        /* Violet */
+  /* === Practice-area accents (used only for practice-area identity) === */
+  --color-accent: #4169FF;            /* Cobalt blue — primary accent */
+  --color-coral: #FF6B5C;             /* Practice-area accent */
+  --color-saffron: #F0A050;           /* Practice-area accent */
+  --color-teal: #0FA98C;              /* Practice-area accent */
+  --color-violet: #8E7BFF;            /* Practice-area accent */
 
-  /* Legacy aliases → map to new palette (kept for back-compat) */
-  --color-cobalt: #2457FF;
-  --color-saffron: #FFC247;
-  --color-mint: #087E68;
-  --color-violet: #5E3FD3;
-  --color-ivory: #E2E8F2;            /* resolve undefined 'ivory' usages to new bg */
+  /* Translucent borders + paper-grain */
+  --color-line: rgba(245, 241, 232, 0.10);
+  --color-line-strong: rgba(245, 241, 232, 0.22);
+  --color-line-on-ink: rgba(245, 241, 232, 0.16);
 
-  --color-line: #B7C2D2;             /* Borders and dividers */
-  --color-line-strong: #8B97AB;
-  --color-line-on-ink: rgba(248, 250, 253, 0.16);
+  /* Legacy aliases — mapped to dark-theme values for back-compat */
+  --color-ink: #F5F1E8;               /* was dark text → now ivory */
+  --color-ink-soft: #AAB2C0;
+  --color-ink-muted: #6B7689;
+  --color-porcelain: #080D18;         /* was light bg → now primary dark */
+  --color-porcelain-deep: #172033;    /* was soft blue → now elevated dark */
+  --color-paper: #101827;             /* was near-white → now secondary dark */
+  --color-electric: #4169FF;          /* cobalt blue */
+  --color-vermilion: #FF6B5C;         /* coral */
+  --color-marigold: #F0A050;          /* saffron */
+  --color-jade: #0FA98C;              /* teal */
+  --color-aubergine: #8E7BFF;         /* violet */
+  --color-ivory: #F5F1E8;
+  --color-cobalt: #4169FF;
 
   /* shadcn aliases */
-  --color-border: var(--line);
-  --color-input: var(--line);
-  --color-ring: var(--electric);
-  --color-card: var(--paper);
-  --color-card-foreground: var(--ink);
-  --color-popover: var(--paper);
-  --color-popover-foreground: var(--ink);
-  --color-primary: var(--ink);
-  --color-primary-foreground: #F8FAFD;
-  --color-secondary: var(--porcelain-deep);
-  --color-secondary-foreground: var(--ink);
-  --color-muted: var(--porcelain-deep);
-  --color-muted-foreground: #5B6475;
-  --color-accent: var(--electric);
-  --color-accent-foreground: #ffffff;
-  --color-destructive: #D94038;
-  --color-sidebar: var(--paper);
-  --color-sidebar-foreground: var(--ink);
-  --color-sidebar-border: var(--line);
-  --color-sidebar-ring: var(--electric);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-accent);
+  --color-card: var(--color-surface-soft);
+  --color-card-foreground: var(--color-fg);
+  --color-popover: var(--color-surface-soft);
+  --color-popover-foreground: var(--color-fg);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-surface-elevated);
+  --color-secondary-foreground: var(--color-fg);
+  --color-muted: var(--color-surface-elevated);
+  --color-muted-foreground: var(--color-fg-muted);
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #FF6B5C;
+  --color-sidebar: var(--color-surface-soft);
+  --color-sidebar-foreground: var(--color-fg);
+  --color-sidebar-border: var(--color-line);
+  --color-sidebar-ring: var(--color-accent);
 
   --radius: 0.125rem;
   --radius-sm: 0.0625rem;
@@ -75,39 +83,54 @@
 
 :root {
   /* Central design tokens — single source of truth */
-  --background-global: #E2E8F2;
-  --background-surface: #F8FAFD;
-  --background-dark: #0B1020;
-  --background-soft-blue: #C9D7F2;
+  --background-global: #080D18;
+  --background-surface: #101827;
+  --background-elevated: #172033;
+  --background-deep: #050811;
 
-  --text-primary: #0B1020;
-  --text-secondary: #303A50;
-  --text-muted: #5B6475;
-  --text-on-dark: #F8FAFD;
+  --text-primary: #F5F1E8;
+  --text-secondary: #AAB2C0;
+  --text-muted: #6B7689;
+  --text-on-accent: #FFFFFF;
 
-  --border-default: #B7C2D2;
-  --border-strong: #8B97AB;
-  --border-on-dark: rgba(248, 250, 253, 0.16);
+  --border-default: rgba(245, 241, 232, 0.10);
+  --border-strong: rgba(245, 241, 232, 0.22);
+  --border-on-ink: rgba(245, 241, 232, 0.16);
 
-  --ink: #0B1020;
-  --ink-soft: #303A50;
-  --ink-muted: #5B6475;
-  --porcelain: #E2E8F2;
-  --porcelain-deep: #C9D7F2;
-  --paper: #F8FAFD;
-  --electric: #2457FF;
-  --vermilion: #D94038;
-  --marigold: #FFC247;
-  --jade: #087E68;
-  --aubergine: #5E3FD3;
-  --line: #B7C2D2;
-  --line-strong: #8B97AB;
-  --line-on-ink: rgba(248, 250, 253, 0.16);
-  color-scheme: light;
+  --surface: #080D18;
+  --surface-soft: #101827;
+  --surface-elevated: #172033;
+  --surface-deep: #050811;
+  --fg: #F5F1E8;
+  --fg-muted: #AAB2C0;
+  --fg-subtle: #6B7689;
+  --accent: #4169FF;
+  --coral: #FF6B5C;
+  --saffron: #F0A050;
+  --teal: #0FA98C;
+  --violet: #8E7BFF;
+  --line: rgba(245, 241, 232, 0.10);
+  --line-strong: rgba(245, 241, 232, 0.22);
+  --line-on-ink: rgba(245, 241, 232, 0.16);
+
+  /* Legacy aliases */
+  --ink: #F5F1E8;
+  --ink-soft: #AAB2C0;
+  --ink-muted: #6B7689;
+  --porcelain: #080D18;
+  --porcelain-deep: #172033;
+  --paper: #101827;
+  --electric: #4169FF;
+  --vermilion: #FF6B5C;
+  --marigold: #F0A050;
+  --jade: #0FA98C;
+  --aubergine: #8E7BFF;
+
+  color-scheme: dark;
 }
 
 @layer base {
-  * { border-color: var(--line); }
+  * { border-color: var(--color-line); }
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
@@ -129,9 +152,9 @@
     font-weight: 400;
     letter-spacing: -0.012em;
   }
-  ::selection { background: var(--electric); color: #FFFFFF; }
+  ::selection { background: var(--color-accent); color: #FFFFFF; }
   :focus-visible {
-    outline: 2px solid var(--electric);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 1px;
   }
@@ -140,7 +163,7 @@
 
 /* ============================================================
    TYPOGRAPHY — editorial system
-   Bodoni Moda display / Satoshi body / IBM Plex Mono labels
+   Instrument Serif display / Manrope body / IBM Plex Mono labels
    ============================================================ */
 .font-display { font-family: var(--font-display), ui-serif, Georgia, serif; }
 .font-mono   { font-family: var(--font-mono), ui-monospace, monospace; }
@@ -184,7 +207,7 @@
   letter-spacing: -0.012em;
 }
 
-/* Bodoni italic accent — for single editorial colour words */
+/* Italic accent — for single editorial colour words (electric blue italic) */
 .serif-italic {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: italic;
@@ -275,12 +298,12 @@
 /* Architectural measured grid — fine rule lines */
 .rule-grid {
   background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px);
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px);
   background-size: calc(100% / 12) 100%;
 }
 
 /* ============================================================
-   TEXTURE — controlled grain, translucent paper
+   TEXTURE — subtle paper-grain on dark surfaces
    ============================================================ */
 .grain::before {
   content: "";
@@ -289,8 +312,8 @@
   pointer-events: none;
   opacity: 0.5;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.06 0 0 0 0 0.12 0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
 }
 .grain-light::before {
   content: "";
@@ -299,13 +322,13 @@
   pointer-events: none;
   opacity: 0.35;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: screen;
 }
 
 /* Fine paper rule lines (like a ledger) */
 .ledger-lines {
-  background-image: linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-image: linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
   background-size: 100% 1.75rem;
 }
 
@@ -313,21 +336,31 @@
    COLOUR FIELDS — full-width section transitions
    Approved accessible pairs only.
    ============================================================ */
-.field-ink        { background: var(--ink);        color: var(--text-on-dark); }
-.field-porcelain  { background: var(--porcelain);  color: var(--text-primary); }
-.field-paper      { background: var(--paper);      color: var(--text-primary); }
-.field-electric   { background: var(--electric);   color: #FFFFFF; }
-.field-vermilion  { background: var(--vermilion);  color: #FFFFFF; }
-.field-marigold   { background: var(--marigold);   color: var(--text-primary); }
-.field-jade       { background: var(--jade);       color: #FFFFFF; }
-.field-aubergine  { background: var(--aubergine);  color: #FFFFFF; }
+.field-surface       { background: var(--color-surface);        color: var(--color-fg); }
+.field-surface-soft  { background: var(--color-surface-soft);    color: var(--color-fg); }
+.field-surface-elevated { background: var(--color-surface-elevated); color: var(--color-fg); }
+.field-accent  { background: var(--color-accent);   color: #FFFFFF; }
+.field-coral   { background: var(--color-coral);    color: #FFFFFF; }
+.field-saffron { background: var(--color-saffron);  color: #080D18; }
+.field-teal    { background: var(--color-teal);     color: #FFFFFF; }
+.field-violet  { background: var(--color-violet);   color: #FFFFFF; }
 
-/* Ink-on-colour line overrides */
-.field-electric  .line-on-color,
-.field-vermilion .line-on-color,
-.field-aubergine .line-on-color,
-.field-jade      .line-on-color { border-color: rgba(255,255,255,0.22); }
-.field-marigold .line-on-color { border-color: rgba(11,16,32,0.22); }
+/* Legacy field aliases — kept for back-compat */
+.field-ink        { background: var(--color-surface-soft);    color: var(--color-fg); }
+.field-porcelain  { background: var(--color-surface);         color: var(--color-fg); }
+.field-paper      { background: var(--color-surface-soft);    color: var(--color-fg); }
+.field-electric   { background: var(--color-accent);          color: #FFFFFF; }
+.field-vermilion  { background: var(--color-coral);            color: #FFFFFF; }
+.field-marigold   { background: var(--color-saffron);          color: #080D18; }
+.field-jade       { background: var(--color-teal);             color: #FFFFFF; }
+.field-aubergine  { background: var(--color-violet);           color: #FFFFFF; }
+
+/* Line-on-colour overrides */
+.field-accent  .line-on-color,
+.field-coral   .line-on-color,
+.field-violet  .line-on-color,
+.field-teal    .line-on-color { border-color: rgba(255,255,255,0.22); }
+.field-saffron .line-on-color { border-color: rgba(8,13,24,0.22); }
 
 /* ============================================================
    GRAPHIC LANGUAGE — annotation marks, brackets, rules
@@ -358,7 +391,7 @@
 
 /* Underline annotation — like a marked-up legal phrase */
 .anno-underline {
-  background-image: linear-gradient(to right, var(--vermilion) 0%, var(--vermilion) 100%);
+  background-image: linear-gradient(to right, var(--color-coral) 0%, var(--color-coral) 100%);
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 2px;
@@ -367,7 +400,7 @@
 
 /* Highlight mark — like a reviewed passage */
 .anno-highlight {
-  background: linear-gradient(180deg, transparent 55%, rgba(255, 194, 71, 0.45) 55%);
+  background: linear-gradient(180deg, transparent 55%, rgba(240, 160, 80, 0.35) 55%);
   padding: 0 0.1em;
 }
 
@@ -426,6 +459,15 @@
   font-size: clamp(6rem, 16vw, 18rem);
   line-height: 0.8;
   letter-spacing: -0.04em;
+}
+
+/* Eyebrow — small section label */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ============================================================
@@ -502,49 +544,16 @@
 }
 
 /* ============================================================
-   CUSTOM CURSOR — small, restrained, useful
-   ============================================================ */
-/* Eyebrow — small section label (was previously undefined) */
-.eyebrow {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.cursor-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 22px;
-  background: var(--ink);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  will-change: transform;
-  transition: height 0.2s ease, background 0.2s ease;
-}
-.cursor-bar.over-link {
-  height: 32px;
-  background: var(--electric);
-}
-@media (hover: none), (pointer: coarse) {
-  .cursor-bar { display: none !important; }
-}
-
-/* ============================================================
    SCROLLBAR
    ============================================================ */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-color: var(--color-line-strong) transparent;
 }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: var(--border-default); }
-*::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+*::-webkit-scrollbar-thumb { background: var(--color-line-strong); }
+*::-webkit-scrollbar-thumb:hover { background: var(--color-fg-subtle); }
 
 /* ============================================================
    LAYOUT HELPERS
@@ -561,10 +570,10 @@
 
 /* Document edge — thin coloured rule down the side of a section */
 .edge-rule-left {
-  border-left: 1px solid var(--line);
+  border-left: 1px solid var(--color-line);
 }
 .edge-rule-right {
-  border-right: 1px solid var(--line);
+  border-right: 1px solid var(--color-line);
 }
 
 /* Tight horizontal scroll-snap for editorial tracks */

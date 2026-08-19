@@ -77,7 +77,7 @@ function SectorScroller() {
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-5">
-        <p className="mono-label text-ink/45">
+        <p className="mono-label text-fg-subtle">
           <span className="md:hidden">Swipe to explore sectors &rarr;</span>
           <span className="hidden md:inline">
             Scroll &middot; drag &middot; or use the arrows to explore
@@ -110,15 +110,15 @@ function SectorScroller() {
         {/* end card — CTA to /sectors */}
         <Link
           href="/sectors"
-          className="group relative block snap-start shrink-0 w-[60vw] sm:w-[40vw] md:w-[16rem] lg:w-[14rem] bg-ink text-porcelain border border-ink overflow-hidden"
+          className="group relative block snap-start shrink-0 w-[60vw] sm:w-[40vw] md:w-[16rem] lg:w-[14rem] bg-surface-elevated text-fg border border-line-strong overflow-hidden"
         >
           <div className="relative h-[11rem] md:h-[12rem] p-5 md:p-6 flex flex-col justify-between">
-            <span className="mono-label text-porcelain/60">All sectors</span>
+            <span className="mono-label text-fg-muted">All sectors</span>
             <div>
-              <h3 className="display-3 text-lg md:text-xl text-porcelain leading-tight">
+              <h3 className="display-3 text-lg md:text-xl text-fg leading-tight">
                 View the full index
               </h3>
-              <div className="mt-3 flex items-center gap-2 text-[0.78rem] font-medium text-porcelain/85 group-hover:text-marigold transition-colors">
+              <div className="mt-3 flex items-center gap-2 text-[0.78rem] font-medium text-fg-muted group-hover:text-saffron transition-colors">
                 <span>See all</span>
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -131,16 +131,16 @@ function SectorScroller() {
 
       {/* progress bar */}
       <div className="mt-5 flex items-center gap-4">
-        <span className="mono-num text-[0.7rem] text-ink/50 font-medium">
+        <span className="mono-num text-[0.7rem] text-fg-subtle font-medium">
           {String(currentIndex).padStart(2, "0")}
         </span>
         <div className="flex-1 h-px bg-line relative overflow-hidden">
           <div
-            className="absolute left-0 top-0 h-full bg-electric transition-[width] duration-150 ease-out"
+            className="absolute left-0 top-0 h-full bg-accent transition-[width] duration-150 ease-out"
             style={{ width: `${Math.max(6, progress * 100)}%` }}
           />
         </div>
-        <span className="mono-num text-[0.7rem] text-ink/50 font-medium">
+        <span className="mono-num text-[0.7rem] text-fg-subtle font-medium">
           {String(sectors.length).padStart(2, "0")}
         </span>
       </div>
@@ -164,7 +164,7 @@ function SectorCard({
   return (
     <a
       href={`/sectors#${sector.slug}`}
-      className="group relative block bg-paper border border-line overflow-hidden transition-colors duration-300 hover:border-ink/30 focus-visible:border-electric p-5 md:p-6 min-h-[10rem] flex flex-col"
+      className="group relative block bg-surface-soft border border-line overflow-hidden transition-colors duration-300 hover:border-line-strong focus-visible:border-accent p-5 md:p-6 min-h-[10rem] flex flex-col"
     >
       {/* colour edge that grows on hover */}
       <span
@@ -173,7 +173,7 @@ function SectorCard({
         aria-hidden="true"
       />
       <div className="flex items-start justify-between mb-3">
-        <span className="mono-num text-[0.7rem] text-ink/45">
+        <span className="mono-num text-[0.7rem] text-fg-subtle">
           {num} / {String(total).padStart(2, "0")}
         </span>
         <span
@@ -182,13 +182,13 @@ function SectorCard({
           aria-hidden="true"
         />
       </div>
-      <h3 className="font-display text-xl md:text-2xl text-ink leading-tight">
+      <h3 className="font-display text-xl md:text-2xl text-fg leading-tight">
         {sector.name}
       </h3>
-      <p className="mt-2 text-[0.88rem] leading-relaxed text-ink/60">
+      <p className="mt-2 text-[0.88rem] leading-relaxed text-fg-muted">
         {sector.note}
       </p>
-      <div className="mt-auto pt-4 flex items-center gap-2 text-[0.78rem] font-medium text-ink/55 group-hover:text-ink transition-colors">
+      <div className="mt-auto pt-4 flex items-center gap-2 text-[0.78rem] font-medium text-fg-muted group-hover:text-fg transition-colors">
         <span>View sector</span>
         <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -214,7 +214,7 @@ function SectorTile({
   return (
     <a
       href={`/sectors#${sector.slug}`}
-      className="group relative block shrink-0 snap-start bg-paper border border-line overflow-hidden transition-colors duration-300 hover:border-ink/30 focus-visible:border-electric flex flex-col"
+      className="group relative block shrink-0 snap-start bg-surface-soft border border-line overflow-hidden transition-colors duration-300 hover:border-line-strong focus-visible:border-accent flex flex-col"
     >
       <div className="relative h-[11rem] md:h-[12rem] p-5 md:p-6 flex flex-col">
         {/* colour edge that grows on hover */}
@@ -224,7 +224,7 @@ function SectorTile({
           aria-hidden="true"
         />
         <div className="flex items-start justify-between">
-          <span className="mono-num text-[0.7rem] text-ink/45">
+          <span className="mono-num text-[0.7rem] text-fg-subtle">
             {num} / {String(total).padStart(2, "0")}
           </span>
           <span
@@ -234,10 +234,10 @@ function SectorTile({
           />
         </div>
         <div className="mt-auto">
-          <h3 className="font-display text-xl md:text-2xl text-ink leading-tight">
+          <h3 className="font-display text-xl md:text-2xl text-fg leading-tight">
             {sector.name}
           </h3>
-          <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink/60 line-clamp-2">
+          <p className="mt-1.5 text-[0.85rem] leading-relaxed text-fg-muted line-clamp-2">
             {sector.note}
           </p>
         </div>
@@ -263,7 +263,7 @@ function SectorArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={isPrev ? "Previous sectors" : "Next sectors"}
-      className="inline-flex items-center justify-center h-9 w-9 border border-line text-ink/70 hover:text-ink hover:border-ink/40 hover:bg-ink/[0.03] transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-line"
+      className="inline-flex items-center justify-center h-9 w-9 border border-line-strong text-fg-muted hover:text-fg hover:bg-surface-elevated transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-line-strong"
     >
       <svg className={`h-4 w-4 ${isPrev ? "" : "rotate-180"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <path d="M19 12H5M11 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
