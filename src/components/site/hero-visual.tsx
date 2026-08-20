@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useMountedReducedMotion } from "@/components/motion/use-mounted-reduced-motion";
 
 /**
  * HeroVisual — layered translucent document sheets that shift on scroll,
  * with annotation marks, a colour-bar index, and architectural rules.
  * Pure SVG/CSS, no external assets. Designed for the dark editorial theme.
+ *
+ * Respects prefers-reduced-motion (checked via matchMedia inside effect).
  */
 export function HeroVisual() {
-  const reduce = useMountedReducedMotion();
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (reduce) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = ref.current;
     if (!el) return;
     let raf = 0;
@@ -32,7 +32,7 @@ export function HeroVisual() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, [reduce]);
+  }, []);
 
   return (
     <div

@@ -183,7 +183,8 @@ export function SiteHeader() {
           <div className="mt-auto pt-10">
             <p className="mono-label text-fg-subtle mb-2">Office</p>
             <p className="text-sm text-fg-muted">
-              G-14, LGF, Kalkaji, New Delhi – 110019
+              G-14B, Basement<br />
+              Kalkaji, New Delhi – 110019
             </p>
             <p className="text-sm text-fg-subtle mt-1">
               Mon – Sat · 10:00 – 19:00 IST

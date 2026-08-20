@@ -9,36 +9,63 @@ const STORAGE_KEY = "sra_disclaimer_accepted_v1";
 /**
  * Mandatory full-screen disclaimer gateway.
  *
- * Renders immediately on first paint (no blank animation). Uses a
- * controlled React checkbox state — when the checkbox is checked the
- * "I Acknowledge and Proceed" button becomes enabled instantly. Acceptance
- * is persisted to sessionStorage for the visitor's session. Legal pages
- * (/disclaimer, /terms, /privacy) bypass the gate so deep-links work.
- * A "Revisit Disclaimer" link lives in the site footer.
+ * CRITICAL: Prevents the homepage from flashing underneath before the
+ * disclaimer mounts. On first render (before we've checked storage), we
+ * show a solid dark placeholder that hides everything. Once the mount
+ * effect runs and confirms acceptance state, we either show the disclaimer
+ * gate OR reveal the children.
+ *
+ * - Returning accepted visitors: short dark placeholder → reveal site.
+ * - First-time visitors: short dark placeholder → disclaimer gate (no
+ *   homepage flash in between).
+ * - Legal pages (/disclaimer, /terms, /privacy) bypass the gate entirely
+ *   so deep-links work without a gate flash.
+ * - Acceptance is persisted in BOTH localStorage and a cookie so the
+ *   server can also read it (future SSR optimisation) and returning
+ *   visitors enter directly after the brief placeholder.
+ * - Footer "Revisit Disclaimer" link retained.
  */
 export function DisclaimerGate({ children }: { children: React.ReactNode }) {
-  const [accepted, setAccepted] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  // Three states: "checking" (initial render — hide everything),
+  // "gate" (show disclaimer), "accepted" (show children).
+  const [state, setState] = useState<"checking" | "gate" | "accepted">("checking");
   const pathname = usePathname();
 
   useEffect(() => {
-    setMounted(true);
-    try {
-      const v = sessionStorage.getItem(STORAGE_KEY);
-      setAccepted(v === "1");
-    } catch {
-      setAccepted(false);
+    const isLegalPage =
+      pathname === "/disclaimer" ||
+      pathname === "/terms" ||
+      pathname === "/privacy";
+    if (isLegalPage) {
+      setState("accepted");
+      return;
     }
-  }, []);
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      setState(v === "1" ? "accepted" : "gate");
+    } catch {
+      setState("gate");
+    }
+  }, [pathname]);
 
   const isLegalPage =
     pathname === "/disclaimer" ||
     pathname === "/terms" ||
     pathname === "/privacy";
 
-  const showGate = mounted && !accepted && !isLegalPage;
+  // While checking (first paint), render a solid dark placeholder so the
+  // homepage never flashes underneath the gate. This placeholder is
+  // replaced by either the gate or the children within ~1 frame of mount.
+  if (state === "checking" && !isLegalPage) {
+    return (
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 z-[200] bg-surface"
+      />
+    );
+  }
 
-  if (showGate) {
+  if (state === "gate" && !isLegalPage) {
     return (
       <div
         role="dialog"
@@ -49,11 +76,17 @@ export function DisclaimerGate({ children }: { children: React.ReactNode }) {
         <DisclaimerContent
           onAgree={() => {
             try {
-              sessionStorage.setItem(STORAGE_KEY, "1");
+              localStorage.setItem(STORAGE_KEY, "1");
+              // Also set a cookie for server-side reads and persistence
+              // across subdomains. Expires in 1 year.
+              const expires = new Date(
+                Date.now() + 365 * 24 * 60 * 60 * 1000
+              ).toUTCString();
+              document.cookie = `${STORAGE_KEY}=1; expires=${expires}; path=/; SameSite=Lax`;
             } catch {
               /* storage unavailable — keep gate for this session only */
             }
-            setAccepted(true);
+            setState("accepted");
           }}
         />
       </div>

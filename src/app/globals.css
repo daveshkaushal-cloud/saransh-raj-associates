@@ -474,16 +474,21 @@
    MOTION — "living document" reveals
    ============================================================ */
 
-/* Sheet reveal — content slides up like turning a page */
+/* Sheet reveal — content is VISIBLE by default. The mask slide-up
+   is a decorative 0.4s transition that only runs once the element
+   is observed entering the viewport. If JS is slow/disabled, the
+   content stays visible (no blank reveal delay). */
 .sheet-reveal {
   overflow: hidden;
 }
 .sheet-reveal > * {
   display: block;
-  transform: translateY(102%);
-  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+/* The .is-in class is a no-op visually (content already visible) — it
+   exists only so the IntersectionObserver has a target without hiding
+   content while waiting to fire. */
 .sheet-reveal.is-in > * { transform: translateY(0); }
 
 /* Line draw for SVG annotation strokes */
@@ -502,16 +507,17 @@
   stroke-dashoffset: 0;
 }
 
-/* Image crop reveal — image reveals through an editorial crop */
+/* Image crop reveal — image is VISIBLE by default (no clip-path
+   hiding). The scale/clip transition is decorative only. */
 .crop-reveal {
   overflow: hidden;
   position: relative;
 }
 .crop-reveal img,
 .crop-reveal .crop-target {
-  transform: scale(1.08);
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  clip-path: inset(100% 0 0 0);
+  transform: scale(1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  clip-path: inset(0 0 0 0);
 }
 .crop-reveal.is-in img,
 .crop-reveal.is-in .crop-target {

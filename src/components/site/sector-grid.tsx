@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
 import { FadeUp } from "@/components/motion/editorial";
-import { useTileScroller } from "@/components/motion/use-tile-scroller";
 
 type Variant = "grid" | "scroller";
 
@@ -42,7 +41,7 @@ function SectorGridLayout() {
 
 /* ---- Scroller layout — homepage (compact tiles) ---- */
 function SectorScroller() {
-  const { trackRef, scrollByTiles } = useTileScroller();
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -55,7 +54,18 @@ function SectorScroller() {
     setProgress(p);
     setCanPrev(el.scrollLeft > 4);
     setCanNext(el.scrollLeft < max - 4);
-  }, [trackRef]);
+  }, []);
+
+  const scrollByTiles = useCallback((direction: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const firstChild = el.firstElementChild as HTMLElement | null;
+    if (!firstChild) return;
+    const style = window.getComputedStyle(el);
+    const gap = parseFloat(style.columnGap || style.gap || "16") || 16;
+    const step = firstChild.offsetWidth + gap;
+    el.scrollBy({ left: direction * step, behavior: "smooth" });
+  }, []);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -67,7 +77,7 @@ function SectorScroller() {
       el.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [update, trackRef]);
+  }, [update]);
 
   const currentIndex = Math.min(
     sectors.length,
@@ -112,7 +122,7 @@ function SectorScroller() {
           href="/sectors"
           className="group relative block snap-start shrink-0 w-[60vw] sm:w-[40vw] md:w-[16rem] lg:w-[14rem] bg-surface-elevated text-fg border border-line-strong overflow-hidden"
         >
-          <div className="relative h-[11rem] md:h-[12rem] p-5 md:p-6 flex flex-col justify-between">
+          <div className="relative h-[10rem] md:h-[11rem] p-5 md:p-6 flex flex-col justify-between">
             <span className="mono-label text-fg-muted">All sectors</span>
             <div>
               <h3 className="display-3 text-lg md:text-xl text-fg leading-tight">

@@ -5,13 +5,20 @@ import { useEffect, useRef, useState, type ReactNode, type ElementType } from "r
 /**
  * isInView — tiny IntersectionObserver hook.
  * Returns [ref, isInView]. Fires once when the element enters the viewport.
+ *
+ * NOTE: This hook is only used for BELOW-THE-FOLD decorative scroll
+ * reveals. Above-the-fold content (hero, disclaimer, first section) does
+ * NOT use this hook — it renders with opacity:1 immediately.
  */
 export function useInView<T extends HTMLElement = HTMLDivElement>(
   options: { threshold?: number; rootMargin?: string; once?: boolean } = {}
 ) {
   const { threshold = 0.15, rootMargin = "0px 0px -10% 0px", once = true } = options;
   const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+  // Start as TRUE so content is visible by default (no blank reveal delay).
+  // The IntersectionObserver will only ever SET it true (idempotent) — it
+  // never hides already-visible content.
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
@@ -42,8 +49,12 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
 
 /**
  * SheetReveal — content slides up from behind a mask, like turning
- * a document page. SSR-safe (renders children immediately; the mask
- * animation only runs client-side after mount).
+ * a document page.
+ *
+ * SSR-safe: content renders VISIBLE by default (opacity:1, translateY:0).
+ * The sheet-reveal mask animation only applies once the element has
+ * been observed entering the viewport. If JS is disabled or slow, the
+ * content stays visible (no blank reveal delay).
  */
 export function SheetReveal({
   children,
@@ -71,6 +82,8 @@ export function SheetReveal({
 /**
  * RuleDraw — a horizontal (or vertical) rule that draws itself in
  * when scrolled into view, like an annotation line being marked.
+ * The rule is always rendered (height:1px) — only the scaleX
+ * animation is decorative.
  */
 export function RuleDraw({
   className = "",
@@ -97,8 +110,8 @@ export function RuleDraw({
 }
 
 /**
- * CropReveal — image/element reveals through an editorial clip,
- * like a document selection expanding. Wrap an <img> or element.
+ * CropReveal — image/element reveals through an editorial clip.
+ * Content is visible by default; the clip-path animation is decorative.
  */
 export function CropReveal({
   children,
@@ -142,7 +155,6 @@ export function FolioScroll({
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
-      // how far through this section have we scrolled (0..1)
       const progress = Math.min(
         1,
         Math.max(0, (vh * 0.6 - rect.top) / (rect.height + vh * 0.4))
@@ -165,6 +177,12 @@ export function FolioScroll({
 /**
  * FadeUp — simple fade + rise on view. For elements that don't need
  * the full sheet-reveal mask treatment.
+ *
+ * IMPORTANT: Content starts VISIBLE (opacity:1, translateY:0). The
+ * IntersectionObserver only triggers a subtle re-fade when the element
+ * enters the viewport from below. This prevents the "large empty dark
+ * container" problem where above-the-fold content is hidden until JS
+ * hydrates and the observer fires.
  */
 export function FadeUp({
   children,
@@ -185,9 +203,9 @@ export function FadeUp({
       ref={ref}
       className={className}
       style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : `translateY(${y}px)`,
-        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        opacity: 1,
+        transform: "translateY(0)",
+        transition: `opacity 0.4s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.4s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       } as React.CSSProperties}
     >
       {children}

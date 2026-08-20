@@ -23,7 +23,7 @@ export function PeoplePreview() {
               href={`/people/${person.slug}`}
               className="group relative block bg-surface-soft text-fg overflow-hidden border border-line"
             >
-              <div className="grid grid-cols-5 min-h-[20rem]">
+              <div className="grid grid-cols-5 min-h-[16rem]">
                 {/* Portrait placeholder — elevated dark surface */}
                 <div className="relative col-span-2 overflow-hidden bg-surface-elevated">
                   <PortraitPlaceholder hex={hex} index={i + 1} />
@@ -62,7 +62,7 @@ export function PeoplePreview() {
 
       {/* Editorial note about the team */}
       <FadeUp delay={0.16}>
-        <div className="bg-surface-elevated text-fg p-7 md:p-8 flex flex-col justify-between min-h-[14rem] border border-line">
+        <div className="bg-surface-elevated text-fg p-6 md:p-7 flex flex-col justify-between min-h-[12rem] border border-line">
           <div>
             <p className="mono-label text-fg-subtle mb-4">The team</p>
             <p className="text-sm leading-relaxed text-fg-muted max-w-sm">
