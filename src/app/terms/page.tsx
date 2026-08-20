@@ -14,7 +14,6 @@ export default function TermsPage() {
   return (
     <LegalLayout
       title="Terms of Use"
-      updated="Date to be confirmed following legal review"
       intro={
         <p>
           These terms govern your use of the {firm.name} website. By accessing

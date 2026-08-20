@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { people } from "@/data/people";
 import { accentHex, accentOnHex } from "@/lib/accents";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
   title: "People",
@@ -23,27 +22,27 @@ export default function PeoplePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">The Team</p>
                 <p className="margin-note text-fg-muted">
                   The firm works as an integrated team under the guidance of its founder.
                   Further profiles will be added as colleagues are introduced.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[14ch]">
                   The <span className="serif-italic text-violet">people</span> behind the counsel
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   The firm&apos;s work is shaped by the people who carry it. Below is
                   the founder and principal advocate; the team expands as colleagues
                   are introduced to the practice.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -56,7 +55,7 @@ export default function PeoplePage() {
             const hex = accentHex[person.accent];
             const onHex = accentOnHex[person.accent];
             return (
-              <FadeUp key={person.slug} delay={i * 0.08}>
+              <div key={person.slug}>
                 <a
                   href={`/people/${person.slug}`}
                   className="group relative block bg-surface-soft text-fg overflow-hidden border border-line"
@@ -112,12 +111,12 @@ export default function PeoplePage() {
                     </div>
                   </div>
                 </a>
-              </FadeUp>
+              </div>
             );
           })}
 
           {/* Team note */}
-          <FadeUp delay={0.16}>
+          <div>
             <div className="bg-surface-elevated border border-line text-fg p-8 md:p-12">
               <p className="mono-label text-fg-subtle mb-4">A note on the team</p>
               <p className="lead text-fg-muted max-w-2xl">
@@ -126,7 +125,7 @@ export default function PeoplePage() {
                 are introduced to the practice.
               </p>
             </div>
-          </FadeUp>
+          </div>
         </div>
       </section>
     </>

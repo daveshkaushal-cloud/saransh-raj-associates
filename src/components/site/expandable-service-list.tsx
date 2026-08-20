@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FadeUp } from "@/components/motion/editorial";
 
 /**
  * ExpandableServiceList — the "What this covers" annotated index on the
@@ -33,7 +32,7 @@ export function ExpandableServiceList({
         const detail = serviceDetails[i] ?? "";
         const isOpen = open === i;
         return (
-          <FadeUp key={title} delay={i * 0.06}>
+          <div key={title}>
             <div className="border-b border-line">
               <button
                 type="button"
@@ -111,7 +110,7 @@ export function ExpandableServiceList({
                 </div>
               )}
             </div>
-          </FadeUp>
+          </div>
         );
       })}
     </div>

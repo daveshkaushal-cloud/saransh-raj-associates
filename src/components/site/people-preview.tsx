@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { people } from "@/data/people";
 import { accentHex } from "@/lib/accents";
-import { FadeUp, CropReveal } from "@/components/motion/editorial";
 
 /**
  * People preview — editorial portrait cards.
@@ -18,7 +17,7 @@ export function PeoplePreview() {
       {people.map((person, i) => {
         const hex = accentHex[person.accent];
         return (
-          <FadeUp key={person.slug} delay={i * 0.08}>
+          <div key={person.slug}>
             <Link
               href={`/people/${person.slug}`}
               className="group relative block bg-surface-soft text-fg overflow-hidden border border-line"
@@ -56,12 +55,12 @@ export function PeoplePreview() {
                 </div>
               </div>
             </Link>
-          </FadeUp>
+          </div>
         );
       })}
 
       {/* Editorial note about the team */}
-      <FadeUp delay={0.16}>
+      <div>
         <div className="bg-surface-elevated text-fg p-6 md:p-7 flex flex-col justify-between min-h-[12rem] border border-line">
           <div>
             <p className="mono-label text-fg-subtle mb-4">The team</p>
@@ -77,7 +76,7 @@ export function PeoplePreview() {
             </svg>
           </Link>
         </div>
-      </FadeUp>
+      </div>
     </div>
   );
 }
@@ -91,7 +90,7 @@ export function PeoplePreview() {
  */
 function PortraitPlaceholder({ hex, index }: { hex: string; index: number }) {
   return (
-    <CropReveal className="absolute inset-0">
+    <div className="absolute inset-0">
       <div className="crop-target absolute inset-0">
         {/* architectural rule lines */}
         <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
@@ -117,6 +116,6 @@ function PortraitPlaceholder({ hex, index }: { hex: string; index: number }) {
           <span className="mono-num text-[0.6rem] text-fg-subtle">SR/0{index}</span>
         </div>
       </div>
-    </CropReveal>
+    </div>
   );
 }

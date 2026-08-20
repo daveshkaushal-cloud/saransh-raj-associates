@@ -14,7 +14,6 @@ export default function DisclaimerPage() {
   return (
     <LegalLayout
       title="Disclaimer"
-      updated="Date to be confirmed following legal review"
       intro={
         <p>
           This website is the online presence of {firm.name}, a law firm based

@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
-import { FadeUp } from "@/components/motion/editorial";
 
 type Variant = "grid" | "scroller";
 
@@ -25,14 +24,14 @@ function SectorGridLayout() {
       {sectors.map((sector, i) => {
         const hex = accentHex[sector.accent as Accent];
         return (
-          <FadeUp key={sector.slug} delay={i * 0.04}>
+          <div key={sector.slug}>
             <SectorCard
               sector={sector}
               index={i}
               total={sectors.length}
               hex={hex}
             />
-          </FadeUp>
+          </div>
         );
       })}
     </div>

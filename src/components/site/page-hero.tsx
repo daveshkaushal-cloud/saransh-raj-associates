@@ -1,13 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import { type ReactNode } from "react";
-import { SheetReveal, FadeUp } from "@/components/motion/editorial";
 
 /**
  * Editorial page hero — a document-style opening for interior pages.
  * Each page passes its own composition; this provides the shared
  * folio/margin/eyebrow scaffolding.
+ *
+ * Server component — no client hooks, no animation wrappers. Content
+ * renders immediately at opacity:1 (no blank reveal delay).
  */
 export function PageHero({
   folio,
@@ -47,13 +47,9 @@ export function PageHero({
             </div>
           </div>
           <div className="md:col-span-9">
-            <SheetReveal>
-              <h1 className="display-1 text-fg">{title}</h1>
-            </SheetReveal>
+            <h1 className="display-1 text-fg">{title}</h1>
             {intro && (
-              <FadeUp delay={0.15}>
-                <p className="lead mt-6 md:mt-8 max-w-2xl text-fg-muted">{intro}</p>
-              </FadeUp>
+              <p className="lead mt-6 md:mt-8 max-w-2xl text-fg-muted">{intro}</p>
             )}
             {children}
           </div>
@@ -99,9 +95,7 @@ export function SectionHeader({
         )}
         <span className="mono-label text-fg-muted">{eyebrow}</span>
       </div>
-      <SheetReveal>
-        <h2 className="display-2 text-fg max-w-[20ch]">{title}</h2>
-      </SheetReveal>
+      <h2 className="display-2 text-fg max-w-[20ch]">{title}</h2>
       {note && (
         <p className="margin-note mt-4 max-w-xs">{note}</p>
       )}
@@ -132,7 +126,7 @@ export function ChapterLink({
     <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-fg hover:text-accent transition-colors">
       {index && <span className="mono-num text-[0.65rem] text-fg-subtle group-hover:text-accent transition-colors">{index}</span>}
       <span className="link-underline">{label}</span>
-      <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </Link>

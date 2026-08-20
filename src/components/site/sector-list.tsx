@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
-import { FadeUp } from "@/components/motion/editorial";
 
 /**
  * SectorList — the annotated index of sectors on /sectors.
@@ -38,7 +37,7 @@ export function SectorList() {
         const isOpen = openSlug === sector.slug;
         const panelId = `sector-panel-${sector.slug}`;
         return (
-          <FadeUp key={sector.slug} delay={i * 0.04}>
+          <div key={sector.slug}>
             <div
               id={sector.slug}
               className="border-b border-line scroll-mt-24"
@@ -114,7 +113,7 @@ export function SectorList() {
                 </div>
               </div>
             </div>
-          </FadeUp>
+          </div>
         );
       })}
     </div>

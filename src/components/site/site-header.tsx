@@ -183,7 +183,7 @@ export function SiteHeader() {
           <div className="mt-auto pt-10">
             <p className="mono-label text-fg-subtle mb-2">Office</p>
             <p className="text-sm text-fg-muted">
-              G-14B, Basement<br />
+              G-14, Basement<br />
               Kalkaji, New Delhi – 110019
             </p>
             <p className="text-sm text-fg-subtle mt-1">

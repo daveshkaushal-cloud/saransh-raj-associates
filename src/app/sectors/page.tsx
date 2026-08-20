@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
-import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
 import { SectorList } from "@/components/site/sector-list";
 
 export const metadata: Metadata = {
@@ -25,28 +24,28 @@ export default function SectorsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">Industry Atlas</p>
                 <p className="margin-note">
                   Ten sectors, each given its own colour marker. Select a sector
                   to anchor its scope.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[14ch]">
                   A visual{" "}
                   <span className="serif-italic text-teal">atlas</span> of sectors
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   The firm advises across ten of India&apos;s dynamic industries.
                   Each sector below carries its own colour identity and a note on
                   the firm&apos;s work within it.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -58,25 +57,25 @@ export default function SectorsPage() {
           {/* header — stacked so the heading breaks into exactly two lines
               and there is no wide horizontal gap beside it */}
           <div className="mb-10">
-            <FadeUp>
+            <div>
               <p className="mono-label text-fg-muted mb-3">§ The index</p>
               <h2 className="display-2">
                 Ten sectors,
                 <br />
                 one integrated practice
               </h2>
-            </FadeUp>
-            <FadeUp delay={0.1}>
+            </div>
+            <div>
               <p className="body-condensed text-fg-muted max-w-md mt-6">
                 Each sector is colour-coded to the practice area most active
                 within it. Select any sector to read how the firm works within
                 it — specific engagements are not published on this page.
               </p>
-            </FadeUp>
+            </div>
           </div>
 
           {/* colour legend */}
-          <FadeUp>
+          <div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-8 pb-6 border-b border-line">
               <span className="mono-label text-fg-muted">Legend</span>
               {sectors.map((sector) => {
@@ -99,11 +98,11 @@ export default function SectorsPage() {
                 );
               })}
             </div>
-          </FadeUp>
+          </div>
 
           {/* annotated rows — uniform, compact, scannable; click to expand */}
           <SectorList />
-          <RuleDraw className="mt-8 max-w-md" />
+          <div className="mt-8 max-w-md h-px bg-line" />
         </div>
       </section>
 
@@ -112,15 +111,15 @@ export default function SectorsPage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-4">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-3">§ Approach</p>
                 <h2 className="display-2 max-w-[14ch]">
                   How the firm serves its sectors
                 </h2>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-7 md:col-start-6">
-              <FadeUp delay={0.1}>
+              <div>
                 <div className="space-y-5 max-w-2xl">
                   <p className="lead text-fg-muted">
                     Sector knowledge sits alongside, not in place of, legal
@@ -137,7 +136,7 @@ export default function SectorsPage() {
                     — calibrated to the sector the client operates within.
                   </p>
                 </div>
-              </FadeUp>
+              </div>
             </div>
           </div>
 
@@ -157,7 +156,7 @@ export default function SectorsPage() {
                 body: "Several of the sectors the firm serves are heavily regulated. Regulatory familiarity is woven into the commercial advice, not bolted on.",
               },
             ].map((note, i) => (
-              <FadeUp key={note.title} delay={i * 0.08}>
+              <div key={note.title}>
                 <div className="bg-surface-soft p-6 md:p-8 h-full">
                   <span className="mono-num text-sm text-fg-subtle block mb-3">
                     {String(i + 1).padStart(2, "0")}
@@ -169,7 +168,7 @@ export default function SectorsPage() {
                     {note.body}
                   </p>
                 </div>
-              </FadeUp>
+              </div>
             ))}
           </div>
         </div>
@@ -178,13 +177,13 @@ export default function SectorsPage() {
       {/* ============== Cross-link to practice areas ============== */}
       <section className="bg-surface py-16 md:py-20">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <FadeUp>
+          <div>
             <h2 className="display-2 text-fg max-w-[20ch]">
               The practice behind{" "}
               <span className="serif-italic text-teal">the sectors</span>
             </h2>
-          </FadeUp>
-          <FadeUp delay={0.1}>
+          </div>
+          <div>
             <Link
               href="/expertise"
               className="group inline-flex items-center gap-2 mono-label text-fg hover:text-accent transition-colors"
@@ -205,7 +204,7 @@ export default function SectorsPage() {
                 />
               </svg>
             </Link>
-          </FadeUp>
+          </div>
         </div>
       </section>
     </>

@@ -14,7 +14,6 @@ export default function PrivacyPage() {
   return (
     <LegalLayout
       title="Privacy Policy"
-      updated="Date to be confirmed following legal review"
       intro={
         <p>
           This privacy policy explains how {firm.name} handles information

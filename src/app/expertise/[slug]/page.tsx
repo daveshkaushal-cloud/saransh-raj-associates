@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { practiceAreas, getPracticeArea } from "@/data/practice-areas";
 import { accentHex, accentOnHex } from "@/lib/accents";
 import { contact } from "@/data/firm";
-import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
 import { ExpandableServiceList } from "@/components/site/expandable-service-list";
 
 export function generateStaticParams() {
@@ -62,7 +61,7 @@ export default async function PracticeAreaPage({
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <div className="flex items-center gap-3 mb-6">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: onHex }} />
                   <span className="mono-label opacity-70">Practice Area</span>
@@ -70,7 +69,7 @@ export default async function PracticeAreaPage({
                 <p className="margin-note" style={{ color: `${onHex}cc` }}>
                   {area.short}
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
               {/* oversized index watermark */}
@@ -81,16 +80,16 @@ export default async function PracticeAreaPage({
               >
                 {area.index}
               </span>
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 relative max-w-[14ch]" style={{ color: onHex }}>
                   {area.title}
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl" style={{ color: `${onHex}dd` }}>
                   {area.overview}
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -101,18 +100,18 @@ export default async function PracticeAreaPage({
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
             <div className="md:col-span-4">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-3">§ Services</p>
                 <h2 className="display-2">What this covers</h2>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
-              <FadeUp delay={0.1}>
+              <div>
                 <p className="body-condensed text-fg-muted max-w-md">
                   The scope of the firm&apos;s {area.title.toLowerCase()} practice,
                   set out as an annotated index. Select any service to read what it covers.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
 
@@ -122,7 +121,7 @@ export default async function PracticeAreaPage({
             serviceDetails={area.serviceDetails}
             hex={hex}
           />
-          <RuleDraw className="mt-8 max-w-md" />
+          <div className="mt-8 max-w-md h-px bg-line" />
         </div>
       </section>
 
@@ -131,16 +130,16 @@ export default async function PracticeAreaPage({
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-3">§ Approach</p>
                 <h2 className="display-2 max-w-[14ch]">
                   Methodical, attentive,{" "}
                   <span className="serif-italic" style={{ color: hex }}>considered</span>
                 </h2>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6">
-              <FadeUp delay={0.1}>
+              <div>
                 <p className="lead text-fg-muted">
                   The firm approaches {area.title.toLowerCase()} with attention
                   to detail and to the commercial realities of those it advises.
@@ -153,7 +152,7 @@ export default async function PracticeAreaPage({
                   areas, see{" "}
                   <Link href="/firm" className="link-underline text-fg">The Firm</Link>.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -162,19 +161,19 @@ export default async function PracticeAreaPage({
       {/* ============== CONTACT STRIP ============== */}
       <section className="bg-surface-soft text-fg py-16 md:py-20">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <FadeUp>
+          <div>
             <h2 className="display-2 text-fg max-w-[18ch]">
               Questions about{" "}
               <span className="serif-italic" style={{ color: hex }}>{area.title.toLowerCase()}</span>?
             </h2>
-          </FadeUp>
-          <FadeUp delay={0.1}>
+          </div>
+          <div>
             <div className="text-fg-muted space-y-1">
               <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
               <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
               <p className="mono-label text-fg-muted">{contact.hours}</p>
             </div>
-          </FadeUp>
+          </div>
         </div>
       </section>
 

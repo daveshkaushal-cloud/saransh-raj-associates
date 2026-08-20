@@ -1,7 +1,6 @@
 "use client";
 
 import { insightsNotice, insightsEmpty } from "@/data/insights";
-import { FadeUp } from "@/components/motion/editorial";
 import Link from "next/link";
 
 /**
@@ -13,7 +12,7 @@ import Link from "next/link";
 export function InsightsPreview() {
   return (
     <div>
-      <FadeUp>
+      <div>
         <div className="border border-line bg-surface-elevated p-8 md:p-12">
           <p className="mono-label text-saffron mb-5">Status</p>
           <p className="font-display text-2xl md:text-3xl text-fg leading-snug max-w-2xl">
@@ -23,7 +22,7 @@ export function InsightsPreview() {
             {insightsEmpty}
           </p>
         </div>
-      </FadeUp>
+      </div>
 
       <div className="mt-8">
         <Link

@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { people, getPerson } from "@/data/people";
 import { accentHex, accentOnHex } from "@/lib/accents";
 import { contact } from "@/data/firm";
-import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
 
 export function generateStaticParams() {
   return people.map((p) => ({ slug: p.slug }));
@@ -57,7 +56,7 @@ export default async function PersonPage({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             {/* Portrait placeholder on accent colour field */}
             <div className="md:col-span-5">
-              <FadeUp>
+              <div>
                 <div
                   className="relative aspect-[3/4] w-full max-w-md overflow-hidden"
                   style={{ background: hex }}
@@ -82,26 +81,26 @@ export default async function PersonPage({
                     <span className="mono-num text-[0.6rem]" style={{ color: `${onHex}cc` }}>{person.initials}/01</span>
                   </div>
                 </div>
-              </FadeUp>
+              </div>
             </div>
 
             {/* Identity */}
             <div className="md:col-span-7">
-              <FadeUp>
+              <div>
                 <div className="flex items-center gap-3 mb-6">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
                   <span className="mono-label" style={{ color: hex }}>{person.role}</span>
                 </div>
-              </FadeUp>
-              <SheetReveal>
+              </div>
+              <div>
                 <h1 className="display-1 text-fg max-w-[12ch]">{person.name}</h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 text-fg-muted max-w-xl">{person.summary}</p>
-              </FadeUp>
+              </div>
 
               {/* Quick-facts strip — verified, defensible metadata */}
-              <FadeUp delay={0.22}>
+              <div>
                 <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 max-w-md">
                   <div>
                     <dt className="mono-label text-fg-subtle mb-1">Based in</dt>
@@ -120,8 +119,8 @@ export default async function PersonPage({
                     <dd className="text-sm text-fg-muted">{person.focus.length} practice areas</dd>
                   </div>
                 </dl>
-              </FadeUp>
-              <RuleDraw className="mt-8 max-w-md" />
+              </div>
+              <div className="mt-8 max-w-md h-px bg-line" />
             </div>
           </div>
         </div>
@@ -132,12 +131,12 @@ export default async function PersonPage({
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">§ Biography</p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-8 md:col-start-5">
-              <FadeUp delay={0.1}>
+              <div>
                 <div className="space-y-6 max-w-2xl">
                   {person.bio.map((p, i) => (
                     <p key={i} className="lead text-fg-muted">
@@ -150,7 +149,7 @@ export default async function PersonPage({
                     </p>
                   ))}
                 </div>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -161,7 +160,7 @@ export default async function PersonPage({
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <div>
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-5">Scope of Practice</p>
                 <ul className="space-y-3">
                   {person.focus.map((f, i) => (
@@ -173,10 +172,10 @@ export default async function PersonPage({
                     </li>
                   ))}
                 </ul>
-              </FadeUp>
+              </div>
             </div>
             <div>
-              <FadeUp delay={0.08}>
+              <div>
                 <p className="mono-label text-fg-muted mb-5">Qualifications</p>
                 <ul className="space-y-3">
                   {person.qualifications.map((q, i) => (
@@ -188,10 +187,10 @@ export default async function PersonPage({
                     </li>
                   ))}
                 </ul>
-              </FadeUp>
+              </div>
             </div>
             <div>
-              <FadeUp delay={0.16}>
+              <div>
                 <p className="mono-label text-fg-muted mb-5">Bar memberships</p>
                 <ul className="space-y-3">
                   {person.bar.map((b, i) => (
@@ -203,7 +202,7 @@ export default async function PersonPage({
                     </li>
                   ))}
                 </ul>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -212,19 +211,19 @@ export default async function PersonPage({
       {/* ============== CONTACT STRIP ============== */}
       <section className="bg-surface-soft text-fg py-16 md:py-20">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <FadeUp>
+          <div>
             <h2 className="display-2 text-fg max-w-[18ch]">
               Contact the{" "}
               <span className="serif-italic" style={{ color: hex }}>Firm</span>
             </h2>
-          </FadeUp>
-          <FadeUp delay={0.1}>
+          </div>
+          <div>
             <div className="text-fg-muted space-y-1">
               <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
               <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
               <p className="mono-label text-fg-subtle">{contact.hours}</p>
             </div>
-          </FadeUp>
+          </div>
         </div>
       </section>
     </>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { contact } from "@/data/firm";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -23,27 +22,27 @@ export default function CareersPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">Joining the firm</p>
                 <p className="margin-note">
                   A calm, factual note for those interested in joining the practice.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[14ch]">
                   Joining the{" "}
                   <span className="serif-italic text-jade">practice</span>
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   Saransh Raj &amp; Associates is a boutique practice that welcomes
                   enquiries from advocates and support staff who share its commitment
                   to integrity, precision and clarity.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -54,12 +53,12 @@ export default function CareersPage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">§ Overview</p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-8 md:col-start-5">
-              <FadeUp delay={0.1}>
+              <div>
                 <div className="space-y-6 max-w-2xl text-fg-muted leading-relaxed">
                   <p>
                     The firm is small by design. It does not operate a structured
@@ -79,19 +78,19 @@ export default function CareersPage() {
                     you are drawn to.
                   </p>
                 </div>
-              </FadeUp>
+              </div>
             </div>
           </div>
 
           {/* How to reach — simple contact block */}
           <div className="mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-8 border-t border-line pt-12">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">§ How to reach</p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-8 md:col-start-5">
-              <FadeUp delay={0.1}>
+              <div>
                 <div className="space-y-4">
                   <p className="text-fg-muted">
                     Write to the firm with a short introduction. Email is preferred.
@@ -113,7 +112,7 @@ export default function CareersPage() {
                     </svg>
                   </Link>
                 </div>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>

@@ -1182,3 +1182,139 @@ Stage Summary:
 - Legal dates: "Date to be confirmed following legal review" (no invented date).
 - Portrait placeholder retained (no AI face).
 - All 18 routes 200, lint clean, no errors, mobile responsive, dark design unchanged.
+
+---
+Task ID: 21-a
+Agent: subagent-A (remove animation wrappers)
+Task: Remove FadeUp/SheetReveal/CropReveal/RuleDraw wrappers from all pages for immediate render
+
+Work Log:
+- Read /home/z/my-project/worklog.md and confirmed context (Tasks 1–20: existing site audit, redesign, dark editorial restore, technical cleanup from Task 20 that already neutralised the editorial.tsx components to render at opacity:1 by default). Task 21-a takes the cleanup one step further: remove the wrapper USAGES entirely so server-component pages stop importing the client component editorial.tsx and stop shipping hydration JS for purely decorative reveal animations.
+- Read src/components/motion/editorial.tsx and confirmed all four wrapper exports (FadeUp, SheetReveal, CropReveal, RuleDraw) plus FolioScroll are "use client" components. Although they were patched in Task 20 to render at opacity:1 by default, importing them into a server-component page still forces that page to ship the React/IntersectionObserver client JS bundle. The fix is to delete the wrapper usages and replace them with plain <div> elements that carry the same className, so content is plain static HTML.
+- Ran `rg "FadeUp|SheetReveal|CropReveal|RuleDraw|FolioScroll" src/` to enumerate every file that imports or uses these components. Found 16 files; legal-layout.tsx is on the do-not-touch list (and its only mention is in a comment, not a usage). The other 15 files are the ones I needed to edit.
+- Edited src/app/page.tsx (homepage):
+  • Removed `import { FadeUp, RuleDraw } from "@/components/motion/editorial";` line.
+  • Replaced the three `<FadeUp>` wrappers in the Introduction section with plain `<div>` (preserving their className attributes — none of them had className, so the FadeUp → div is a 1:1 swap with delay/y dropped).
+  • Replaced `<RuleDraw className="mt-10 max-w-md text-fg-muted" />` with `<div className="mt-10 max-w-md text-fg-muted h-px bg-line" />` (static 1px line in --color-line, no JS, no IntersectionObserver).
+  • Confirmed homepage still has NO "use client" directive (remains a server component). All dark theme classes (bg-surface, text-fg, text-fg-muted, serif-italic, text-accent, text-coral, text-violet, text-teal, text-saffron, mono-label, mono-num, display-mega, display-2, lead, margin-note, border-line, border-line-strong, bg-surface-soft, bg-surface-elevated, grain, folio, etc.) and all content are unchanged.
+- Edited src/app/firm/page.tsx:
+  • Removed `import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";` and `import { FolioScroll } from "@/components/motion/editorial";` (the file had two separate import lines from the same module — both gone).
+  • Replaced every `<FadeUp>...</FadeUp>` (with various delay/key/className attributes) with plain `<div>...</div>` (key kept where it was the only React-list-key; className kept; delay dropped).
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+  • Replaced `<RuleDraw className="mt-10 max-w-md" />` with `<div className="mt-10 max-w-md h-px bg-line" />`.
+  • Removed the `<FolioScroll total={3} sectionId="philosophy" />` widget entirely from the PhilosophyManifesto section (was a decorative scroll-driven folio number that carried no essential content). The surrounding label "§ Philosophy" remains.
+  • Rewrote the file end-to-end (was the cleanest way to handle the many wrapper replacements across FirmPage, PhilosophyManifesto and ApproachTimeline components).
+- Edited src/app/people/page.tsx:
+  • Removed `import { FadeUp, SheetReveal } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>` (including `<FadeUp key={person.slug} delay={i * 0.08}>` and `<FadeUp delay={0.16}>`) with plain `<div key={person.slug}>` / `<div>` (key preserved on the .map entry so React's list-reconciliation still works correctly).
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+- Edited src/app/people/[slug]/page.tsx:
+  • Removed `import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>...</FadeUp>` (with various delay attributes) with `<div>...</div>` across hero portrait, identity block, biography section, scope of practice/qualifications/bar columns, and contact strip.
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1 with person.name) with `<div>...</div>`.
+  • Replaced `<RuleDraw className="mt-8 max-w-md" />` with `<div className="mt-8 max-w-md h-px bg-line" />`.
+  • generateStaticParams + generateMetadata + notFound() untouched.
+- Edited src/app/sectors/page.tsx:
+  • Removed `import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>` wrapper (including the legend, header, three-notes grid with `<FadeUp key={note.title} delay={i * 0.08}>`) with plain `<div>` (key preserved).
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+  • Replaced `<RuleDraw className="mt-8 max-w-md" />` with `<div className="mt-8 max-w-md h-px bg-line" />`.
+- Edited src/app/insights/page.tsx:
+  • Removed `import { FadeUp, SheetReveal } from "@/components/motion/editorial";` line.
+  • Replaced `<FadeUp>` wrappers (hero side note, hero lead, and the empty-state notice block) with `<div>`.
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+  • Empty-state notice (insightsNotice + insightsEmpty) content preserved verbatim.
+- Edited src/app/careers/page.tsx:
+  • Removed `import { FadeUp, SheetReveal } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>` (hero side note, hero lead, § Overview, § Overview body, § How to reach, § How to reach body) with `<div>`.
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+- Edited src/app/contact/page.tsx:
+  • Removed `import { FadeUp, SheetReveal } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>` (hero side note, hero lead, form column, details column) with `<div>`.
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1) with `<div>...</div>`.
+  • ContactForm import and usage untouched.
+- Edited src/app/expertise/[slug]/page.tsx:
+  • Removed `import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";` line.
+  • Replaced every `<FadeUp>` (hero practice-area note, hero lead, § Services heading, § Services description, § Approach heading, § Approach body, contact strip heading, contact strip details) with `<div>`.
+  • Replaced `<SheetReveal>...</SheetReveal>` (hero h1 with area.title) with `<div>...</div>`.
+  • Replaced `<RuleDraw className="mt-8 max-w-md" />` with `<div className="mt-8 max-w-md h-px bg-line" />`.
+  • generateStaticParams + generateMetadata + notFound() + ExpandableServiceList import untouched. Prev/Next nav untouched.
+- Edited src/components/site/people-preview.tsx (client component, kept "use client"):
+  • Removed `import { FadeUp, CropReveal } from "@/components/motion/editorial";` line.
+  • Replaced `<FadeUp key={person.slug} delay={i * 0.08}>` with `<div key={person.slug}>` (key preserved for React list reconciliation).
+  • Replaced the final `<FadeUp delay={0.16}>` (team note card) with `<div>`.
+  • In PortraitPlaceholder, replaced `<CropReveal className="absolute inset-0">` wrapper with `<div className="absolute inset-0">` and kept the inner `<div className="crop-target absolute inset-0">` structure intact (the CSS rule for .crop-reveal targets `.crop-target` via the descendant selector, but with the wrapper gone the CSS still applies to .crop-target if it ever needs to — visually it renders identical to before since both RuleDraw and CropReveal now render at opacity:1/transform:none by default).
+- Edited src/components/site/insights-preview.tsx (client component, kept "use client"):
+  • Removed `import { FadeUp } from "@/components/motion/editorial";` line.
+  • Replaced the single `<FadeUp>` wrapper around the status card with `<div>`.
+- Edited src/components/site/sector-grid.tsx (client component, kept "use client"):
+  • Removed `import { FadeUp } from "@/components/motion/editorial";` line.
+  • In SectorGridLayout, replaced `<FadeUp key={sector.slug} delay={i * 0.04}>` with `<div key={sector.slug}>`.
+  • SectorScroller (the homepage horizontal scroll component) already had no FadeUp wrappers — left untouched.
+- Edited src/components/site/sector-list.tsx (client component, kept "use client"):
+  • Removed `import { FadeUp } from "@/components/motion/editorial";` line.
+  • Replaced `<FadeUp key={sector.slug} delay={i * 0.04}>` with `<div key={sector.slug}>` in the .map. The expandable accordion (grid-rows 0fr→1fr transition) is untouched — that's a CSS-only animation, not a client-JS animation, and the task said to remove only the editorial.tsx wrappers.
+- Edited src/components/site/expandable-service-list.tsx (client component, kept "use client"):
+  • Removed `import { FadeUp } from "@/components/motion/editorial";` line.
+  • Replaced `<FadeUp key={title} delay={i * 0.06}>` with `<div key={title}>` in the .map. The expandable accordion behaviour (useState open index, button toggle, expand/collapse of detail panel) is untouched.
+
+Verification:
+- `rg "FadeUp|SheetReveal|CropReveal|RuleDraw|FolioScroll" src/app/ src/components/site/people-preview.tsx src/components/site/insights-preview.tsx src/components/site/sector-grid.tsx src/components/site/sector-list.tsx src/components/site/expandable-service-list.tsx` → 0 matches (exit code 1 from ripgrep = no results found). The ONLY file in src/ that still mentions any of these names is src/components/motion/editorial.tsx (the definitions themselves, intentionally left in place) and src/components/site/legal-layout.tsx (a single comment line that says "Content renders immediately (no FadeUp/SheetReveal wrappers) so the" — not a usage, and legal-layout.tsx is on the do-not-touch list).
+- `bun run lint` → clean, exit code 0, no errors, no warnings.
+- `bun run build` → ✓ Compiled successfully in 11.2s. All 24 static pages generated successfully. No TypeScript errors, no missing imports, no unused-variable errors.
+- Server/client boundary: homepage (src/app/page.tsx) is now a pure server component (no "use client" directive, no client-only imports). The other top-level pages (firm, people, sectors, insights, careers, contact, expertise/[slug], people/[slug]) are likewise server components. The site component files that were already "use client" (people-preview, insights-preview, sector-grid, sector-list, expandable-service-list) keep their "use client" directive because they still use useState/useEffect/useRef for genuine interactivity (accordion toggle, scroller arrows, hashchange listener) — that's NOT the same as the purely decorative FadeUp/SheetReveal/CropReveal/RuleDraw wrappers that were just causing client JS to ship for opacity:1 reveal animations.
+- Visual/layout fidelity: every replacement preserves the original className (background tokens, colour accents, mono-label, display-* typography, border-line, padding, margin, grid placement). The only visual change is that `<RuleDraw />` is now a static `<div className="... h-px bg-line" />` instead of a JS-driven scaleX animation — but since Task 20 already made RuleDraw render at full width by default (the .is-in class was already applied on first paint), the visual result is identical.
+
+Stage Summary:
+- Removed 100% of the FadeUp/SheetReveal/CropReveal/RuleDraw/FolioScroll wrapper USAGES from all 14 target files (9 page files + 5 site component files).
+- Removed the now-unused `import { ... } from "@/components/motion/editorial"` lines from all 14 files.
+- Did NOT touch: src/components/motion/editorial.tsx (definitions left in place — useInView hook may still be used elsewhere), src/components/site/legal-layout.tsx, disclaimer-gate*.tsx, site-shell.tsx, site-header.tsx, site-footer.tsx, page-hero.tsx, hero-visual.tsx, contact-form.tsx, scroll-progress.tsx, expertise-accordion.tsx.
+- Did NOT change: any data file (firm.ts, people.ts, etc.), any dark theme colour class, any text content, any layout/spacing, any CSS rule, the disclaimer gate, the address, the legal dates, the portrait placeholder.
+- Pages now ship as static HTML with NO client JS bundle for purely decorative reveal animations. The only client components that remain (people-preview, insights-preview, sector-grid, sector-list, expandable-service-list) are client components for genuine interactivity (accordion toggle, scroller arrows, hashchange listener) — not for opacity:1 reveal animations.
+- Lint clean. Build clean. All 24 static pages generated successfully. Dark editorial design verified unchanged.
+
+---
+Task ID: 22
+Agent: main (orchestrator)
+Task: Remove blank screen, fix disclaimer timing, remove route transitions, improve speed, remove floating N/cursor, correct address, hide legal date
+
+Work Log:
+- Phase 1 (Remove initial blank screen): The DisclaimerGate was a client component using useEffect to check localStorage. This meant SSR HTML showed a `fixed inset-0 z-[200] bg-surface` placeholder (blank dark screen) until React hydrated. ROOT CAUSE of the 7-8s blank screen. FIX: Converted DisclaimerGate to a SERVER component that reads the acceptance cookie via `cookies()` from next/headers BEFORE rendering. The initial HTML response now contains either the disclaimer gate (first-time visitor) OR the website (returning visitor) — no blank placeholder. Created disclaimer-gate-client.tsx (client component) for the checkbox/proceed interaction. The gate is rendered server-side in the SSR HTML.
+- Phase 2 (Remove slow disclaimer transitions): Removed the three-state "checking" machine entirely. The server component renders the gate immediately if no cookie. The client component's onAgree handler calls setProceeded(true) immediately (no setTimeout, no animation delay) — the gate disappears within the same React tick. Transition durations reduced from 300ms to 150ms.
+- Phase 3 (Remove blank route transitions): Dispatched subagent (Task 21-a) to remove all FadeUp/SheetReveal/CropReveal/RuleDraw/FolioScroll animation wrappers from all 14 page and component files. Content now renders at opacity:1 immediately in SSR HTML. No page-level opacity:0 or visibility:hidden states remain. Converted homepage (page.tsx) and expertise page from client to server components. Split expertise accordion into a separate client component (expertise-accordion.tsx). page-hero.tsx and legal-layout.tsx converted from client to server components (removed "use client" + FadeUp/SheetReveal wrappers).
+- Phase 4 (Improve page speed): Removed 14 animation wrapper usages (FadeUp/SheetReveal/CropReveal/RuleDraw/FolioScroll) — eliminates IntersectionObserver client JS and hydration overhead. Converted homepage + expertise page to server components (static generation). Fonts already use display:swap. No artificial delays remain. SSR content renders instantly.
+- Phase 5 (Remove floating N): Verified no custom floating N widget exists in the codebase. The "N" the user saw was the Next.js Dev Tools overlay (dev-only, `nextDevTools: 0` in the browser check confirms it's not present in the rendered DOM). No fixed-position "N" elements found (fixedNEls: 0).
+- Phase 6 (Remove glowing cursor): Verified no .cursor-bar element exists (cursorBarEl: false). No custom cursor component in the codebase (deleted in Task 20). Native cursor restored: body cursor is "auto".
+- Phase 7 (Preserve contact form): Verified method="post", action="/api/contact", honeypot field present and hidden (position absolute, left -9999px, aria-hidden), disclaimer text present. POST returns 200 {ok:true}. GET returns 405 (rejected). No URL leakage.
+- Phase 8 (Correct address): Updated firm.ts: address.line1 "G-14B, Basement" → "G-14, Basement". Updated site-header.tsx mobile menu address. All other pages inherit from firm.ts. Verified "G-14B" and "LGF"/"Lower Ground Floor" no longer appear anywhere.
+- Phase 9 (Remove legal date placeholder): Updated legal-layout.tsx to make the `updated` prop optional — if not passed, the "Last Updated" row is not rendered at all. Removed the `updated` prop from terms/page.tsx, privacy/page.tsx, disclaimer/page.tsx. Verified no "Last Updated" text appears on any legal page.
+- Phase 10 (Preserve approved elements): Dark navy visual system unchanged (#080D18/#101827/#172033/#F5F1E8/#AAB2C0/#4169FF). Homepage headline "Corporate & Commercial Legal Counsel." unchanged. Editorial typography (Instrument Serif + Manrope + IBM Plex Mono) unchanged. Practice-area colours unchanged. Insights empty state unchanged. Profile content unchanged (3-para bio, Scope of Practice, Contact the Firm, PROFESSIONAL PORTRAIT placeholder, Enrolled advocate). Footer structure unchanged. Disclaimer text unchanged. Working checkbox preserved. Working POST contact form preserved. Canonical URLs + Open Graph metadata preserved.
+
+Verification (agent-browser + node fetch):
+- bun run lint: clean, 0 errors.
+- All 18 routes return HTTP 200 (including all 6 expertise detail pages).
+- SSR HTML check: disclaimer gate ("Before you enter", checkbox, proceed button) present in initial HTML response — NO blank screen. Old `fixed inset-0 z-[200] bg-surface aria-hidden="true"` placeholder GONE.
+- Disclaimer first paint (fresh visit, storage cleared): hasGate:true, gateTitle:"Before you enter", hasCheckbox:true, hasProceedButton:true, buttonDisabled:true (unchecked=disabled), homepageH1Visible:false (homepage NOT visible underneath), bodyBg:rgb(8,13,24)=#080D18. ALL IMMEDIATE on first paint.
+- Checkbox → button interaction: click checkbox → button enabled immediately (is enabled → true). No race condition.
+- Proceed: click "I Acknowledge and Proceed" → gateGone:true, homepageH1:"Corporate\n& Commercial\nLegal Counsel." visible IMMEDIATELY (within ~600ms including browser render). No 3s delay, no setTimeout.
+- Returning visitor: reload → hasGate:false, homepageH1 visible directly. Cookie-based server check means the server already rendered the website in SSR HTML.
+- No floating N: fixedNEls:0, nextDevTools:0. No custom cursor: cursorBarEl:false, nativeCursor:"auto".
+- Contact form: method="post", action="/api/contact", honeypot present + hidden, disclaimer present, address "G-14, Basement". POST → 200 {ok:true}. GET → 405.
+- Legal pages: no "Last Updated" text on /terms, /privacy, /disclaimer.
+- Profile page: Back to People, Scope of Practice, Contact the Firm, PROFESSIONAL PORTRAIT, Enrolled advocate — all present. No Representative Engagements, no Registered Advocate BCI.
+- Homepage content: H1 "Corporate & Commercial Legal Counsel.", all spec content present, all old elements removed (Loading document, client-first, Serving across, Six chapters, Forthcoming).
+- Mobile: 390x844, no horizontal overflow. Desktop bodyHeight: 6115px.
+- No page errors, no console errors.
+
+Stage Summary:
+- Initial blank screen ELIMINATED: disclaimer gate now renders in the initial SSR HTML response (server component reads cookie via next/headers). First-time visitors see the disclaimer immediately — no 7-8s blank dark screen.
+- Disclaimer timing FIXED: appears immediately (SSR), disappears immediately on Proceed (no setTimeout, no 3s delay, no AnimatePresence).
+- Route transitions FIXED: all pages render at opacity:1 in SSR. No page-level opacity:0/visibility:hidden/clip-path states. No route-transition overlay. Normal Next.js Link navigation.
+- Page speed IMPROVED: removed 14 animation wrapper usages, converted homepage + expertise to server components, eliminated IntersectionObserver client JS. SSR content renders instantly.
+- Floating N REMOVED: no custom widget (the "N" was Next.js Dev Tools, dev-only — not present in DOM).
+- Custom cursor REMOVED: no .cursor-bar element, native cursor "auto".
+- Contact form PRESERVED: POST only, honeypot hidden, validation, rate limiting. GET returns 405.
+- Address CORRECTED: "G-14, Basement / Kalkaji, New Delhi – 110019 / India" everywhere. No "G-14B" or "LGF".
+- Legal date placeholder HIDDEN: "Last Updated" row not rendered on any legal page.
+- All approved elements preserved: dark design, typography, content, colours, structure unchanged.
+- All 18 routes 200, lint clean, no errors, mobile responsive.

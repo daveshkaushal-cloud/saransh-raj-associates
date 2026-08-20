@@ -1,9 +1,14 @@
 import { type ReactNode } from "react";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 import { firm, contact } from "@/data/firm";
 
 /**
  * Reusable legal-document layout with editorial table of contents.
+ *
+ * Content renders immediately (no FadeUp/SheetReveal wrappers) so the
+ * legal text is visible on first paint — no blank reveal delay.
+ *
+ * The "Last updated" row is hidden entirely until an approved legal-
+ * review date is provided. Pass `updated` as an empty string to hide it.
  */
 export function LegalLayout({
   title,
@@ -12,7 +17,7 @@ export function LegalLayout({
   sections,
 }: {
   title: string;
-  updated: string;
+  updated?: string;
   intro: ReactNode;
   sections: { id: string; heading: string; body: ReactNode }[];
 }) {
@@ -25,24 +30,20 @@ export function LegalLayout({
             <span className="mono-label text-fg-muted">Legal · Informational</span>
             <span className="folio text-fg-subtle">DOC</span>
           </div>
-          <FadeUp>
-            <p className="mono-label text-fg-muted mb-6">Legal document</p>
-          </FadeUp>
+          <p className="mono-label text-fg-muted mb-6">Legal document</p>
           <h1 className="display-1 text-fg max-w-[16ch]">
-            <SheetReveal>
-              <span className="block">{title}</span>
-            </SheetReveal>
+            <span className="block">{title}</span>
           </h1>
-          <FadeUp delay={0.15}>
+          {/* "Last updated" row — hidden entirely until an approved
+              legal-review date is provided. Do not invent a date. */}
+          {updated && (
             <p className="mt-6 mono-label text-fg-subtle">
               Last updated: {updated}
             </p>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <div className="mt-8 max-w-2xl lead text-fg-muted">
-              {intro}
-            </div>
-          </FadeUp>
+          )}
+          <div className="mt-8 max-w-2xl lead text-fg-muted">
+            {intro}
+          </div>
         </div>
       </section>
 

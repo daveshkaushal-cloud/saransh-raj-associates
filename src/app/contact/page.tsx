@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { contact, firm } from "@/data/firm";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 import { ContactForm } from "@/components/site/contact-form";
 
 export const metadata: Metadata = {
@@ -23,26 +22,26 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">Offices</p>
                 <p className="margin-note">
                   A neutral enquiry form and the firm&apos;s verified contact details.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[14ch]">
                   Reach the{" "}
                   <span className="serif-italic text-vermilion">firm</span>
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   The firm welcomes enquiries about its work. Please use the form
                   below or the contact details to the right to be in touch.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -54,7 +53,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
             {/* Form — left, wider */}
             <div className="md:col-span-7">
-              <FadeUp>
+              <div>
                 <div className="border-t border-accent pt-6">
                   <p className="mono-label text-fg-muted mb-2">§ Enquiry</p>
                   <h2 className="display-3 text-2xl md:text-3xl mb-8">
@@ -62,12 +61,12 @@ export default function ContactPage() {
                   </h2>
                 </div>
                 <ContactForm />
-              </FadeUp>
+              </div>
             </div>
 
             {/* Details — right */}
             <div className="md:col-span-4 md:col-start-9">
-              <FadeUp delay={0.1}>
+              <div>
                 <div className="border-t border-accent pt-6 space-y-8">
                   <div>
                     <p className="mono-label text-fg-muted mb-2">Address</p>
@@ -94,7 +93,7 @@ export default function ContactPage() {
                     <p className="text-sm text-fg-muted">{firm.basedIn}, India</p>
                   </div>
                 </div>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>

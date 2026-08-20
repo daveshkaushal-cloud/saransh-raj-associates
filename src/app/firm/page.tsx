@@ -3,8 +3,6 @@ import Link from "next/link";
 import { firm, contact } from "@/data/firm";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
-import { FadeUp, SheetReveal, RuleDraw } from "@/components/motion/editorial";
-import { FolioScroll } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
   title: "The Firm",
@@ -26,7 +24,7 @@ export default function FirmPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <div className="flex items-center gap-3 mb-6">
                   <span className="h-2.5 w-2.5 rounded-full bg-accent" />
                   <span className="mono-label text-fg-muted">Manifesto</span>
@@ -34,23 +32,23 @@ export default function FirmPage() {
                 <p className="margin-note">
                   A boutique corporate &amp; commercial law firm based in New Delhi, India.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[16ch]">
                   Counsel built on{" "}
                   <span className="serif-italic text-accent">principle</span>
                   <span className="text-fg">.</span>
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   {firm.purpose} The firm advises companies, individuals and
                   families on corporate and commercial law.
                 </p>
-              </FadeUp>
-              <RuleDraw className="mt-10 max-w-md" />
+              </div>
+              <div className="mt-10 max-w-md h-px bg-line" />
             </div>
           </div>
         </div>
@@ -64,21 +62,21 @@ export default function FirmPage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
             <div className="md:col-span-5">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-3">§ Principles</p>
                 <h2 className="display-2">
                   What the firm{" "}
                   <span className="serif-italic text-coral">stands for</span>
                 </h2>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
-              <FadeUp delay={0.1}>
+              <div>
                 <p className="body-condensed text-fg-muted max-w-md">
                   Four principles shape every engagement — from the first
                   conversation through to the final document.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -92,7 +90,7 @@ export default function FirmPage() {
               const isLight = hex === "#F0A050";
               const onHex = isLight ? "#080D18" : "#FFFFFF";
               return (
-                <FadeUp key={p.title} delay={i * 0.08}>
+                <div key={p.title}>
                   <div
                     className="relative h-full min-h-[15rem] p-7 flex flex-col justify-between border border-line-strong"
                     style={{ background: hex, color: onHex }}
@@ -110,7 +108,7 @@ export default function FirmPage() {
                       <p className="mt-3 text-[0.85rem] leading-relaxed opacity-80">{p.body}</p>
                     </div>
                   </div>
-                </FadeUp>
+                </div>
               );
             })}
           </div>
@@ -125,20 +123,20 @@ export default function FirmPage() {
         <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
             <div className="md:col-span-5">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-saffron mb-3">§ Practice</p>
                 <h2 className="display-2 text-fg">
                   Six practice{" "}
                   <span className="serif-italic text-saffron">areas</span>
                 </h2>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
-              <FadeUp delay={0.1}>
+              <div>
                 <p className="body-condensed text-fg-muted max-w-md">
                   The firm&apos;s work is organised across six practice areas.
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
 
@@ -146,7 +144,7 @@ export default function FirmPage() {
             {practiceAreas.map((area, i) => {
               const hex = accentHex[area.accent];
               return (
-                <FadeUp key={area.slug} delay={i * 0.05}>
+                <div key={area.slug}>
                   <Link
                     href={`/expertise/${area.slug}`}
                     className="group relative grid grid-cols-12 gap-4 items-center py-5 md:py-6 border-b border-line hover:bg-surface-elevated transition-colors"
@@ -169,7 +167,7 @@ export default function FirmPage() {
                       </svg>
                     </span>
                   </Link>
-                </FadeUp>
+                </div>
               );
             })}
           </div>
@@ -180,18 +178,18 @@ export default function FirmPage() {
       <section className="bg-surface py-16 md:py-20 border-t border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <FadeUp>
+            <div>
               <h2 className="display-2 text-fg max-w-[18ch]">
                 Reach the <span className="serif-italic text-coral">firm</span>
               </h2>
-            </FadeUp>
-            <FadeUp delay={0.1}>
+            </div>
+            <div>
               <div className="text-fg-muted space-y-1">
                 <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
                 <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
                 <p className="mono-label text-fg-muted">{contact.hours}</p>
               </div>
-            </FadeUp>
+            </div>
           </div>
         </div>
       </section>
@@ -229,18 +227,17 @@ function PhilosophyManifesto() {
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
           <div className="md:col-span-3">
-            <FadeUp>
+            <div>
               <p className="mono-label text-fg-muted mb-4">§ Philosophy</p>
-              <FolioScroll total={3} sectionId="philosophy" />
-            </FadeUp>
+            </div>
           </div>
           <div className="md:col-span-9">
-            <FadeUp delay={0.1}>
+            <div>
               <h2 className="display-2 max-w-[16ch]">
                 The firm&apos;s{" "}
                 <span className="serif-italic text-violet">working</span> philosophy
               </h2>
-            </FadeUp>
+            </div>
           </div>
         </div>
 
@@ -249,7 +246,7 @@ function PhilosophyManifesto() {
             const isLight = s.hex === "#F0A050";
             const onHex = isLight ? "#080D18" : "#FFFFFF";
             return (
-              <FadeUp key={s.label} delay={i * 0.05}>
+              <div key={s.label}>
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
                   {/* Left: oversized number + colour block */}
                   <div className="md:col-span-4">
@@ -272,7 +269,7 @@ function PhilosophyManifesto() {
                     <p className="lead mt-5 max-w-xl" style={{ color: "var(--text-secondary)" }}>{s.body}</p>
                   </div>
                 </div>
-              </FadeUp>
+              </div>
             );
           })}
         </div>
@@ -317,21 +314,21 @@ function ApproachTimeline() {
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
           <div className="md:col-span-5">
-            <FadeUp>
+            <div>
               <p className="mono-label text-fg-muted mb-3">§ Approach</p>
               <h2 className="display-2">
                 An{" "}
                 <span className="serif-italic text-teal">archival</span> view of the firm
               </h2>
-            </FadeUp>
+            </div>
           </div>
           <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
-            <FadeUp delay={0.1}>
+            <div>
               <p className="body-condensed text-fg-muted max-w-md">
                 A timeline of the firm&apos;s structure, practice and approach —
                 set out as an archival record.
               </p>
-            </FadeUp>
+            </div>
           </div>
         </div>
 
@@ -344,7 +341,7 @@ function ApproachTimeline() {
             {milestones.map((m, i) => {
               const left = i % 2 === 0;
               return (
-                <FadeUp key={m.year} delay={i * 0.06}>
+                <div key={m.year}>
                   <div className={`relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 ${left ? "" : "md:[direction:rtl]"}`}>
                     {/* marker */}
                     <span
@@ -364,7 +361,7 @@ function ApproachTimeline() {
                       </div>
                     </div>
                   </div>
-                </FadeUp>
+                </div>
               );
             })}
           </div>

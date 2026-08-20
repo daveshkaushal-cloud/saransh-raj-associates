@@ -1,11 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { HeroVisual } from "@/components/site/hero-visual";
 import { SectorGrid } from "@/components/site/sector-grid";
 import { PeoplePreview } from "@/components/site/people-preview";
 import { InsightsPreview } from "@/components/site/insights-preview";
-import { SheetReveal, FadeUp, RuleDraw } from "@/components/motion/editorial";
 import { firm, contact } from "@/data/firm";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
@@ -162,28 +159,28 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">§ Introduction</p>
                 <p className="margin-note">
                   A boutique corporate &amp; commercial law firm.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9 md:pl-6">
-              <FadeUp delay={0.1}>
+              <div>
                 <h2 className="display-2 text-fg max-w-[18ch]">
                   Counsel for{" "}
                   <span className="serif-italic text-accent">companies</span>,{" "}
                   <span className="serif-italic text-coral">individuals</span> and{" "}
                   <span className="serif-italic text-violet">families</span>.
                 </h2>
-              </FadeUp>
-              <FadeUp delay={0.2}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   {firm.summary} {firm.purpose}
                 </p>
-              </FadeUp>
-              <RuleDraw className="mt-10 max-w-md text-fg-muted" />
+              </div>
+              <div className="mt-10 max-w-md text-fg-muted h-px bg-line" />
             </div>
           </div>
         </div>

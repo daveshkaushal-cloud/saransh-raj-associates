@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { insightsNotice, insightsEmpty } from "@/data/insights";
-import { FadeUp, SheetReveal } from "@/components/motion/editorial";
 
 export const metadata: Metadata = {
   title: "Insights",
@@ -23,27 +22,27 @@ export default function InsightsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <FadeUp>
+              <div>
                 <p className="mono-label text-fg-muted mb-4">
                   Notes &amp; Publications
                 </p>
                 <p className="margin-note">
                   An honest index. No articles have been published yet.
                 </p>
-              </FadeUp>
+              </div>
             </div>
             <div className="md:col-span-9">
-              <SheetReveal>
+              <div>
                 <h1 className="display-1 text-fg max-w-[14ch]">
                   The firm&apos;s{" "}
                   <span className="serif-italic text-saffron">notebook</span>
                 </h1>
-              </SheetReveal>
-              <FadeUp delay={0.15}>
+              </div>
+              <div>
                 <p className="lead mt-8 max-w-2xl text-fg-muted">
                   {insightsNotice}
                 </p>
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>
@@ -52,7 +51,7 @@ export default function InsightsPage() {
       {/* Empty-state notice */}
       <section className="bg-surface py-16 md:py-24">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <FadeUp>
+          <div>
             <div className="border border-line bg-surface-elevated p-10 md:p-16">
               <div className="flex items-start gap-4">
                 <span
@@ -93,7 +92,7 @@ export default function InsightsPage() {
                 </Link>
               </div>
             </div>
-          </FadeUp>
+          </div>
         </div>
       </section>
     </>
