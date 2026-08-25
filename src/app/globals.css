@@ -4,75 +4,70 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   Saransh Raj & Associates — Dark Editorial Theme
-   A premium editorial dark theme: legal-document precision
-   expressed as a contemporary editorial experience.
+   Saransh Raj & Associates — Warm Editorial Theme
+   A premium editorial publication aesthetic: warm ivory,
+   soft beige, blush, rose gold, burgundy and espresso.
    ============================================================ */
 
 @theme inline {
-  --color-background: var(--color-surface);
-  --color-foreground: var(--color-fg);
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-espresso);
 
   /* Self-hosted font stacks */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 
-  /* === Core palette — dark editorial === */
-  --color-surface: #080D18;            /* Primary background */
-  --color-surface-soft: #101827;      /* Secondary surface */
-  --color-surface-elevated: #172033;  /* Elevated sections */
-  --color-fg: #F5F1E8;                /* Primary text (warm ivory) */
-  --color-fg-muted: #AAB2C0;          /* Secondary text (cool muted) */
-  --color-fg-subtle: #6B7689;         /* Tertiary/muted text */
+  /* === Core palette — warm editorial === */
+  --color-ivory: #F7F1E8;           /* Main background — Warm Ivory */
+  --color-beige: #E8D8C8;           /* Secondary background — Soft Beige */
+  --color-blush: #E3C8BE;           /* Card background — Blush Beige */
+  --color-porcelain: #FFFDF9;       /* Light surface — Porcelain White */
+  --color-rose: #B76E79;            /* Primary accent — Rose Gold */
+  --color-burgundy: #603A40;        /* Deep accent — Burgundy */
+  --color-espresso: #2B2422;        /* Heading colour — Espresso Brown */
+  --color-charcoal: #514846;        /* Body text — Warm Charcoal */
+  --color-stone: #8A7E76;           /* Muted text / metadata */
 
-  /* === Practice-area accents (used only for practice-area identity) === */
-  --color-accent: #4169FF;            /* Cobalt blue — primary accent */
-  --color-coral: #FF6B5C;             /* Practice-area accent */
-  --color-saffron: #F0A050;           /* Practice-area accent */
-  --color-teal: #0FA98C;              /* Practice-area accent */
-  --color-violet: #8E7BFF;            /* Practice-area accent */
+  /* Lines + borders */
+  --color-line: rgba(43, 36, 34, 0.10);          /* Thin translucent border */
+  --color-line-strong: rgba(43, 36, 34, 0.22);   /* Stronger border */
+  --color-line-rose: rgba(183, 110, 121, 0.35);  /* Rose-gold tint border */
+  --color-line-on-dark: rgba(247, 241, 232, 0.16);
 
-  /* Translucent borders + paper-grain */
-  --color-line: rgba(245, 241, 232, 0.10);
-  --color-line-strong: rgba(245, 241, 232, 0.22);
-  --color-line-on-ink: rgba(245, 241, 232, 0.16);
-
-  /* Legacy aliases — mapped to dark-theme values for back-compat */
-  --color-ink: #F5F1E8;               /* was dark text → now ivory */
-  --color-ink-soft: #AAB2C0;
-  --color-ink-muted: #6B7689;
-  --color-porcelain: #080D18;         /* was light bg → now primary dark */
-  --color-porcelain-deep: #172033;    /* was soft blue → now elevated dark */
-  --color-paper: #101827;             /* was near-white → now secondary dark */
-  --color-electric: #4169FF;          /* cobalt blue */
-  --color-vermilion: #FF6B5C;         /* coral */
-  --color-marigold: #F0A050;          /* saffron */
-  --color-jade: #0FA98C;              /* teal */
-  --color-aubergine: #8E7BFF;         /* violet */
-  --color-ivory: #F5F1E8;
-  --color-cobalt: #4169FF;
+  /* Legacy aliases → map to warm palette for back-compat */
+  --color-surface: #F7F1E8;
+  --color-surface-soft: #E8D8C8;
+  --color-surface-elevated: #FFFDF9;
+  --color-fg: #2B2422;
+  --color-fg-muted: #514846;
+  --color-fg-subtle: #8A7E76;
+  --color-accent: #B76E79;
+  --color-coral: #B76E79;
+  --color-saffron: #B76E79;
+  --color-teal: #603A40;
+  --color-violet: #603A40;
 
   /* shadcn aliases */
   --color-border: var(--color-line);
   --color-input: var(--color-line);
-  --color-ring: var(--color-accent);
-  --color-card: var(--color-surface-soft);
-  --color-card-foreground: var(--color-fg);
-  --color-popover: var(--color-surface-soft);
-  --color-popover-foreground: var(--color-fg);
-  --color-primary: var(--color-accent);
+  --color-ring: var(--color-rose);
+  --color-card: var(--color-porcelain);
+  --color-card-foreground: var(--color-espresso);
+  --color-popover: var(--color-porcelain);
+  --color-popover-foreground: var(--color-espresso);
+  --color-primary: var(--color-rose);
   --color-primary-foreground: #FFFFFF;
-  --color-secondary: var(--color-surface-elevated);
-  --color-secondary-foreground: var(--color-fg);
-  --color-muted: var(--color-surface-elevated);
-  --color-muted-foreground: var(--color-fg-muted);
+  --color-secondary: var(--color-beige);
+  --color-secondary-foreground: var(--color-espresso);
+  --color-muted: var(--color-beige);
+  --color-muted-foreground: var(--color-stone);
   --color-accent-foreground: #FFFFFF;
-  --color-destructive: #FF6B5C;
-  --color-sidebar: var(--color-surface-soft);
-  --color-sidebar-foreground: var(--color-fg);
+  --color-destructive: #603A40;
+  --color-sidebar: var(--color-porcelain);
+  --color-sidebar-foreground: var(--color-espresso);
   --color-sidebar-border: var(--color-line);
-  --color-sidebar-ring: var(--color-accent);
+  --color-sidebar-ring: var(--color-rose);
 
   --radius: 0.125rem;
   --radius-sm: 0.0625rem;
@@ -83,50 +78,45 @@
 
 :root {
   /* Central design tokens — single source of truth */
-  --background-global: #080D18;
-  --background-surface: #101827;
-  --background-elevated: #172033;
-  --background-deep: #050811;
+  --background-global: #F7F1E8;
+  --background-beige: #E8D8C8;
+  --background-blush: #E3C8BE;
+  --background-porcelain: #FFFDF9;
+  --background-burgundy: #603A40;
+  --background-espresso: #2B2422;
 
-  --text-primary: #F5F1E8;
-  --text-secondary: #AAB2C0;
-  --text-muted: #6B7689;
-  --text-on-accent: #FFFFFF;
+  --text-primary: #2B2422;
+  --text-body: #514846;
+  --text-muted: #8A7E76;
+  --text-on-dark: #F7F1E8;
+  --text-on-rose: #FFFFFF;
+  --text-on-burgundy: #F7F1E8;
 
-  --border-default: rgba(245, 241, 232, 0.10);
-  --border-strong: rgba(245, 241, 232, 0.22);
-  --border-on-ink: rgba(245, 241, 232, 0.16);
+  --border-default: rgba(43, 36, 34, 0.10);
+  --border-strong: rgba(43, 36, 34, 0.22);
+  --border-rose: rgba(183, 110, 121, 0.35);
+  --border-on-dark: rgba(247, 241, 232, 0.16);
 
-  --surface: #080D18;
-  --surface-soft: #101827;
-  --surface-elevated: #172033;
-  --surface-deep: #050811;
-  --fg: #F5F1E8;
-  --fg-muted: #AAB2C0;
-  --fg-subtle: #6B7689;
-  --accent: #4169FF;
-  --coral: #FF6B5C;
-  --saffron: #F0A050;
-  --teal: #0FA98C;
-  --violet: #8E7BFF;
-  --line: rgba(245, 241, 232, 0.10);
-  --line-strong: rgba(245, 241, 232, 0.22);
-  --line-on-ink: rgba(245, 241, 232, 0.16);
+  --ivory: #F7F1E8;
+  --beige: #E8D8C8;
+  --blush: #E3C8BE;
+  --porcelain: #FFFDF9;
+  --rose: #B76E79;
+  --burgundy: #603A40;
+  --espresso: #2B2422;
+  --charcoal: #514846;
+  --stone: #8A7E76;
 
   /* Legacy aliases */
-  --ink: #F5F1E8;
-  --ink-soft: #AAB2C0;
-  --ink-muted: #6B7689;
-  --porcelain: #080D18;
-  --porcelain-deep: #172033;
-  --paper: #101827;
-  --electric: #4169FF;
-  --vermilion: #FF6B5C;
-  --marigold: #F0A050;
-  --jade: #0FA98C;
-  --aubergine: #8E7BFF;
+  --surface: #F7F1E8;
+  --surface-soft: #E8D8C8;
+  --surface-elevated: #FFFDF9;
+  --fg: #2B2422;
+  --fg-muted: #514846;
+  --fg-subtle: #8A7E76;
+  --accent: #B76E79;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -140,8 +130,10 @@
   }
   body {
     background-color: var(--background-global);
-    color: var(--text-primary);
+    color: var(--text-body);
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -150,20 +142,25 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display), ui-serif, Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
   }
-  ::selection { background: var(--color-accent); color: #FFFFFF; }
+  ::selection { background: var(--color-rose); color: #FFFFFF; }
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-rose);
     outline-offset: 3px;
     border-radius: 1px;
   }
   a, button { -webkit-tap-highlight-color: transparent; }
+  /* Restore native cursor everywhere */
+  * { cursor: auto; }
+  a, button, [role="button"], input[type="checkbox"], input[type="radio"], select, label[for], .link-underline, [data-cursor="hover"] { cursor: pointer; }
+  input[type="text"], input[type="email"], input[type="tel"], textarea { cursor: text; }
 }
 
 /* ============================================================
    TYPOGRAPHY — editorial system
-   Instrument Serif display / Manrope body / IBM Plex Mono labels
+   Cormorant Garamond display / Manrope body / IBM Plex Mono labels
    ============================================================ */
 .font-display { font-family: var(--font-display), ui-serif, Georgia, serif; }
 .font-mono   { font-family: var(--font-mono), ui-monospace, monospace; }
@@ -175,43 +172,49 @@
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   font-size: clamp(3.5rem, 11vw, 13rem);
-  line-height: 0.86;
+  line-height: 0.88;
   letter-spacing: -0.038em;
+  color: var(--color-espresso);
 }
 .display-1 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   font-size: clamp(3.25rem, 10vw, 10rem);
-  line-height: 0.9;
+  line-height: 0.92;
   letter-spacing: -0.03em;
+  color: var(--color-espresso);
 }
 .display-2 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   font-size: clamp(2.25rem, 6.5vw, 6rem);
-  line-height: 0.95;
+  line-height: 0.98;
   letter-spacing: -0.022em;
+  color: var(--color-espresso);
 }
 .display-3 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   font-size: clamp(1.75rem, 3.8vw, 3.5rem);
-  line-height: 1.02;
+  line-height: 1.05;
   letter-spacing: -0.016em;
+  color: var(--color-espresso);
 }
 .display-4 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   font-size: clamp(1.4rem, 2.2vw, 2rem);
-  line-height: 1.08;
+  line-height: 1.12;
   letter-spacing: -0.012em;
+  color: var(--color-espresso);
 }
 
-/* Italic accent — for single editorial colour words (electric blue italic) */
+/* Italic accent — for single editorial rose-gold words */
 .serif-italic {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: italic;
   font-weight: 400;
+  color: var(--color-rose);
 }
 
 /* Mono labels — folios, index numbers, metadata, eyebrows */
@@ -220,10 +223,11 @@
 }
 .mono-label {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--color-stone);
 }
 .mono-num {
   font-family: var(--font-mono), ui-monospace, monospace;
@@ -235,34 +239,35 @@
 .lead {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(1.0625rem, 1.4vw, 1.375rem);
-  line-height: 1.55;
+  line-height: 1.6;
   letter-spacing: -0.005em;
-  color: var(--text-secondary);
+  color: var(--text-body);
 }
 /* Condensed body — for tight editorial columns */
 .body-condensed {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 0.9375rem;
-  line-height: 1.5;
+  line-height: 1.55;
   letter-spacing: 0.003em;
+  color: var(--text-body);
 }
 
 /* Vertical label — rotated metadata */
 .vertical-label {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
+  color: var(--color-stone);
 }
 
 /* ============================================================
    DOCUMENT LAYOUT — margins, columns, folios
    ============================================================ */
 
-/* Editorial column container with a wide left margin (like a legal doc) */
 .doc-grid {
   display: grid;
   grid-template-columns: [margin] 5rem [body] 1fr;
@@ -289,8 +294,8 @@
 /* Margin note — annotation in the left margin */
 .margin-note {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  line-height: 1.55;
   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
@@ -303,27 +308,27 @@
 }
 
 /* ============================================================
-   TEXTURE — subtle paper-grain on dark surfaces
+   TEXTURE — subtle paper grain on warm surfaces
    ============================================================ */
 .grain::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.4;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 0 0.13 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
 .grain-light::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.3;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 0 0.13 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
 
 /* Fine paper rule lines (like a ledger) */
@@ -334,39 +339,36 @@
 
 /* ============================================================
    COLOUR FIELDS — full-width section transitions
-   Approved accessible pairs only.
    ============================================================ */
-.field-surface       { background: var(--color-surface);        color: var(--color-fg); }
-.field-surface-soft  { background: var(--color-surface-soft);    color: var(--color-fg); }
-.field-surface-elevated { background: var(--color-surface-elevated); color: var(--color-fg); }
-.field-accent  { background: var(--color-accent);   color: #FFFFFF; }
-.field-coral   { background: var(--color-coral);    color: #FFFFFF; }
-.field-saffron { background: var(--color-saffron);  color: #080D18; }
-.field-teal    { background: var(--color-teal);     color: #FFFFFF; }
-.field-violet  { background: var(--color-violet);   color: #FFFFFF; }
+.field-ivory       { background: var(--color-ivory);      color: var(--color-espresso); }
+.field-beige       { background: var(--color-beige);      color: var(--color-espresso); }
+.field-blush       { background: var(--color-blush);      color: var(--color-espresso); }
+.field-porcelain   { background: var(--color-porcelain);  color: var(--color-espresso); }
+.field-rose        { background: var(--color-rose);       color: #FFFFFF; }
+.field-burgundy    { background: var(--color-burgundy);    color: var(--color-ivory); }
+.field-espresso    { background: var(--color-espresso);   color: var(--color-ivory); }
 
-/* Legacy field aliases — kept for back-compat */
-.field-ink        { background: var(--color-surface-soft);    color: var(--color-fg); }
-.field-porcelain  { background: var(--color-surface);         color: var(--color-fg); }
-.field-paper      { background: var(--color-surface-soft);    color: var(--color-fg); }
-.field-electric   { background: var(--color-accent);          color: #FFFFFF; }
-.field-vermilion  { background: var(--color-coral);            color: #FFFFFF; }
-.field-marigold   { background: var(--color-saffron);          color: #080D18; }
-.field-jade       { background: var(--color-teal);             color: #FFFFFF; }
-.field-aubergine  { background: var(--color-violet);           color: #FFFFFF; }
+/* Legacy aliases → warm palette */
+.field-surface         { background: var(--color-ivory);      color: var(--color-espresso); }
+.field-surface-soft    { background: var(--color-beige);     color: var(--color-espresso); }
+.field-surface-elevated{ background: var(--color-porcelain);  color: var(--color-espresso); }
+.field-accent   { background: var(--color-rose);       color: #FFFFFF; }
+.field-coral    { background: var(--color-rose);       color: #FFFFFF; }
+.field-saffron  { background: var(--color-rose);       color: #FFFFFF; }
+.field-teal     { background: var(--color-burgundy);   color: var(--color-ivory); }
+.field-violet   { background: var(--color-burgundy);   color: var(--color-ivory); }
+.field-ink      { background: var(--color-espresso);  color: var(--color-ivory); }
+.field-paper    { background: var(--color-porcelain);  color: var(--color-espresso); }
 
 /* Line-on-colour overrides */
-.field-accent  .line-on-color,
-.field-coral   .line-on-color,
-.field-violet  .line-on-color,
-.field-teal    .line-on-color { border-color: rgba(255,255,255,0.22); }
-.field-saffron .line-on-color { border-color: rgba(8,13,24,0.22); }
+.field-rose .line-on-color,
+.field-burgundy .line-on-color,
+.field-espresso .line-on-color { border-color: rgba(247, 241, 232, 0.22); }
 
 /* ============================================================
    GRAPHIC LANGUAGE — annotation marks, brackets, rules
    ============================================================ */
 
-/* Annotation bracket — corner marks like a document selection */
 .anno-bracket {
   position: relative;
 }
@@ -376,9 +378,9 @@
   position: absolute;
   width: 14px;
   height: 14px;
-  border-color: currentColor;
+  border-color: var(--color-rose);
   border-style: solid;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 .anno-bracket::before {
   top: -1px; left: -1px;
@@ -389,18 +391,16 @@
   border-width: 0 1px 1px 0;
 }
 
-/* Underline annotation — like a marked-up legal phrase */
 .anno-underline {
-  background-image: linear-gradient(to right, var(--color-coral) 0%, var(--color-coral) 100%);
+  background-image: linear-gradient(to right, var(--color-rose) 0%, var(--color-rose) 100%);
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 2px;
   padding-bottom: 1px;
 }
 
-/* Highlight mark — like a reviewed passage */
 .anno-highlight {
-  background: linear-gradient(180deg, transparent 55%, rgba(240, 160, 80, 0.35) 55%);
+  background: linear-gradient(180deg, transparent 55%, rgba(183, 110, 121, 0.18) 55%);
   padding: 0 0.1em;
 }
 
@@ -416,9 +416,8 @@
   height: 1px;
   width: 100%;
   background: currentColor;
-  transform: scaleX(0);
+  transform: scaleX(1);
   transform-origin: left;
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .rule-draw.is-in::after { transform: scaleX(1); }
 
@@ -436,7 +435,7 @@
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .link-underline:hover::after {
   transform: scaleX(1);
@@ -446,10 +445,11 @@
 /* Folio — page number marker */
 .folio {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   font-variant-numeric: tabular-nums;
+  color: var(--color-stone);
 }
 
 /* Section index — oversized number watermark */
@@ -459,36 +459,31 @@
   font-size: clamp(6rem, 16vw, 18rem);
   line-height: 0.8;
   letter-spacing: -0.04em;
+  color: rgba(183, 110, 121, 0.08);
 }
 
 /* Eyebrow — small section label */
 .eyebrow {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--color-stone);
 }
 
 /* ============================================================
-   MOTION — "living document" reveals
+   MOTION — calm, slow, luxurious reveals
    ============================================================ */
 
-/* Sheet reveal — content is VISIBLE by default. The mask slide-up
-   is a decorative 0.4s transition that only runs once the element
-   is observed entering the viewport. If JS is slow/disabled, the
-   content stays visible (no blank reveal delay). */
 .sheet-reveal {
   overflow: hidden;
 }
 .sheet-reveal > * {
   display: block;
   transform: translateY(0);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-/* The .is-in class is a no-op visually (content already visible) — it
-   exists only so the IntersectionObserver has a target without hiding
-   content while waiting to fire. */
 .sheet-reveal.is-in > * { transform: translateY(0); }
 
 /* Line draw for SVG annotation strokes */
@@ -498,7 +493,7 @@
 .line-draw polyline {
   stroke-dasharray: var(--draw-len, 1000);
   stroke-dashoffset: var(--draw-len, 1000);
-  transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .line-draw.is-in path,
 .line-draw.is-in line,
@@ -507,8 +502,7 @@
   stroke-dashoffset: 0;
 }
 
-/* Image crop reveal — image is VISIBLE by default (no clip-path
-   hiding). The scale/clip transition is decorative only. */
+/* Image crop reveal — image reveals through an editorial clip */
 .crop-reveal {
   overflow: hidden;
   position: relative;
@@ -516,7 +510,7 @@
 .crop-reveal img,
 .crop-reveal .crop-target {
   transform: scale(1);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   clip-path: inset(0 0 0 0);
 }
 .crop-reveal.is-in img,
@@ -554,12 +548,12 @@
    ============================================================ */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-line-strong) transparent;
+  scrollbar-color: var(--color-stone) transparent;
 }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: var(--color-line-strong); }
-*::-webkit-scrollbar-thumb:hover { background: var(--color-fg-subtle); }
+*::-webkit-scrollbar-thumb { background: rgba(138, 126, 118, 0.4); }
+*::-webkit-scrollbar-thumb:hover { background: var(--color-stone); }
 
 /* ============================================================
    LAYOUT HELPERS
@@ -574,7 +568,6 @@
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Document edge — thin coloured rule down the side of a section */
 .edge-rule-left {
   border-left: 1px solid var(--color-line);
 }
@@ -582,9 +575,16 @@
   border-right: 1px solid var(--color-line);
 }
 
-/* Tight horizontal scroll-snap for editorial tracks */
 .snap-x-track {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
 .snap-x-track > * { scroll-snap-align: start; }
+
+/* Magnetic button — subtle scale on hover */
+.btn-magnetic {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+}
+.btn-magnetic:hover {
+  transform: translateY(-1px);
+}

@@ -7,8 +7,8 @@ import { primaryNav } from "@/data/navigation";
 import { firm } from "@/data/firm";
 
 /**
- * Editorial site header — a thin document-style top rule on the dark
- * surface. Sticky on scroll, with a full-screen overlay menu on mobile.
+ * Editorial site header — warm ivory, sticky on scroll, with a
+ * full-screen overlay menu on mobile.
  */
 export function SiteHeader() {
   const pathname = usePathname();
@@ -41,7 +41,7 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-[110] border-b transition-colors duration-300 ${
         scrolled
-          ? "bg-surface/90 backdrop-blur-md border-line"
+          ? "bg-ivory/90 backdrop-blur-md border-line"
           : "bg-transparent border-transparent"
       }`}
     >
@@ -54,22 +54,22 @@ export function SiteHeader() {
             aria-label={`${firm.name} — home`}
           >
             <span
-              className="grid place-items-center h-7 w-7 bg-accent text-white"
+              className="grid place-items-center h-7 w-7 bg-rose text-white"
               aria-hidden="true"
             >
               <span className="font-display text-sm leading-none">S</span>
             </span>
             <span className="flex flex-col leading-none">
-              <span className="font-display text-[1.05rem] md:text-[1.15rem] text-fg tracking-tight leading-none">
+              <span className="font-display text-[1.1rem] md:text-[1.2rem] text-espresso tracking-tight leading-none">
                 Saransh Raj
               </span>
-              <span className="mono-label text-fg-muted mt-1 hidden sm:block">
+              <span className="mono-label text-stone mt-1 hidden sm:block">
                 &amp; Associates · New Delhi
               </span>
             </span>
           </Link>
 
-          {/* Desktop nav index */}
+          {/* Desktop nav */}
           <nav
             aria-label="Primary"
             className="hidden lg:flex items-center gap-0"
@@ -81,17 +81,17 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   className={`group relative flex items-baseline gap-2 px-3.5 py-2 transition-colors ${
-                    active ? "text-fg" : "text-fg-muted hover:text-fg"
+                    active ? "text-espresso" : "text-charcoal hover:text-espresso"
                   }`}
                 >
-                  <span className="mono-num text-[0.6rem] text-fg-subtle group-hover:text-accent transition-colors">
+                  <span className="mono-num text-[0.65rem] text-stone group-hover:text-rose transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-[0.82rem] font-medium tracking-tight">
+                  <span className="text-[0.85rem] font-medium tracking-tight">
                     {item.label}
                   </span>
                   <span
-                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-accent origin-left transition-transform duration-300 ${
+                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-rose origin-left transition-transform duration-300 ${
                       active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />
@@ -100,9 +100,9 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {/* Right folio + mobile toggle */}
+          {/* Mobile toggle */}
           <div className="flex items-center gap-3">
-            <span className="mono-label text-fg-subtle hidden md:inline">
+            <span className="mono-label text-stone hidden md:inline">
               {activeIndex >= 0
                 ? `INDEX ${String(activeIndex + 1).padStart(2, "0")}`
                 : "INDEX"}
@@ -114,31 +114,23 @@ export function SiteHeader() {
               aria-expanded={open}
             >
               <span className="relative block h-3 w-6">
-                <span
-                  className={`absolute left-0 top-0 h-px w-6 bg-fg transition-transform duration-300 ${
-                    open ? "translate-y-1.5 rotate-45" : ""
-                  }`}
-                />
-                <span
-                  className={`absolute left-0 bottom-0 h-px w-6 bg-fg transition-transform duration-300 ${
-                    open ? "-translate-y-1.5 -rotate-45" : ""
-                  }`}
-                />
+                <span className={`absolute left-0 top-0 h-px w-6 bg-espresso transition-transform duration-300 ${open ? "translate-y-1.5 rotate-45" : ""}`} />
+                <span className={`absolute left-0 bottom-0 h-px w-6 bg-espresso transition-transform duration-300 ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
               </span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-surface-soft text-fg transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`lg:hidden fixed inset-0 z-40 bg-ivory text-espresso transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           open ? "translate-y-0" : "-translate-y-full"
         }`}
         aria-hidden={!open}
       >
         <div className="flex h-full flex-col px-6 pt-20 pb-10 overflow-y-auto">
-          <p className="mono-label text-fg-subtle mb-6">Index</p>
+          <p className="mono-label text-stone mb-6">Index</p>
           <nav aria-label="Mobile" className="flex flex-col">
             {primaryNav.map((item, i) => {
               const active = activeIndex === i;
@@ -149,44 +141,38 @@ export function SiteHeader() {
                   className="group flex items-baseline justify-between border-b border-line py-5"
                 >
                   <span className="flex items-baseline gap-5">
-                    <span className="mono-num text-[0.7rem] text-fg-subtle">
+                    <span className="mono-num text-[0.7rem] text-stone">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
                       className={`font-display text-4xl md:text-5xl transition-colors ${
-                        active
-                          ? "text-accent"
-                          : "text-fg group-hover:text-accent"
+                        active ? "text-rose" : "text-espresso group-hover:text-rose"
                       }`}
                     >
                       {item.label}
                     </span>
                   </span>
                   <svg
-                    className="h-5 w-5 text-fg-subtle transition-transform group-hover:translate-x-1 group-hover:text-accent"
+                    className="h-5 w-5 text-stone transition-transform group-hover:translate-x-1 group-hover:text-rose"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     aria-hidden="true"
                   >
-                    <path
-                      d="M7 17L17 7M17 7H9M17 7v8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                    <path d="M7 17L17 7M17 7H9M17 7v8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>
               );
             })}
           </nav>
           <div className="mt-auto pt-10">
-            <p className="mono-label text-fg-subtle mb-2">Office</p>
-            <p className="text-sm text-fg-muted">
-              G-14, Basement<br />
-              Kalkaji, New Delhi – 110019
+            <p className="mono-label text-stone mb-2">Office</p>
+            <p className="text-sm text-charcoal">
+              {contact_address_line1}<br />
+              {contact_address_line2}
             </p>
-            <p className="text-sm text-fg-subtle mt-1">
+            <p className="text-sm text-stone mt-1">
               Mon – Sat · 10:00 – 19:00 IST
             </p>
           </div>
@@ -195,3 +181,8 @@ export function SiteHeader() {
     </header>
   );
 }
+
+// Inline the address so we don't need to import contact here (keeps the
+// component lean and avoids a circular reference in the mobile menu).
+const contact_address_line1 = "G-14, Basement";
+const contact_address_line2 = "Kalkaji, New Delhi – 110019";

@@ -1,109 +1,106 @@
 /**
- * Maps brand accent tokens to the dark editorial palette.
- * Each practice area and sector carries an accent that drives its
- * colour field, annotation marks and index treatment.
+ * Maps brand accent tokens to the warm editorial palette.
+ * Practice-area and sector accents drive colour fields, annotation
+ * marks and index treatment.
  *
  * Approved accessible pairs (WCAG AA):
- *   electric → Cobalt Blue  #4169FF  on #FFFFFF
- *   vermilion → Coral       #FF6B5C  on #FFFFFF
- *   marigold  → Saffron     #F0A050  on #080D18
- *   jade      → Teal        #0FA98C  on #FFFFFF
- *   aubergine → Violet      #8E7BFF  on #FFFFFF
- *   ink       → Surface     #101827  on #F5F1E8
- *
- * Practice-area accents are used only for practice-area identification.
+ *   rose       → Rose Gold     #B76E79  on #FFFFFF
+ *   burgundy   → Burgundy      #603A40  on #F7F1E8
+ *   espresso   → Espresso      #2B2422  on #F7F1E8
+ *   blush      → Blush Beige   #E3C8BE  on #2B2422 (dark text)
+ *   beige      → Soft Beige   #E8D8C8   on #2B2422 (dark text)
+ *   porcelain  → Porcelain     #FFFDF9  on #2B2422 (dark text)
  */
 
 export type Accent =
-  | "electric"
-  | "vermilion"
-  | "marigold"
-  | "jade"
-  | "aubergine"
-  | "ink";
+  | "rose"
+  | "burgundy"
+  | "espresso"
+  | "blush"
+  | "beige"
+  | "porcelain";
 
 export const accentHex: Record<Accent, string> = {
-  electric: "#4169FF",
-  vermilion: "#FF6B5C",
-  marigold: "#F0A050",
-  jade: "#0FA98C",
-  aubergine: "#8E7BFF",
-  ink: "#101827",
+  rose: "#B76E79",
+  burgundy: "#603A40",
+  espresso: "#2B2422",
+  blush: "#E3C8BE",
+  beige: "#E8D8C8",
+  porcelain: "#FFFDF9",
 };
 
-/** Soft tint of each accent — used for expanded/active surfaces.
- *  Always paired with light ivory text (#F5F1E8 / #FFFFFF), never dark. */
+/** Soft tint of each accent — used for expanded/active surfaces. */
 export const accentSoftHex: Record<Accent, string> = {
-  electric: "#1B2A55",
-  vermilion: "#3A1B22",
-  marigold: "#3A2A14",
-  jade: "#0E2A24",
-  aubergine: "#26203E",
-  ink: "#172033",
+  rose: "#F4E0E3",
+  burgundy: "#E8D8DA",
+  espresso: "#E8E0DC",
+  blush: "#E3C8BE",
+  beige: "#E8D8C8",
+  porcelain: "#FFFDF9",
 };
 
 /** Foreground colour that meets contrast on the accent background. */
 export const accentOnHex: Record<Accent, string> = {
-  electric: "#FFFFFF",
-  vermilion: "#FFFFFF",
-  marigold: "#080D18",
-  jade: "#FFFFFF",
-  aubergine: "#FFFFFF",
-  ink: "#F5F1E8",
+  rose: "#FFFFFF",
+  burgundy: "#F7F1E8",
+  espresso: "#F7F1E8",
+  blush: "#2B2422",
+  beige: "#2B2422",
+  porcelain: "#2B2422",
 };
 
-/** Foreground colour for text on the SOFT (tinted) surface — always light. */
+/** Foreground colour for text on the SOFT (tinted) surface — always dark. */
 export const accentOnSoftHex: Record<Accent, string> = {
-  electric: "#F5F1E8",
-  vermilion: "#F5F1E8",
-  marigold: "#F5F1E8",
-  jade: "#F5F1E8",
-  aubergine: "#F5F1E8",
-  ink: "#F5F1E8",
+  rose: "#2B2422",
+  burgundy: "#2B2422",
+  espresso: "#2B2422",
+  blush: "#2B2422",
+  beige: "#2B2422",
+  porcelain: "#2B2422",
 };
 
 /** Border colour for dividers inside an expanded/soft surface. */
 export const accentSoftBorderHex: Record<Accent, string> = {
-  electric: "rgba(245,241,232,0.18)",
-  vermilion: "rgba(245,241,232,0.18)",
-  marigold: "rgba(245,241,232,0.18)",
-  jade: "rgba(245,241,232,0.18)",
-  aubergine: "rgba(245,241,232,0.18)",
-  ink: "rgba(245,241,232,0.18)",
+  rose: "rgba(43,36,34,0.12)",
+  burgundy: "rgba(43,36,34,0.12)",
+  espresso: "rgba(43,36,34,0.12)",
+  blush: "rgba(43,36,34,0.12)",
+  beige: "rgba(43,36,34,0.12)",
+  porcelain: "rgba(43,36,34,0.12)",
 };
 
 export const accentText: Record<Accent, string> = {
-  electric: "text-accent",
-  vermilion: "text-coral",
-  marigold: "text-saffron",
-  jade: "text-teal",
-  aubergine: "text-violet",
-  ink: "text-fg",
+  rose: "text-rose",
+  burgundy: "text-burgundy",
+  espresso: "text-espresso",
+  blush: "text-blush",
+  beige: "text-beige",
+  porcelain: "text-porcelain",
 };
 
 export const accentBg: Record<Accent, string> = {
-  electric: "bg-accent",
-  vermilion: "bg-coral",
-  marigold: "bg-saffron",
-  jade: "bg-teal",
-  aubergine: "bg-violet",
-  ink: "bg-surface-soft",
+  rose: "bg-rose",
+  burgundy: "bg-burgundy",
+  espresso: "bg-espresso",
+  blush: "bg-blush",
+  beige: "bg-beige",
+  porcelain: "bg-porcelain",
 };
 
 export const accentField: Record<Accent, string> = {
-  electric: "field-accent",
-  vermilion: "field-coral",
-  marigold: "field-saffron",
-  jade: "field-teal",
-  aubergine: "field-violet",
-  ink: "field-surface-soft",
+  rose: "field-rose",
+  burgundy: "field-burgundy",
+  espresso: "field-espresso",
+  blush: "field-blush",
+  beige: "field-beige",
+  porcelain: "field-porcelain",
 };
 
 export const accentBorder: Record<Accent, string> = {
-  electric: "border-accent",
-  vermilion: "border-coral",
-  marigold: "border-saffron",
-  jade: "border-teal",
-  aubergine: "border-violet",
-  ink: "border-line",
+  rose: "border-rose",
+  burgundy: "border-burgundy",
+  espresso: "border-espresso",
+  blush: "border-blush",
+  beige: "border-beige",
+  porcelain: "border-porcelain",
 };

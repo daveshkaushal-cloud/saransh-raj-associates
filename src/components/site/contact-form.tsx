@@ -115,7 +115,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="area"
-            className="block mono-label text-fg-muted mb-2"
+            className="block mono-label text-stone mb-2"
           >
             Area of interest
           </label>
@@ -123,7 +123,7 @@ export function ContactForm() {
             id="area"
             name="area"
             defaultValue=""
-            className="w-full bg-surface-soft border border-line px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors"
+            className="w-full bg-porcelain border border-line px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors"
           >
             <option value="">Select a practice area</option>
             <option>Corporate Advisory</option>
@@ -139,22 +139,22 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block mono-label text-fg-muted mb-2"
+          className="block mono-label text-stone mb-2"
         >
-          Message <span className="text-fg-subtle">*</span>
+          Message <span className="text-rose">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
-          className={`w-full bg-surface-soft border px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors resize-y ${
-            errors.message ? "border-coral" : "border-line"
+          className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors resize-y ${
+            errors.message ? "border-burgundy" : "border-line"
           }`}
           placeholder="Please share a brief, neutral description of your enquiry."
         />
         {errors.message && (
-          <p className="mt-2 text-xs text-coral" role="alert">
+          <p className="mt-2 text-xs text-burgundy" role="alert">
             {errors.message}
           </p>
         )}
@@ -183,13 +183,13 @@ export function ContactForm() {
         />
       </div>
 
-      <p className="text-xs text-fg-subtle leading-relaxed">
+      <p className="text-xs text-stone leading-relaxed">
         Submitting this form does not create a lawyer-client relationship.
         The information you share should not be confidential. By submitting,
         you acknowledge that you have read and agree to the{" "}
         <a
           href="/disclaimer"
-          className="link-underline text-fg-muted hover:text-accent"
+          className="link-underline text-charcoal hover:text-rose"
         >
           disclaimer
         </a>
@@ -199,7 +199,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-white text-sm font-semibold tracking-wide hover:bg-coral transition-colors duration-300 disabled:opacity-50"
+        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-rose text-white text-sm font-semibold tracking-wide hover:bg-burgundy transition-colors duration-300 disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send message"}
         {!submitting && (
@@ -238,8 +238,8 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="block mono-label text-fg-muted mb-2">
-        {label} {required && <span className="text-fg-subtle">*</span>}
+      <label htmlFor={name} className="block mono-label text-stone mb-2">
+        {label} {required && <span className="text-rose">*</span>}
       </label>
       <input
         id={name}
@@ -247,12 +247,12 @@ function Field({
         type={type}
         required={required}
         aria-invalid={error ? true : undefined}
-        className={`w-full bg-surface-soft border px-4 py-3 text-sm text-fg focus:border-accent outline-none transition-colors ${
-          error ? "border-coral" : "border-line"
+        className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors ${
+          error ? "border-burgundy" : "border-line"
         }`}
       />
       {error && (
-        <p className="mt-2 text-xs text-coral" role="alert">
+        <p className="mt-2 text-xs text-burgundy" role="alert">
           {error}
         </p>
       )}

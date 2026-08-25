@@ -8,17 +8,10 @@ const STORAGE_KEY = "sra_disclaimer_accepted_v1";
 
 /**
  * Client component for the disclaimer gate interaction.
- *
  * Renders the disclaimer gate (visible immediately in SSR HTML). Handles:
  *  - Checkbox state (unchecked → button disabled; checked → enabled).
- *  - Proceed button: sets a cookie + localStorage, then hides the gate
- *    immediately (within the same tick — no setTimeout, no animation delay).
- *  - Legal pages (/disclaimer, /terms, /privacy) bypass the gate so
- *    deep-links work without the gate appearing.
- *
- * The acceptance state is read on the SERVER (via cookie) by the parent
- * server component, so this client component only renders when the visitor
- * has NOT yet accepted (first-time visit).
+ *  - Proceed button: sets cookie + localStorage, hides gate immediately.
+ *  - Legal pages bypass the gate.
  */
 export function DisclaimerGateClient({
   children,
@@ -33,7 +26,6 @@ export function DisclaimerGateClient({
     pathname === "/terms" ||
     pathname === "/privacy";
 
-  // Legal pages bypass the gate entirely.
   if (isLegalPage || proceeded) {
     return <>{children}</>;
   }
@@ -43,12 +35,10 @@ export function DisclaimerGateClient({
       role="dialog"
       aria-modal="true"
       aria-labelledby="disclaimer-title"
-      className="fixed inset-0 z-[200] bg-surface text-fg overflow-y-auto"
+      className="fixed inset-0 z-[200] bg-ivory text-espresso overflow-y-auto"
     >
       <DisclaimerContent
         onAgree={() => {
-          // Persist acceptance in BOTH cookie (server-readable) and
-          // localStorage (client-readable). Cookie expires in 1 year.
           try {
             const expires = new Date(
               Date.now() + 365 * 24 * 60 * 60 * 1000
@@ -56,9 +46,8 @@ export function DisclaimerGateClient({
             document.cookie = `${STORAGE_KEY}=1; expires=${expires}; path=/; SameSite=Lax`;
             localStorage.setItem(STORAGE_KEY, "1");
           } catch {
-            /* storage unavailable — proceed anyway for this session */
+            /* storage unavailable */
           }
-          // Hide the gate immediately (no setTimeout, no animation delay).
           setProceeded(true);
         }}
       />
@@ -67,47 +56,34 @@ export function DisclaimerGateClient({
 }
 
 function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
-  // Single source of truth for the checkbox state. The button is
-  // disabled={checked === false} — when checked is true the button
-  // is enabled immediately. No CSS peer-checked reliance, no duplicate
-  // state, no race condition.
   const [checked, setChecked] = useState(false);
 
   return (
     <div className="relative w-full min-h-full flex flex-col">
-      {/* Top accent rule — practice-area colour identity */}
-      <div className="grid grid-cols-6 h-1.5 shrink-0">
-        <div className="bg-accent" />
-        <div className="bg-coral" />
-        <div className="bg-saffron" />
-        <div className="bg-teal" />
-        <div className="bg-violet" />
-        <div className="bg-surface-soft" />
-      </div>
+      {/* Top accent rule — rose-gold */}
+      <div className="h-1.5 shrink-0 bg-rose" />
 
       <div className="relative z-10 flex-1 flex flex-col">
         {/* Top bar */}
         <div className="px-6 md:px-12 pt-8 md:pt-10 flex items-center justify-between border-b border-line pb-5">
-          <span className="mono-label text-fg-muted">
-            Saransh Raj &amp; Associates
-          </span>
-          <span className="mono-label text-fg-subtle">Cover Sheet · 01</span>
+          <span className="mono-label">Saransh Raj &amp; Associates</span>
+          <span className="mono-label text-stone">Cover Sheet · 01</span>
         </div>
 
         <div className="flex-1 flex items-center px-6 md:px-12 py-10">
           <div className="max-w-3xl mx-auto w-full">
-            <p className="mono-label text-saffron mb-5">Please read carefully</p>
+            <p className="mono-label text-rose mb-5">Please read carefully</p>
             <h1
               id="disclaimer-title"
-              className="display-2 text-fg mb-8 max-w-[16ch]"
+              className="display-2 text-espresso mb-8 max-w-[16ch]"
             >
               Before you enter
             </h1>
 
-            <div className="space-y-5 text-fg-muted text-[15px] md:text-base leading-relaxed">
+            <div className="space-y-5 text-charcoal text-[15px] md:text-base leading-relaxed">
               <p>
                 This website is the online presence of{" "}
-                <span className="text-fg">Saransh Raj &amp; Associates</span>,
+                <span className="text-espresso">Saransh Raj &amp; Associates</span>,
                 a law firm based in New Delhi, India. It has been prepared and is
                 maintained solely for informational purposes.
               </p>
@@ -126,23 +102,23 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                 acting on any information presented. The firm accepts no liability
                 for any reliance placed on this website.
               </p>
-              <p className="text-fg-subtle text-sm">
+              <p className="text-stone text-sm">
                 The Bar Council of India does not permit advertisement or
                 solicitation by advocates in any form or manner. By proceeding,
                 you acknowledge that you have read and understood this disclaimer
                 and the{" "}
-                <Link href="/terms" className="link-underline text-fg">
+                <Link href="/terms" className="link-underline text-espresso">
                   Terms of Use
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="link-underline text-fg">
+                <Link href="/privacy" className="link-underline text-espresso">
                   Privacy Policy
                 </Link>
                 .
               </p>
             </div>
 
-            {/* Checkbox + label — properly associated via htmlFor/id */}
+            {/* Checkbox */}
             <div className="mt-9">
               <label
                 htmlFor="disclaimer-ack"
@@ -154,13 +130,13 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                     type="checkbox"
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
-                    className="h-5 w-5 cursor-pointer accent-[#4169FF] opacity-0 absolute inset-0"
+                    className="h-5 w-5 cursor-pointer accent-rose opacity-0 absolute inset-0"
                   />
                   <span
                     className={`block h-5 w-5 border transition-colors ${
                       checked
-                        ? "border-accent bg-accent"
-                        : "border-line-strong group-hover:border-fg-muted"
+                        ? "border-rose bg-rose"
+                        : "border-line-strong group-hover:border-rose"
                     }`}
                   />
                   {checked && (
@@ -180,7 +156,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                     </svg>
                   )}
                 </span>
-                <span className="text-sm text-fg-muted leading-snug">
+                <span className="text-sm text-charcoal leading-snug">
                   I have read and understood the disclaimer and confirm that I
                   wish to enter the website.
                 </span>
@@ -192,7 +168,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                 type="button"
                 onClick={onAgree}
                 disabled={!checked}
-                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-white text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-coral transition-colors duration-150"
+                className="btn-magnetic group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-rose text-white text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-burgundy transition-colors duration-150"
               >
                 <span>I Acknowledge and Proceed</span>
                 <svg
@@ -212,7 +188,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
               </button>
               <Link
                 href="/disclaimer"
-                className="inline-flex items-center justify-center px-7 py-3.5 border border-line-strong text-fg-muted text-sm font-medium hover:border-fg hover:text-fg transition-colors duration-150"
+                className="inline-flex items-center justify-center px-7 py-3.5 border border-line-strong text-charcoal text-sm font-medium hover:border-rose hover:text-rose transition-colors duration-150"
               >
                 Read full disclaimer
               </Link>
@@ -221,7 +197,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
         </div>
 
         <div className="px-6 md:px-12 pb-8 border-t border-line pt-5">
-          <p className="mono-label text-fg-subtle">
+          <p className="mono-label text-stone">
             If you do not agree with the above, please refrain from accessing this website.
           </p>
         </div>

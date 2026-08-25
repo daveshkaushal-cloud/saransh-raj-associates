@@ -8,17 +8,24 @@ import Link from "next/link";
  * No articles have been published yet; no fabricated titles, dates or
  * categories are shown. Only the notice that publications will appear
  * here as they are released.
+ *
+ * Warm editorial palette: porcelain notice card with espresso headings,
+ * charcoal body text and a rose-gold status label.
+ *
+ * NOTE: this component is no longer imported by the homepage (the
+ * homepage now composes its own inline sections). Kept here so the
+ * route-independent preview pattern remains available.
  */
 export function InsightsPreview() {
   return (
     <div>
       <div>
-        <div className="border border-line bg-surface-elevated p-8 md:p-12">
-          <p className="mono-label text-saffron mb-5">Status</p>
-          <p className="font-display text-2xl md:text-3xl text-fg leading-snug max-w-2xl">
+        <div className="border border-line bg-porcelain p-8 md:p-12">
+          <p className="mono-label text-rose mb-5">Status</p>
+          <p className="font-display text-2xl md:text-3xl text-espresso leading-snug max-w-2xl">
             {insightsNotice}
           </p>
-          <p className="mt-6 text-sm text-fg-muted leading-relaxed max-w-xl">
+          <p className="mt-6 text-sm text-charcoal leading-relaxed max-w-xl">
             {insightsEmpty}
           </p>
         </div>
@@ -27,7 +34,7 @@ export function InsightsPreview() {
       <div className="mt-8">
         <Link
           href="/insights"
-          className="link-underline inline-flex items-center gap-2 mono-label text-fg-muted hover:text-saffron transition-colors"
+          className="link-underline inline-flex items-center gap-2 mono-label text-stone hover:text-rose transition-colors"
         >
           <span>Visit the insights index</span>
           <svg

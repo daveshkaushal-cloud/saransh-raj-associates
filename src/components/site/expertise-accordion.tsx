@@ -9,6 +9,12 @@ import { accentHex, accentOnHex } from "@/lib/accents";
  * Interactive practice-area accordion. Client component — handles the
  * expand/collapse state. Renders immediately in SSR (open by default
  * to the first area) so content is visible without waiting for JS.
+ *
+ * Warm editorial palette:
+ *  - Closed rows sit on the ivory page; hover lifts to porcelain.
+ *  - Open header fills with the practice area's accent hex (warm rose /
+ *    burgundy / espresso / blush / beige / porcelain).
+ *  - Expanded panel sits on porcelain with espresso/charcoal/stone text.
  */
 export function ExpertiseAccordion() {
   const [open, setOpen] = useState<string | null>(practiceAreas[0]?.slug ?? null);
@@ -24,7 +30,7 @@ export function ExpertiseAccordion() {
             <button
               onClick={() => setOpen(isOpen ? null : area.slug)}
               aria-expanded={isOpen}
-              className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-8 hover:bg-surface-soft transition-colors"
+              className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-8 hover:bg-porcelain transition-colors"
             >
               {/* colour field that fills the HEADER row only when open */}
               <span
@@ -37,24 +43,24 @@ export function ExpertiseAccordion() {
                 }}
                 aria-hidden="true"
               />
-              <span className="relative col-span-2 md:col-span-1 mono-num text-sm transition-colors" style={{ color: isOpen ? onHex : "var(--color-fg-muted)" }}>
+              <span className="relative col-span-2 md:col-span-1 mono-num text-sm transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone)" }}>
                 {area.index}
               </span>
               <span className="relative col-span-7 md:col-span-5">
-                <span className="font-display text-2xl md:text-4xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-fg)" }}>
+                <span className="font-display text-2xl md:text-4xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-espresso)" }}>
                   {area.title}
                 </span>
               </span>
-              <span className="relative col-span-3 md:col-span-4 text-[0.8rem] md:text-sm hidden sm:block transition-colors" style={{ color: isOpen ? onHex : "var(--color-fg-muted)" }}>
+              <span className="relative col-span-3 md:col-span-4 text-[0.8rem] md:text-sm hidden sm:block transition-colors" style={{ color: isOpen ? onHex : "var(--color-charcoal)" }}>
                 {area.short}
               </span>
               <span className="relative col-span-3 md:col-span-2 flex items-center justify-end gap-3">
-                <span className="mono-label transition-colors" style={{ color: isOpen ? onHex : "var(--color-fg-muted)" }}>
+                <span className="mono-label transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone)" }}>
                   {isOpen ? "Close" : "Expand"}
                 </span>
                 <svg
                   className={`h-5 w-5 transition-all duration-200 ${isOpen ? "rotate-45" : ""}`}
-                  style={{ color: isOpen ? onHex : "var(--color-fg-muted)" }}
+                  style={{ color: isOpen ? onHex : "var(--color-stone)" }}
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"
                 >
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
@@ -62,22 +68,22 @@ export function ExpertiseAccordion() {
               </span>
             </button>
 
-            {/* Expandable content — dark elevated surface with ivory text.
+            {/* Expandable content — porcelain surface with espresso/charcoal text.
                 Does NOT inherit white text from the active accent header. */}
             {isOpen && (
-              <div className="relative grid grid-cols-12 gap-4 pb-8 md:pb-10 px-4 md:px-6 pt-6 bg-surface-elevated border-t border-line">
+              <div className="relative grid grid-cols-12 gap-4 pb-8 md:pb-10 px-4 md:px-6 pt-6 bg-porcelain border-t border-line">
                 <div className="col-span-2 md:col-span-1" />
                 <div className="col-span-10 md:col-span-7">
-                  <p className="lead max-w-xl" style={{ color: "var(--color-fg-muted)" }}>
+                  <p className="lead max-w-xl" style={{ color: "var(--color-charcoal)" }}>
                     {area.overview}
                   </p>
                   <div className="mt-6 space-y-px">
                     {area.services.map((s, si) => (
                       <div key={s} className="flex items-baseline gap-4 py-3 border-t border-line">
-                        <span className="mono-num text-[0.7rem]" style={{ color: "var(--color-fg-subtle)" }}>
+                        <span className="mono-num text-[0.7rem]" style={{ color: "var(--color-stone)" }}>
                           {String(si + 1).padStart(2, "0")}
                         </span>
-                        <span className="font-display text-lg md:text-xl" style={{ color: "var(--color-fg)" }}>
+                        <span className="font-display text-lg md:text-xl" style={{ color: "var(--color-espresso)" }}>
                           {s}
                         </span>
                       </div>
@@ -87,8 +93,8 @@ export function ExpertiseAccordion() {
                 <div className="col-span-12 md:col-span-3 md:col-start-10 flex md:flex-col gap-3 md:items-end md:justify-end md:text-right pt-2 md:pt-0">
                   <Link
                     href={`/expertise/${area.slug}`}
-                    className="group inline-flex items-center gap-2 mono-label hover:opacity-70 transition-opacity"
-                    style={{ color: "var(--color-fg-subtle)" }}
+                    className="group inline-flex items-center gap-2 mono-label hover:text-rose transition-colors"
+                    style={{ color: "var(--color-stone)" }}
                   >
                     <span>Read area</span>
                     <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

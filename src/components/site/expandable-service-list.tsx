@@ -8,10 +8,12 @@ import { useState } from "react";
  * editorial description. Mirrors the practice-area accordion pattern used on the
  * expertise index page for visual consistency.
  *
- * Colours follow the dark editorial system:
- * collapsed rows sit on the surface (#080D18) page with ivory text;
- * expanded rows lift onto an elevated (#172033) surface with muted ivory text
- * and a hairline border derived from the practice area's accent.
+ * Warm editorial palette:
+ *  - Collapsed rows sit on the ivory page; hover lifts to porcelain.
+ *  - Expanded panel sits on porcelain with espresso/charcoal/stone text.
+ *  - The +/× glyph, number and accent rule are tinted with the
+ *    practice area's accent hex (rose / burgundy / espresso / blush / beige /
+ *    porcelain).
  */
 export function ExpandableServiceList({
   services,
@@ -39,12 +41,12 @@ export function ExpandableServiceList({
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
                 aria-controls={`service-detail-${i}`}
-                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-surface-soft transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-porcelain transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-inset"
               >
                 {/* number */}
                 <span
                   className="col-span-2 md:col-span-1 mono-num text-sm transition-colors"
-                  style={{ color: isOpen ? hex : "var(--color-fg-muted)" }}
+                  style={{ color: isOpen ? hex : "var(--color-stone)" }}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -52,7 +54,7 @@ export function ExpandableServiceList({
                 <span className="col-span-7 md:col-span-8 lg:col-span-9">
                   <span
                     className="font-display text-xl md:text-3xl transition-colors"
-                    style={{ color: isOpen ? hex : "var(--color-fg)" }}
+                    style={{ color: isOpen ? hex : "var(--color-espresso)" }}
                   >
                     {title}
                   </span>
@@ -61,13 +63,13 @@ export function ExpandableServiceList({
                 <span className="col-span-3 flex items-center justify-end gap-3">
                   <span
                     className="mono-label transition-colors hidden sm:inline"
-                    style={{ color: isOpen ? hex : "var(--color-fg-muted)" }}
+                    style={{ color: isOpen ? hex : "var(--color-stone)" }}
                   >
                     {isOpen ? "Close" : "Expand"}
                   </span>
                   <svg
                     className={`h-5 w-5 transition-all duration-300 ${isOpen ? "rotate-45" : ""}`}
-                    style={{ color: isOpen ? hex : "var(--color-fg-muted)" }}
+                    style={{ color: isOpen ? hex : "var(--color-stone)" }}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -79,12 +81,11 @@ export function ExpandableServiceList({
                 </span>
               </button>
 
-              {/* Expanded detail — explicit ivory text on an elevated surface
-                  so it never inherits a light foreground from the accent. */}
+              {/* Expanded detail — porcelain surface with espresso/charcoal text. */}
               {isOpen && (
                 <div
                   id={`service-detail-${i}`}
-                  className="relative grid grid-cols-12 gap-4 pb-8 md:pb-10 px-4 md:px-6 bg-surface-elevated border-t border-line"
+                  className="relative grid grid-cols-12 gap-4 pb-8 md:pb-10 px-4 md:px-6 bg-porcelain border-t border-line"
                 >
                   <div className="col-span-2 md:col-span-1" />
                   <div className="col-span-10 md:col-span-10 lg:col-span-9">
@@ -96,13 +97,13 @@ export function ExpandableServiceList({
                     />
                     <p
                       className="lead max-w-2xl"
-                      style={{ color: "var(--color-fg-muted)" }}
+                      style={{ color: "var(--color-charcoal)" }}
                     >
                       {detail}
                     </p>
                     <p
                       className="mt-5 mono-label"
-                      style={{ color: "var(--color-fg-subtle)" }}
+                      style={{ color: "var(--color-stone)" }}
                     >
                       Service {String(i + 1).padStart(2, "0")} · Click the title above to collapse
                     </p>

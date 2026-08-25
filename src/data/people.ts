@@ -17,7 +17,7 @@ export type Person = {
   qualifications: string[];
   focus: string[];
   bar: string[];
-  accent: "electric" | "vermilion" | "marigold" | "jade" | "aubergine" | "ink";
+  accent: "rose" | "burgundy" | "espresso" | "blush" | "beige" | "porcelain";
 };
 
 export const people: Person[] = [
@@ -48,7 +48,7 @@ export const people: Person[] = [
     bar: [
       "Enrolled advocate — Bar Council details available on request",
     ],
-    accent: "electric",
+    accent: "rose",
   },
 ];
 

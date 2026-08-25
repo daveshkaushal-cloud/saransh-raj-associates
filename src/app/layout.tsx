@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Instrument_Serif, Manrope } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SiteShell } from "@/components/site/site-shell";
 
 /* Self-hosted, properly-licensed fonts:
- *  - Instrument Serif (SIL OFL, via Google Fonts)  — display headings
- *  - Manrope         (SIL OFL, via Google Fonts)    — body & navigation
- *  - IBM Plex Mono   (SIL OFL, local)               — labels, numbering, metadata
+ *  - Cormorant Garamond (SIL OFL, via Google Fonts) — display headings
+ *  - Manrope            (SIL OFL, via Google Fonts) — body & navigation
+ *  - IBM Plex Mono      (SIL OFL, local)              — labels, numbering, metadata
  *
  * All fonts use display:"swap" so content renders immediately and
  * reflows gracefully once the webfont arrives.
  */
-const instrumentSerif = Instrument_Serif({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#080D18",
+  themeColor: "#F7F1E8",
   width: "device-width",
   initialScale: 1,
 };
@@ -91,7 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${instrumentSerif.variable} ${manrope.variable} ${plexMono.variable} antialiased bg-surface text-fg font-sans selection:bg-accent selection:text-white`}
+        className={`${cormorant.variable} ${manrope.variable} ${plexMono.variable} antialiased bg-ivory text-charcoal font-sans selection:bg-rose selection:text-white`}
       >
         <SiteShell>{children}</SiteShell>
         <Toaster />
