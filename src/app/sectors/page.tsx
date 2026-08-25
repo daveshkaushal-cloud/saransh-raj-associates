@@ -20,7 +20,7 @@ export default function SectorsPage() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Index 03 · Sectors</span>
-            <span className="folio text-stone">04 / 06</span>
+            <span className="folio text-stone">03 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -195,8 +195,7 @@ export default function SectorsPage() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <h2 className="display-2 text-espresso max-w-[20ch]">
-              The practice behind{" "}
-              <span className="serif-italic">the sectors</span>
+              The practice behind the sectors
             </h2>
           </div>
           <div>

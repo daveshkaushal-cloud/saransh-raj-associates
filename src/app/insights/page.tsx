@@ -17,7 +17,7 @@ export default function InsightsPage() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Notes · Publications</span>
-            <span className="folio text-stone">06 / 06</span>
+            <span className="folio text-stone">— / —</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">

@@ -41,12 +41,12 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-[110] border-b transition-colors duration-300 ${
         scrolled
-          ? "bg-ivory/90 backdrop-blur-md border-line"
-          : "bg-transparent border-transparent"
+          ? "bg-ivory/95 backdrop-blur-md border-line"
+          : "bg-ivory/80 backdrop-blur-sm border-transparent"
       }`}
     >
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-        <div className="flex h-14 md:h-16 items-center justify-between">
+        <div className="flex h-16 md:h-[72px] items-center justify-between">
           {/* Wordmark */}
           <Link
             href="/"
@@ -84,7 +84,7 @@ export function SiteHeader() {
                     active ? "text-espresso" : "text-charcoal hover:text-espresso"
                   }`}
                 >
-                  <span className="mono-num text-[0.7rem] text-stone group-hover:text-rose-dark transition-colors">
+                  <span className="mono-num text-[0.8125rem] text-stone group-hover:text-rose-dark transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-medium tracking-tight">

@@ -4,11 +4,11 @@ import { people } from "@/data/people";
 
 /**
  * People preview — warm editorial founder card.
- * The portrait uses the polished architectural composition image
- * (no placeholder text, no AI face) on a blush field. The details
- * column carries the name, role, summary, focus areas and CTA.
- * Rose-gold accents appear only on the arrow icons, hover states
- * and annotation marks.
+ * The portrait uses the SR monogram placeholder (no AI face)
+ * on a blush field, centered. The details column carries
+ * the name, role, summary, focus areas and CTA.
+ * Rose-gold accents appear only on the arrow icons, hover
+ * states and annotation marks.
  */
 export function PeoplePreview() {
   return (
@@ -20,11 +20,11 @@ export function PeoplePreview() {
           className="group relative block bg-porcelain border border-line overflow-hidden hover:border-rose-dark transition-colors duration-300"
         >
           <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* Portrait — polished architectural composition on blush */}
-            <div className="md:col-span-5 relative min-h-[18rem] md:min-h-[22rem] overflow-hidden bg-blush">
+            {/* SR monogram — elegant neutral placeholder on blush */}
+            <div className="md:col-span-5 relative min-h-[18rem] md:min-h-[22rem] overflow-hidden bg-blush flex items-center justify-center">
               <Image
-                src="/images/founder-portrait.png"
-                alt={`Portrait of ${person.name} — ${person.role}`}
+                src="/images/sr-monogram.png"
+                alt="Saransh Raj monogram"
                 fill
                 loading="lazy"
                 sizes="(max-width: 768px) 100vw, 40vw"
@@ -32,8 +32,8 @@ export function PeoplePreview() {
               />
               {/* Rose-gold annotation bracket */}
               <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
-                <span className="mono-label text-rose-dark">Portrait</span>
+                <div className="h-3 w-3 border-l border-t border-rose-dark" aria-hidden="true" />
+                <span className="mono-label text-rose-dark">SR</span>
               </div>
               <div className="absolute bottom-5 right-5 z-10">
                 <span className="mono-num text-white/80">

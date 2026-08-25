@@ -64,16 +64,16 @@ export default async function PersonPage({
               </svg>
               <span>Back to People</span>
             </Link>
-            <span className="folio text-stone">Profile · 01</span>
+            <span className="folio text-stone">04 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-            {/* Portrait — polished architectural composition on blush */}
+            {/* SR monogram — elegant neutral placeholder on blush */}
             <div className="md:col-span-5">
-              <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden bg-blush">
+              <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden bg-blush flex items-center justify-center">
                 <Image
-                  src="/images/founder-portrait.png"
-                  alt={`Portrait of ${person.name} — ${person.role}`}
+                  src="/images/sr-monogram.png"
+                  alt="Saransh Raj monogram"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
@@ -81,8 +81,8 @@ export default async function PersonPage({
                 />
                 {/* Rose-gold annotation bracket */}
                 <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
-                  <span className="mono-label text-rose-dark">Portrait</span>
+                  <div className="h-3 w-3 border-l border-t border-rose-dark" aria-hidden="true" />
+                  <span className="mono-label text-rose-dark">SR</span>
                 </div>
                 <div className="absolute bottom-5 right-5 z-10">
                   <span className="mono-num text-white/80">

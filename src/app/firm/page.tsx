@@ -20,7 +20,7 @@ export default function FirmPage() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Index 01 · The Firm</span>
-            <span className="folio text-stone">02 / 06</span>
+            <span className="folio text-stone">01 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -59,8 +59,7 @@ export default function FirmPage() {
             <div className="md:col-span-5">
               <p className="mono-label mb-3 text-rose-dark">§ Practice</p>
               <h2 className="display-2 text-espresso">
-                Six practice{" "}
-                <span className="serif-italic">areas</span>
+                Six practice areas
               </h2>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
@@ -187,8 +186,7 @@ function PhilosophyAndApproach() {
           </div>
           <div className="md:col-span-9">
             <h2 className="display-2 text-espresso max-w-[16ch]">
-              The firm&apos;s{" "}
-              <span className="serif-italic">working</span> philosophy
+              The firm&apos;s working philosophy
             </h2>
           </div>
         </div>
@@ -246,8 +244,7 @@ function PhilosophyAndApproach() {
             <div className="md:col-span-5">
               <p className="mono-label mb-3">§ Principles</p>
               <h3 className="display-3 text-espresso">
-                Four principles shape every{" "}
-                <span className="serif-italic">engagement</span>
+                Four principles shape every engagement
               </h3>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">

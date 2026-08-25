@@ -134,7 +134,7 @@ export default async function PracticeAreaPage({
                 <p className="mono-label text-stone mb-3">§ Approach</p>
                 <h2 className="display-2 max-w-[14ch]">
                   Methodical, attentive,{" "}
-                  <span className="serif-italic" style={{ color: hex }}>considered</span>
+                  <span style={{ color: hex }}>considered</span>
                 </h2>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default async function PracticeAreaPage({
           <div>
             <h2 className="display-2 text-espresso max-w-[18ch]">
               Questions about{" "}
-              <span className="serif-italic" style={{ color: hex }}>{area.title.toLowerCase()}</span>?
+              <span style={{ color: hex }}>{area.title.toLowerCase()}</span>?
             </h2>
           </div>
           <div>

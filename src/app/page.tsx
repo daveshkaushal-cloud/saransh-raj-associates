@@ -17,7 +17,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between border-b border-line pb-3">
             <span className="mono-label">{firm.basedIn} · India</span>
             <span className="mono-label hidden sm:inline">Corporate &amp; Commercial Law</span>
-            <span className="folio">01 / 06</span>
+            <span className="folio">HOME</span>
           </div>
         </div>
 
@@ -31,11 +31,10 @@ export default function HomePage() {
               </p>
 
               <h1 className="display-mega">
-                <span className="block">Corporate</span>
+                <span className="block">Corporate &amp; Commercial</span>
                 <span className="block">
-                  <span className="serif-italic">&amp; Commercial</span>
+                  <span className="serif-italic">Legal Counsel.</span>
                 </span>
-                <span className="block">Legal Counsel.</span>
               </h1>
 
               <p className="lead mt-6 md:mt-8 measure">
@@ -67,19 +66,21 @@ export default function HomePage() {
             {/* Right: architectural visual — 4:5, max 620px height, ~38% width */}
             <div className="lg:col-span-5 lg:pl-4">
               <div className="relative mx-auto" style={{ maxWidth: "min(100%, 480px)" }}>
-                <div className="relative w-full overflow-hidden bg-blush" style={{ aspectRatio: "4 / 5", maxHeight: "620px" }}>
+                <div className="relative w-full overflow-hidden bg-beige" style={{ aspectRatio: "4 / 5", maxHeight: "620px" }}>
                   <Image
-                    src="/images/hero-office.png"
+                    src="/images/hero-architecture-warm.jpg"
                     alt="Architectural detail reflecting the firm's New Delhi practice"
                     fill
                     priority
+                    fetchPriority="high"
                     sizes="(max-width: 1024px) 100vw, 38vw"
                     className="object-cover"
+                    placeholder="empty"
                   />
                   {/* Rose-gold annotation overlay */}
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                     <div className="h-3 w-3 border-l border-t border-rose" />
-                    <span className="mono-label text-rose">New Delhi</span>
+                    <span className="mono-label text-rose-dark">New Delhi</span>
                   </div>
                 </div>
               </div>
@@ -108,10 +109,7 @@ export default function HomePage() {
             </div>
             <div className="md:col-span-9 md:pl-6">
               <h2 className="display-2 measure">
-                Counsel for{" "}
-                <span className="serif-italic">companies</span>,{" "}
-                <span className="serif-italic">individuals</span> and{" "}
-                <span className="serif-italic">families</span>.
+                Counsel for companies, individuals and families.
               </h2>
               <p className="lead mt-6 md:mt-8 measure">
                 {firm.summary} {firm.purpose}
@@ -151,8 +149,7 @@ function PracticeIndex() {
           <div className="md:col-span-8">
             <p className="mono-label mb-3">§ 02 · Expertise</p>
             <h2 className="display-2 measure">
-              A focused practice across{" "}
-              <span className="serif-italic">corporate</span> &amp; commercial law
+              A focused practice across corporate &amp; commercial law
             </h2>
           </div>
           <div className="md:col-span-4 md:pl-4 lg:pl-6 md:self-end">
@@ -214,8 +211,7 @@ function SelectedSectors() {
           <div>
             <p className="mono-label mb-3">§ 03 · Sectors</p>
             <h2 className="display-2 measure">
-              Sector knowledge across{" "}
-              <span className="serif-italic">India&apos;s</span> dynamic industries
+              Sector knowledge across India&apos;s dynamic industries
             </h2>
           </div>
           <Link href="/sectors" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-rose-dark">
@@ -273,8 +269,7 @@ function PrinciplesBlock() {
           <div className="md:col-span-5">
             <p className="mono-label mb-3">§ 04 · Principles</p>
             <h2 className="display-2 measure">
-              What the firm{" "}
-              <span className="serif-italic">stands for</span>
+              What the firm stands for
             </h2>
           </div>
           <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
@@ -324,7 +319,7 @@ function FounderPreview() {
           <div>
             <p className="mono-label mb-3">§ 05 · People</p>
             <h2 className="display-2 measure">
-              The <span className="serif-italic">founder</span>
+              The founder
             </h2>
           </div>
           <Link href="/people" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-rose-dark">
@@ -337,18 +332,18 @@ function FounderPreview() {
 
         <Link href="/people/saransh-raj" className="group relative block bg-porcelain border border-line overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* Portrait — 4:5 composition, verified image */}
-            <div className="md:col-span-5 relative min-h-[16rem] md:min-h-[20rem] overflow-hidden bg-blush">
+            {/* SR monogram — elegant neutral editorial placeholder (no AI person) */}
+            <div className="md:col-span-5 relative min-h-[16rem] md:min-h-[20rem] overflow-hidden bg-blush flex items-center justify-center">
               <Image
-                src="/images/founder-portrait.png"
-                alt="Founder portrait — Saransh Raj"
+                src="/images/sr-monogram.png"
+                alt="Saransh Raj monogram"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover"
               />
               <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                <div className="h-3 w-3 border-l border-t border-rose" />
-                <span className="mono-label text-rose">Portrait</span>
+                <div className="h-3 w-3 border-l border-t border-rose-dark" />
+                <span className="mono-label text-rose-dark">SR</span>
               </div>
             </div>
             {/* Details */}

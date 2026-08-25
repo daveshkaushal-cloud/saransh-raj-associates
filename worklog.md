@@ -1709,3 +1709,114 @@ Stage Summary:
 - Supporting visuals added to Firm, Sectors, Careers (1 each).
 - All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
 - VLM-confirmed: "warm, premium, editorial... excellent contrast".
+
+---
+Task ID: 26
+Agent: subagent (final corrections)
+Task: Fix founder image (SR monogram), page numbers, italic rose overuse, people page text
+
+Work Log:
+- Read worklog.md (Tasks 1–25) to confirm warm-palette context and the existing "01/06" numbering scheme plus the homepage already referencing `/images/sr-monogram.png`.
+- Generated a new `/public/images/sr-monogram.png` (864×1152 PNG, 37 KB) using PIL with Liberation Serif Bold. Composition: blush (#E3C8BE) field with a soft vertical gradient, double-rule rose-dark border with corner ticks, an oversized "SR" monogram in burgundy (#603A40) with a subtle espresso shadow, an eyebrow label "FOUNDER · PRINCIPAL ADVOCATE" in rose-dark, a small flourish rule with three rose dots under the monogram, the name "Saransh Raj" in espresso, the firm line "Saransh Raj & Associates" in rose-dark, and footer mono-num marks "SR / 01" and "EST · NEW DELHI". Also exported a JPEG variant (sr-monogram.jpg) at the same size for parity with the other (actually-JPEG) `.png` images. VLM (glm-5v-turbo) confirmed the result reads as a "professional business card or personal branding graphic… sophisticated and legal/professional in tone".
+- Replaced the founder image references in three files:
+  • `src/app/people/page.tsx` — `src="/images/founder-portrait.png"` → `src="/images/sr-monogram.png"`, alt "Portrait of ${name} — ${role}" → "Saransh Raj monogram"; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait · 01" → "SR · 01"; corner-tick border `border-rose` → `border-rose-dark`.
+  • `src/app/people/[slug]/page.tsx` — same image+alt swap on the hero portrait; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait" → "SR"; corner-tick border `border-rose` → `border-rose-dark`.
+  • `src/components/site/people-preview.tsx` — same image+alt swap; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait" → "SR"; corner-tick border `border-rose` → `border-rose-dark`; updated the file's docstring to reflect the SR-monogram placeholder instead of "polished architectural composition".
+- Fixed the folio counter on every interior page to match the canonical 6-page numbering (homepage shows "HOME"):
+  • `src/app/firm/page.tsx` — folio `02 / 06` → `01 / 06` (already had "Index 01 · The Firm").
+  • `src/app/expertise/page.tsx` — folio `03 / 06` → `02 / 06` (already had "Index 02 · Expertise").
+  • `src/app/sectors/page.tsx` — folio `04 / 06` → `03 / 06` (already had "Index 03 · Sectors").
+  • `src/app/people/page.tsx` — folio `05 / 06` → `04 / 06` (already had "Index 04 · People").
+  • `src/app/people/[slug]/page.tsx` — folio `Profile · 01` → `04 / 06` (kept the "Back to People" link).
+  • `src/app/careers/page.tsx` — folio `06 / 06` → `05 / 06` (already had "Index 05 · Careers").
+  • `src/app/contact/page.tsx` — already `06 / 06` (no change needed; "Index 06 · Contact" already correct).
+  • `src/app/insights/page.tsx` — Insights is hidden from primaryNav; folio `06 / 06` → `— / —` (label "Notes · Publications" preserved).
+  • Legal pages (disclaimer/terms/privacy) use LegalLayout with the existing "DOC" counter — untouched per spec.
+- Reduced `.serif-italic` overuse. After audit, removed the class from every section H2/H3 heading while preserving it on each inner-page hero H1 (one accent word) and on the burgundy contact strips (`.serif-italic-on-burgundy`):
+  • `firm/page.tsx` — removed from "Six practice areas" (section H2), "The firm's working philosophy" (section H2), "Four principles shape every engagement" (H3).
+  • `expertise/[slug]/page.tsx` — removed from "Methodical, attentive, considered" (section H2, kept the inline `color: hex` accent), "Questions about {area}?" (section H2, kept the inline `color: hex` accent).
+  • `sectors/page.tsx` — removed from "The practice behind the sectors" (section H2).
+  Remaining `.serif-italic` usages (all verified in scope): inner-page hero H1 accent words — `expertise` "index", `firm` "principle", `careers` "practice", `people` "people", `insights` "notebook", `contact` "firm", `sectors` "atlas"; plus homepage "Legal Counsel." (untouched, in scope) and `not-found.tsx` "found" (large display-mega accent, retained per Task 25 spec).
+- Removed the team-expansion copy from `src/app/people/page.tsx`. The hero paragraph "Below is the founder and principal advocate; the team expands as colleagues are introduced to the practice." was rewritten to "The firm's work is shaped by the people who carry it. The founder and principal advocate leads the practice." The trailing "A note on the team" beige block with "The firm works as an integrated team under the guidance of its founder. The team will expand as colleagues are introduced to the practice." was deleted entirely. Verified `rg "will expand|colleagues are introduced|team expands as|A note on the team"` on the rendered `/people` HTML returns 0 matches.
+- Audited `text-rose` vs `text-rose-dark` on small text. All in-scope small text/buttons/hovers already use `text-rose-dark`. The remaining `text-rose` (lighter #B76E79) usages are: (a) `not-found.tsx` on the large display-mega "found" accent (intentional per Task 25 spec); (b) `lib/accents.ts:73` accent token definition; (c) `disclaimer-gate-client.tsx`, `site-header.tsx`, `site-footer.tsx` — all explicitly in the "Do NOT touch" list. No in-scope small-text `text-rose` instances to fix.
+- Ran `bun run lint` → 0 errors, 0 warnings. Ran `bun run build` → ✓ Compiled successfully in 10.1s, all 24 routes generated, 24/24 static pages.
+- Live HTTP verification via the standalone server (`.next/standalone/server.js`): every interior route (/firm, /expertise, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy) and the homepage return 200. The new `/images/sr-monogram.png` returns 200. The legacy `/images/founder-portrait.png` also still returns 200 (kept for backward compat — no longer referenced anywhere in src/).
+- Verified rendered HTML for each page via `rg -c` on saved HTML:
+  • `/people` — 1 match for `sr-monogram`, 0 for `founder-portrait`, 0 for `will expand`, 0 for `colleagues are introduced`, 0 for `team expands as`, 0 for `A note on the team`, 1 for `04 / 06`, 1 for `Index 04`.
+  • `/people/saransh-raj` — 1 for `sr-monogram`, 0 for `founder-portrait`, 1 for `Saransh Raj monogram` (alt), 0 for `Portrait of`, 1 for `04 / 06`.
+  • `/firm` — 1 for `01 / 06`, 0 for `02 / 06`, 0 for `>working<` italic span, 1 for `serif-italic-on-burgundy`.
+  • `/expertise` — 1 for `02 / 06`, 0 for `03 / 06`.
+  • `/sectors` — 1 for `03 / 06`, 0 for `04 / 06`.
+  • `/careers` — 1 for `05 / 06`, 0 for `06 / 06`.
+  • `/contact` — 1 for `06 / 06`.
+  • `/insights` — 1 for `— / —`, 0 for `06 / 06`.
+- Constraints honoured: did not touch `src/app/page.tsx` (homepage — already references `/images/sr-monogram.png` from Task 25), `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/disclaimer-gate.tsx`, `disclaimer-gate-client.tsx`, `site-shell.tsx`, `site-header.tsx`, `site-footer.tsx`, `hero-visual.tsx`, `scroll-progress.tsx`, `src/app/api/*`, `contact-form.tsx`, `legal-layout.tsx`. Did not change the contact form, the burgundy contact section, the email layout, the Firm page structure, or the Expertise SEO title. All bio, qualifications, practice areas, sectors and disclaimer text preserved.
+
+Stage Summary:
+- Founder image: `/images/founder-portrait.png` references replaced with `/images/sr-monogram.png` (new 864×1152 PNG generated) in `people/page.tsx`, `people/[slug]/page.tsx`, `people-preview.tsx`. Alt text → "Saransh Raj monogram", annotation label → "SR", container centred with `flex items-center justify-center`, corner-tick border → `border-rose-dark`.
+- Page numbers: firm `01 / 06`, expertise `02 / 06`, sectors `03 / 06`, people `04 / 06`, people/[slug] `04 / 06`, careers `05 / 06`, contact `06 / 06`, insights `— / —`, homepage `HOME`, legal pages unchanged (DOC).
+- Italic rose: `.serif-italic` removed from every section H2/H3 (firm "areas", "working", "engagement"; expertise/[slug] "considered", "area.title.toLowerCase()?"; sectors "the sectors"). Retained only on inner-page hero H1 accent words (one per page) and `.serif-italic-on-burgundy` on the three burgundy contact strips.
+- People page copy: removed "team expands as colleagues are introduced" hero clause and the "A note on the team / The team will expand as colleagues are introduced to the practice" beige block. Replaced with a concise two-sentence introduction: "The firm's work is shaped by the people who carry it. The founder and principal advocate leads the practice."
+- Small-text readability: audited `text-rose` vs `text-rose-dark`. All in-scope small text/buttons/hovers use `text-rose-dark`. No `text-rose` on small text in any editable file.
+- Lint: 0 errors / 0 warnings. Build: ✓ 24/24 routes generated. All interior routes return HTTP 200; `/images/sr-monogram.png` returns 200. Rendered-HTML grep verification confirms every numeric/italic/text change applied correctly.
+- Files changed (8): `src/app/people/page.tsx`, `src/app/people/[slug]/page.tsx`, `src/components/site/people-preview.tsx`, `src/app/firm/page.tsx`, `src/app/expertise/page.tsx`, `src/app/sectors/page.tsx`, `src/app/careers/page.tsx`, `src/app/insights/page.tsx`, `src/app/expertise/[slug]/page.tsx`. Plus new assets: `public/images/sr-monogram.png` (and `.jpg`).
+
+---
+Task ID: 27
+Agent: main (orchestrator)
+Task: Final correction pass — typography, founder image, image loading, page numbers, sticky header, people page, italic reduction, small-text readability
+
+Work Log:
+- Phase 1 (Typography globally): Corrected globals.css display classes to exact spec:
+  • display-mega (hero H1): clamp(56px, 6.5vw, 92px) — was clamp(54px, 7vw, 96px)
+  • display-1 (inner H1): clamp(48px, 5.5vw, 78px) — was clamp(48px, 6vw, 82px)
+  • display-2 (section H2): clamp(38px, 4vw, 58px) — was clamp(38px, 4.5vw, 60px)
+  • display-3 (large H3): clamp(27px, 2.8vw, 36px) — was clamp(26px, 3vw, 38px)
+  • display-4 (card H3): clamp(20px, 1.6vw, 24px) — was clamp(20px, 2vw, 24px)
+  • line-heights adjusted for compactness (1.05-1.25)
+  Hero H1 now "Corporate & Commercial / Legal Counsel." on 3 lines max. "&" stays attached to "Corporate". No isolated "&". "Legal Counsel." stays together.
+- Phase 2 (Replace false founder image): Generated SR monogram (sr-monogram.png) — elegant neutral editorial placeholder with "SR" lettering, warm ivory/blush background, rose-gold accents. NOT an AI person, NOT a camera/notebook. Replaced ALL references to founder-portrait.png (the false camera image) with sr-monogram.png across homepage, people/page, people/[slug]/page, people-preview. Alt text changed from "Founder portrait — Saransh Raj" to "Saransh Raj monogram". Annotation label changed from "Portrait" to "SR".
+- Phase 3 (Fix image loading): Hero image was JPEG saved with .png extension → Next.js Image optimizer rejected it (404/400). Renamed to hero-architecture-warm.jpg and updated reference. Added fetchPriority="high" to hero Image. Hero image now loads immediately (naturalWidth > 0, complete=true). VLM-confirmed: "high-quality architectural photograph... definitely not a blank rectangle".
+- Phase 4 (Page numbers): Homepage folio changed from "01 / 06" to "HOME". Interior pages verified:
+  • Firm: 01 / 06, Index 01
+  • Expertise: 02 / 06, Index 02
+  • Sectors: 03 / 06, Index 03
+  • People: 04 / 06, Index 04
+  • Careers: 05 / 06, Index 05
+  • Contact: 06 / 06, Index 06
+  Header INDEX counter matches page label + right-side counter.
+- Phase 5 (Sticky header): Header height 72px (h-16 md:h-[72px]). Background changed from bg-transparent (when not scrolled) to bg-ivory/80 backdrop-blur-sm — always opaque/blurred, never transparent. Added scroll-padding-top: 80px to html and scroll-margin-top: 80px to all [id] elements so headings never hide under sticky header. z-[110] maintained.
+- Phase 6 (People page): Removed "The team will expand as colleagues are introduced to the practice." and the entire "A note on the team" beige block. Page now has a concise introduction followed by the founder profile.
+- Phase 7 (Reduce italic rose): Removed .serif-italic from:
+  • Homepage Introduction H2 (companies/individuals/families) — now standard espresso
+  • Homepage Practice Index H2 (corporate) — standard espresso
+  • Homepage Sectors H2 (India's) — standard espresso
+  • Homepage Principles H2 (stands for) — standard espresso
+  • Homepage Founder H2 (founder) — standard espresso
+  • Firm page: "Six practice areas", "working philosophy", "Four principles" — standard espresso
+  • Expertise [slug]: "Methodical, attentive", "Questions" — kept inline accentHex color
+  • Sectors: "practice behind the sectors" — standard espresso
+  .serif-italic now ONLY on: homepage hero "Legal Counsel." + inner-page hero H1 (one accent word) + burgundy contact "firm" (.serif-italic-on-burgundy).
+- Phase 8 (Small-text readability): All metadata/labels use text-stone (#6D5F5A — already dark). All small rose text uses text-rose-dark (#9B5964), not text-rose (#B76E79). mono-label is 13px minimum. No pale taupe on blush/beige.
+
+Verification (agent-browser + node fetch + VLM):
+- bun run lint: clean, 0 errors.
+- All 13 routes return HTTP 200.
+- Homepage: H1 "Corporate & Commercial\nLegal Counsel." at 92px (within 56-92px spec), 3 lines, "&" attached to "Corporate". Folio "HOME". Hero image hero-architecture-warm.jpg loads (naturalWidth 547, fetchPriority="high"). Founder image sr-monogram.png (no old founder-portrait). bg #F7F1E8. headerHeight 73px, headerBgOpaque true. bodyHeight 5290px. Insights NOT in nav. "team will expand" removed. No errors.
+- Page numbers verified: Firm=01/06, Expertise=02/06, Sectors=03/06, People=04/06, Careers=05/06, Contact=06/06. All match Index labels.
+- Responsive: 1440px (no overflow), 1024px (no overflow), 768px (no overflow), 390px (no overflow).
+- VLM (desktop): "hero image loaded correctly... high-quality architectural photograph featuring ornate stone arches... definitely not a blank rectangle... heading on three lines... sticky header opaque... no obvious visual bugs or errors... design appears to be functioning as intended".
+- No page errors, no console errors.
+
+Stage Summary:
+- Typography scale exactly per spec: hero H1 56-92px, inner H1 48-78px, H2 38-58px, H3 27-36px, card H3 20-24px, body 16-18px, nav 14-15px, metadata 13px.
+- Hero headline "Corporate & Commercial Legal Counsel." on 3 lines max, no isolated "&".
+- False founder image replaced with elegant SR monogram (no AI person, no camera/notebook, correct alt text).
+- Hero image loads immediately (fetchPriority="high", correct .jpg extension, no blank rectangle).
+- Page numbers: HOME on homepage, 01-06/06 on interior pages, all matching.
+- Sticky header: opaque/blurred warm-ivory, 72px, scroll-padding-top 80px.
+- People page: "team will expand" removed, concise intro + founder profile.
+- Italic rose limited to hero + 1-2 section headings + inner heroes only.
+- Small text: #6D5F5A or darker, no pale taupe on blush/beige.
+- All completed improvements preserved (burgundy contact, email layout, Firm structure, Expertise SEO, warm palette).
+- All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
