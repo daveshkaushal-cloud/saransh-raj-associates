@@ -27,16 +27,16 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-20 border-b border-line">
+    <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
       {/* top folio bar */}
-      <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+      <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+        <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
           <span className="mono-label text-stone">{chapter}</span>
           <span className="folio text-stone">{folio}</span>
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
           <div className="md:col-span-3">
             <div className="flex items-center gap-3">
@@ -49,7 +49,7 @@ export function PageHero({
           <div className="md:col-span-9">
             <h1 className="display-1 text-espresso">{title}</h1>
             {intro && (
-              <p className="lead mt-6 md:mt-8 max-w-2xl text-charcoal">{intro}</p>
+              <p className="lead mt-6 md:mt-8 measure text-charcoal">{intro}</p>
             )}
             {children}
           </div>
@@ -123,8 +123,8 @@ export function ChapterLink({
   index?: string;
 }) {
   return (
-    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-espresso hover:text-rose transition-colors">
-      {index && <span className="mono-num text-[0.65rem] text-stone group-hover:text-rose transition-colors">{index}</span>}
+    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-espresso hover:text-rose-dark transition-colors">
+      {index && <span className="mono-num text-stone group-hover:text-rose-dark transition-colors">{index}</span>}
       <span className="link-underline">{label}</span>
       <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

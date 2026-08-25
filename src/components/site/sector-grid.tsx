@@ -124,10 +124,10 @@ function SectorScroller() {
           <div className="relative h-[10rem] md:h-[11rem] p-5 md:p-6 flex flex-col justify-between">
             <span className="mono-label text-espresso/70">All sectors</span>
             <div>
-              <h3 className="display-3 text-lg md:text-xl text-espresso leading-tight">
+              <h3 className="display-3 text-base md:text-lg text-espresso leading-tight">
                 View the full index
               </h3>
-              <div className="mt-3 flex items-center gap-2 text-[0.78rem] font-medium text-espresso/70 group-hover:text-rose transition-colors">
+              <div className="mt-3 flex items-center gap-2 text-sm font-medium text-espresso/70 group-hover:text-rose-dark transition-colors">
                 <span>See all</span>
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -140,16 +140,16 @@ function SectorScroller() {
 
       {/* progress bar */}
       <div className="mt-5 flex items-center gap-4">
-        <span className="mono-num text-[0.7rem] text-stone font-medium">
+        <span className="mono-num text-stone font-medium">
           {String(currentIndex).padStart(2, "0")}
         </span>
         <div className="flex-1 h-px bg-line relative overflow-hidden">
           <div
-            className="absolute left-0 top-0 h-full bg-rose transition-[width] duration-150 ease-out"
+            className="absolute left-0 top-0 h-full bg-rose-dark transition-[width] duration-150 ease-out"
             style={{ width: `${Math.max(6, progress * 100)}%` }}
           />
         </div>
-        <span className="mono-num text-[0.7rem] text-stone font-medium">
+        <span className="mono-num text-stone font-medium">
           {String(sectors.length).padStart(2, "0")}
         </span>
       </div>
@@ -173,7 +173,7 @@ function SectorCard({
   return (
     <a
       href={`/sectors#${sector.slug}`}
-      className="group relative block bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-rose focus-visible:border-rose p-5 md:p-6 min-h-[10rem] flex flex-col"
+      className="group relative block bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-rose-dark focus-visible:border-rose-dark p-5 md:p-6 min-h-[10rem] flex flex-col"
     >
       {/* colour edge that grows on hover */}
       <span
@@ -182,7 +182,7 @@ function SectorCard({
         aria-hidden="true"
       />
       <div className="flex items-start justify-between mb-3">
-        <span className="mono-num text-[0.7rem] text-stone">
+        <span className="mono-num text-stone">
           {num} / {String(total).padStart(2, "0")}
         </span>
         <span
@@ -191,13 +191,13 @@ function SectorCard({
           aria-hidden="true"
         />
       </div>
-      <h3 className="font-display text-xl md:text-2xl text-espresso leading-tight">
+      <h3 className="font-display text-lg md:text-xl text-espresso leading-tight">
         {sector.name}
       </h3>
-      <p className="mt-2 text-[0.88rem] leading-relaxed text-charcoal">
+      <p className="mt-2 text-sm leading-relaxed text-charcoal">
         {sector.note}
       </p>
-      <div className="mt-auto pt-4 flex items-center gap-2 text-[0.78rem] font-medium text-charcoal group-hover:text-rose transition-colors">
+      <div className="mt-auto pt-4 flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-rose-dark transition-colors">
         <span>View sector</span>
         <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -223,7 +223,7 @@ function SectorTile({
   return (
     <a
       href={`/sectors#${sector.slug}`}
-      className="group relative block shrink-0 snap-start bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-rose focus-visible:border-rose flex flex-col"
+      className="group relative block shrink-0 snap-start bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-rose-dark focus-visible:border-rose-dark flex flex-col"
     >
       <div className="relative h-[11rem] md:h-[12rem] p-5 md:p-6 flex flex-col">
         {/* colour edge that grows on hover */}
@@ -233,7 +233,7 @@ function SectorTile({
           aria-hidden="true"
         />
         <div className="flex items-start justify-between">
-          <span className="mono-num text-[0.7rem] text-stone">
+          <span className="mono-num text-stone">
             {num} / {String(total).padStart(2, "0")}
           </span>
           <span
@@ -243,10 +243,10 @@ function SectorTile({
           />
         </div>
         <div className="mt-auto">
-          <h3 className="font-display text-xl md:text-2xl text-espresso leading-tight">
+          <h3 className="font-display text-lg md:text-xl text-espresso leading-tight">
             {sector.name}
           </h3>
-          <p className="mt-1.5 text-[0.85rem] leading-relaxed text-charcoal line-clamp-2">
+          <p className="mt-1.5 text-sm leading-relaxed text-charcoal line-clamp-2">
             {sector.note}
           </p>
         </div>

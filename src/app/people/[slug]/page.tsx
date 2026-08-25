@@ -40,13 +40,13 @@ export default async function PersonPage({
   return (
     <>
       {/* ============== HERO — ivory, Back to People, name, portrait, role, summary ============== */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-16 md:pb-24 overflow-hidden">
-        <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 overflow-hidden">
+        <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
           {/* top bar */}
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <Link
               href="/people"
-              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose transition-colors"
+              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
             >
               <svg
                 className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1"
@@ -64,7 +64,7 @@ export default async function PersonPage({
               </svg>
               <span>Back to People</span>
             </Link>
-            <span className="folio">Profile · 01</span>
+            <span className="folio text-stone">Profile · 01</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -72,19 +72,20 @@ export default async function PersonPage({
             <div className="md:col-span-5">
               <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden bg-blush">
                 <Image
-                  src="/images/portrait-composition.png"
+                  src="/images/founder-portrait.png"
                   alt={`Portrait of ${person.name} — ${person.role}`}
                   fill
+                  loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover"
                 />
                 {/* Rose-gold annotation bracket */}
                 <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-rose" />
-                  <span className="mono-label text-rose">Portrait</span>
+                  <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
+                  <span className="mono-label text-rose-dark">Portrait</span>
                 </div>
                 <div className="absolute bottom-5 right-5 z-10">
-                  <span className="mono-num text-[0.6rem] text-white/80">
+                  <span className="mono-num text-white/80">
                     {person.initials}/01
                   </span>
                 </div>
@@ -94,11 +95,11 @@ export default async function PersonPage({
             {/* Identity */}
             <div className="md:col-span-7">
               <div className="flex items-center gap-3 mb-6">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
+                <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} aria-hidden="true" />
                 <span className="mono-label" style={{ color: hex }}>{person.role}</span>
               </div>
               <h1 className="display-1 text-espresso max-w-[12ch]">{person.name}</h1>
-              <p className="lead mt-8 text-charcoal max-w-xl">{person.summary}</p>
+              <p className="lead mt-6 md:mt-8 text-charcoal measure">{person.summary}</p>
 
               {/* Quick-facts strip */}
               <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 max-w-md">
@@ -126,14 +127,14 @@ export default async function PersonPage({
       </section>
 
       {/* ============== BIOGRAPHY — porcelain, three paragraphs ============== */}
-      <section className="bg-porcelain py-20 md:py-32 border-y border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-porcelain py-12 md:py-20 lg:py-24 border-y border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <p className="mono-label mb-4">§ Biography</p>
+              <p className="mono-label text-stone mb-4">§ Biography</p>
             </div>
             <div className="md:col-span-8 md:col-start-5">
-              <div className="space-y-6 max-w-2xl">
+              <div className="space-y-6 measure">
                 {person.bio.map((p, i) => (
                   <p key={i} className="lead text-charcoal">
                     {i === 0 && (
@@ -154,47 +155,47 @@ export default async function PersonPage({
       </section>
 
       {/* ============== SCOPE OF PRACTICE / QUALIFICATIONS / BAR — beige ============== */}
-      <section className="bg-beige py-20 md:py-32 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-beige py-12 md:py-20 lg:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {/* Scope of Practice */}
             <div>
-              <p className="mono-label mb-5">Scope of Practice</p>
+              <p className="mono-label text-stone mb-5">Scope of Practice</p>
               <ul className="space-y-3">
                 {person.focus.map((f, i) => (
                   <li key={f} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-[0.65rem] text-rose w-6">
+                    <span className="mono-num text-rose-dark w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[0.95rem]">{f}</span>
+                    <span className="text-sm">{f}</span>
                   </li>
                 ))}
               </ul>
             </div>
             {/* Qualifications */}
             <div>
-              <p className="mono-label mb-5">Qualifications</p>
+              <p className="mono-label text-stone mb-5">Qualifications</p>
               <ul className="space-y-3">
                 {person.qualifications.map((q, i) => (
                   <li key={q} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-[0.65rem] text-rose w-6">
+                    <span className="mono-num text-rose-dark w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[0.95rem]">{q}</span>
+                    <span className="text-sm">{q}</span>
                   </li>
                 ))}
               </ul>
             </div>
             {/* Bar memberships */}
             <div>
-              <p className="mono-label mb-5">Bar memberships</p>
+              <p className="mono-label text-stone mb-5">Bar memberships</p>
               <ul className="space-y-3">
                 {person.bar.map((b, i) => (
                   <li key={b} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-[0.65rem] text-rose w-6">
+                    <span className="mono-num text-rose-dark w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[0.95rem]">{b}</span>
+                    <span className="text-sm">{b}</span>
                   </li>
                 ))}
               </ul>
@@ -203,27 +204,43 @@ export default async function PersonPage({
         </div>
       </section>
 
-      {/* ============== CONTACT STRIP — burgundy, ivory text ============== */}
-      <section className="bg-burgundy text-ivory py-16 md:py-20">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      {/* ============== CONTACT STRIP — burgundy, on-burgundy text tokens ============== */}
+      <section className="bg-burgundy py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h2 className="display-2 text-ivory max-w-[18ch]">
+            <h2
+              className="display-2 max-w-[18ch]"
+              style={{ color: "var(--color-on-burgundy-heading)" }}
+            >
               Contact the{" "}
-              <span className="serif-italic" style={{ color: "#E3C8BE" }}>Firm</span>
+              <span className="serif-italic-on-burgundy">Firm</span>
             </h2>
           </div>
           <div className="space-y-1">
             <p>
-              <a href={contact.emailHref} className="link-underline break-all text-ivory">
+              <a
+                href={contact.emailHref}
+                className="link-underline break-all"
+                style={{ color: "var(--color-on-burgundy-body)" }}
+              >
                 {contact.email}
               </a>
             </p>
             <p>
-              <a href={contact.phoneHref} className="link-underline text-ivory">
+              <a
+                href={contact.phoneHref}
+                className="link-underline"
+                style={{ color: "var(--color-on-burgundy-body)" }}
+              >
                 {contact.phone}
               </a>
             </p>
-            <p className="mono-label text-ivory/70">{contact.hours}</p>
+            <p
+              className="mono-label"
+              style={{ color: "var(--color-on-burgundy-label)" }}
+            >
+              {contact.hours}
+            </p>
           </div>
         </div>
       </section>

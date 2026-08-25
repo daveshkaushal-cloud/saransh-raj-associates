@@ -21,11 +21,11 @@ export function InsightsPreview() {
     <div>
       <div>
         <div className="border border-line bg-porcelain p-8 md:p-12">
-          <p className="mono-label text-rose mb-5">Status</p>
-          <p className="font-display text-2xl md:text-3xl text-espresso leading-snug max-w-2xl">
+          <p className="mono-label text-rose-dark mb-5">Status</p>
+          <p className="display-3 text-espresso leading-snug measure">
             {insightsNotice}
           </p>
-          <p className="mt-6 text-sm text-charcoal leading-relaxed max-w-xl">
+          <p className="mt-6 body-condensed text-charcoal measure">
             {insightsEmpty}
           </p>
         </div>
@@ -34,7 +34,7 @@ export function InsightsPreview() {
       <div className="mt-8">
         <Link
           href="/insights"
-          className="link-underline inline-flex items-center gap-2 mono-label text-stone hover:text-rose transition-colors"
+          className="link-underline inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
         >
           <span>Visit the insights index</span>
           <svg

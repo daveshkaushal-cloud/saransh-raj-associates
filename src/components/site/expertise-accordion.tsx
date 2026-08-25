@@ -47,11 +47,11 @@ export function ExpertiseAccordion() {
                 {area.index}
               </span>
               <span className="relative col-span-7 md:col-span-5">
-                <span className="font-display text-2xl md:text-4xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-espresso)" }}>
+                <span className="font-display text-xl md:text-3xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-espresso)" }}>
                   {area.title}
                 </span>
               </span>
-              <span className="relative col-span-3 md:col-span-4 text-[0.8rem] md:text-sm hidden sm:block transition-colors" style={{ color: isOpen ? onHex : "var(--color-charcoal)" }}>
+              <span className="relative col-span-3 md:col-span-4 text-sm hidden sm:block transition-colors" style={{ color: isOpen ? onHex : "var(--color-charcoal)" }}>
                 {area.short}
               </span>
               <span className="relative col-span-3 md:col-span-2 flex items-center justify-end gap-3">
@@ -80,7 +80,7 @@ export function ExpertiseAccordion() {
                   <div className="mt-6 space-y-px">
                     {area.services.map((s, si) => (
                       <div key={s} className="flex items-baseline gap-4 py-3 border-t border-line">
-                        <span className="mono-num text-[0.7rem]" style={{ color: "var(--color-stone)" }}>
+                        <span className="mono-num" style={{ color: "var(--color-stone)" }}>
                           {String(si + 1).padStart(2, "0")}
                         </span>
                         <span className="font-display text-lg md:text-xl" style={{ color: "var(--color-espresso)" }}>
@@ -93,7 +93,7 @@ export function ExpertiseAccordion() {
                 <div className="col-span-12 md:col-span-3 md:col-start-10 flex md:flex-col gap-3 md:items-end md:justify-end md:text-right pt-2 md:pt-0">
                   <Link
                     href={`/expertise/${area.slug}`}
-                    className="group inline-flex items-center gap-2 mono-label hover:text-rose transition-colors"
+                    className="group inline-flex items-center gap-2 mono-label hover:text-rose-dark transition-colors"
                     style={{ color: "var(--color-stone)" }}
                   >
                     <span>Read area</span>

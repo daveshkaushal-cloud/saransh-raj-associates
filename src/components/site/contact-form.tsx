@@ -123,7 +123,7 @@ export function ContactForm() {
             id="area"
             name="area"
             defaultValue=""
-            className="w-full bg-porcelain border border-line px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors"
+            className="w-full bg-porcelain border border-line px-4 py-3 text-sm text-espresso focus:border-rose-dark outline-none transition-colors"
           >
             <option value="">Select a practice area</option>
             <option>Corporate Advisory</option>
@@ -141,20 +141,20 @@ export function ContactForm() {
           htmlFor="message"
           className="block mono-label text-stone mb-2"
         >
-          Message <span className="text-rose">*</span>
+          Message <span className="text-rose-dark">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
-          className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors resize-y ${
-            errors.message ? "border-burgundy" : "border-line"
+          className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose-dark outline-none transition-colors resize-y ${
+            errors.message ? "border-rose-dark" : "border-line"
           }`}
           placeholder="Please share a brief, neutral description of your enquiry."
         />
         {errors.message && (
-          <p className="mt-2 text-xs text-burgundy" role="alert">
+          <p className="mt-2 text-sm text-rose-dark" role="alert">
             {errors.message}
           </p>
         )}
@@ -183,13 +183,13 @@ export function ContactForm() {
         />
       </div>
 
-      <p className="text-xs text-stone leading-relaxed">
+      <p className="text-sm text-stone leading-relaxed measure">
         Submitting this form does not create a lawyer-client relationship.
         The information you share should not be confidential. By submitting,
         you acknowledge that you have read and agree to the{" "}
         <a
           href="/disclaimer"
-          className="link-underline text-charcoal hover:text-rose"
+          className="link-underline text-charcoal hover:text-rose-dark"
         >
           disclaimer
         </a>
@@ -199,7 +199,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-rose text-white text-sm font-semibold tracking-wide hover:bg-burgundy transition-colors duration-300 disabled:opacity-50"
+        className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-rose-dark text-white text-sm font-semibold tracking-wide hover:bg-burgundy transition-colors duration-300 disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send message"}
         {!submitting && (
@@ -239,7 +239,7 @@ function Field({
   return (
     <div>
       <label htmlFor={name} className="block mono-label text-stone mb-2">
-        {label} {required && <span className="text-rose">*</span>}
+        {label} {required && <span className="text-rose-dark">*</span>}
       </label>
       <input
         id={name}
@@ -247,12 +247,12 @@ function Field({
         type={type}
         required={required}
         aria-invalid={error ? true : undefined}
-        className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose outline-none transition-colors ${
-          error ? "border-burgundy" : "border-line"
+        className={`w-full bg-porcelain border px-4 py-3 text-sm text-espresso focus:border-rose-dark outline-none transition-colors ${
+          error ? "border-rose-dark" : "border-line"
         }`}
       />
       {error && (
-        <p className="mt-2 text-xs text-burgundy" role="alert">
+        <p className="mt-2 text-sm text-rose-dark" role="alert">
           {error}
         </p>
       )}

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { sectors } from "@/data/sectors";
 import { accentHex, type Accent } from "@/lib/accents";
 import { SectorList } from "@/components/site/sector-list";
 
 export const metadata: Metadata = {
-  title: "Sectors",
+  title: "Sectors — Industries Served",
   description:
-    "Ten industries served by Saransh Raj & Associates — from alcoholic beverages and FMCG to technology, renewable energy and hospitality.",
+    "Ten industries served by Saransh Raj & Associates — from alcoholic beverages and FMCG to technology, renewable energy and hospitality. Each sector carries its own colour identity.",
   alternates: { canonical: "/sectors" },
 };
 
@@ -15,11 +16,11 @@ export default function SectorsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Index 03 · Sectors</span>
-            <span className="folio text-stone">004 / 018</span>
+            <span className="folio text-stone">04 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -36,11 +37,11 @@ export default function SectorsPage() {
               <div>
                 <h1 className="display-1 text-espresso max-w-[14ch]">
                   A visual{" "}
-                  <span className="serif-italic text-rose">atlas</span> of sectors
+                  <span className="serif-italic">atlas</span> of sectors
                 </h1>
               </div>
               <div>
-                <p className="lead mt-8 max-w-2xl text-charcoal">
+                <p className="lead mt-6 md:mt-8 measure text-charcoal">
                   The firm advises across ten of India&apos;s dynamic industries.
                   Each sector below carries its own colour identity and a note on
                   the firm&apos;s work within it.
@@ -52,11 +53,11 @@ export default function SectorsPage() {
       </section>
 
       {/* ============== Sector index — compact annotated list ============== */}
-      <section className="bg-ivory py-16 md:py-24 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           {/* header — stacked so the heading breaks into exactly two lines
               and there is no wide horizontal gap beside it */}
-          <div className="mb-10">
+          <div className="mb-8 md:mb-10">
             <div>
               <p className="mono-label text-stone mb-3">§ The index</p>
               <h2 className="display-2">
@@ -66,7 +67,7 @@ export default function SectorsPage() {
               </h2>
             </div>
             <div>
-              <p className="body-condensed text-charcoal max-w-md mt-6">
+              <p className="body-condensed text-charcoal max-w-md mt-6 measure">
                 Each sector is colour-coded to the practice area most active
                 within it. Select any sector to read how the firm works within
                 it — specific engagements are not published on this page.
@@ -106,10 +107,10 @@ export default function SectorsPage() {
         </div>
       </section>
 
-      {/* ============== How the firm serves sectors ============== */}
-      <section className="bg-beige py-16 md:py-24 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      {/* ============== How the firm serves sectors (with supporting image) ============== */}
+      <section className="bg-beige py-12 md:py-20 lg:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-4">
               <div>
                 <p className="mono-label text-stone mb-3">§ Approach</p>
@@ -117,17 +118,32 @@ export default function SectorsPage() {
                   How the firm serves its sectors
                 </h2>
               </div>
+              {/* Supporting image — document detail, single, sparingly used */}
+              <div className="mt-8 relative aspect-[4/3] w-full max-w-md overflow-hidden bg-blush">
+                <Image
+                  src="/images/document-detail.png"
+                  alt="Document detail — layered legal papers reflecting the firm's sector-aware approach"
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
+                  <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
+                  <span className="mono-label text-rose-dark">Archive · 02</span>
+                </div>
+              </div>
             </div>
             <div className="md:col-span-7 md:col-start-6">
               <div>
-                <div className="space-y-5 max-w-2xl">
+                <div className="space-y-5 measure">
                   <p className="lead text-charcoal">
                     Sector knowledge sits alongside, not in place of, legal
                     discipline. The firm&apos;s sector work is grounded in the
                     corporate and commercial practice that carries across every
                     industry it serves.
                   </p>
-                  <p className="text-[0.95rem] leading-relaxed text-charcoal">
+                  <p className="body-condensed text-charcoal">
                     What changes from one sector to the next is the regulatory
                     regime, the commercial conventions, and the counterparties
                     a client is likely to encounter. The firm carries an
@@ -141,7 +157,7 @@ export default function SectorsPage() {
           </div>
 
           {/* three short notes */}
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-line">
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-line">
             {[
               {
                 title: "Sector-aware, not sector-bound",
@@ -161,10 +177,10 @@ export default function SectorsPage() {
                   <span className="mono-num text-sm text-stone block mb-3">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display text-lg md:text-xl text-espresso mb-2 leading-tight">
+                  <h3 className="display-3 text-lg md:text-xl text-espresso mb-2 leading-tight">
                     {note.title}
                   </h3>
-                  <p className="text-[0.9rem] leading-relaxed text-charcoal">
+                  <p className="text-sm leading-relaxed text-charcoal">
                     {note.body}
                   </p>
                 </div>
@@ -175,18 +191,18 @@ export default function SectorsPage() {
       </section>
 
       {/* ============== Cross-link to practice areas ============== */}
-      <section className="bg-ivory py-16 md:py-20">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <section className="bg-ivory py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <h2 className="display-2 text-espresso max-w-[20ch]">
               The practice behind{" "}
-              <span className="serif-italic text-rose">the sectors</span>
+              <span className="serif-italic">the sectors</span>
             </h2>
           </div>
           <div>
             <Link
               href="/expertise"
-              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose transition-colors"
+              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
             >
               <span>View the expertise index</span>
               <svg

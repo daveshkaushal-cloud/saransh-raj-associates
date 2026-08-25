@@ -13,11 +13,11 @@ export default function InsightsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-            <span className="mono-label text-stone">Index 05 · Insights</span>
-            <span className="folio text-stone">006 / 018</span>
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
+            <span className="mono-label text-stone">Notes · Publications</span>
+            <span className="folio text-stone">06 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -35,11 +35,11 @@ export default function InsightsPage() {
               <div>
                 <h1 className="display-1 text-espresso max-w-[14ch]">
                   The firm&apos;s{" "}
-                  <span className="serif-italic text-rose">notebook</span>
+                  <span className="serif-italic">notebook</span>
                 </h1>
               </div>
               <div>
-                <p className="lead mt-8 max-w-2xl text-charcoal">
+                <p className="lead mt-6 md:mt-8 measure text-charcoal">
                   {insightsNotice}
                 </p>
               </div>
@@ -49,21 +49,21 @@ export default function InsightsPage() {
       </section>
 
       {/* Empty-state notice */}
-      <section className="bg-ivory py-16 md:py-24">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-ivory py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div>
-            <div className="border border-line bg-porcelain p-10 md:p-16">
+            <div className="border border-line bg-porcelain p-8 md:p-12 lg:p-16">
               <div className="flex items-start gap-4">
                 <span
                   className="mt-1.5 h-1.5 w-1.5 rounded-full bg-rose shrink-0"
                   aria-hidden="true"
                 />
-                <div className="max-w-2xl">
-                  <p className="mono-label text-rose mb-4">Status</p>
-                  <p className="font-display text-2xl md:text-3xl text-espresso leading-snug">
+                <div className="measure">
+                  <p className="mono-label text-rose-dark mb-4">Status</p>
+                  <p className="display-3 text-espresso leading-snug">
                     {insightsNotice}
                   </p>
-                  <p className="mt-6 text-sm text-charcoal leading-relaxed">
+                  <p className="mt-6 body-condensed text-charcoal">
                     {insightsEmpty}
                   </p>
                 </div>
@@ -72,7 +72,7 @@ export default function InsightsPage() {
               <div className="mt-10 pt-6 border-t border-line">
                 <Link
                   href="/"
-                  className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose transition-colors"
+                  className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
                 >
                   <svg
                     className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1"

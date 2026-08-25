@@ -62,20 +62,20 @@ export function SectorList() {
                     style={{ background: hex }}
                     aria-hidden="true"
                   />
-                  <h3 className="font-display text-xl md:text-2xl text-espresso leading-tight">
+                  <h3 className="font-display text-lg md:text-xl text-espresso leading-tight">
                     {sector.name}
                   </h3>
                 </div>
 
                 {/* note */}
-                <p className="col-span-12 md:col-span-5 text-[0.92rem] leading-relaxed text-charcoal md:col-start-7">
+                <p className="col-span-12 md:col-span-5 text-sm leading-relaxed text-charcoal md:col-start-7">
                   {sector.note}
                 </p>
 
                 {/* chevron affordance — rotates when open */}
                 <span className="hidden md:flex col-span-1 items-center justify-end">
                   <svg
-                    className={`h-4 w-4 text-stone transition-all duration-300 group-hover:text-espresso ${
+                    className={`h-4 w-4 text-stone transition-all duration-300 group-hover:text-rose-dark ${
                       isOpen ? "rotate-90" : ""
                     }`}
                     viewBox="0 0 24 24"
@@ -105,7 +105,7 @@ export function SectorList() {
                       className="col-span-12 md:col-span-10 md:col-start-2 pl-4 md:pl-6 border-l-2"
                       style={{ borderColor: hex }}
                     >
-                      <p className="text-[0.95rem] leading-relaxed text-charcoal max-w-2xl">
+                      <p className="text-sm leading-relaxed text-charcoal max-w-2xl measure">
                         {sector.description}
                       </p>
                     </div>

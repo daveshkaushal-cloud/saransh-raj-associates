@@ -19,7 +19,7 @@ export async function generateMetadata({
   const area = getPracticeArea(slug);
   if (!area) return { title: "Practice area not found" };
   return {
-    title: area.title,
+    title: `${area.title} — Practice Area`,
     description: area.overview,
     alternates: { canonical: `/expertise/${area.slug}` },
   };
@@ -44,12 +44,12 @@ export default async function PracticeAreaPage({
     <>
       {/* ============== HERO — colour-coded practice-area opening ============== */}
       <section
-        className="relative pt-10 md:pt-16 pb-16 md:pb-24 overflow-hidden"
+        className="relative pt-8 md:pt-12 pb-10 md:pb-14 overflow-hidden"
         style={{ background: hex, color: onHex }}
       >
-        <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
+        <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
           {/* top bar */}
-          <div className="flex items-center justify-between border-b pb-4 mb-10 md:mb-16" style={{ borderColor: `${onHex}33` }}>
+          <div className="flex items-center justify-between border-b pb-4 mb-8 md:mb-10" style={{ borderColor: `${onHex}33` }}>
             <Link href="/expertise" className="group inline-flex items-center gap-2 mono-label opacity-70 hover:opacity-100 transition-opacity">
               <svg className="h-4 w-4 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path d="M19 12H5M11 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
@@ -96,9 +96,9 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== SERVICES — annotated list ============== */}
-      <section className="bg-ivory py-20 md:py-32 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+      <section className="bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8 md:mb-10">
             <div className="md:col-span-4">
               <div>
                 <p className="mono-label text-stone mb-3">§ Services</p>
@@ -107,7 +107,7 @@ export default async function PracticeAreaPage({
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
               <div>
-                <p className="body-condensed text-charcoal max-w-md">
+                <p className="body-condensed text-charcoal max-w-md measure">
                   The scope of the firm&apos;s {area.title.toLowerCase()} practice,
                   set out as an annotated index. Select any service to read what it covers.
                 </p>
@@ -126,8 +126,8 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== APPROACH ============== */}
-      <section className="bg-beige py-20 md:py-32 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-beige py-12 md:py-20 lg:py-24 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5">
               <div>
@@ -140,7 +140,7 @@ export default async function PracticeAreaPage({
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6">
               <div>
-                <p className="lead text-charcoal">
+                <p className="lead text-charcoal measure">
                   The firm approaches {area.title.toLowerCase()} with attention
                   to detail and to the commercial realities of those it advises.
                   Each engagement begins with understanding the objective, then
@@ -150,7 +150,7 @@ export default async function PracticeAreaPage({
                 <p className="mt-6 body-condensed text-charcoal">
                   For an overview of the firm&apos;s approach across all practice
                   areas, see{" "}
-                  <Link href="/firm" className="link-underline text-espresso">The Firm</Link>.
+                  <Link href="/firm" className="link-underline text-espresso hover:text-rose-dark">The Firm</Link>.
                 </p>
               </div>
             </div>
@@ -159,8 +159,8 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== CONTACT STRIP ============== */}
-      <section className="bg-beige text-espresso py-16 md:py-20">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <section className="bg-beige text-espresso py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <h2 className="display-2 text-espresso max-w-[18ch]">
               Questions about{" "}
@@ -169,8 +169,8 @@ export default async function PracticeAreaPage({
           </div>
           <div>
             <div className="text-charcoal space-y-1">
-              <p><a href={contact.emailHref} className="link-underline break-all">{contact.email}</a></p>
-              <p><a href={contact.phoneHref} className="link-underline">{contact.phone}</a></p>
+              <p><a href={contact.emailHref} className="link-underline break-all hover:text-rose-dark">{contact.email}</a></p>
+              <p><a href={contact.phoneHref} className="link-underline hover:text-rose-dark">{contact.phone}</a></p>
               <p className="mono-label text-stone">{contact.hours}</p>
             </div>
           </div>
@@ -179,13 +179,13 @@ export default async function PracticeAreaPage({
 
       {/* ============== PREV / NEXT — practice-area navigation ============== */}
       <nav className="bg-ivory border-t border-line" aria-label="Practice area navigation">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 grid grid-cols-2">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 grid grid-cols-2">
           <Link
             href={`/expertise/${prev.slug}`}
             className="group border-r border-line py-8 md:py-10 pr-4 flex flex-col"
           >
             <span className="mono-label text-stone mb-2">← Previous practice area</span>
-            <span className="display-3 text-xl md:text-2xl flex items-center gap-3 text-espresso">
+            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-espresso">
               <span className="mono-num text-sm" style={{ color: accentHex[prev.accent] }}>{prev.index}</span>
               {prev.title}
             </span>
@@ -195,7 +195,7 @@ export default async function PracticeAreaPage({
             className="group py-8 md:py-10 pl-4 flex flex-col items-end text-right"
           >
             <span className="mono-label text-stone mb-2">Next practice area →</span>
-            <span className="display-3 text-xl md:text-2xl flex items-center gap-3 text-espresso">
+            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-espresso">
               {next.title}
               <span className="mono-num text-sm" style={{ color: accentHex[next.accent] }}>{next.index}</span>
             </span>

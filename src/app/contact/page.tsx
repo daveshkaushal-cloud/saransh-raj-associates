@@ -13,11 +13,11 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero — quiet, functional */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-            <span className="mono-label text-stone">Index 07 · Contact</span>
-            <span className="folio text-stone">008 / 018</span>
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
+            <span className="mono-label text-stone">Index 06 · Contact</span>
+            <span className="folio text-stone">06 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -33,11 +33,11 @@ export default function ContactPage() {
               <div>
                 <h1 className="display-1 text-espresso max-w-[14ch]">
                   Reach the{" "}
-                  <span className="serif-italic text-rose">firm</span>
+                  <span className="serif-italic">firm</span>
                 </h1>
               </div>
               <div>
-                <p className="lead mt-8 max-w-2xl text-charcoal">
+                <p className="lead mt-6 md:mt-8 measure text-charcoal">
                   The firm welcomes enquiries about its work. Please use the form
                   below or the contact details to the right to be in touch.
                 </p>
@@ -48,15 +48,15 @@ export default function ContactPage() {
       </section>
 
       {/* Contact grid: form + details */}
-      <section className="bg-porcelain py-16 md:py-24">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-porcelain py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
             {/* Form — left, wider */}
             <div className="md:col-span-7">
               <div>
-                <div className="border-t border-rose pt-6">
+                <div className="border-t border-rose-dark pt-6">
                   <p className="mono-label text-stone mb-2">§ Enquiry</p>
-                  <h2 className="display-3 text-2xl md:text-3xl mb-8">
+                  <h2 className="display-3 mb-8">
                     Send a message
                   </h2>
                 </div>
@@ -67,7 +67,7 @@ export default function ContactPage() {
             {/* Details — right */}
             <div className="md:col-span-4 md:col-start-9">
               <div>
-                <div className="border-t border-rose pt-6 space-y-8">
+                <div className="border-t border-rose-dark pt-6 space-y-8">
                   <div>
                     <p className="mono-label text-stone mb-2">Address</p>
                     <p className="text-espresso leading-relaxed">
@@ -78,11 +78,11 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="mono-label text-stone mb-2">Phone</p>
-                    <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose">{contact.phone}</a>
+                    <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose-dark">{contact.phone}</a>
                   </div>
                   <div>
                     <p className="mono-label text-stone mb-2">Email</p>
-                    <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose break-all">{contact.email}</a>
+                    <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose-dark break-all">{contact.email}</a>
                   </div>
                   <div>
                     <p className="mono-label text-stone mb-2">Office hours</p>

@@ -1544,3 +1544,168 @@ Stage Summary:
 - Compliance preserved: Bar Council disclaimer, contact-form confidentiality notice, no testimonials/success rates/promotional claims.
 - All 13 routes 200, lint clean, no errors, mobile responsive.
 - VLM-confirmed: "warm, premium, editorial design feel".
+
+---
+Task ID: 24
+Agent: subagent (typography + colour + spacing refinement)
+Task: Fix typography scale, colours, spacing, numbering across all interior pages
+
+Work Log:
+- Read worklog.md (Tasks 22 + 23 context for warm palette) and confirmed globals.css tokens already in place: --color-rose (#B76E79), --color-rose-dark (#9B5964), --color-stone (#6D5F5A), --color-on-burgundy-heading (#FFFDF9), --color-on-burgundy-body (#F7F1E8), --color-on-burgundy-label (#E3C8BE), --color-on-burgundy-italic (#E7B5B0). Typography utilities .display-mega/.display-1/.display-2/.display-3, .serif-italic, .serif-italic-on-burgundy, .lead (17-18px), .body-condensed (16px), .mono-label (13px), .mono-num (13px), .measure (65ch), .measure-narrow (55ch) all defined.
+- Verified the homepage (`/src/app/page.tsx`, do-not-touch) already references `/images/founder-portrait.png` and `/images/hero-office.png` — neither file existed in `/public/images/`. Only `delhi-architecture.png`, `portrait-composition.png`, `document-texture.png` were present. Generated the three "newly generated" assets the task references via `z-ai image` CLI:
+  • `/public/images/founder-portrait.png` (864x1152, 4:5) — abstract architectural still life: warm ivory desk, leather legal volume, fountain pen, rose-gold silk ribbon. No human figure, no text. Editorial museum quality.
+  • `/public/images/hero-office.png` (864x1152, 4:5) — colonnaded sandstone facade with arched windows, late-afternoon golden light, neem tree silhouette framing. New Delhi architectural editorial.
+  • `/public/images/document-detail.png` (1344x768, 16:9) — layered antique legal documents with cursive edges, leather portfolio, brass paperweight, rose-gold ribbon bookmark. Macro editorial still life.
+  All three verified loading via `curl http://localhost:3000/images/<name>.png` → 200.
+
+- Rewrote `/src/components/site/page-hero.tsx`: spacing `pt-10 md:pt-16 pb-12 md:pb-20` → `pt-8 md:pt-12 pb-10 md:pb-14`; `mb-10 md:mb-16` → `mb-8 md:mb-10`; `max-w-[1600px]` → `max-w-[1400px]`; intro `max-w-2xl` → `measure` (65ch); ChapterLink `hover:text-rose` → `hover:text-rose-dark`, `text-[0.65rem]` mono-num → `mono-num` (13px).
+
+- Rewrote `/src/app/firm/page.tsx` — combined Philosophy + Principles + Approach into one cohesive `PhilosophyAndApproach` section (removed repeated firm descriptions, removed 3-step PhilosophyManifesto and 4-milestone ApproachTimeline components). New structure: Hero (ivory) → Philosophy&Approach (porcelain, narrative + supporting document-detail.png image + 4 colour-blocked principle cards) → Practice Areas Index (ivory) → Contact Strip (burgundy). Numbering: `002 / 018` → `02 / 06` (kept `Index 01 · The Firm` label). § Practice label `text-rose` → `text-rose-dark`. Burgundy contact strip: removed `text-ivory` + `text-ivory/70` and the inline `style={{ color: "#E3C8BE" }}` on the italic accent — now uses `var(--color-on-burgundy-heading)` for the H2, `.serif-italic-on-burgundy` class for the "firm" accent, `var(--color-on-burgundy-body)` for email/phone links, `var(--color-on-burgundy-label)` for hours mono-label. Added `measure` class to narrative paragraphs. Practice area titles `text-xl md:text-3xl` → `text-xl md:text-2xl`.
+
+- Updated `/src/app/expertise/page.tsx`: spacing `pt-10 md:pt-16 pb-12 md:pb-16` → `pt-8 md:pt-12 pb-10 md:pb-14`; `mb-10 md:mb-16` → `mb-8 md:mb-10`; `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`; `max-w-[1600px]` → `max-w-[1400px]` (3 instances); lead `max-w-2xl` → `measure`. Numbering: `003 / 018` → `03 / 06` (kept `Index 02 · Expertise` label). Removed unused `Link` import. Added unique SEO metadata: `title: "Expertise — Practice Areas"`, description naming all six practice areas (corporate advisory, commercial contracts, M&A, dispute resolution, regulatory compliance, insolvency & recovery).
+
+- Updated `/src/app/expertise/[slug]/page.tsx`: hero spacing + max-w-[1600px]→1400px; services section spacing `py-20 md:py-32` → `py-12 md:py-20 lg:py-24`, `mb-12` → `mb-8 md:mb-10`; approach section spacing same; contact strip spacing same; prev/next nav `max-w-[1600px]` → `max-w-[1400px]`; body-condensed `max-w-md` → `measure`. Prev/Next nav title `<span className="display-3 text-xl md:text-2xl">` → `<span className="font-display text-xl md:text-2xl">` (resolved display-3/text-xl conflict). Approach "The Firm" link + email/phone links: added `hover:text-rose-dark`. generateMetadata: `${area.title} — Practice Area` (was just `area.title`).
+
+- Updated `/src/components/site/expertise-accordion.tsx`: closed header title `font-display text-2xl md:text-4xl` → `font-display text-xl md:text-3xl`; closed short text `text-[0.8rem] md:text-sm` → `text-sm`; service rows mono-num `text-[0.7rem]` → `mono-num` (13px); "Read area" link `hover:text-rose` → `hover:text-rose-dark`.
+
+- Updated `/src/components/site/expandable-service-list.tsx`: focus ring `focus-visible:ring-rose` → `focus-visible:ring-rose-dark`; open service title `font-display text-xl md:text-3xl` → `font-display text-lg md:text-2xl`.
+
+- Rewrote `/src/app/sectors/page.tsx`: hero spacing + max-w; `py-16 md:py-24` → `py-12 md:py-20 lg:py-24` (3 sections); `mb-10` → `mb-8 md:mb-10`; legend `mb-8` → `mb-8` (already correct); note body `text-[0.95rem]` → `text-sm`; `body-condensed text-charcoal max-w-md` → `body-condensed text-charcoal max-w-md measure` (added measure); three-notes grid `mt-14` → `mt-12 md:mt-16`; note card `text-[0.9rem]` → `text-sm`; note card h3 `font-display text-lg md:text-xl` → `display-3 text-lg md:text-xl`; cross-link `serif-italic text-rose` → `serif-italic` (kept rose, it's a large italic accent on display-2); cross-link `hover:text-rose` → `hover:text-rose-dark`. Numbering: `004 / 018` → `04 / 06`. Added supporting image `/images/document-detail.png` to the "How the firm serves sectors" section.
+
+- Updated `/src/components/site/sector-list.tsx`: row name `font-display text-xl md:text-2xl` → `font-display text-lg md:text-xl`; note `text-[0.92rem]` → `text-sm`; chevron hover `group-hover:text-espresso` → `group-hover:text-rose-dark`; expanded panel description `text-[0.95rem]` → `text-sm` + added `measure`.
+
+- Updated `/src/components/site/sector-grid.tsx`: SectorCard border hover `hover:border-rose focus-visible:border-rose` → `hover:border-rose-dark focus-visible:border-rose-dark`; mono-num `text-[0.7rem]` → `mono-num` (no font-size override, uses 13px); name `font-display text-xl md:text-2xl` → `font-display text-lg md:text-xl`; note `text-[0.88rem]` → `text-sm`; "View sector" `text-[0.78rem]` → `text-sm`, hover `group-hover:text-rose` → `group-hover:text-rose-dark`. SectorTile: same warm-palette swaps. End card (homepage scroller CTA): h3 `display-3 text-lg md:text-xl` → `display-3 text-base md:text-lg`; "See all" `text-[0.78rem]` → `text-sm`, hover `group-hover:text-rose` → `group-hover:text-rose-dark`. Progress bar: `text-[0.7rem]` → `mono-num` (13px), fill `bg-rose` → `bg-rose-dark`.
+
+- Rewrote `/src/app/people/page.tsx`: hero spacing + max-w + `mb-8 md:mb-10`; hero margin-note removed "Further profiles will be added as colleagues are introduced." (only kept "The firm works as an integrated team under the guidance of its founder."). Team note paragraph rewritten to "The firm works as an integrated team under the guidance of its founder. The team will expand as colleagues are introduced to the practice." (removed "Further profiles will be added"). Founder portrait Image `src="/images/portrait-composition.png"` → `src="/images/founder-portrait.png"` + added `loading="lazy"`. Numbering: `005 / 018` → `05 / 06`. Portrait mono-label `text-rose` → `text-rose-dark` (small text). Card hover `hover:border-rose` → `hover:border-rose-dark`. "View full profile" CTA `group-hover:text-rose` → `group-hover:text-rose-dark`. mono-num `text-[0.6rem]` and `text-[0.65rem]` → `mono-num` (13px). List spacing `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`.
+
+- Rewrote `/src/app/people/[slug]/page.tsx`: hero spacing + max-w + mb-8 md:mb-10; portrait Image `src="/images/portrait-composition.png"` → `src="/images/founder-portrait.png"` + `loading="lazy"`; biography section spacing `py-20 md:py-32` → `py-12 md:py-20 lg:py-24`; scope/qualifications/bar section spacing same; contact strip spacing `py-16 md:py-20` → `py-12 md:py-20 lg:py-24`; "Back to People" link hover `hover:text-rose` → `hover:text-rose-dark`; portrait mono-label `text-rose` → `text-rose-dark`; scope/qualifications/bar list numbering mono-num `text-[0.65rem] text-rose` → `mono-num text-rose-dark`; list items `text-[0.95rem]` → `text-sm`. BURGUNDY CONTACT STRIP: removed `text-ivory` (H2), `text-ivory/70` (hours mono-label), and inline `style={{ color: "#E3C8BE" }}` on the serif-italic accent — now uses `var(--color-on-burgundy-heading)` for H2, `.serif-italic-on-burgundy` for "Firm", `var(--color-on-burgundy-body)` for email/phone links, `var(--color-on-burgundy-label)` for hours. Biography paragraph `max-w-2xl` → `measure`.
+
+- Updated `/src/components/site/people-preview.tsx`: portrait Image `src` → `/images/founder-portrait.png` + `loading="lazy"`; portrait mono-label `text-rose` → `text-rose-dark`; mono-num `text-[0.6rem]`/`text-[0.65rem]` → `mono-num`; founder name `display-2` → `display-3` (founder preview is a smaller card, h3 more appropriate); card hover `hover:border-rose` → `hover:border-rose-dark`; "View profile" CTA hover `group-hover:text-rose` → `group-hover:text-rose-dark`.
+
+- Rewrote `/src/app/insights/page.tsx`: hero spacing + max-w + mb-8 md:mb-10; folio `006 / 018` → `06 / 06`; label `Index 05 · Insights` → `Notes · Publications` (Insights not in primary nav, so it shouldn't claim an Index number that conflicts with Careers 05); empty-state section spacing `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`; notice card padding `p-10 md:p-16` → `p-8 md:p-12 lg:p-16`; status dot kept `bg-rose` (decorative); status mono-label `text-rose` → `text-rose-dark`; headline `font-display text-2xl md:text-3xl` → `display-3`; body `text-sm text-charcoal leading-relaxed` → `body-condensed text-charcoal` (16px); added `measure` to both. "Return to the homepage" hover `hover:text-rose` → `hover:text-rose-dark`.
+
+- Updated `/src/components/site/insights-preview.tsx`: status mono-label `text-rose` → `text-rose-dark`; headline `font-display text-2xl md:text-3xl` → `display-3`; body `text-sm text-charcoal leading-relaxed max-w-xl` → `body-condensed text-charcoal measure`; CTA hover `hover:text-rose` → `hover:text-rose-dark`.
+
+- Rewrote `/src/app/careers/page.tsx`: hero spacing + max-w + mb-8 md:mb-10; numbering `Index 06 · Careers` → `Index 05 · Careers`, folio `007 / 018` → `06 / 06`; body section spacing `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`; how-to-reach border-t `pt-12` → `pt-10 md:pt-12`, `mt-16 md:mt-20` → `mt-12 md:mt-16`; intro p `text-charcoal text-sm` → `body-condensed text-charcoal`; second p `text-charcoal` → `body-condensed text-charcoal`; email link `hover:text-rose` → `hover:text-rose-dark`; address `text-sm text-charcoal` → `body-condensed text-charcoal`; CTA button `bg-rose` → `bg-rose-dark`. Added supporting image `/images/document-detail.png` to the left § Overview column.
+
+- Rewrote `/src/app/contact/page.tsx`: hero spacing + max-w + mb-8 md:mb-10; numbering `Index 07 · Contact` → `Index 06 · Contact`, folio `008 / 018` → `06 / 06`; form section spacing `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`; form/details dividers `border-t border-rose` → `border-t border-rose-dark`; § Enquiry H2 `display-3 text-2xl md:text-3xl mb-8` → `display-3 mb-8` (removed conflicting text-2xl md:text-3xl); email/phone links hover `hover:text-rose` → `hover:text-rose-dark`. Hero italic accent "firm" kept `serif-italic` (no `text-rose` class — inherits from `.serif-italic` colour var).
+
+- Updated `/src/components/site/contact-form.tsx`: select focus `focus:border-rose` → `focus:border-rose-dark`; textarea error border `border-burgundy` → `border-rose-dark`; textarea error text `text-xs text-burgundy` → `text-sm text-rose-dark`; message label required asterisk `text-rose` → `text-rose-dark`; disclaimer paragraph `text-xs` → `text-sm` + added `measure`; disclaimer link hover `hover:text-rose` → `hover:text-rose-dark`; submit button `bg-rose` → `bg-rose-dark`. Field component: required asterisk `text-rose` → `text-rose-dark`; input focus `focus:border-rose` → `focus:border-rose-dark`; input error border `border-burgundy` → `border-rose-dark`; input error text `text-xs text-burgundy` → `text-sm text-rose-dark`. CONTACT FORM LOGIC FULLY PRESERVED: POST method on form element + fetch, action="/api/contact", honeypot "company" field hidden via absolute positioning, validate() function, submittingRef double-submit guard, toast success/error, router.refresh, form.reset.
+
+- Rewrote `/src/components/site/legal-layout.tsx`: hero spacing `pt-10 md:pt-16 pb-12 md:pb-16` → `pt-8 md:pt-12 pb-10 md:pb-14`; `mb-10 md:mb-16` → `mb-8 md:mb-10`; `max-w-[1600px]` → `max-w-[1400px]` (2 instances); intro `max-w-2xl lead` → `measure lead`; body section spacing `py-16 md:py-24` → `py-12 md:py-20 lg:py-24`; TOC link hover `hover:text-rose` → `hover:text-rose-dark`; section number mono-num `text-[0.7rem]` → `mono-num` (13px); section H2 `display-3 text-espresso text-2xl md:text-3xl` → `display-3 text-espresso` (removed conflicting text-2xl md:text-3xl); section body `text-[0.95rem]` → `body-condensed` (16px), added `measure`; contact-note spacing `mt-16 pt-8` → `mt-12 md:mt-16 pt-8`; contact-note body `text-sm text-charcoal` → `body-condensed text-charcoal measure`; email/phone link hover `hover:text-rose` → `hover:text-rose-dark`; section spacing `space-y-12` → `space-y-10 md:space-y-12`.
+
+- Updated `/src/app/privacy/page.tsx`: Contact section body — email link `link-underline` (no colour) → `link-underline text-espresso hover:text-rose-dark`; phone link same.
+
+- Verified `/src/app/disclaimer/page.tsx` and `/src/app/terms/page.tsx` — both use `LegalLayout` and pass React nodes for body (paragraphs, lists). No colour classes of their own. After LegalLayout updates, they render with the corrected typography and on-burgundy tokens via inheritance. No edits needed.
+
+- Updated `/src/app/not-found.tsx`: "Return home" button `bg-rose` → `bg-rose-dark`; Contact button `hover:border-rose` → `hover:border-rose-dark` + added `hover:text-rose-dark`. The 404 hero `serif-italic text-rose` for "found" kept (it's a large italic accent on display-mega — explicitly allowed by the task spec).
+
+- Numbering verification (live HTTP fetch + grep):
+  • Homepage: `01 / 06` (already correct, do-not-touch)
+  • /firm: `02 / 06` + `Index 01 · The Firm`
+  • /expertise: `03 / 06` + `Index 02 · Expertise`
+  • /sectors: `04 / 06` + `Index 03 · Sectors`
+  • /people: `05 / 06` + `Index 04 · People`
+  • /careers: `06 / 06` + `Index 05 · Careers` (was `Index 06 · Careers` + `007 / 018`)
+  • /contact: `06 / 06` + `Index 06 · Contact` (was `Index 07 · Contact` + `008 / 018`)
+  • /insights: `06 / 06` + `Notes · Publications` (Insights not in primary nav, no Index number)
+  • Header INDEX counter still matches the new nav order (1=Firm, 2=Expertise, 3=Sectors, 4=People, 5=Careers, 6=Contact) via `primaryNav.findIndex` in site-header.tsx.
+
+- Content fixes verified: `rg "Editorial Counsel" src/` → no matches. `rg "Further profiles" src/` → no matches (both occurrences removed from /people page). The Firm page is now shorter — Philosophy + Principles + Approach collapsed into one cohesive `PhilosophyAndApproach` section with three narrative paragraphs (no repetition of firm.purpose, no repeated founder bio), one supporting document-detail.png image, and a 4-card colour-blocked principles grid below.
+
+- Rose-gold italic discipline: `.serif-italic` used only on hero H1 accent words + section H2 accent words (one per heading). Removed from any H3/card titles. The Firm page principle cards H4 uses `font-display text-xl md:text-2xl` (no italic accent). Sectors three-notes grid H3 uses `display-3` (no italic accent). Expertise [slug] prev/next nav uses `font-display text-xl md:text-2xl` (no italic accent). On burgundy sections (firm, people/[slug], not-found), `.serif-italic-on-burgundy` is used instead of `.serif-italic` for the accent words.
+
+- Image verification: All `next/image` usages in interior pages have proper `fill` + `sizes` + `alt` + `loading="lazy"` (where below-fold). The hero-office.png (homepage, above-fold) keeps `priority`. Founder-portrait.png is below-fold on /people and /people/[slug] so uses `loading="lazy"`. Document-detail.png is below-fold on /firm, /sectors, /careers so uses `loading="lazy"`.
+
+- `bun run lint` → 0 errors, 0 warnings (eslint . returned no output).
+- `bun run build` → ✓ Compiled successfully in 9.3s. All 24 routes generated. Static pages: 24/24 in 234.0ms.
+- Live HTTP verification (dev server on :3000): all 12 routes (/, /firm, /expertise, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy) return 200. All three new images (/images/founder-portrait.png, /images/hero-office.png, /images/document-detail.png) return 200. Grep verification on rendered HTML confirms: folios updated (02/06, 03/06, 04/06, 05/06, 06/06 x3), Index labels updated (Index 01–06), `rose-dark` class present on all interior pages, `on-burgundy` inline styles present on firm and people/[slug] contact strips, `founder-portrait.png` and `document-detail.png` referenced. No "Editorial Counsel" or "Further profiles" text anywhere in src/.
+
+Stage Summary:
+- 16 interior files updated (page-hero, firm, expertise, expertise/[slug], expertise-accordion, expandable-service-list, sectors, sector-list, sector-grid, people, people/[slug], people-preview, insights, insights-preview, careers, contact, contact-form, legal-layout, privacy, not-found — 20 total including verification-only legal pages disclaimer/terms which use LegalLayout).
+- 3 missing public images generated (founder-portrait.png 864x1152, hero-office.png 864x1152, document-detail.png 1344x768) — referenced by homepage and interior pages.
+- Typography scale normalised: H1 display-mega/display-1 (already correct in globals.css), H2 display-2, H3 display-3 or `font-display text-xl md:text-2xl` (NOT text-4xl+), body .lead (17-18px) / .body-condensed (16px) / text-sm (14px), no text-xs body copy remaining, no text-[0.65rem]/text-[0.7rem] mono-num remaining (all converted to .mono-num class).
+- Colours: all `hover:text-rose` → `hover:text-rose-dark`, `hover:bg-rose` → `hover:bg-rose-dark`, `bg-rose` buttons → `bg-rose-dark`, `border-rose` hover → `border-rose-dark`, `text-rose` on small text → `text-rose-dark`. `text-rose` retained ONLY on large `.serif-italic` accent words (e.g., not-found "found") — per spec.
+- Burgundy contrast fixed on /firm + /people/[slug] contact strips: replaced `text-ivory`/`text-ivory/70` with proper on-burgundy tokens via inline `style={{ color: "var(--color-on-burgundy-heading|body|label)" }}`. Italic accent uses `.serif-italic-on-burgundy` class (#E7B5B0).
+- Spacing: `py-20 md:py-32` → `py-12 md:py-20 lg:py-24` everywhere; `pt-10 md:pt-16 pb-12 md:pb-20` → `pt-8 md:pt-12 pb-10 md:pb-14`; `mb-12`/`mb-16` section heading margins → `mb-8 md:mb-10`; `max-w-[1600px]` → `max-w-[1400px]` (tighter content column). `.measure` (65ch) added to long-form paragraphs that lacked max-width.
+- Numbering consistency: homepage `01 / 06`, firm `02 / 06`, expertise `03 / 06`, sectors `04 / 06`, people `05 / 06`, careers `06 / 06` (was `Index 06 · Careers` + `007 / 018`), contact `06 / 06` (was `Index 07 · Contact` + `008 / 018`). Insights gets `Notes · Publications` label + `06 / 06` (no Index number since it's not in primaryNav). Header INDEX counter in site-header.tsx auto-matches nav position.
+- Firm page shortened: combined Philosophy + Principles + Approach into one cohesive section. Removed 3-step PhilosophyManifesto component + 4-milestone ApproachTimeline component. Removed repeated firm.purpose/description copy. The "working philosophy" + "considered counsel" narrative now flows as 3 paragraphs in one section, followed by the 4 colour-blocked principle cards.
+- Rose-gold italic limited to major headings only (hero H1, section H2 with one accent word). Removed from H3, H4, card titles, prev/next nav.
+- Contact form logic fully preserved: POST method + fetch, action="/api/contact", honeypot "company" field, validate() function, submittingRef guard, toast, router.refresh, form.reset — only colour classes changed.
+- Did not touch: globals.css, layout.tsx, accents.ts, data files (firm.ts, people.ts, practice-areas.ts, sectors.ts, insights.ts, navigation.ts), disclaimer-gate.tsx, disclaimer-gate-client.tsx, site-shell.tsx, site-header.tsx, site-footer.tsx, hero-visual.tsx, scroll-progress.tsx, api routes, homepage (page.tsx).
+- Lint clean (0 errors, 0 warnings). Build clean (24/24 routes, 9.3s compile). All 12 routes return HTTP 200 on dev server. All 3 newly generated images load successfully.
+
+---
+Task ID: 25
+Agent: main (orchestrator)
+Task: Refine typography, colours, spacing, numbering, images, content consistency across the warm editorial website
+
+Work Log:
+- Phase 1 (Typography scale): Corrected globals.css display classes:
+  • display-mega (hero H1): clamp(54px, 7vw, 96px) — was clamp(56px, 11vw, 208px)
+  • display-1 (inner H1): clamp(48px, 6vw, 82px)
+  • display-2 (section H2): clamp(38px, 4.5vw, 60px)
+  • display-3 (H3): clamp(26px, 3vw, 38px)
+  • display-4: clamp(20px, 2vw, 24px)
+  • lead: 17-18px, body-condensed: 16px, body: 17px (line-height 1.65)
+  • mono-label: 13px minimum (was 12px), mono-num: 13px
+  • Added .measure (65ch) and .measure-narrow (55ch) utilities for paragraph width control
+- Phase 2 (Colour corrections): 
+  • Added --color-rose-dark: #9B5964 for small text/buttons (was using #B76E79 which is too light for small text)
+  • Changed --color-stone from #8A7E76 to #6D5F5A (darker, more readable microtext)
+  • Added on-burgundy tokens: --color-on-burgundy-heading #FFFDF9, --color-on-burgundy-body #F7F1E8, --color-on-burgundy-label #E3C8BE, --color-on-burgundy-italic #E7B5B0
+  • Added .serif-italic-on-burgundy class (#E7B5B0 italic for burgundy backgrounds)
+  • Never use espresso/grey text on burgundy — use the on-burgundy tokens
+- Phase 3 (Homepage contact section): Fixed unreadable burgundy contact section. All text now uses on-burgundy tokens (heading #FFFDF9, body #F7F1E8, labels #E3C8BE, italic #E7B5B0). Email displays as one complete line (word-break: keep-all, overflow-wrap: anywhere) — no more awkward mid-word breaking.
+- Phase 4 (Images): Generated 3 new improved images:
+  • hero-office.png (864x1152): refined Delhi law office interior with warm ivory/beige tones, polished wood, soft natural light
+  • founder-portrait.png (864x1152): sophisticated editorial portrait composition with warm ivory/blush background, rose-gold accents
+  • document-detail.png (1344x768): layered legal documents detail for supporting visuals
+  Hero image now 4:5 aspect ratio, max 620px height, ~38% width (was 3:4 full-width).
+- Phase 5 (Spacing): Reduced section padding: py-12 md:py-20 lg:py-24 (desktop 80-110px, tablet 64-80px, mobile 48-64px). Content column max-w-[1400px] (was 1600px). Paragraphs use .measure (65ch).
+- Phase 6 (Colour-coded practice areas): Updated accents.ts to use 6 distinguishable warm professional colours:
+  • rose #B76E79 (dusty rose — Corporate Advisory)
+  • burgundy #603A40 (Commercial Contracts)
+  • espresso #2B2422 (warm charcoal — M&A)
+  • blush #C8866A (terracotta — Dispute Resolution) — was invisible #E3C8BE
+  • beige #7A7245 (muted olive — Regulatory) — was invisible #E8D8C8
+  • porcelain #6B4A2E (walnut — Insolvency) — was invisible #FFFDF9
+  All markers now clearly distinguishable against beige backgrounds.
+- Phase 7 (Content consistency via subagent Task 24):
+  • Removed "Editorial Counsel" from homepage top bar (replaced with "Corporate & Commercial Law")
+  • Numbering: 001/018 → 01/06; Firm=02/06, Expertise=03/06, Sectors=04/06, People=05/06, Careers=Index 05 (was 06), Contact=Index 06 (was 07)
+  • Removed "Further profiles will be added" from /people page
+  • Shortened Firm page: combined Philosophy+Principles+Approach into one cohesive section, removed repeated descriptions
+  • Expertise page: unique SEO title "Expertise — Practice Areas" + description naming all 6 areas
+  • Rose-gold italic limited to major headings only (hero H1, section H2 with one accent word) — removed from H3, card titles, minor headings
+  • Added 1 supporting image to Firm, Sectors, Careers pages (document-detail.png)
+  • All interior pages: hover:text-rose → hover:text-rose-dark, bg-rose buttons → bg-rose-dark, burgundy sections use on-burgundy tokens
+  • max-w-[1600px] → max-w-[1400px], spacing reduced, .measure added to paragraphs
+- Phase 8 (Site header): Nav label text-sm (was text-[0.85rem]), mono-num 0.7rem (was 0.65rem), active underline bg-rose-dark (was bg-rose), wordmark bg-rose-dark.
+
+Verification (agent-browser + VLM):
+- bun run lint: clean, 0 errors.
+- All 13 routes return HTTP 200.
+- Homepage: H1 "Corporate & Commercial Legal Counsel." at 56px (within 54-96px spec). bg #F7F1E8 (warm ivory). hero-office.png loads. Folio "01 / 06". No "Editorial Counsel". No old delhi-architecture.png. No old portrait-composition.png.
+- Contact section (burgundy): heading "Reach the firm" in #FFFDF9 (porcelain white), body in #F7F1E8 (ivory), labels in #E3C8BE (blush), italic "firm" in #E7B5B0. VLM confirms "highly readable... excellent contrast". Email displays as one complete line — no awkward breaking.
+- Practice area markers: 6 distinguishable colours (dusty rose, burgundy, warm charcoal, terracotta, muted olive, walnut) — all visible against beige.
+- Responsive: 1440px desktop (no overflow), 1024px laptop (no overflow), 768px tablet (no overflow), 390px mobile (no overflow).
+- No page errors, no console errors, no broken images.
+- VLM (desktop): "warm ivory or beige... sophisticated and classic... architectural image with arched windows and columns... excellent contrast".
+
+Stage Summary:
+- Typography scale corrected: hero H1 54-96px, section H2 38-60px, H3 26-38px, body 16-18px, nav 14px+, labels 13px+.
+- Colours: dark rose #9B5964 for small text/buttons, secondary text #6D5F5A, proper burgundy contrast (heading #FFFDF9, body #F7F1E8, labels #E3C8BE, italic #E7B5B0). No espresso/grey on burgundy.
+- Homepage contact section fixed: fully readable, email displays as one line.
+- Hero image: 4:5, max 620px, ~38% width, authentic Delhi office interior.
+- Founder portrait: loads correctly (founder-portrait.png), no blank rectangle.
+- Section padding reduced (desktop 80-110px, tablet 64-80px, mobile 48-64px). Paragraphs 55-70ch.
+- Practice area colours: 6 distinguishable warm professional colours.
+- Numbering: 01/06 system, Careers=05, Contact=06.
+- "Editorial Counsel" removed. "Further profiles will be added" removed.
+- Firm page shortened (combined Philosophy+Principles+Approach).
+- Expertise page has unique SEO title/description.
+- Rose-gold italic limited to major headings only.
+- Supporting visuals added to Firm, Sectors, Careers (1 each).
+- All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
+- VLM-confirmed: "warm, premium, editorial... excellent contrast".

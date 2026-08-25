@@ -141,11 +141,11 @@ export default function PrivacyPage() {
           body: (
             <p>
               For privacy-related questions, please contact {firm.name} at{" "}
-              <a href={contact.emailHref} className="link-underline">
+              <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose-dark">
                 {contact.email}
               </a>{" "}
               or{" "}
-              <a href={contact.phoneHref} className="link-underline">
+              <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose-dark">
                 {contact.phone}
               </a>
               .

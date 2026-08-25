@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
 import { ExpertiseAccordion } from "@/components/site/expertise-accordion";
+
+export const metadata: Metadata = {
+  title: "Expertise — Practice Areas",
+  description:
+    "Six practice areas of corporate and commercial law at Saransh Raj & Associates: corporate advisory, commercial contracts, M&A, dispute resolution, regulatory compliance and insolvency & recovery.",
+  alternates: { canonical: "/expertise" },
+};
 
 /**
  * Expertise index — server component (static). Renders the hero and
@@ -11,11 +19,11 @@ export default function ExpertisePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Index 02 · Expertise</span>
-            <span className="folio text-stone">003 / 018</span>
+            <span className="folio text-stone">03 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -28,9 +36,9 @@ export default function ExpertisePage() {
             <div className="md:col-span-9">
               <h1 className="display-1 text-espresso max-w-[14ch]">
                 A focused{" "}
-                <span className="serif-italic text-rose">index</span> of practice
+                <span className="serif-italic">index</span> of practice
               </h1>
-              <p className="lead mt-8 max-w-2xl text-charcoal">
+              <p className="lead mt-6 md:mt-8 measure text-charcoal">
                 The firm&apos;s practice is organised across six areas of corporate
                 and commercial law. Each area below sets out its scope and the
                 services it covers.
@@ -41,14 +49,14 @@ export default function ExpertisePage() {
       </section>
 
       {/* Interactive practice-area index */}
-      <section className="bg-ivory py-16 md:py-24">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-ivory py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           {/* colour legend */}
-          <div className="flex flex-wrap items-center gap-4 mb-10 pb-6 border-b border-line">
+          <div className="flex flex-wrap items-center gap-4 mb-8 md:mb-10 pb-6 border-b border-line">
             <span className="mono-label text-stone">Legend</span>
             {practiceAreas.map((area) => (
               <span key={area.slug} className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ background: accentHex[area.accent] }} />
+                <span className="h-2.5 w-2.5 rounded-full" style={{ background: accentHex[area.accent] }} aria-hidden="true" />
                 <span className="mono-label text-stone">{area.title}</span>
               </span>
             ))}

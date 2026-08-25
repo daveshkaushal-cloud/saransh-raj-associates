@@ -45,7 +45,7 @@ export function SiteHeader() {
           : "bg-transparent border-transparent"
       }`}
     >
-      <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="flex h-14 md:h-16 items-center justify-between">
           {/* Wordmark */}
           <Link
@@ -54,7 +54,7 @@ export function SiteHeader() {
             aria-label={`${firm.name} — home`}
           >
             <span
-              className="grid place-items-center h-7 w-7 bg-rose text-white"
+              className="grid place-items-center h-7 w-7 bg-rose-dark text-white"
               aria-hidden="true"
             >
               <span className="font-display text-sm leading-none">S</span>
@@ -84,14 +84,14 @@ export function SiteHeader() {
                     active ? "text-espresso" : "text-charcoal hover:text-espresso"
                   }`}
                 >
-                  <span className="mono-num text-[0.65rem] text-stone group-hover:text-rose transition-colors">
+                  <span className="mono-num text-[0.7rem] text-stone group-hover:text-rose-dark transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-[0.85rem] font-medium tracking-tight">
+                  <span className="text-sm font-medium tracking-tight">
                     {item.label}
                   </span>
                   <span
-                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-rose origin-left transition-transform duration-300 ${
+                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-rose-dark origin-left transition-transform duration-300 ${
                       active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />

@@ -24,9 +24,9 @@ export function LegalLayout({
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-ivory pt-10 md:pt-16 pb-12 md:pb-16 overflow-hidden border-b border-line">
-        <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
+      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 overflow-hidden border-b border-line">
+        <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone">Legal · Informational</span>
             <span className="folio text-stone">DOC</span>
           </div>
@@ -41,15 +41,15 @@ export function LegalLayout({
               Last updated: {updated}
             </p>
           )}
-          <div className="mt-8 max-w-2xl lead text-charcoal">
+          <div className="mt-8 measure lead text-charcoal">
             {intro}
           </div>
         </div>
       </section>
 
       {/* Body */}
-      <section className="bg-porcelain py-16 md:py-24">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+      <section className="bg-porcelain py-12 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
             {/* TOC */}
             <aside className="md:col-span-3">
@@ -60,7 +60,7 @@ export function LegalLayout({
                     <li key={s.id}>
                       <a
                         href={`#${s.id}`}
-                        className="link-underline text-sm text-charcoal hover:text-rose inline-flex items-baseline gap-2"
+                        className="link-underline text-sm text-charcoal hover:text-rose-dark inline-flex items-baseline gap-2"
                       >
                         <span className="mono-num text-stone">
                           {String(i + 1).padStart(2, "0")}
@@ -75,16 +75,16 @@ export function LegalLayout({
 
             {/* Sections */}
             <div className="md:col-span-9 md:pl-6">
-              <div className="space-y-12">
+              <div className="space-y-10 md:space-y-12">
                 {sections.map((s, i) => (
                   <article key={s.id} id={s.id} className="scroll-mt-24">
                     <div className="flex items-baseline gap-4 mb-4">
-                      <span className="mono-num text-[0.7rem] text-stone">
+                      <span className="mono-num text-stone">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h2 className="display-3 text-espresso text-2xl md:text-3xl">{s.heading}</h2>
+                      <h2 className="display-3 text-espresso">{s.heading}</h2>
                     </div>
-                    <div className="md:pl-10 space-y-4 text-[0.95rem] leading-relaxed text-charcoal max-w-2xl">
+                    <div className="md:pl-10 space-y-4 body-condensed text-charcoal measure">
                       {s.body}
                     </div>
                   </article>
@@ -92,16 +92,16 @@ export function LegalLayout({
               </div>
 
               {/* Contact note */}
-              <div className="mt-16 pt-8 border-t border-line">
+              <div className="mt-12 md:mt-16 pt-8 border-t border-line">
                 <p className="mono-label text-stone mb-3">Questions</p>
-                <p className="text-sm text-charcoal leading-relaxed max-w-xl">
+                <p className="body-condensed text-charcoal measure">
                   For questions about this document, please contact {firm.name}{" "}
                   at{" "}
-                  <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose break-all">
+                  <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose-dark break-all">
                     {contact.email}
                   </a>{" "}
                   or{" "}
-                  <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose">
+                  <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose-dark">
                     {contact.phone}
                   </a>
                   .

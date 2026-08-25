@@ -41,7 +41,7 @@ export function ExpandableServiceList({
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
                 aria-controls={`service-detail-${i}`}
-                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-porcelain transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-inset"
+                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-porcelain transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-dark focus-visible:ring-inset"
               >
                 {/* number */}
                 <span
@@ -53,7 +53,7 @@ export function ExpandableServiceList({
                 {/* title */}
                 <span className="col-span-7 md:col-span-8 lg:col-span-9">
                   <span
-                    className="font-display text-xl md:text-3xl transition-colors"
+                    className="font-display text-lg md:text-2xl transition-colors"
                     style={{ color: isOpen ? hex : "var(--color-espresso)" }}
                   >
                     {title}

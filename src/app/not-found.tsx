@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 px-6 py-3.5 bg-rose text-white text-sm font-medium hover:bg-burgundy transition-colors duration-300"
+            className="group inline-flex items-center gap-2 px-6 py-3.5 bg-rose-dark text-white text-sm font-medium hover:bg-burgundy transition-colors duration-300"
           >
             <span>Return home</span>
             <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -25,7 +25,7 @@ export default function NotFound() {
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3.5 border border-line-strong text-espresso text-sm font-medium hover:border-rose transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3.5 border border-line-strong text-espresso text-sm font-medium hover:border-rose-dark hover:text-rose-dark transition-colors duration-300"
           >
             Contact
           </Link>
