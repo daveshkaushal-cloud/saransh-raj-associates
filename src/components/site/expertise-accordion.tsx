@@ -43,11 +43,11 @@ export function ExpertiseAccordion() {
                 }}
                 aria-hidden="true"
               />
-              <span className="relative col-span-2 md:col-span-1 mono-num text-sm transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone)" }}>
+              <span className="relative col-span-2 md:col-span-1 mono-num text-sm transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone-dark)" }}>
                 {area.index}
               </span>
               <span className="relative col-span-7 md:col-span-5">
-                <span className="font-display text-xl md:text-3xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-espresso)" }}>
+                <span className="font-display text-xl md:text-3xl transition-colors" style={{ color: isOpen ? onHex : "var(--color-ink)" }}>
                   {area.title}
                 </span>
               </span>
@@ -55,12 +55,12 @@ export function ExpertiseAccordion() {
                 {area.short}
               </span>
               <span className="relative col-span-3 md:col-span-2 flex items-center justify-end gap-3">
-                <span className="mono-label transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone)" }}>
+                <span className="mono-label transition-colors" style={{ color: isOpen ? onHex : "var(--color-stone-dark)" }}>
                   {isOpen ? "Close" : "Expand"}
                 </span>
                 <svg
                   className={`h-5 w-5 transition-all duration-200 ${isOpen ? "rotate-45" : ""}`}
-                  style={{ color: isOpen ? onHex : "var(--color-stone)" }}
+                  style={{ color: isOpen ? onHex : "var(--color-stone-dark)" }}
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"
                 >
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
@@ -80,10 +80,10 @@ export function ExpertiseAccordion() {
                   <div className="mt-6 space-y-px">
                     {area.services.map((s, si) => (
                       <div key={s} className="flex items-baseline gap-4 py-3 border-t border-line">
-                        <span className="mono-num" style={{ color: "var(--color-stone)" }}>
+                        <span className="mono-num" style={{ color: "var(--color-stone-dark)" }}>
                           {String(si + 1).padStart(2, "0")}
                         </span>
-                        <span className="font-display text-lg md:text-xl" style={{ color: "var(--color-espresso)" }}>
+                        <span className="font-display text-lg md:text-xl" style={{ color: "var(--color-ink)" }}>
                           {s}
                         </span>
                       </div>
@@ -93,8 +93,8 @@ export function ExpertiseAccordion() {
                 <div className="col-span-12 md:col-span-3 md:col-start-10 flex md:flex-col gap-3 md:items-end md:justify-end md:text-right pt-2 md:pt-0">
                   <Link
                     href={`/expertise/${area.slug}`}
-                    className="group inline-flex items-center gap-2 mono-label hover:text-rose-dark transition-colors"
-                    style={{ color: "var(--color-stone)" }}
+                    className="group inline-flex items-center gap-2 mono-label hover:text-copper transition-colors"
+                    style={{ color: "var(--color-stone-dark)" }}
                   >
                     <span>Read area</span>
                     <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

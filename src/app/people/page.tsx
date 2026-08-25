@@ -17,19 +17,19 @@ export default function PeoplePage() {
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone">Index 04 · People</span>
-            <span className="folio text-stone">04 / 06</span>
+            <span className="mono-label text-stone-dark">Index 04 · People</span>
+            <span className="folio text-stone-dark">04 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <p className="mono-label text-stone mb-4">The Team</p>
+              <p className="mono-label text-stone-dark mb-4">The Team</p>
               <p className="margin-note">
                 The firm works as an integrated team under the guidance of its founder.
               </p>
             </div>
             <div className="md:col-span-9">
-              <h1 className="display-1 text-espresso max-w-[14ch]">
+              <h1 className="display-1 text-ink max-w-[14ch]">
                 The <span className="serif-italic">people</span> behind the counsel
               </h1>
               <p className="lead mt-6 md:mt-8 measure text-charcoal">
@@ -48,7 +48,7 @@ export default function PeoplePage() {
             <Link
               key={person.slug}
               href={`/people/${person.slug}`}
-              className="group relative block bg-ivory border border-line overflow-hidden hover:border-rose-dark transition-colors duration-300"
+              className="group relative block bg-ivory border border-line overflow-hidden hover:border-copper transition-colors duration-300"
             >
               <div className="grid grid-cols-1 md:grid-cols-12">
                 {/* SR monogram — elegant neutral placeholder on blush */}
@@ -63,11 +63,11 @@ export default function PeoplePage() {
                   />
                   {/* Rose-gold annotation bracket */}
                   <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                    <div className="h-3 w-3 border-l border-t border-rose-dark" aria-hidden="true" />
-                    <span className="mono-label text-rose-dark">SR · {String(i + 1).padStart(2, "0")}</span>
+                    <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
+                    <span className="mono-label text-copper">SR · {String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <div className="absolute bottom-5 right-5 z-10">
-                    <span className="mono-num text-white/80">
+                    <span className="mono-num text-ink/80">
                       {person.initials}/{String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -77,18 +77,18 @@ export default function PeoplePage() {
                 <div className="md:col-span-7 p-8 md:p-12 flex flex-col justify-center">
                   <div className="flex items-center justify-between mb-6">
                     <span className="mono-label">{person.role}</span>
-                    <span className="mono-num text-stone">
+                    <span className="mono-num text-stone-dark">
                       {String(i + 1).padStart(2, "0")} / {String(people.length).padStart(2, "0")}
                     </span>
                   </div>
-                  <h2 className="display-2 text-espresso max-w-[12ch]">{person.name}</h2>
+                  <h2 className="display-2 text-ink max-w-[12ch]">{person.name}</h2>
                   <p className="lead mt-5 text-charcoal measure">{person.summary}</p>
                   <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1.5">
                     {person.focus.slice(0, 4).map((f) => (
                       <span key={f} className="mono-label">{f}</span>
                     ))}
                   </div>
-                  <div className="mt-8 flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-rose-dark transition-colors">
+                  <div className="mt-8 flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-copper transition-colors">
                     <span>View full profile</span>
                     <svg
                       className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"

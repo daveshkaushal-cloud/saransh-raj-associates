@@ -22,19 +22,19 @@ export default function ExpertisePage() {
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone">Index 02 · Expertise</span>
-            <span className="folio text-stone">02 / 06</span>
+            <span className="mono-label text-stone-dark">Index 02 · Expertise</span>
+            <span className="folio text-stone-dark">02 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <p className="mono-label text-stone mb-4">Practice Areas</p>
+              <p className="mono-label text-stone-dark mb-4">Practice Areas</p>
               <p className="margin-note">
                 Six practice areas, each colour-coded. Select an area to expand its scope.
               </p>
             </div>
             <div className="md:col-span-9">
-              <h1 className="display-1 text-espresso max-w-[14ch]">
+              <h1 className="display-1 text-ink max-w-[14ch]">
                 A focused{" "}
                 <span className="serif-italic">index</span> of practice
               </h1>
@@ -53,11 +53,11 @@ export default function ExpertisePage() {
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           {/* colour legend */}
           <div className="flex flex-wrap items-center gap-4 mb-8 md:mb-10 pb-6 border-b border-line">
-            <span className="mono-label text-stone">Legend</span>
+            <span className="mono-label text-stone-dark">Legend</span>
             {practiceAreas.map((area) => (
               <span key={area.slug} className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: accentHex[area.accent] }} aria-hidden="true" />
-                <span className="mono-label text-stone">{area.title}</span>
+                <span className="mono-label text-stone-dark">{area.title}</span>
               </span>
             ))}
           </div>

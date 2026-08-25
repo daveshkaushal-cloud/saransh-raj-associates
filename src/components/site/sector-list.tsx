@@ -51,7 +51,7 @@ export function SectorList() {
                 aria-label={`${sector.name} — ${sector.note}. ${isOpen ? "Collapse" : "Expand"} details.`}
               >
                 {/* index */}
-                <span className="col-span-2 md:col-span-1 mono-num text-sm text-stone transition-colors group-hover:text-charcoal">
+                <span className="col-span-2 md:col-span-1 mono-num text-sm text-stone-dark transition-colors group-hover:text-charcoal">
                   {num}
                 </span>
 
@@ -62,7 +62,7 @@ export function SectorList() {
                     style={{ background: hex }}
                     aria-hidden="true"
                   />
-                  <h3 className="font-display text-lg md:text-xl text-espresso leading-tight">
+                  <h3 className="font-display text-lg md:text-xl text-ink leading-tight">
                     {sector.name}
                   </h3>
                 </div>
@@ -75,7 +75,7 @@ export function SectorList() {
                 {/* chevron affordance — rotates when open */}
                 <span className="hidden md:flex col-span-1 items-center justify-end">
                   <svg
-                    className={`h-4 w-4 text-stone transition-all duration-300 group-hover:text-rose-dark ${
+                    className={`h-4 w-4 text-stone-dark transition-all duration-300 group-hover:text-copper ${
                       isOpen ? "rotate-90" : ""
                     }`}
                     viewBox="0 0 24 24"

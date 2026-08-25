@@ -45,9 +45,9 @@ export default function HomePage() {
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link
                   href="/firm"
-                  className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 bg-rose-dark text-white text-sm font-medium hover:bg-burgundy"
+                  className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 bg-oxblood text-ivory text-sm font-medium hover:bg-ink"
                 >
-                  <span className="mono-num text-white/70 group-hover:text-white">01</span>
+                  <span className="mono-num text-ivory/70 group-hover:text-ivory">01</span>
                   <span>The Firm</span>
                   <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -55,9 +55,9 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/expertise"
-                  className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-espresso text-sm font-medium hover:border-rose-dark hover:text-rose-dark"
+                  className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-ink text-sm font-medium hover:border-copper hover:text-copper"
                 >
-                  <span className="mono-num text-stone group-hover:text-rose-dark">02</span>
+                  <span className="mono-num text-stone-dark group-hover:text-copper">02</span>
                   <span>Expertise</span>
                 </Link>
               </div>
@@ -79,8 +79,8 @@ export default function HomePage() {
                   />
                   {/* Rose-gold annotation overlay */}
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                    <div className="h-3 w-3 border-l border-t border-rose" />
-                    <span className="mono-label text-rose-dark">New Delhi</span>
+                    <div className="h-3 w-3 border-l border-t border-copper" />
+                    <span className="mono-label text-copper">New Delhi</span>
                   </div>
                 </div>
               </div>
@@ -89,10 +89,10 @@ export default function HomePage() {
         </div>
 
         {/* Bottom meta strip */}
-        <div className="relative z-10 border-t border-line bg-ivory/80">
+        <div className="relative z-10 border-t border-line bg-paper">
           <div className="mx-auto max-w-[1400px] px-5 md:px-10 py-3 flex flex-wrap items-center justify-between gap-3">
             <span className="mono-label">{firm.establishedNote}</span>
-            <Link href="/contact" className="mono-label hover:text-rose-dark link-underline">
+            <Link href="/contact" className="mono-label hover:text-copper link-underline">
               {contact.address.line2}
             </Link>
           </div>
@@ -173,11 +173,11 @@ function PracticeIndex() {
                   style={{ background: hex, opacity: 0.05 }}
                   aria-hidden="true"
                 />
-                <span className="relative col-span-2 md:col-span-1 mono-num text-stone group-hover:text-espresso">
+                <span className="relative col-span-2 md:col-span-1 mono-num text-stone-dark group-hover:text-ink">
                   {area.index}
                 </span>
                 <span className="relative col-span-7 md:col-span-5">
-                  <span className="font-display text-xl md:text-3xl text-espresso">
+                  <span className="font-display text-xl md:text-3xl text-ink">
                     {area.title}
                   </span>
                 </span>
@@ -186,7 +186,7 @@ function PracticeIndex() {
                 </span>
                 <span className="relative col-span-3 md:col-span-2 flex items-center justify-end gap-3">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} />
-                  <svg className="h-5 w-5 text-stone group-hover:text-rose-dark group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <svg className="h-5 w-5 text-stone-dark group-hover:text-copper group-hover:translate-x-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
@@ -214,7 +214,7 @@ function SelectedSectors() {
               Sector knowledge across India&apos;s dynamic industries
             </h2>
           </div>
-          <Link href="/sectors" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-rose-dark">
+          <Link href="/sectors" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-copper">
             <span>All sectors</span>
             <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -229,18 +229,18 @@ function SelectedSectors() {
               <a
                 key={sector.slug}
                 href={`/sectors#${sector.slug}`}
-                className="group relative block shrink-0 snap-start bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-rose-dark w-[75vw] sm:w-[40vw] md:w-[22rem] lg:w-[20rem]"
+                className="group relative block shrink-0 snap-start bg-porcelain border border-line overflow-hidden transition-colors duration-300 hover:border-copper w-[75vw] sm:w-[40vw] md:w-[22rem] lg:w-[20rem]"
               >
                 <div className="relative h-[11rem] md:h-[12rem] p-5 md:p-6 flex flex-col">
                   <span className="absolute left-0 top-0 bottom-0 w-1 transition-all duration-500 group-hover:w-1.5" style={{ background: hex }} aria-hidden="true" />
                   <div className="flex items-start justify-between">
-                    <span className="mono-num text-stone">
+                    <span className="mono-num text-stone-dark">
                       {String(i + 1).padStart(2, "0")} / 06
                     </span>
                     <span className="h-2 w-2 rounded-full" style={{ background: hex }} aria-hidden="true" />
                   </div>
                   <div className="mt-auto">
-                    <h3 className="font-display text-lg md:text-xl text-espresso leading-tight">
+                    <h3 className="font-display text-lg md:text-xl text-ink leading-tight">
                       {sector.name}
                     </h3>
                     <p className="mt-1.5 text-sm leading-relaxed text-charcoal line-clamp-2">
@@ -287,15 +287,15 @@ function PrinciplesBlock() {
               className="relative bg-ivory border border-line p-5 md:p-6 flex flex-col justify-between min-h-[10rem]"
             >
               <div className="flex items-start justify-between">
-                <span className="mono-num text-rose-dark">
+                <span className="mono-num text-copper">
                   {String(i + 1).padStart(2, "0")} / 04
                 </span>
-                <span className="font-display text-3xl text-blush leading-none">
+                <span className="font-display text-3xl text-stone leading-none">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
               <div>
-                <h3 className="font-display text-xl md:text-2xl text-espresso">{p.title}</h3>
+                <h3 className="font-display text-xl md:text-2xl text-ink">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-charcoal measure">
                   {p.body}
                 </p>
@@ -322,7 +322,7 @@ function FounderPreview() {
               The founder
             </h2>
           </div>
-          <Link href="/people" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-rose-dark">
+          <Link href="/people" className="btn-magnetic group inline-flex items-center gap-2 mono-label hover:text-copper">
             <span>All people</span>
             <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -342,19 +342,19 @@ function FounderPreview() {
                 className="object-cover"
               />
               <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                <div className="h-3 w-3 border-l border-t border-rose-dark" />
-                <span className="mono-label text-rose-dark">SR</span>
+                <div className="h-3 w-3 border-l border-t border-copper" />
+                <span className="mono-label text-copper">SR</span>
               </div>
             </div>
             {/* Details */}
             <div className="md:col-span-7 p-6 md:p-10 flex flex-col justify-center">
               <span className="mono-label">Founder &amp; Principal Advocate</span>
-              <h3 className="display-3 mt-3 text-espresso">Saransh Raj</h3>
+              <h3 className="display-3 mt-3 text-ink">Saransh Raj</h3>
               <p className="lead mt-4 measure">
                 Advocate Saransh Raj is the founder and principal advocate of the
                 firm, advising on corporate and commercial law.
               </p>
-              <div className="mt-6 flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-rose-dark transition-colors">
+              <div className="mt-6 flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-copper transition-colors">
                 <span>View profile</span>
                 <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -373,7 +373,7 @@ function FounderPreview() {
    --------------------------------------------------------------- */
 function ContactPreview() {
   return (
-    <section className="bg-burgundy py-12 md:py-20 lg:py-24 relative overflow-hidden">
+    <section className="bg-oxblood py-12 md:py-20 lg:py-24 relative overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
           <div className="md:col-span-6">
@@ -435,7 +435,7 @@ function ContactPreview() {
               </div>
               <Link
                 href="/contact"
-                className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 bg-ivory text-espresso text-sm font-medium hover:bg-rose hover:text-white transition-colors duration-200"
+                className="btn-magnetic group inline-flex items-center gap-2 px-5 py-3 bg-ivory text-ink text-sm font-medium hover:bg-copper hover:text-ivory transition-colors duration-200"
               >
                 <span>Visit contact page</span>
                 <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">

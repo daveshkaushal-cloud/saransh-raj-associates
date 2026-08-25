@@ -31,8 +31,8 @@ export function PageHero({
       {/* top folio bar */}
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-          <span className="mono-label text-stone">{chapter}</span>
-          <span className="folio text-stone">{folio}</span>
+          <span className="mono-label text-stone-dark">{chapter}</span>
+          <span className="folio text-stone-dark">{folio}</span>
         </div>
       </div>
 
@@ -43,11 +43,11 @@ export function PageHero({
               {accentHex && (
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: accentHex }} aria-hidden="true" />
               )}
-              <span className="mono-label text-stone">{eyebrow}</span>
+              <span className="mono-label text-stone-dark">{eyebrow}</span>
             </div>
           </div>
           <div className="md:col-span-9">
-            <h1 className="display-1 text-espresso">{title}</h1>
+            <h1 className="display-1 text-ink">{title}</h1>
             {intro && (
               <p className="lead mt-6 md:mt-8 measure text-charcoal">{intro}</p>
             )}
@@ -93,9 +93,9 @@ export function SectionHeader({
         {accentHex && (
           <span className="h-2 w-2 rounded-full" style={{ background: accentHex }} aria-hidden="true" />
         )}
-        <span className="mono-label text-stone">{eyebrow}</span>
+        <span className="mono-label text-stone-dark">{eyebrow}</span>
       </div>
-      <h2 className="display-2 text-espresso max-w-[20ch]">{title}</h2>
+      <h2 className="display-2 text-ink max-w-[20ch]">{title}</h2>
       {note && (
         <p className="margin-note mt-4 max-w-xs">{note}</p>
       )}
@@ -123,8 +123,8 @@ export function ChapterLink({
   index?: string;
 }) {
   return (
-    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-espresso hover:text-rose-dark transition-colors">
-      {index && <span className="mono-num text-stone group-hover:text-rose-dark transition-colors">{index}</span>}
+    <Link href={href} className="group inline-flex items-center gap-3 text-sm font-medium text-ink hover:text-copper transition-colors">
+      {index && <span className="mono-num text-stone-dark group-hover:text-copper transition-colors">{index}</span>}
       <span className="link-underline">{label}</span>
       <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

@@ -46,7 +46,7 @@ export default async function PersonPage({
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <Link
               href="/people"
-              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
+              className="group inline-flex items-center gap-2 mono-label text-stone-dark hover:text-copper transition-colors"
             >
               <svg
                 className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1"
@@ -64,7 +64,7 @@ export default async function PersonPage({
               </svg>
               <span>Back to People</span>
             </Link>
-            <span className="folio text-stone">04 / 06</span>
+            <span className="folio text-stone-dark">04 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -81,11 +81,11 @@ export default async function PersonPage({
                 />
                 {/* Rose-gold annotation bracket */}
                 <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-rose-dark" aria-hidden="true" />
-                  <span className="mono-label text-rose-dark">SR</span>
+                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
+                  <span className="mono-label text-copper">SR</span>
                 </div>
                 <div className="absolute bottom-5 right-5 z-10">
-                  <span className="mono-num text-white/80">
+                  <span className="mono-num text-ink/80">
                     {person.initials}/01
                   </span>
                 </div>
@@ -98,7 +98,7 @@ export default async function PersonPage({
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: hex }} aria-hidden="true" />
                 <span className="mono-label" style={{ color: hex }}>{person.role}</span>
               </div>
-              <h1 className="display-1 text-espresso max-w-[12ch]">{person.name}</h1>
+              <h1 className="display-1 text-ink max-w-[12ch]">{person.name}</h1>
               <p className="lead mt-6 md:mt-8 text-charcoal measure">{person.summary}</p>
 
               {/* Quick-facts strip */}
@@ -131,7 +131,7 @@ export default async function PersonPage({
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
-              <p className="mono-label text-stone mb-4">§ Biography</p>
+              <p className="mono-label text-stone-dark mb-4">§ Biography</p>
             </div>
             <div className="md:col-span-8 md:col-start-5">
               <div className="space-y-6 measure">
@@ -160,11 +160,11 @@ export default async function PersonPage({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {/* Scope of Practice */}
             <div>
-              <p className="mono-label text-stone mb-5">Scope of Practice</p>
+              <p className="mono-label text-stone-dark mb-5">Scope of Practice</p>
               <ul className="space-y-3">
                 {person.focus.map((f, i) => (
-                  <li key={f} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-rose-dark w-6">
+                  <li key={f} className="flex items-baseline gap-3 text-ink">
+                    <span className="mono-num text-copper w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-sm">{f}</span>
@@ -174,11 +174,11 @@ export default async function PersonPage({
             </div>
             {/* Qualifications */}
             <div>
-              <p className="mono-label text-stone mb-5">Qualifications</p>
+              <p className="mono-label text-stone-dark mb-5">Qualifications</p>
               <ul className="space-y-3">
                 {person.qualifications.map((q, i) => (
-                  <li key={q} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-rose-dark w-6">
+                  <li key={q} className="flex items-baseline gap-3 text-ink">
+                    <span className="mono-num text-copper w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-sm">{q}</span>
@@ -188,11 +188,11 @@ export default async function PersonPage({
             </div>
             {/* Bar memberships */}
             <div>
-              <p className="mono-label text-stone mb-5">Bar memberships</p>
+              <p className="mono-label text-stone-dark mb-5">Bar memberships</p>
               <ul className="space-y-3">
                 {person.bar.map((b, i) => (
-                  <li key={b} className="flex items-baseline gap-3 text-espresso">
-                    <span className="mono-num text-rose-dark w-6">
+                  <li key={b} className="flex items-baseline gap-3 text-ink">
+                    <span className="mono-num text-copper w-6">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-sm">{b}</span>
@@ -205,7 +205,7 @@ export default async function PersonPage({
       </section>
 
       {/* ============== CONTACT STRIP — burgundy, on-burgundy text tokens ============== */}
-      <section className="bg-burgundy py-12 md:py-20 lg:py-24">
+      <section className="bg-oxblood py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <h2

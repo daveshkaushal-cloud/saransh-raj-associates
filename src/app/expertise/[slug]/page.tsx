@@ -101,8 +101,8 @@ export default async function PracticeAreaPage({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8 md:mb-10">
             <div className="md:col-span-4">
               <div>
-                <p className="mono-label text-stone mb-3">§ Services</p>
-                <h2 className="display-2">What this covers</h2>
+                <p className="mono-label text-stone-dark mb-3">§ Services</p>
+                <h2 className="display-2 text-ink">What this covers</h2>
               </div>
             </div>
             <div className="md:col-span-6 md:col-start-7 md:pl-6 flex items-end">
@@ -131,8 +131,8 @@ export default async function PracticeAreaPage({
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5">
               <div>
-                <p className="mono-label text-stone mb-3">§ Approach</p>
-                <h2 className="display-2 max-w-[14ch]">
+                <p className="mono-label text-stone-dark mb-3">§ Approach</p>
+                <h2 className="display-2 text-ink max-w-[14ch]">
                   Methodical, attentive,{" "}
                   <span style={{ color: hex }}>considered</span>
                 </h2>
@@ -150,7 +150,7 @@ export default async function PracticeAreaPage({
                 <p className="mt-6 body-condensed text-charcoal">
                   For an overview of the firm&apos;s approach across all practice
                   areas, see{" "}
-                  <Link href="/firm" className="link-underline text-espresso hover:text-rose-dark">The Firm</Link>.
+                  <Link href="/firm" className="link-underline text-ink hover:text-copper">The Firm</Link>.
                 </p>
               </div>
             </div>
@@ -159,19 +159,19 @@ export default async function PracticeAreaPage({
       </section>
 
       {/* ============== CONTACT STRIP ============== */}
-      <section className="bg-beige text-espresso py-12 md:py-20 lg:py-24">
+      <section className="bg-paper text-ink py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h2 className="display-2 text-espresso max-w-[18ch]">
+            <h2 className="display-2 text-ink max-w-[18ch]">
               Questions about{" "}
               <span style={{ color: hex }}>{area.title.toLowerCase()}</span>?
             </h2>
           </div>
           <div>
             <div className="text-charcoal space-y-1">
-              <p><a href={contact.emailHref} className="link-underline break-all hover:text-rose-dark">{contact.email}</a></p>
-              <p><a href={contact.phoneHref} className="link-underline hover:text-rose-dark">{contact.phone}</a></p>
-              <p className="mono-label text-stone">{contact.hours}</p>
+              <p><a href={contact.emailHref} className="link-underline break-all hover:text-copper">{contact.email}</a></p>
+              <p><a href={contact.phoneHref} className="link-underline hover:text-copper">{contact.phone}</a></p>
+              <p className="mono-label text-stone-dark">{contact.hours}</p>
             </div>
           </div>
         </div>
@@ -184,8 +184,8 @@ export default async function PracticeAreaPage({
             href={`/expertise/${prev.slug}`}
             className="group border-r border-line py-8 md:py-10 pr-4 flex flex-col"
           >
-            <span className="mono-label text-stone mb-2">← Previous practice area</span>
-            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-espresso">
+            <span className="mono-label text-stone-dark mb-2">← Previous practice area</span>
+            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-ink">
               <span className="mono-num text-sm" style={{ color: accentHex[prev.accent] }}>{prev.index}</span>
               {prev.title}
             </span>
@@ -194,8 +194,8 @@ export default async function PracticeAreaPage({
             href={`/expertise/${next.slug}`}
             className="group py-8 md:py-10 pl-4 flex flex-col items-end text-right"
           >
-            <span className="mono-label text-stone mb-2">Next practice area →</span>
-            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-espresso">
+            <span className="mono-label text-stone-dark mb-2">Next practice area →</span>
+            <span className="font-display text-xl md:text-2xl flex items-center gap-3 text-ink">
               {next.title}
               <span className="mono-num text-sm" style={{ color: accentHex[next.accent] }}>{next.index}</span>
             </span>

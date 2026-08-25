@@ -80,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#F7F1E8",
+  themeColor: "#F1ECE3",
   width: "device-width",
   initialScale: 1,
 };
@@ -91,7 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${cormorant.variable} ${manrope.variable} ${plexMono.variable} antialiased bg-ivory text-charcoal font-sans selection:bg-rose selection:text-white`}
+        className={`${cormorant.variable} ${manrope.variable} ${plexMono.variable} antialiased bg-paper text-ink font-sans selection:bg-oxblood selection:text-ivory`}
       >
         <SiteShell>{children}</SiteShell>
         <Toaster />

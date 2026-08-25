@@ -27,17 +27,17 @@ export function LegalLayout({
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 overflow-hidden border-b border-line">
         <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone">Legal · Informational</span>
-            <span className="folio text-stone">DOC</span>
+            <span className="mono-label text-stone-dark">Legal · Informational</span>
+            <span className="folio text-stone-dark">DOC</span>
           </div>
-          <p className="mono-label text-stone mb-6">Legal document</p>
-          <h1 className="display-1 text-espresso max-w-[16ch]">
+          <p className="mono-label text-stone-dark mb-6">Legal document</p>
+          <h1 className="display-1 text-ink max-w-[16ch]">
             <span className="block">{title}</span>
           </h1>
           {/* "Last updated" row — hidden entirely until an approved
               legal-review date is provided. Do not invent a date. */}
           {updated && (
-            <p className="mt-6 mono-label text-stone">
+            <p className="mt-6 mono-label text-stone-dark">
               Last updated: {updated}
             </p>
           )}
@@ -54,15 +54,15 @@ export function LegalLayout({
             {/* TOC */}
             <aside className="md:col-span-3">
               <div className="sticky top-24">
-                <p className="mono-label text-stone mb-4">Contents</p>
+                <p className="mono-label text-stone-dark mb-4">Contents</p>
                 <ol className="space-y-2">
                   {sections.map((s, i) => (
                     <li key={s.id}>
                       <a
                         href={`#${s.id}`}
-                        className="link-underline text-sm text-charcoal hover:text-rose-dark inline-flex items-baseline gap-2"
+                        className="link-underline text-sm text-charcoal hover:text-copper inline-flex items-baseline gap-2"
                       >
-                        <span className="mono-num text-stone">
+                        <span className="mono-num text-stone-dark">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         {s.heading}
@@ -79,10 +79,10 @@ export function LegalLayout({
                 {sections.map((s, i) => (
                   <article key={s.id} id={s.id} className="scroll-mt-24">
                     <div className="flex items-baseline gap-4 mb-4">
-                      <span className="mono-num text-stone">
+                      <span className="mono-num text-stone-dark">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h2 className="display-3 text-espresso">{s.heading}</h2>
+                      <h2 className="display-3 text-ink">{s.heading}</h2>
                     </div>
                     <div className="md:pl-10 space-y-4 body-condensed text-charcoal measure">
                       {s.body}
@@ -93,15 +93,15 @@ export function LegalLayout({
 
               {/* Contact note */}
               <div className="mt-12 md:mt-16 pt-8 border-t border-line">
-                <p className="mono-label text-stone mb-3">Questions</p>
+                <p className="mono-label text-stone-dark mb-3">Questions</p>
                 <p className="body-condensed text-charcoal measure">
                   For questions about this document, please contact {firm.name}{" "}
                   at{" "}
-                  <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose-dark break-all">
+                  <a href={contact.emailHref} className="link-underline text-ink hover:text-copper break-all">
                     {contact.email}
                   </a>{" "}
                   or{" "}
-                  <a href={contact.phoneHref} className="link-underline text-espresso hover:text-rose-dark">
+                  <a href={contact.phoneHref} className="link-underline text-ink hover:text-copper">
                     {contact.phone}
                   </a>
                   .

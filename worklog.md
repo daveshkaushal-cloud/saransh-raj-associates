@@ -1820,3 +1820,130 @@ Stage Summary:
 - Small text: #6D5F5A or darker, no pale taupe on blush/beige.
 - All completed improvements preserved (burgundy contact, email layout, Firm structure, Expertise SEO, warm palette).
 - All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
+
+---
+Task ID: 28
+Agent: subagent (refined palette + remove AI appearance)
+Task: Update all pages with refined editorial palette, remove gradients/glassmorphism/repetitive italic
+
+Work Log:
+- Read worklog.md (Tasks 1–27) to confirm the warm-palette context, the "01/06" numbering scheme, the existing SR-monogram placeholder image, and the inline `var(--color-on-burgundy-X)` pattern already in use on the homepage contact section, firm contact strip and people/[slug] contact strip.
+- Read globals.css to confirm the refined editorial palette tokens (paper #F1ECE3, ivory #FAF7F1, ink #25211F, oxblood #51252B, clay #A66F65, copper #9A684F, stone #B9AD9E, stone-dark #8A7E6E), the legacy alias mappings (rose → clay, rose-dark → copper, burgundy → oxblood, espresso → ink, beige → paper, porcelain → ivory, blush → warm-stone-tint #E8E2D5), and the on-burgundy inline style tokens already defined.
+- Audited all 25 in-scope .tsx files (page-hero, homepage page.tsx, firm, expertise, expertise/[slug], expertise-accordion, expandable-service-list, sectors, sector-list, sector-grid, people, people/[slug], people-preview, insights, insights-preview, careers, contact, contact-form, legal-layout, disclaimer, terms, privacy, not-found, site-footer, disclaimer-gate-client) for the 12 colour/texture issues in scope: text-stone (small text), backdrop-blur, gradients, bg-blush cards, bg-rose/bg-rose-dark buttons, hover:text-rose/hover:text-rose-dark, border-rose/border-rose-dark, bg-burgundy section contrast tokens, repetitive .serif-italic on section headings, decorative grain overlays, footer oxblood + copper strip + clay legal-link hovers, and disclaimer-gate oxblood button + copper checkbox accent.
+
+- Per-file colour edits (renamed legacy tokens to refined palette, kept content unchanged):
+  • `page-hero.tsx` — `text-stone` → `text-stone-dark` (chapter, folio, eyebrow, mono-num index); `text-espresso` → `text-ink` (h1/h2); `hover:text-rose-dark` → `hover:text-copper`; `group-hover:text-rose-dark` → `group-hover:text-copper`.
+  • `app/page.tsx` (homepage) — `bg-ivory/80` → `bg-paper` (solid bottom meta strip, no backdrop-blur); `bg-rose-dark text-white hover:bg-burgundy` → `bg-oxblood text-ivory hover:bg-ink` (primary CTA); `hover:border-rose-dark hover:text-rose-dark` → `hover:border-copper hover:text-copper` (secondary CTA); `border-rose` annotation bracket → `border-copper`; `text-rose-dark` annotations → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`; `hover:border-rose-dark` → `hover:border-copper`; `text-stone` (small) → `text-stone-dark`; `text-espresso` → `text-ink`; `bg-burgundy` → `bg-oxblood` (ContactPreview); `bg-rose hover:text-white` CTA on contact card → `bg-copper hover:text-ivory`; `mono-num text-rose-dark` principles counter → `text-copper`; `font-display text-3xl text-blush` large decorative number → `text-stone` (kept as decorative per spec).
+  • `firm/page.tsx` — `text-stone` → `text-stone-dark`; `bg-rose` manifesto dot → `bg-clay`; `text-rose-dark` practice label → `text-copper`; `bg-burgundy` contact strip → `bg-oxblood`; `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `text-espresso` → `text-ink` on all H2/H3. PhilosophyAndApproach `fields[]` colour-blocked principle cards re-tinted to refined palette: clay #A66F65, oxblood #51252B, stone-tint #E8E2D5 (dark text), ink #25211F (with ivory text).
+  • `expertise/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on hero H1.
+  • `expertise/[slug]/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on H2/H2/contact strip/prev-next nav; `hover:text-rose-dark` → `hover:text-copper` (Firm link, email, phone); `bg-beige text-espresso` contact strip → `bg-paper text-ink`.
+  • `expertise-accordion.tsx` — `var(--color-stone)` → `var(--color-stone-dark)` for closed-row mono-num, mono-label, and chevron svg; `var(--color-espresso)` → `var(--color-ink)` for closed-row area title; `hover:text-rose-dark` → `hover:text-copper`; `var(--color-stone)` → `var(--color-stone-dark)` for expanded-panel service index numbers.
+  • `expandable-service-list.tsx` — `focus-visible:ring-rose-dark` → `focus-visible:ring-copper`; `var(--color-stone)` → `var(--color-stone-dark)` for closed-row mono-num, mono-label, chevron; `var(--color-espresso)` → `var(--color-ink)` for closed-row service title; `var(--color-stone)` → `var(--color-stone-dark)` for expanded-panel service-detail label.
+  • `sectors/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on H1/H2/H3; `group-hover:text-espresso` legend hover → `group-hover:text-ink`; `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`.
+  • `sector-list.tsx` — `text-stone` (mono-num index) → `text-stone-dark`; `text-espresso` H3 → `text-ink`; `group-hover:text-rose-dark` chevron → `group-hover:text-copper`.
+  • `sector-grid.tsx` — `text-stone` (mono-label, mono-num, arrow button) → `text-stone-dark`; `bg-blush` end-card CTA → `bg-stone` (kept warm stone tint for visual variation); `text-espresso` → `text-ink` (end-card text + tile names); `group-hover:text-rose-dark` end-card → `group-hover:text-copper`; `bg-rose-dark` progress bar → `bg-copper`; `hover:border-rose-dark focus-visible:border-rose-dark` card hover → `hover:border-copper focus-visible:border-copper`; `group-hover:text-rose-dark` card CTA → `group-hover:text-copper`; `hover:text-espresso hover:bg-ivory` arrow → `hover:text-ink hover:bg-ivory`.
+  • `people/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` H1/H2 → `text-ink`; `hover:border-rose-dark` → `hover:border-copper`; `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR · NN" label → `text-copper`; `text-white/80` initials badge → `text-ink/80`; `group-hover:text-rose-dark` CTA → `group-hover:text-copper`.
+  • `people/[slug]/page.tsx` — `text-stone` → `text-stone-dark`; `hover:text-rose-dark` → `hover:text-copper` (Back-to-People link, email, phone); `text-espresso` → `text-ink` (H1/H1 links/list items); `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR" label → `text-copper`; `text-white/80` initials → `text-ink/80`; `text-rose-dark` mono-num counters (Scope/Qualifications/Bar) → `text-copper`; `bg-burgundy` contact strip → `bg-oxblood`.
+  • `people-preview.tsx` — `hover:border-rose-dark` → `hover:border-copper`; `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR" label → `text-copper`; `text-white/80` initials → `text-ink/80`; `text-stone` (mono-num counter) → `text-stone-dark`; `text-espresso` H3 → `text-ink`; `group-hover:text-rose-dark` CTA → `group-hover:text-copper`.
+  • `insights/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1/H1 display-3 status notice); `bg-rose` status dot → `bg-clay`; `text-rose-dark` "Status" label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`.
+  • `insights-preview.tsx` — `text-rose-dark` "Status" label → `text-copper`; `text-espresso` H3 → `text-ink`; `text-stone` (mono-label link) → `text-stone-dark`; `hover:text-rose-dark` → `hover:text-copper`.
+  • `careers/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1); `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper` (email); `bg-rose-dark text-white hover:bg-burgundy` visit-contact button → `bg-oxblood text-ivory hover:bg-ink`.
+  • `contact/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1, address, phone, email, hours); `border-rose-dark` (form + details top rules) → `border-copper`; `hover:text-rose-dark` → `hover:text-copper` (phone, email).
+  • `contact-form.tsx` — `mono-label text-stone` → `text-stone-dark` (all field labels); `text-espresso` input/textarea/select text → `text-ink`; `focus:border-rose-dark` → `focus:border-copper`; `border-rose-dark` (error state) → `border-copper`; `text-rose-dark` required asterisks + error messages → `text-copper`; `hover:text-rose-dark` disclaimer link → `hover:text-copper`; `bg-rose-dark text-white hover:bg-burgundy` submit button → `bg-oxblood text-ivory hover:bg-ink`. Form POST logic, honeypot, validation, submittingRef guard, toast, router.refresh — all preserved untouched.
+  • `legal-layout.tsx` — `text-stone` → `text-stone-dark` (all mono-label, mono-num, folio); `text-espresso` → `text-ink` (H1, H2, contact email/phone); `hover:text-rose-dark` → `hover:text-copper` (TOC links, contact email/phone).
+  • `disclaimer/page.tsx` — content unchanged (uses LegalLayout which was updated).
+  • `terms/page.tsx` — content unchanged (uses LegalLayout which was updated).
+  • `privacy/page.tsx` — content unchanged (uses LegalLayout which was updated); the inline contact email/phone links within the "Contact" section updated: `text-espresso hover:text-rose-dark` → `text-ink hover:text-copper`.
+  • `not-found.tsx` — `bg-ivory text-espresso` → `bg-ivory text-ink`; `text-stone` → `text-stone-dark`; `serif-italic text-rose` on "found" → bare `serif-italic` (the class itself now defaults to #A66F65 clay, no need for text-rose override); `bg-rose-dark text-white hover:bg-burgundy` Return-home button → `bg-oxblood text-ivory hover:bg-ink`; `hover:border-rose-dark hover:text-rose-dark` Contact button → `hover:border-copper hover:text-copper`; decorative colour bar `bg-rose / bg-burgundy / bg-blush / bg-beige` swatches → `bg-clay / bg-oxblood / bg-stone / bg-paper` (refined-palette swatch bar).
+  • `site-footer.tsx` — `bg-beige text-espresso` footer container → `bg-oxblood text-ivory` (deep oxblood); `bg-rose` accent strip → `bg-copper` (aged copper); `bg-rose text-white` "S" monogram → `bg-copper text-ivory`; `text-espresso/90 group-hover:text-rose` practice-area titles → `text-ivory/90 group-hover:text-clay`; `hover:text-rose` (nav, office, legal links) → `hover:text-clay`; `text-charcoal` body text → `text-ivory/80`; `text-stone` mono-labels kept on dark bg (provides appropriate muted-contrast on oxblood); `group-hover:text-rose` (mono-num counters) → `group-hover:text-clay`. Practice-area swatch squares still use accentHex from `@/lib/accents` — preserved.
+  • `disclaimer-gate-client.tsx` — `bg-ivory text-espresso` overlay → `bg-paper text-ink`; `bg-rose` top accent rule → `bg-copper`; `text-rose` "Please read carefully" label → `text-copper`; `text-espresso` H1 + "Saransh Raj & Associates" inline highlight → `text-ink`; `text-stone` (Cover Sheet · 01, BCI paragraph, bottom note) → `text-stone-dark`; `text-espresso` Terms/Privacy links → `text-ink`; `accent-rose` checkbox → `accent-copper`; `border-rose bg-rose` (checked state) → `border-copper bg-copper`; `group-hover:border-rose` (unchecked hover) → `group-hover:border-copper`; `bg-rose text-white enabled:hover:bg-burgundy` Acknowledge-and-Proceed button → `bg-oxblood text-ivory enabled:hover:bg-ink`; `hover:border-rose hover:text-rose` Read-full-disclaimer link → `hover:border-copper hover:text-copper`. The white checkmark svg kept `text-white` (correct on copper fill). Form submission logic, storage key, cookie/localStorage writes, legal-page bypass — all preserved untouched.
+
+- Constraints honoured: did NOT touch `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/site-shell.tsx`, `src/components/site/site-header.tsx`, `src/components/site/hero-visual.tsx`, `src/components/site/scroll-progress.tsx`, `src/app/api/*`. The site-header.tsx (already updated to use refined tokens by a prior task) was left untouched. Content, text, structure, contact-form POST logic, honeypot field, validate() function, submittingRef guard, toast notifications, router.refresh, form.reset — all preserved.
+
+- Verification:
+  • `bun run lint` → 0 errors, 0 warnings (eslint . returned no output; exit code 0).
+  • `bun run build` → ✓ Compiled successfully in 9.2s. All 24 routes generated. Static pages: 24/24 in 186ms.
+  • Live HTTP verification (dev server on :3000): all 13 routes (/, /firm, /expertise, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy, /non-existent-page) return correct status codes (200 for valid, 404 for non-existent).
+  • Rendered-HTML grep verification:
+    – Homepage: 38 `text-ink`, 24 `text-stone-dark`, 20 `hover:text-copper`, 14 `border-copper`, 10 `bg-oxblood`, 10 `bg-ivory`, 7 `text-copper`, 5 `bg-paper`, 3 `bg-copper`, 2 `bg-clay`, 1 `bg-stone` — all refined-palette tokens present. Zero legacy tokens (`bg-rose-dark`, `bg-burgundy`, `hover:bg-burgundy`, `text-rose-dark`, `hover:text-rose-dark`, `accent-rose`, `text-stone"`).
+    – Firm page: 35 `text-ink`, 24 `text-stone-dark`, 9 `hover:text-copper`, 8 `bg-oxblood`, 5 `border-copper`, 4 `bg-paper`, 3 `text-copper`, 3 `bg-ivory`, 3 `bg-clay`, 2 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+    – Contact page: 17 `text-ink`, 13 `text-stone-dark`, 7 `bg-oxblood`, 6 `border-copper`, 5 `hover:text-copper`, 4 `bg-paper`, 2 `bg-ivory`, 2 `bg-clay`, 1 `text-copper`, 1 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+    – People page: 14 `text-ink`, 8 `text-stone-dark`, 7 `border-copper`, 7 `bg-oxblood`, 4 `hover:text-copper`, 4 `bg-paper`, 4 `bg-ivory`, 2 `text-copper`, 2 `bg-clay`, 1 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+    – Homepage `serif-italic` count: 1 (hero H1 "Legal Counsel.") + 1 `serif-italic-on-burgundy` (contact section "firm") + 1 bundled-`serif-italic` from not-found "found" in the JS payload — matches spec exactly (hero + inner-page hero H1 accent + burgundy contact "firm").
+    – Firm page `serif-italic` count: 1 (hero H1 "principle") + 1 `serif-italic-on-burgundy` (contact strip "firm") + 1 bundled not-found "found" — matches spec.
+    – Contact page `serif-italic` count: 1 (hero H1 "firm") + 1 bundled not-found "found" — matches spec.
+    – People page `serif-italic` count: 1 (hero H1 "people") + 1 bundled not-found "found" — matches spec.
+    – No `backdrop-blur` or `linear-gradient` or `bg-gradient` or `radial-gradient` or `bg-ivory/80` or `bg-ivory/95` instances in any in-scope .tsx file (only globals.css has the `rule-grid` and `ledger-lines` SVG-style background-image gradients, which are out of scope).
+    – `grain` class present only on homepage hero section (page.tsx line 13) — removed from all other sections (none existed anyway, so verified clean).
+    – `bg-blush` retained only on SR monogram containers (homepage FounderPreview, people/page, people/[slug], people-preview) per spec; `bg-blush` as a card background replaced with `bg-ivory` or `bg-stone` everywhere else.
+    – `bg-burgundy` section background replaced with `bg-oxblood` on all three dark sections (homepage ContactPreview, firm contact strip, people/[slug] contact strip) — all keep their inline `style={{ color: "var(--color-on-burgundy-X)" }}` tokens for proper on-oxblood contrast (heading #FAF7F1, body #E8E2D5, label #B9AD9E, italic #A66F65).
+    – Footer is now `bg-oxblood text-ivory` with `bg-copper` accent strip, `bg-copper text-ivory` "S" monogram, `group-hover:text-clay` practice-area titles + legal links (per spec).
+
+Stage Summary:
+- 25 in-scope .tsx files updated to use refined editorial palette tokens (paper / ivory / ink / oxblood / clay / copper / stone / stone-dark). Legacy alias classes (bg-rose, bg-rose-dark, bg-burgundy, text-espresso, text-rose-dark, border-rose-dark, hover:text-rose-dark, hover:bg-burgundy, accent-rose, bg-blush cards) all replaced with refined tokens (bg-oxblood / bg-copper / bg-clay / text-ink / text-copper / border-copper / hover:text-copper / hover:bg-ink / accent-copper / bg-ivory cards).
+- Glassmorphism removed: `bg-ivory/80` bottom meta strip on homepage hero → solid `bg-paper`. No `backdrop-blur` instances remain in any in-scope .tsx file.
+- Gradients removed: no `linear-gradient`, `bg-gradient`, or `radial-gradient` instances in any in-scope .tsx file. The `.anno-underline` (solid 2px copper) and `.anno-highlight` (solid warm-stone tint) CSS classes were already fixed in globals.css.
+- Repetitive rose-gold italic reduced: `.serif-italic` (now muted rose clay #A66F65) is now ONLY on (a) homepage hero H1 "Legal Counsel.", (b) inner-page hero H1 one-word accents (firm "principle", expertise "index", sectors "atlas", people "people", careers "practice", insights "notebook", contact "firm"), (c) the not-found hero H1 "found" (large display-mega accent), and (d) `.serif-italic-on-burgundy` on the three oxblood contact strips (homepage, firm, people/[slug]). All section H2/H3, card titles, prev/next nav use standard natural-ink serif.
+- Decorative `grain` overlay kept ONLY on homepage hero section (page.tsx line 13). No other section uses grain (verified).
+- Footer migrated to oxblood: `bg-oxblood text-ivory` container, `bg-copper` accent strip (was `bg-rose`), `bg-copper text-ivory` "S" monogram (was `bg-rose text-white`), `group-hover:text-clay` on practice-area titles + nav links + office links + legal links (per spec — legal links use clay, not copper). Practice-area accent swatches still use `accentHex` from `@/lib/accents` — preserved.
+- Disclaimer gate migrated: `bg-paper text-ink` overlay (was `bg-ivory text-espresso`), `bg-copper` top rule (was `bg-rose`), `text-copper` "Please read carefully" label (was `text-rose`), `bg-oxblood text-ivory enabled:hover:bg-ink` Acknowledge button (was `bg-rose text-white enabled:hover:bg-burgundy`), `accent-copper` checkbox accent (was `accent-rose`), `border-copper bg-copper` checked state (was `border-rose bg-rose`), `hover:border-copper hover:text-copper` secondary link (was `hover:border-rose hover:text-rose`). Form submission logic, cookie/localStorage writes, legal-page bypass, year mounting — all preserved.
+- Burgundy/oxblood contrast preserved: the three dark sections (homepage ContactPreview, firm contact strip, people/[slug] contact strip) all retain their inline `style={{ color: "var(--color-on-burgundy-X)" }}` tokens for proper heading/body/label/italic contrast on the dark oxblood background.
+- text-stone / text-stone-dark migration: small mono-label, mono-num, folio, eyebrow, vertical-label and small-body instances all migrated from `text-stone` (#B9AD9E, too light for small text on light bg) to `text-stone-dark` (#8A7E6E, appropriate for muted secondary text on light bg). `text-stone` retained only on (a) the footer's dark oxblood bg (where #B9AD9E provides appropriate muted-against-dark contrast and matches `--color-on-burgundy-label`), and (b) large decorative numbers like the homepage Principles `font-display text-3xl text-stone` watermark — per the spec exception "Keep `text-stone` only for large decorative elements or borders."
+- Lint clean (0 errors / 0 warnings). Build clean (24/24 routes generated in 9.2s). All 12 valid routes return HTTP 200 on dev server; /non-existent-page returns 404. Rendered-HTML grep verification confirms all new refined-palette tokens are present, all legacy tokens removed, `.serif-italic` count is exactly per spec on every page.
+- Files changed (25 total): `src/components/site/page-hero.tsx`, `src/components/site/expertise-accordion.tsx`, `src/components/site/expandable-service-list.tsx`, `src/components/site/sector-list.tsx`, `src/components/site/sector-grid.tsx`, `src/components/site/people-preview.tsx`, `src/components/site/insights-preview.tsx`, `src/components/site/contact-form.tsx`, `src/components/site/legal-layout.tsx`, `src/components/site/site-footer.tsx`, `src/components/site/disclaimer-gate-client.tsx`, `src/app/page.tsx`, `src/app/firm/page.tsx`, `src/app/expertise/page.tsx`, `src/app/expertise/[slug]/page.tsx`, `src/app/sectors/page.tsx`, `src/app/people/page.tsx`, `src/app/people/[slug]/page.tsx`, `src/app/insights/page.tsx`, `src/app/careers/page.tsx`, `src/app/contact/page.tsx`, `src/app/disclaimer/page.tsx` (uses LegalLayout — verified unchanged structure), `src/app/terms/page.tsx` (uses LegalLayout — verified unchanged structure), `src/app/privacy/page.tsx` (uses LegalLayout — inline contact links retinted), `src/app/not-found.tsx`.
+- Did NOT touch (per constraints): `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/site-shell.tsx`, `src/components/site/site-header.tsx` (already updated to refined tokens by prior task), `src/components/site/hero-visual.tsx`, `src/components/site/scroll-progress.tsx`, `src/app/api/*`.
+- Did NOT change any content, text, structure, contact-form POST logic, honeypot field, validation rules, submittingRef guard, toast notifications, router.refresh, form.reset, generateStaticParams, generateMetadata, or alternates.canonical URLs.
+
+---
+Task ID: 29
+Agent: main (orchestrator)
+Task: Rework colour system to feel art-directed and human-designed (warm paper, ink, oxblood, copper, clay, stone)
+
+Work Log:
+- Phase 1 (globals.css): Complete colour token rewrite to refined editorial palette:
+  • --color-paper #F1ECE3 (warm paper — primary background, 60%)
+  • --color-ivory #FAF7F1 (soft ivory — cards, alternating sections, 20%)
+  • --color-ink #25211F (natural ink — primary text, not pure black)
+  • --color-oxblood #51252B (deep oxblood — nav, footer, strong sections, 10%)
+  • --color-clay #A66F65 (muted rose clay — small highlights only, 5%)
+  • --color-copper #9A684F (aged copper — borders, numbers, icons)
+  • --color-stone #B9AD9E (warm stone — secondary borders, subtle bg)
+  • --color-stone-dark #8A7E6E (darker stone — secondary text, readable)
+  Legacy aliases mapped so old class names (bg-ivory, text-espresso, bg-burgundy, etc.) resolve to new colours automatically.
+- Phase 2 (grain opacity): Reduced from 0.4/0.3 to 0.03/0.02 (2-3% — barely visible, tactile). Kept ONLY on homepage hero, removed from all other sections.
+- Phase 3 (gradients removed): Replaced anno-underline gradient with solid 2px copper border-bottom. Replaced anno-highlight gradient with solid warm-stone tint background. No linear-gradient in any .tsx file.
+- Phase 4 (glassmorphism removed): Removed all backdrop-blur from header. Header is now solid bg-paper (opaque, no transparency). Removed bg-ivory/80 backdrop-blur-sm from homepage bottom strip → solid bg-paper.
+- Phase 5 (accents.ts): Updated practice-area colours to cohesive but distinguishable warm professional tones: rose clay #A66F65, oxblood #51252B, ink #25211F, aged copper #9A684F, warm stone #B9AD9E, walnut-ink #7A6850.
+- Phase 6 (layout.tsx): body bg-paper text-ink. themeColor #F1ECE3. selection:bg-oxblood selection:text-ivory.
+- Phase 7 (site-header): Solid bg-paper (no glassmorphism). Wordmark bg-oxblood text-ivory. Nav links hover:text-copper. Active underline bg-copper. Mobile menu bg-paper text-ink.
+- Phase 8 (parallel subagent Task 28): Updated all 25 .tsx files:
+  • text-stone → text-stone-dark for small text (readability)
+  • bg-rose-dark buttons → bg-oxblood text-ivory hover:bg-ink
+  • hover:text-rose → hover:text-copper
+  • border-rose → border-copper
+  • bg-blush card backgrounds → bg-ivory
+  • bg-rose accent strip → bg-copper
+  • Footer: bg-oxblood text-ivory, legal links hover:text-clay
+  • Disclaimer gate: bg-paper text-ink, bg-copper top rule, bg-oxblood button, accent-copper checkbox
+  • .serif-italic reduced to hero + inner-page hero H1 + burgundy contact only
+  • grain overlay removed from all sections except homepage hero
+  • All burgundy/oxblood sections use on-burgundy tokens for proper contrast
+
+Verification (agent-browser + VLM):
+- bun run lint: clean, 0 errors.
+- All 13 routes return HTTP 200.
+- Homepage: bg rgb(241,236,227)=#F1ECE3 (warm paper). fg rgb(37,33,31)=#25211F (natural ink). wordmarkBg rgb(81,37,43)=#51252B (oxblood). headerBg solid opaque (no backdrop-blur). hasGradient=false. hasBackdropBlur=false. heroImgComplete=true. folio="HOME". insightsInNav=false. bodyHeight 5290px. No errors. Mobile no overflow.
+- VLM: "distinctly human-designed and editorial, avoiding the typical AI aesthetic of neon pinks or generic rose-golds... sophisticated, muted scheme reminiscent of high-end print media... warm off-white/cream tone resembling aged paper or vellum... deep desaturated oxblood... dusty copper... like a luxury legal journal printed on heavy stock... subtle paper texture... no glassmorphism... no gradients... header opaque... highly polished editorial-style website".
+
+Stage Summary:
+- Refined palette applied: 60% warm paper/ivory, 25% natural ink/oxblood, 10% warm stone, 5% rose clay/copper accents.
+- Solid tactile colours — almost no gradients. No glassmorphism. No backdrop-blur.
+- Paper grain at 2-3% opacity (barely visible, tactile). Kept only on hero.
+- Fine 1px rules in warm stone or aged copper.
+- Editorial rhythm: warm paper → soft ivory → occasional oxblood → warm paper. Not one continuous colour.
+- Rose-gold replaced with aged copper/muted rose-brown — not shiny pink/orange/metallic.
+- Header opaque solid warm paper. Footer oxblood. Buttons oxblood/ink.
+- Practice-area markers: 6 cohesive but distinguishable warm professional colours.
+- .serif-italic (now muted rose clay) used sparingly — only hero + 1-2 inner headings.
+- All 13 routes 200, lint clean, no errors, mobile responsive.
+- VLM-confirmed: "human-designed and editorial... luxury legal journal".

@@ -35,7 +35,7 @@ export function DisclaimerGateClient({
       role="dialog"
       aria-modal="true"
       aria-labelledby="disclaimer-title"
-      className="fixed inset-0 z-[200] bg-ivory text-espresso overflow-y-auto"
+      className="fixed inset-0 z-[200] bg-paper text-ink overflow-y-auto"
     >
       <DisclaimerContent
         onAgree={() => {
@@ -60,22 +60,22 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
 
   return (
     <div className="relative w-full min-h-full flex flex-col">
-      {/* Top accent rule — rose-gold */}
-      <div className="h-1.5 shrink-0 bg-rose" />
+      {/* Top accent rule — aged copper */}
+      <div className="h-1.5 shrink-0 bg-copper" />
 
       <div className="relative z-10 flex-1 flex flex-col">
         {/* Top bar */}
         <div className="px-6 md:px-12 pt-8 md:pt-10 flex items-center justify-between border-b border-line pb-5">
           <span className="mono-label">Saransh Raj &amp; Associates</span>
-          <span className="mono-label text-stone">Cover Sheet · 01</span>
+          <span className="mono-label text-stone-dark">Cover Sheet · 01</span>
         </div>
 
         <div className="flex-1 flex items-center px-6 md:px-12 py-10">
           <div className="max-w-3xl mx-auto w-full">
-            <p className="mono-label text-rose mb-5">Please read carefully</p>
+            <p className="mono-label text-copper mb-5">Please read carefully</p>
             <h1
               id="disclaimer-title"
-              className="display-2 text-espresso mb-8 max-w-[16ch]"
+              className="display-2 text-ink mb-8 max-w-[16ch]"
             >
               Before you enter
             </h1>
@@ -83,7 +83,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
             <div className="space-y-5 text-charcoal text-[15px] md:text-base leading-relaxed">
               <p>
                 This website is the online presence of{" "}
-                <span className="text-espresso">Saransh Raj &amp; Associates</span>,
+                <span className="text-ink">Saransh Raj &amp; Associates</span>,
                 a law firm based in New Delhi, India. It has been prepared and is
                 maintained solely for informational purposes.
               </p>
@@ -102,16 +102,16 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                 acting on any information presented. The firm accepts no liability
                 for any reliance placed on this website.
               </p>
-              <p className="text-stone text-sm">
+              <p className="text-stone-dark text-sm">
                 The Bar Council of India does not permit advertisement or
                 solicitation by advocates in any form or manner. By proceeding,
                 you acknowledge that you have read and understood this disclaimer
                 and the{" "}
-                <Link href="/terms" className="link-underline text-espresso">
+                <Link href="/terms" className="link-underline text-ink">
                   Terms of Use
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="link-underline text-espresso">
+                <Link href="/privacy" className="link-underline text-ink">
                   Privacy Policy
                 </Link>
                 .
@@ -130,13 +130,13 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                     type="checkbox"
                     checked={checked}
                     onChange={(e) => setChecked(e.target.checked)}
-                    className="h-5 w-5 cursor-pointer accent-rose opacity-0 absolute inset-0"
+                    className="h-5 w-5 cursor-pointer accent-copper opacity-0 absolute inset-0"
                   />
                   <span
                     className={`block h-5 w-5 border transition-colors ${
                       checked
-                        ? "border-rose bg-rose"
-                        : "border-line-strong group-hover:border-rose"
+                        ? "border-copper bg-copper"
+                        : "border-line-strong group-hover:border-copper"
                     }`}
                   />
                   {checked && (
@@ -168,7 +168,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
                 type="button"
                 onClick={onAgree}
                 disabled={!checked}
-                className="btn-magnetic group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-rose text-white text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-burgundy transition-colors duration-150"
+                className="btn-magnetic group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-oxblood text-ivory text-sm font-semibold tracking-wide disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-ink transition-colors duration-150"
               >
                 <span>I Acknowledge and Proceed</span>
                 <svg
@@ -188,7 +188,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
               </button>
               <Link
                 href="/disclaimer"
-                className="inline-flex items-center justify-center px-7 py-3.5 border border-line-strong text-charcoal text-sm font-medium hover:border-rose hover:text-rose transition-colors duration-150"
+                className="inline-flex items-center justify-center px-7 py-3.5 border border-line-strong text-charcoal text-sm font-medium hover:border-copper hover:text-copper transition-colors duration-150"
               >
                 Read full disclaimer
               </Link>
@@ -197,7 +197,7 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
         </div>
 
         <div className="px-6 md:px-12 pb-8 border-t border-line pt-5">
-          <p className="mono-label text-stone">
+          <p className="mono-label text-stone-dark">
             If you do not agree with the above, please refrain from accessing this website.
           </p>
         </div>

@@ -41,12 +41,12 @@ export function ExpandableServiceList({
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
                 aria-controls={`service-detail-${i}`}
-                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-porcelain transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-dark focus-visible:ring-inset"
+                className="group relative w-full text-left grid grid-cols-12 gap-4 items-center py-6 md:py-7 hover:bg-porcelain transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper focus-visible:ring-inset"
               >
                 {/* number */}
                 <span
                   className="col-span-2 md:col-span-1 mono-num text-sm transition-colors"
-                  style={{ color: isOpen ? hex : "var(--color-stone)" }}
+                  style={{ color: isOpen ? hex : "var(--color-stone-dark)" }}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -54,7 +54,7 @@ export function ExpandableServiceList({
                 <span className="col-span-7 md:col-span-8 lg:col-span-9">
                   <span
                     className="font-display text-lg md:text-2xl transition-colors"
-                    style={{ color: isOpen ? hex : "var(--color-espresso)" }}
+                    style={{ color: isOpen ? hex : "var(--color-ink)" }}
                   >
                     {title}
                   </span>
@@ -63,13 +63,13 @@ export function ExpandableServiceList({
                 <span className="col-span-3 flex items-center justify-end gap-3">
                   <span
                     className="mono-label transition-colors hidden sm:inline"
-                    style={{ color: isOpen ? hex : "var(--color-stone)" }}
+                    style={{ color: isOpen ? hex : "var(--color-stone-dark)" }}
                   >
                     {isOpen ? "Close" : "Expand"}
                   </span>
                   <svg
                     className={`h-5 w-5 transition-all duration-300 ${isOpen ? "rotate-45" : ""}`}
-                    style={{ color: isOpen ? hex : "var(--color-stone)" }}
+                    style={{ color: isOpen ? hex : "var(--color-stone-dark)" }}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -103,7 +103,7 @@ export function ExpandableServiceList({
                     </p>
                     <p
                       className="mt-5 mono-label"
-                      style={{ color: "var(--color-stone)" }}
+                      style={{ color: "var(--color-stone-dark)" }}
                     >
                       Service {String(i + 1).padStart(2, "0")} · Click the title above to collapse
                     </p>

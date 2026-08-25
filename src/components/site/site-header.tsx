@@ -41,8 +41,8 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-[110] border-b transition-colors duration-300 ${
         scrolled
-          ? "bg-ivory/95 backdrop-blur-md border-line"
-          : "bg-ivory/80 backdrop-blur-sm border-transparent"
+          ? "bg-paper border-line"
+          : "bg-paper border-transparent"
       }`}
     >
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
@@ -54,16 +54,16 @@ export function SiteHeader() {
             aria-label={`${firm.name} — home`}
           >
             <span
-              className="grid place-items-center h-7 w-7 bg-rose-dark text-white"
+              className="grid place-items-center h-7 w-7 bg-oxblood text-ivory"
               aria-hidden="true"
             >
               <span className="font-display text-sm leading-none">S</span>
             </span>
             <span className="flex flex-col leading-none">
-              <span className="font-display text-[1.1rem] md:text-[1.2rem] text-espresso tracking-tight leading-none">
+              <span className="font-display text-[1.1rem] md:text-[1.2rem] text-ink tracking-tight leading-none">
                 Saransh Raj
               </span>
-              <span className="mono-label text-stone mt-1 hidden sm:block">
+              <span className="mono-label text-stone-dark mt-1 hidden sm:block">
                 &amp; Associates · New Delhi
               </span>
             </span>
@@ -81,17 +81,17 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   className={`group relative flex items-baseline gap-2 px-3.5 py-2 transition-colors ${
-                    active ? "text-espresso" : "text-charcoal hover:text-espresso"
+                    active ? "text-ink" : "text-charcoal hover:text-ink"
                   }`}
                 >
-                  <span className="mono-num text-[0.8125rem] text-stone group-hover:text-rose-dark transition-colors">
+                  <span className="mono-num text-[0.8125rem] text-stone group-hover:text-copper transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-medium tracking-tight">
                     {item.label}
                   </span>
                   <span
-                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-rose-dark origin-left transition-transform duration-300 ${
+                    className={`absolute left-3.5 right-3.5 -bottom-px h-[2px] bg-copper origin-left transition-transform duration-300 ${
                       active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />
@@ -114,8 +114,8 @@ export function SiteHeader() {
               aria-expanded={open}
             >
               <span className="relative block h-3 w-6">
-                <span className={`absolute left-0 top-0 h-px w-6 bg-espresso transition-transform duration-300 ${open ? "translate-y-1.5 rotate-45" : ""}`} />
-                <span className={`absolute left-0 bottom-0 h-px w-6 bg-espresso transition-transform duration-300 ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
+                <span className={`absolute left-0 top-0 h-px w-6 bg-ink transition-transform duration-300 ${open ? "translate-y-1.5 rotate-45" : ""}`} />
+                <span className={`absolute left-0 bottom-0 h-px w-6 bg-ink transition-transform duration-300 ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
               </span>
             </button>
           </div>
@@ -124,7 +124,7 @@ export function SiteHeader() {
 
       {/* Mobile overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-ivory text-espresso transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`lg:hidden fixed inset-0 z-40 bg-paper text-ink transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           open ? "translate-y-0" : "-translate-y-full"
         }`}
         aria-hidden={!open}
@@ -146,7 +146,7 @@ export function SiteHeader() {
                     </span>
                     <span
                       className={`font-display text-4xl md:text-5xl transition-colors ${
-                        active ? "text-rose" : "text-espresso group-hover:text-rose"
+                        active ? "text-rose" : "text-ink group-hover:text-copper"
                       }`}
                     >
                       {item.label}

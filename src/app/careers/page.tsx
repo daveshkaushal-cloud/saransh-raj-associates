@@ -17,14 +17,14 @@ export default function CareersPage() {
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone">Index 05 · Careers</span>
-            <span className="folio text-stone">05 / 06</span>
+            <span className="mono-label text-stone-dark">Index 05 · Careers</span>
+            <span className="folio text-stone-dark">05 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <div>
-                <p className="mono-label text-stone mb-4">Joining the firm</p>
+                <p className="mono-label text-stone-dark mb-4">Joining the firm</p>
                 <p className="margin-note text-charcoal">
                   A calm, factual note for those interested in joining the practice.
                 </p>
@@ -32,7 +32,7 @@ export default function CareersPage() {
             </div>
             <div className="md:col-span-9">
               <div>
-                <h1 className="display-1 text-espresso max-w-[14ch]">
+                <h1 className="display-1 text-ink max-w-[14ch]">
                   Joining the{" "}
                   <span className="serif-italic">practice</span>
                 </h1>
@@ -55,9 +55,9 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-3">
               <div>
-                <p className="mono-label text-stone mb-4">§ Overview</p>
+                <p className="mono-label text-stone-dark mb-4">§ Overview</p>
                 {/* Supporting image — document detail, single, sparingly used */}
-                <div className="mt-6 relative aspect-[4/3] w-full max-w-xs overflow-hidden bg-blush">
+                <div className="mt-6 relative aspect-[4/3] w-full max-w-xs overflow-hidden bg-stone">
                   <Image
                     src="/images/document-detail.png"
                     alt="Document detail — layered legal papers reflecting the firm's archival practice"
@@ -67,8 +67,8 @@ export default function CareersPage() {
                     className="object-cover"
                   />
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                    <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
-                    <span className="mono-label text-rose-dark">Archive · 03</span>
+                    <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
+                    <span className="mono-label text-copper">Archive · 03</span>
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function CareersPage() {
           <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-8 border-t border-line pt-10 md:pt-12">
             <div className="md:col-span-3">
               <div>
-                <p className="mono-label text-stone mb-4">§ How to reach</p>
+                <p className="mono-label text-stone-dark mb-4">§ How to reach</p>
               </div>
             </div>
             <div className="md:col-span-8 md:col-start-5">
@@ -112,15 +112,15 @@ export default function CareersPage() {
                     Write to the firm with a short introduction. Email is preferred.
                   </p>
                   <div className="space-y-2">
-                    <a href={contact.emailHref} className="link-underline text-espresso hover:text-rose-dark transition-colors">
+                    <a href={contact.emailHref} className="link-underline text-ink hover:text-copper transition-colors">
                       {contact.email}
                     </a>
                     <p className="body-condensed text-charcoal">{contact.address.full}</p>
-                    <p className="mono-label text-stone">{contact.hours}</p>
+                    <p className="mono-label text-stone-dark">{contact.hours}</p>
                   </div>
                   <Link
                     href="/contact"
-                    className="mt-4 inline-flex items-center gap-2 px-5 py-3 bg-rose-dark text-white text-sm font-medium hover:bg-burgundy transition-colors duration-300"
+                    className="mt-4 inline-flex items-center gap-2 px-5 py-3 bg-oxblood text-ivory text-sm font-medium hover:bg-ink transition-colors duration-300"
                   >
                     <span>Visit contact page</span>
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">

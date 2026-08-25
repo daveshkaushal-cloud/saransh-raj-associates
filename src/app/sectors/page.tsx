@@ -19,14 +19,14 @@ export default function SectorsPage() {
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone">Index 03 · Sectors</span>
-            <span className="folio text-stone">03 / 06</span>
+            <span className="mono-label text-stone-dark">Index 03 · Sectors</span>
+            <span className="folio text-stone-dark">03 / 06</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <div>
-                <p className="mono-label text-stone mb-4">Industry Atlas</p>
+                <p className="mono-label text-stone-dark mb-4">Industry Atlas</p>
                 <p className="margin-note">
                   Ten sectors, each given its own colour marker. Select a sector
                   to anchor its scope.
@@ -35,7 +35,7 @@ export default function SectorsPage() {
             </div>
             <div className="md:col-span-9">
               <div>
-                <h1 className="display-1 text-espresso max-w-[14ch]">
+                <h1 className="display-1 text-ink max-w-[14ch]">
                   A visual{" "}
                   <span className="serif-italic">atlas</span> of sectors
                 </h1>
@@ -59,8 +59,8 @@ export default function SectorsPage() {
               and there is no wide horizontal gap beside it */}
           <div className="mb-8 md:mb-10">
             <div>
-              <p className="mono-label text-stone mb-3">§ The index</p>
-              <h2 className="display-2">
+              <p className="mono-label text-stone-dark mb-3">§ The index</p>
+              <h2 className="display-2 text-ink">
                 Ten sectors,
                 <br />
                 one integrated practice
@@ -78,7 +78,7 @@ export default function SectorsPage() {
           {/* colour legend */}
           <div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-8 pb-6 border-b border-line">
-              <span className="mono-label text-stone">Legend</span>
+              <span className="mono-label text-stone-dark">Legend</span>
               {sectors.map((sector) => {
                 const hex = accentHex[sector.accent as Accent];
                 return (
@@ -92,7 +92,7 @@ export default function SectorsPage() {
                       style={{ background: hex }}
                       aria-hidden="true"
                     />
-                    <span className="mono-label text-stone group-hover:text-espresso transition-colors">
+                    <span className="mono-label text-stone-dark group-hover:text-ink transition-colors">
                       {sector.name}
                     </span>
                   </a>
@@ -113,13 +113,13 @@ export default function SectorsPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-4">
               <div>
-                <p className="mono-label text-stone mb-3">§ Approach</p>
-                <h2 className="display-2 max-w-[14ch]">
+                <p className="mono-label text-stone-dark mb-3">§ Approach</p>
+                <h2 className="display-2 text-ink max-w-[14ch]">
                   How the firm serves its sectors
                 </h2>
               </div>
               {/* Supporting image — document detail, single, sparingly used */}
-              <div className="mt-8 relative aspect-[4/3] w-full max-w-md overflow-hidden bg-blush">
+              <div className="mt-8 relative aspect-[4/3] w-full max-w-md overflow-hidden bg-stone">
                 <Image
                   src="/images/document-detail.png"
                   alt="Document detail — layered legal papers reflecting the firm's sector-aware approach"
@@ -129,8 +129,8 @@ export default function SectorsPage() {
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-rose" aria-hidden="true" />
-                  <span className="mono-label text-rose-dark">Archive · 02</span>
+                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
+                  <span className="mono-label text-copper">Archive · 02</span>
                 </div>
               </div>
             </div>
@@ -174,10 +174,10 @@ export default function SectorsPage() {
             ].map((note, i) => (
               <div key={note.title}>
                 <div className="bg-beige p-6 md:p-8 h-full">
-                  <span className="mono-num text-sm text-stone block mb-3">
+                  <span className="mono-num text-sm text-stone-dark block mb-3">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="display-3 text-lg md:text-xl text-espresso mb-2 leading-tight">
+                  <h3 className="display-3 text-lg md:text-xl text-ink mb-2 leading-tight">
                     {note.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-charcoal">
@@ -194,14 +194,14 @@ export default function SectorsPage() {
       <section className="bg-ivory py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h2 className="display-2 text-espresso max-w-[20ch]">
+            <h2 className="display-2 text-ink max-w-[20ch]">
               The practice behind the sectors
             </h2>
           </div>
           <div>
             <Link
               href="/expertise"
-              className="group inline-flex items-center gap-2 mono-label text-stone hover:text-rose-dark transition-colors"
+              className="group inline-flex items-center gap-2 mono-label text-stone-dark hover:text-copper transition-colors"
             >
               <span>View the expertise index</span>
               <svg

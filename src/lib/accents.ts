@@ -1,15 +1,15 @@
 /**
- * Maps brand accent tokens to the warm editorial palette.
+ * Maps brand accent tokens to the refined editorial palette.
  * Practice-area and sector accents drive colour fields, annotation
  * marks and index treatment.
  *
- * Approved accessible pairs (WCAG AA):
- *   rose       → Rose Gold     #B76E79  on #FFFFFF
- *   burgundy   → Burgundy      #603A40  on #F7F1E8
- *   espresso   → Espresso      #2B2422  on #F7F1E8
- *   blush      → Blush Beige   #E3C8BE  on #2B2422 (dark text)
- *   beige      → Soft Beige   #E8D8C8   on #2B2422 (dark text)
- *   porcelain  → Porcelain     #FFFDF9  on #2B2422 (dark text)
+ * Cohesive but distinguishable warm professional colours:
+ *   rose       → Muted rose clay   #A66F65
+ *   burgundy   → Deep oxblood      #51252B
+ *   espresso   → Natural ink       #25211F
+ *   blush      → Aged copper        #9A684F
+ *   beige      → Warm stone         #B9AD9E
+ *   porcelain  → Walnut-ink         #7A6850
  */
 
 export type Accent =
@@ -21,12 +21,12 @@ export type Accent =
   | "porcelain";
 
 export const accentHex: Record<Accent, string> = {
-  rose: "#B76E79",       // Dusty rose — Corporate Advisory
-  burgundy: "#603A40",   // Burgundy — Commercial Contracts
-  espresso: "#2B2422",  // Warm charcoal — M&A
-  blush: "#C8866A",      // Terracotta — Dispute Resolution
-  beige: "#7A7245",      // Muted olive — Regulatory & Compliance
-  porcelain: "#6B4A2E",  // Walnut — Insolvency & Recovery
+  rose: "#A66F65",       // Muted rose clay — Corporate Advisory
+  burgundy: "#51252B",   // Deep oxblood — Commercial Contracts
+  espresso: "#25211F",   // Natural ink — M&A
+  blush: "#9A684F",      // Aged copper — Dispute Resolution
+  beige: "#B9AD9E",      // Warm stone — Regulatory & Compliance
+  porcelain: "#7A6850",  // Walnut-ink — Insolvency & Recovery
 };
 
 /** Soft tint of each accent — used for expanded/active surfaces. */

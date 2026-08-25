@@ -17,7 +17,7 @@ export function SiteFooter() {
   useEffect(() => setYear(String(new Date().getFullYear())), []);
 
   return (
-    <footer className="mt-auto bg-beige text-espresso relative overflow-hidden border-t border-line">
+    <footer className="mt-auto bg-oxblood text-ivory relative overflow-hidden border-t border-line">
       {/* Practice-areas index */}
       <div className="relative border-b border-line">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 py-8 md:py-12">
@@ -38,7 +38,7 @@ export function SiteFooter() {
                       style={{ background: accentHex[area.accent] }}
                       aria-hidden="true"
                     />
-                    <span className="font-display text-2xl md:text-4xl text-espresso/90 leading-none transition-colors duration-300 group-hover:text-rose">
+                    <span className="font-display text-2xl md:text-4xl text-ivory/90 leading-none transition-colors duration-300 group-hover:text-clay">
                       {area.title}
                     </span>
                   </Link>
@@ -49,8 +49,8 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Rose-gold accent strip */}
-      <div className="h-1 bg-rose" />
+      {/* Aged-copper accent strip */}
+      <div className="h-1 bg-copper" />
 
       <div className="relative mx-auto max-w-[1600px] px-5 md:px-10 pt-14 md:pt-20 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
@@ -58,17 +58,17 @@ export function SiteFooter() {
           <div className="md:col-span-5">
             <Link href="/" className="inline-flex items-center gap-3">
               <span
-                className="relative grid place-items-center h-9 w-9 bg-rose text-white"
+                className="relative grid place-items-center h-9 w-9 bg-copper text-ivory"
                 aria-hidden="true"
               >
                 <span className="font-display text-lg">S</span>
               </span>
               <span className="flex flex-col leading-none">
-                <span className="font-display text-2xl">Saransh Raj</span>
+                <span className="font-display text-2xl text-ivory">Saransh Raj</span>
                 <span className="mono-label text-stone mt-1">&amp; Associates</span>
               </span>
             </Link>
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-charcoal">
+            <p className="mt-6 max-w-md text-sm leading-relaxed text-ivory/80">
               {firm.summary}
             </p>
             <p className="mt-5 mono-label text-stone">
@@ -84,9 +84,9 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="group flex items-baseline gap-3 text-[0.92rem] text-charcoal hover:text-rose transition-colors"
+                    className="group flex items-baseline gap-3 text-[0.92rem] text-ivory/80 hover:text-clay transition-colors"
                   >
-                    <span className="mono-num text-[0.65rem] text-stone group-hover:text-rose transition-colors">
+                    <span className="mono-num text-[0.65rem] text-stone group-hover:text-clay transition-colors">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span>{item.label}</span>
@@ -99,19 +99,19 @@ export function SiteFooter() {
           {/* Office */}
           <div className="md:col-span-4">
             <p className="mono-label text-stone mb-5">Office</p>
-            <address className="not-italic space-y-3 text-sm text-charcoal">
+            <address className="not-italic space-y-3 text-sm text-ivory/80">
               <p className="leading-relaxed">
                 {contact.address.line1}<br />
                 {contact.address.line2}<br />
                 {contact.address.country}
               </p>
               <p>
-                <a href={contact.phoneHref} className="link-underline hover:text-rose">
+                <a href={contact.phoneHref} className="link-underline hover:text-clay">
                   {contact.phone}
                 </a>
               </p>
               <p>
-                <a href={contact.emailHref} className="link-underline hover:text-rose break-all">
+                <a href={contact.emailHref} className="link-underline hover:text-clay break-all">
                   {contact.email}
                 </a>
               </p>
@@ -127,14 +127,14 @@ export function SiteFooter() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="mono-label text-stone hover:text-rose transition-colors"
+                className="mono-label text-stone hover:text-clay transition-colors"
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href={legalPages.disclaimer.path}
-              className="mono-label text-stone hover:text-rose transition-colors"
+              className="mono-label text-stone hover:text-clay transition-colors"
             >
               Revisit Disclaimer
             </Link>

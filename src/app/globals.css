@@ -4,75 +4,90 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   Saransh Raj & Associates — Warm Editorial Theme
-   A premium editorial publication aesthetic: warm ivory,
-   soft beige, blush, rose gold, burgundy and espresso.
+   Saransh Raj & Associates — Refined Editorial Palette
+   Art-directed, human-designed. Solid tactile colours, almost no
+   gradients. Warm paper, soft ivory, natural ink, deep oxblood,
+   muted rose clay, aged copper, warm stone.
    ============================================================ */
 
 @theme inline {
-  --color-background: var(--color-ivory);
-  --color-foreground: var(--color-espresso);
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
 
   /* Self-hosted font stacks */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 
-  /* === Core palette — warm editorial === */
-  --color-ivory: #F7F1E8;           /* Main background — Warm Ivory */
-  --color-beige: #E8D8C8;           /* Secondary background — Soft Beige */
-  --color-blush: #E3C8BE;           /* Card background — Blush Beige */
-  --color-porcelain: #FFFDF9;       /* Light surface — Porcelain White */
-  --color-rose: #B76E79;            /* Primary accent — Rose Gold (large elements) */
-  --color-rose-dark: #9B5964;       /* Dark rose — small text, buttons */
-  --color-burgundy: #603A40;        /* Deep accent — Burgundy */
-  --color-espresso: #2B2422;        /* Heading colour — Espresso Brown */
-  --color-charcoal: #514846;        /* Body text — Warm Charcoal */
-  --color-stone: #6D5F5A;          /* Secondary text / metadata — darker for readability */
-  --color-on-burgundy-heading: #FFFDF9;  /* Headings on burgundy bg */
-  --color-on-burgundy-body: #F7F1E8;    /* Body text on burgundy bg */
-  --color-on-burgundy-label: #E3C8BE;    /* Labels on burgundy bg */
-  --color-on-burgundy-italic: #E7B5B0;   /* Italic accent on burgundy bg */
+  /* === Core palette — refined editorial === */
+  --color-paper: #F1ECE3;            /* Warm paper — primary background */
+  --color-ivory: #FAF7F1;           /* Soft ivory — cards, alternating sections */
+  --color-ink: #25211F;             /* Natural ink — primary text (not pure black) */
+  --color-oxblood: #51252B;         /* Deep oxblood — nav, footer, strong headings */
+  --color-clay: #A66F65;           /* Muted rose clay — small highlights only */
+  --color-copper: #9A684F;          /* Aged copper — borders, numbers, icons, details */
+  --color-stone: #B9AD9E;          /* Warm stone — secondary borders, subtle bg */
+  --color-stone-dark: #8A7E6E;     /* Darker warm stone — secondary text */
 
-  /* Lines + borders */
-  --color-line: rgba(43, 36, 34, 0.10);          /* Thin translucent border */
-  --color-line-strong: rgba(43, 36, 34, 0.22);   /* Stronger border */
-  --color-line-rose: rgba(183, 110, 121, 0.35);  /* Rose-gold tint border */
-  --color-line-on-dark: rgba(247, 241, 232, 0.16);
+  /* Legacy aliases → map to refined palette for back-compat.
+     Old class names (bg-ivory, text-espresso, etc.) now resolve to
+     the new colours so existing markup works without rewriting. */
+  --color-beige: #F1ECE3;           /* was Soft Beige → now warm paper */
+  --color-blush: #E8E2D5;           /* was Blush Beige → now warm stone tint */
+  --color-porcelain: #FAF7F1;       /* was Porcelain → now soft ivory */
+  --color-rose: #A66F65;            /* was Rose Gold → now muted rose clay */
+  --color-rose-dark: #9A684F;       /* was dark rose → now aged copper */
+  --color-burgundy: #51252B;        /* was Burgundy → now deep oxblood */
+  --color-espresso: #25211F;        /* was Espresso → now natural ink */
+  --color-charcoal: #4A423D;        /* was Warm Charcoal → now softer ink-brown */
 
-  /* Legacy aliases → map to warm palette for back-compat */
-  --color-surface: #F7F1E8;
-  --color-surface-soft: #E8D8C8;
-  --color-surface-elevated: #FFFDF9;
-  --color-fg: #2B2422;
-  --color-fg-muted: #514846;
-  --color-fg-subtle: #8A7E76;
-  --color-accent: #B76E79;
-  --color-coral: #B76E79;
-  --color-saffron: #B76E79;
-  --color-teal: #603A40;
-  --color-violet: #603A40;
+  /* On-oxblood tokens (for dark oxblood sections) */
+  --color-on-burgundy-heading: #FAF7F1;   /* soft ivory headings on oxblood */
+  --color-on-burgundy-body: #E8E2D5;      /* warm stone tint body on oxblood */
+  --color-on-burgundy-label: #B9AD9E;     /* warm stone labels on oxblood */
+  --color-on-burgundy-italic: #A66F65;    /* rose clay italic on oxblood */
+
+  /* Lines + borders — fine 1px rules in warm stone or aged copper */
+  --color-line: rgba(37, 33, 31, 0.10);            /* Thin translucent border */
+  --color-line-strong: rgba(37, 33, 31, 0.18);     /* Stronger border */
+  --color-line-rose: rgba(154, 104, 79, 0.30);     /* Aged copper tint border */
+  --color-line-copper: rgba(154, 104, 79, 0.40);   /* Aged copper border */
+  --color-line-stone: rgba(185, 173, 158, 0.50);   /* Warm stone border */
+  --color-line-on-dark: rgba(241, 236, 227, 0.16);
+
+  /* Legacy surface aliases */
+  --color-surface: #F1ECE3;
+  --color-surface-soft: #FAF7F1;
+  --color-surface-elevated: #FAF7F1;
+  --color-fg: #25211F;
+  --color-fg-muted: #4A423D;
+  --color-fg-subtle: #8A7E6E;
+  --color-accent: #A66F65;
+  --color-coral: #A66F65;
+  --color-saffron: #9A684F;
+  --color-teal: #51252B;
+  --color-violet: #51252B;
 
   /* shadcn aliases */
   --color-border: var(--color-line);
   --color-input: var(--color-line);
-  --color-ring: var(--color-rose);
-  --color-card: var(--color-porcelain);
-  --color-card-foreground: var(--color-espresso);
-  --color-popover: var(--color-porcelain);
-  --color-popover-foreground: var(--color-espresso);
-  --color-primary: var(--color-rose);
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: var(--color-beige);
-  --color-secondary-foreground: var(--color-espresso);
-  --color-muted: var(--color-beige);
-  --color-muted-foreground: var(--color-stone);
-  --color-accent-foreground: #FFFFFF;
-  --color-destructive: #603A40;
-  --color-sidebar: var(--color-porcelain);
-  --color-sidebar-foreground: var(--color-espresso);
+  --color-ring: var(--color-copper);
+  --color-card: var(--color-ivory);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-ivory);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-oxblood);
+  --color-primary-foreground: #FAF7F1;
+  --color-secondary: var(--color-stone);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-stone);
+  --color-muted-foreground: var(--color-stone-dark);
+  --color-accent-foreground: #FAF7F1;
+  --color-destructive: #51252B;
+  --color-sidebar: var(--color-ivory);
+  --color-sidebar-foreground: var(--color-ink);
   --color-sidebar-border: var(--color-line);
-  --color-sidebar-ring: var(--color-rose);
+  --color-sidebar-ring: var(--color-copper);
 
   --radius: 0.125rem;
   --radius-sm: 0.0625rem;
@@ -82,49 +97,57 @@
 }
 
 :root {
-  /* Central design tokens — single source of truth */
-  --background-global: #F7F1E8;
-  --background-beige: #E8D8C8;
-  --background-blush: #E3C8BE;
-  --background-porcelain: #FFFDF9;
-  --background-burgundy: #603A40;
-  --background-espresso: #2B2422;
+  /* Central design tokens — single source of truth (refined editorial) */
+  --background-global: #F1ECE3;       /* Warm paper */
+  --background-ivory: #FAF7F1;       /* Soft ivory */
+  --background-stone: #E8E2D5;       /* Warm stone tint */
+  --background-oxblood: #51252B;     /* Deep oxblood */
+  --background-ink: #25211F;         /* Natural ink */
 
-  --text-primary: #2B2422;
-  --text-body: #514846;
-  --text-muted: #8A7E76;
-  --text-on-dark: #F7F1E8;
+  --text-primary: #25211F;          /* Natural ink — primary text */
+  --text-body: #4A423D;             /* Softer ink-brown — body */
+  --text-muted: #8A7E6E;            /* Darker warm stone — secondary text */
+  --text-on-dark: #F1ECE3;          /* Warm paper on dark bg */
+  --text-on-oxblood: #F1ECE3;
   --text-on-rose: #FFFFFF;
-  --text-on-burgundy: #F7F1E8;
+  --text-on-burgundy: #F1ECE3;
 
-  --border-default: rgba(43, 36, 34, 0.10);
-  --border-strong: rgba(43, 36, 34, 0.22);
-  --border-rose: rgba(183, 110, 121, 0.35);
-  --border-on-dark: rgba(247, 241, 232, 0.16);
+  --border-default: rgba(37, 33, 31, 0.10);
+  --border-strong: rgba(37, 33, 31, 0.18);
+  --border-copper: rgba(154, 104, 79, 0.40);
+  --border-stone: rgba(185, 173, 158, 0.50);
+  --border-rose: rgba(154, 104, 79, 0.30);
+  --border-on-dark: rgba(241, 236, 227, 0.16);
 
-  --ivory: #F7F1E8;
-  --beige: #E8D8C8;
-  --blush: #E3C8BE;
-  --porcelain: #FFFDF9;
-  --rose: #B76E79;
-  --rose-dark: #9B5964;
-  --burgundy: #603A40;
-  --espresso: #2B2422;
-  --charcoal: #514846;
-  --stone: #6D5F5A;
-  --on-burgundy-heading: #FFFDF9;
-  --on-burgundy-body: #F7F1E8;
-  --on-burgundy-label: #E3C8BE;
-  --on-burgundy-italic: #E7B5B0;
+  --paper: #F1ECE3;
+  --ivory: #FAF7F1;
+  --ink: #25211F;
+  --oxblood: #51252B;
+  --clay: #A66F65;
+  --copper: #9A684F;
+  --stone: #B9AD9E;
+  --stone-dark: #8A7E6E;
+  --beige: #F1ECE3;
+  --blush: #E8E2D5;
+  --porcelain: #FAF7F1;
+  --rose: #A66F65;
+  --rose-dark: #9A684F;
+  --burgundy: #51252B;
+  --espresso: #25211F;
+  --charcoal: #4A423D;
+  --on-burgundy-heading: #FAF7F1;
+  --on-burgundy-body: #E8E2D5;
+  --on-burgundy-label: #B9AD9E;
+  --on-burgundy-italic: #A66F65;
 
   /* Legacy aliases */
-  --surface: #F7F1E8;
-  --surface-soft: #E8D8C8;
-  --surface-elevated: #FFFDF9;
-  --fg: #2B2422;
-  --fg-muted: #514846;
-  --fg-subtle: #8A7E76;
-  --accent: #B76E79;
+  --surface: #F1ECE3;
+  --surface-soft: #FAF7F1;
+  --surface-elevated: #FAF7F1;
+  --fg: #25211F;
+  --fg-muted: #4A423D;
+  --fg-subtle: #8A7E6E;
+  --accent: #A66F65;
 
   color-scheme: light;
 }
@@ -351,16 +374,17 @@
 }
 
 /* ============================================================
-   TEXTURE — subtle paper grain on warm surfaces
+   TEXTURE — very light paper grain at 2-3% opacity.
+   Subtle, tactile — not heavy or distracting.
    ============================================================ */
 .grain::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.03;  /* 3% — barely visible, tactile */
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 0 0.13 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0 0.12 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }
 .grain-light::before {
@@ -368,9 +392,9 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.02;  /* 2% — even more subtle */
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.14 0 0 0 0 0.13 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0 0.12 0 0 0 0.3 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }
 
@@ -381,32 +405,37 @@
 }
 
 /* ============================================================
-   COLOUR FIELDS — full-width section transitions
+   COLOUR FIELDS — full-width section transitions.
+   Solid, tactile colours. No gradients.
+   Editorial rhythm: warm paper → soft ivory → oxblood → warm paper.
    ============================================================ */
-.field-ivory       { background: var(--color-ivory);      color: var(--color-espresso); }
-.field-beige       { background: var(--color-beige);      color: var(--color-espresso); }
-.field-blush       { background: var(--color-blush);      color: var(--color-espresso); }
-.field-porcelain   { background: var(--color-porcelain);  color: var(--color-espresso); }
-.field-rose        { background: var(--color-rose);       color: #FFFFFF; }
-.field-burgundy    { background: var(--color-burgundy);    color: var(--color-ivory); }
-.field-espresso    { background: var(--color-espresso);   color: var(--color-ivory); }
+.field-ivory       { background: var(--color-ivory);      color: var(--color-ink); }
+.field-beige       { background: var(--color-paper);      color: var(--color-ink); }
+.field-blush       { background: var(--color-stone);      color: var(--color-ink); }
+.field-porcelain   { background: var(--color-ivory);      color: var(--color-ink); }
+.field-paper       { background: var(--color-paper);      color: var(--color-ink); }
+.field-rose        { background: var(--color-clay);       color: #FAF7F1; }
+.field-burgundy    { background: var(--color-oxblood);    color: var(--color-ivory); }
+.field-oxblood     { background: var(--color-oxblood);    color: var(--color-ivory); }
+.field-espresso    { background: var(--color-ink);        color: var(--color-ivory); }
+.field-ink         { background: var(--color-ink);        color: var(--color-ivory); }
 
-/* Legacy aliases → warm palette */
-.field-surface         { background: var(--color-ivory);      color: var(--color-espresso); }
-.field-surface-soft    { background: var(--color-beige);     color: var(--color-espresso); }
-.field-surface-elevated{ background: var(--color-porcelain);  color: var(--color-espresso); }
-.field-accent   { background: var(--color-rose);       color: #FFFFFF; }
-.field-coral    { background: var(--color-rose);       color: #FFFFFF; }
-.field-saffron  { background: var(--color-rose);       color: #FFFFFF; }
-.field-teal     { background: var(--color-burgundy);   color: var(--color-ivory); }
-.field-violet   { background: var(--color-burgundy);   color: var(--color-ivory); }
-.field-ink      { background: var(--color-espresso);  color: var(--color-ivory); }
-.field-paper    { background: var(--color-porcelain);  color: var(--color-espresso); }
+/* Legacy aliases → refined palette (back-compat) */
+.field-surface         { background: var(--color-paper);     color: var(--color-ink); }
+.field-surface-soft    { background: var(--color-ivory);     color: var(--color-ink); }
+.field-surface-elevated{ background: var(--color-ivory);    color: var(--color-ink); }
+.field-accent   { background: var(--color-clay);       color: #FAF7F1; }
+.field-coral    { background: var(--color-clay);       color: #FAF7F1; }
+.field-saffron  { background: var(--color-copper);     color: #FAF7F1; }
+.field-teal     { background: var(--color-oxblood);   color: var(--color-ivory); }
+.field-violet   { background: var(--color-oxblood);   color: var(--color-ivory); }
 
-/* Line-on-colour overrides */
+/* Line-on-colour overrides — fine 1px rules */
 .field-rose .line-on-color,
 .field-burgundy .line-on-color,
-.field-espresso .line-on-color { border-color: rgba(247, 241, 232, 0.22); }
+.field-oxblood .line-on-color,
+.field-espresso .line-on-color,
+.field-ink .line-on-color { border-color: rgba(241, 236, 227, 0.22); }
 
 /* ============================================================
    GRAPHIC LANGUAGE — annotation marks, brackets, rules
@@ -421,9 +450,9 @@
   position: absolute;
   width: 14px;
   height: 14px;
-  border-color: var(--color-rose);
+  border-color: var(--color-copper);
   border-style: solid;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .anno-bracket::before {
   top: -1px; left: -1px;
@@ -434,17 +463,16 @@
   border-width: 0 1px 1px 0;
 }
 
+/* Underline annotation — solid 2px aged copper line (no gradient) */
 .anno-underline {
-  background-image: linear-gradient(to right, var(--color-rose) 0%, var(--color-rose) 100%);
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 2px;
+  border-bottom: 2px solid var(--color-copper);
   padding-bottom: 1px;
 }
 
+/* Highlight mark — solid warm-stone tint background (no gradient) */
 .anno-highlight {
-  background: linear-gradient(180deg, transparent 55%, rgba(183, 110, 121, 0.18) 55%);
-  padding: 0 0.1em;
+  background: rgba(185, 173, 158, 0.25);
+  padding: 0 0.15em;
 }
 
 /* Animated rule — draws itself on scroll */
