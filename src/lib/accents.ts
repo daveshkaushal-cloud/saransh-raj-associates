@@ -25,7 +25,7 @@ export const accentHex: Record<Accent, string> = {
   burgundy: "#541F24",   // Deep oxblood — Commercial Contracts
   espresso: "#191817",   // Natural ink — M&A
   blush: "#A78B5D",      // Antique brass — Dispute Resolution
-  beige: "#8A8378",      // Warm stone-dark — Regulatory & Compliance
+  beige: "#625A54",      // Accessible warm taupe — Regulatory & Compliance
   porcelain: "#5C4A3A",  // Walnut — Insolvency & Recovery
 };
 
