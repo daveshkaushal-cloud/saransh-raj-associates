@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { LegalLayout } from "@/components/site/legal-layout";
 import { firm } from "@/data/firm";
 
+// NOTE: Final legal language should be reviewed by the firm's lawyer.
+
 export const metadata: Metadata = {
   title: "Terms of Use",
   description:
@@ -16,9 +18,11 @@ export default function TermsPage() {
       title="Terms of Use"
       intro={
         <p>
-          These terms govern your use of the {firm.name} website. By accessing
-          and using the website, you accept these terms in full. If you do not
-          accept any part of these terms, please do not use the website.
+          These terms govern your use of the {firm.name} website. The website
+          is provided solely for informational purposes, and access to it is
+          voluntary and initiated by the visitor. The content is provided
+          subject to these terms, the accompanying Disclaimer and the Privacy
+          Policy.
         </p>
       }
       sections={[
@@ -27,11 +31,11 @@ export default function TermsPage() {
           heading: "Acceptance of terms",
           body: (
             <p>
-              Access to and use of this website constitutes acceptance of these
-              Terms of Use and the accompanying Disclaimer and Privacy Policy.
-              The firm may revise these terms at any time without notice; your
-              continued use of the website following any change indicates
-              acceptance of the revised terms.
+              Access to and use of this website is voluntary. The content is
+              provided subject to these Terms of Use and the accompanying
+              Disclaimer and Privacy Policy. The firm may revise these terms at
+              any time without notice; continued use of the website following any
+              change is on the basis of the revised terms.
             </p>
           ),
         },

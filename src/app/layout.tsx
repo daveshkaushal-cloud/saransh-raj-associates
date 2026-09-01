@@ -59,7 +59,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Saransh Raj & Associates" }],
   applicationName: "Saransh Raj & Associates",
-  robots: { index: true, follow: true },
+  robots: {
+    index: process.env.NODE_ENV === "production",
+    follow: process.env.NODE_ENV === "production",
+  },
   alternates: { canonical: "/" },
   openGraph: {
     title: "Saransh Raj & Associates — Corporate & Commercial Law Counsel",
@@ -80,7 +83,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#F1ECE3",
+  themeColor: "#F7F3EC",
   width: "device-width",
   initialScale: 1,
 };

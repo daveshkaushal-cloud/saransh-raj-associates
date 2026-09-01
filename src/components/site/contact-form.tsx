@@ -117,7 +117,7 @@ export function ContactForm() {
             htmlFor="area"
             className="block mono-label text-stone-dark mb-2"
           >
-            Area of interest
+            Nature of enquiry
           </label>
           <select
             id="area"
@@ -132,7 +132,7 @@ export function ContactForm() {
             <option>Dispute Resolution</option>
             <option>Regulatory & Compliance</option>
             <option>Insolvency & Recovery</option>
-            <option>Other</option>
+            <option>General Enquiry</option>
           </select>
         </div>
       </div>

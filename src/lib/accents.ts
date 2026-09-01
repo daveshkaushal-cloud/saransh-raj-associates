@@ -21,12 +21,12 @@ export type Accent =
   | "porcelain";
 
 export const accentHex: Record<Accent, string> = {
-  rose: "#A66F65",       // Muted rose clay — Corporate Advisory
-  burgundy: "#51252B",   // Deep oxblood — Commercial Contracts
-  espresso: "#25211F",   // Natural ink — M&A
-  blush: "#9A684F",      // Aged copper — Dispute Resolution
-  beige: "#B9AD9E",      // Warm stone — Regulatory & Compliance
-  porcelain: "#7A6850",  // Walnut-ink — Insolvency & Recovery
+  rose: "#A35F4F",       // Muted terracotta — Corporate Advisory
+  burgundy: "#541F24",   // Deep oxblood — Commercial Contracts
+  espresso: "#191817",   // Natural ink — M&A
+  blush: "#A78B5D",      // Antique brass — Dispute Resolution
+  beige: "#8A8378",      // Warm stone-dark — Regulatory & Compliance
+  porcelain: "#5C4A3A",  // Walnut — Insolvency & Recovery
 };
 
 /** Soft tint of each accent — used for expanded/active surfaces. */

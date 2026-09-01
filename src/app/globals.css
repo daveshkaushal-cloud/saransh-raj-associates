@@ -20,53 +20,53 @@
   --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
 
   /* === Core palette — refined editorial === */
-  --color-paper: #F1ECE3;            /* Warm paper — primary background */
-  --color-ivory: #FAF7F1;           /* Soft ivory — cards, alternating sections */
-  --color-ink: #25211F;             /* Natural ink — primary text (not pure black) */
-  --color-oxblood: #51252B;         /* Deep oxblood — nav, footer, strong headings */
-  --color-clay: #A66F65;           /* Muted rose clay — small highlights only */
-  --color-copper: #9A684F;          /* Aged copper — borders, numbers, icons, details */
-  --color-stone: #B9AD9E;          /* Warm stone — secondary borders, subtle bg */
-  --color-stone-dark: #8A7E6E;     /* Darker warm stone — secondary text */
+  --color-paper: #F7F3EC;            /* Warm paper — primary background */
+  --color-ivory: #F3EFE7;           /* Soft ivory — cards, alternating sections */
+  --color-ink: #191817;             /* Natural ink — primary text (not pure black) */
+  --color-oxblood: #541F24;         /* Deep oxblood — nav, footer, strong headings */
+  --color-clay: #A35F4F;           /* Muted rose clay — small highlights only */
+  --color-copper: #A78B5D;          /* Aged copper — borders, numbers, icons, details */
+  --color-stone: #D5D0C8;          /* Warm stone — secondary borders, subtle bg */
+  --color-stone-dark: #8A8378;     /* Darker warm stone — secondary text */
 
   /* Legacy aliases → map to refined palette for back-compat.
      Old class names (bg-ivory, text-espresso, etc.) now resolve to
      the new colours so existing markup works without rewriting. */
-  --color-beige: #F1ECE3;           /* was Soft Beige → now warm paper */
+  --color-beige: #F7F3EC;           /* was Soft Beige → now warm paper */
   --color-blush: #E8E2D5;           /* was Blush Beige → now warm stone tint */
-  --color-porcelain: #FAF7F1;       /* was Porcelain → now soft ivory */
-  --color-rose: #A66F65;            /* was Rose Gold → now muted rose clay */
-  --color-rose-dark: #9A684F;       /* was dark rose → now aged copper */
-  --color-burgundy: #51252B;        /* was Burgundy → now deep oxblood */
-  --color-espresso: #25211F;        /* was Espresso → now natural ink */
+  --color-porcelain: #F3EFE7;       /* was Porcelain → now soft ivory */
+  --color-rose: #A35F4F;            /* was Rose Gold → now muted rose clay */
+  --color-rose-dark: #A78B5D;       /* was dark rose → now aged copper */
+  --color-burgundy: #541F24;        /* was Burgundy → now deep oxblood */
+  --color-espresso: #191817;        /* was Espresso → now natural ink */
   --color-charcoal: #4A423D;        /* was Warm Charcoal → now softer ink-brown */
 
   /* On-oxblood tokens (for dark oxblood sections) */
-  --color-on-burgundy-heading: #FAF7F1;   /* soft ivory headings on oxblood */
+  --color-on-burgundy-heading: #F3EFE7;   /* soft ivory headings on oxblood */
   --color-on-burgundy-body: #E8E2D5;      /* warm stone tint body on oxblood */
-  --color-on-burgundy-label: #B9AD9E;     /* warm stone labels on oxblood */
-  --color-on-burgundy-italic: #A66F65;    /* rose clay italic on oxblood */
+  --color-on-burgundy-label: #D5D0C8;     /* warm stone labels on oxblood */
+  --color-on-burgundy-italic: #A35F4F;    /* rose clay italic on oxblood */
 
   /* Lines + borders — fine 1px rules in warm stone or aged copper */
-  --color-line: rgba(37, 33, 31, 0.10);            /* Thin translucent border */
-  --color-line-strong: rgba(37, 33, 31, 0.18);     /* Stronger border */
-  --color-line-rose: rgba(154, 104, 79, 0.30);     /* Aged copper tint border */
-  --color-line-copper: rgba(154, 104, 79, 0.40);   /* Aged copper border */
-  --color-line-stone: rgba(185, 173, 158, 0.50);   /* Warm stone border */
-  --color-line-on-dark: rgba(241, 236, 227, 0.16);
+  --color-line: rgba(25, 24, 23, 0.10);            /* Thin translucent border */
+  --color-line-strong: rgba(25, 24, 23, 0.18);     /* Stronger border */
+  --color-line-rose: rgba(167, 139, 93, 0.30);     /* Aged copper tint border */
+  --color-line-copper: rgba(167, 139, 93, 0.40);   /* Aged copper border */
+  --color-line-stone: rgba(213, 208, 200, 0.50);   /* Warm stone border */
+  --color-line-on-dark: rgba(247, 243, 236, 0.16);
 
   /* Legacy surface aliases */
-  --color-surface: #F1ECE3;
-  --color-surface-soft: #FAF7F1;
-  --color-surface-elevated: #FAF7F1;
-  --color-fg: #25211F;
+  --color-surface: #F7F3EC;
+  --color-surface-soft: #F3EFE7;
+  --color-surface-elevated: #F3EFE7;
+  --color-fg: #191817;
   --color-fg-muted: #4A423D;
-  --color-fg-subtle: #8A7E6E;
-  --color-accent: #A66F65;
-  --color-coral: #A66F65;
-  --color-saffron: #9A684F;
-  --color-teal: #51252B;
-  --color-violet: #51252B;
+  --color-fg-subtle: #8A8378;
+  --color-accent: #A35F4F;
+  --color-coral: #A35F4F;
+  --color-saffron: #A78B5D;
+  --color-teal: #541F24;
+  --color-violet: #541F24;
 
   /* shadcn aliases */
   --color-border: var(--color-line);
@@ -77,13 +77,13 @@
   --color-popover: var(--color-ivory);
   --color-popover-foreground: var(--color-ink);
   --color-primary: var(--color-oxblood);
-  --color-primary-foreground: #FAF7F1;
+  --color-primary-foreground: #F3EFE7;
   --color-secondary: var(--color-stone);
   --color-secondary-foreground: var(--color-ink);
   --color-muted: var(--color-stone);
   --color-muted-foreground: var(--color-stone-dark);
-  --color-accent-foreground: #FAF7F1;
-  --color-destructive: #51252B;
+  --color-accent-foreground: #F3EFE7;
+  --color-destructive: #541F24;
   --color-sidebar: var(--color-ivory);
   --color-sidebar-foreground: var(--color-ink);
   --color-sidebar-border: var(--color-line);
@@ -98,56 +98,56 @@
 
 :root {
   /* Central design tokens — single source of truth (refined editorial) */
-  --background-global: #F1ECE3;       /* Warm paper */
-  --background-ivory: #FAF7F1;       /* Soft ivory */
+  --background-global: #F7F3EC;       /* Warm paper */
+  --background-ivory: #F3EFE7;       /* Soft ivory */
   --background-stone: #E8E2D5;       /* Warm stone tint */
-  --background-oxblood: #51252B;     /* Deep oxblood */
-  --background-ink: #25211F;         /* Natural ink */
+  --background-oxblood: #541F24;     /* Deep oxblood */
+  --background-ink: #191817;         /* Natural ink */
 
-  --text-primary: #25211F;          /* Natural ink — primary text */
+  --text-primary: #191817;          /* Natural ink — primary text */
   --text-body: #4A423D;             /* Softer ink-brown — body */
-  --text-muted: #8A7E6E;            /* Darker warm stone — secondary text */
-  --text-on-dark: #F1ECE3;          /* Warm paper on dark bg */
-  --text-on-oxblood: #F1ECE3;
+  --text-muted: #8A8378;            /* Darker warm stone — secondary text */
+  --text-on-dark: #F7F3EC;          /* Warm paper on dark bg */
+  --text-on-oxblood: #F7F3EC;
   --text-on-rose: #FFFFFF;
-  --text-on-burgundy: #F1ECE3;
+  --text-on-burgundy: #F7F3EC;
 
-  --border-default: rgba(37, 33, 31, 0.10);
-  --border-strong: rgba(37, 33, 31, 0.18);
-  --border-copper: rgba(154, 104, 79, 0.40);
-  --border-stone: rgba(185, 173, 158, 0.50);
-  --border-rose: rgba(154, 104, 79, 0.30);
-  --border-on-dark: rgba(241, 236, 227, 0.16);
+  --border-default: rgba(25, 24, 23, 0.10);
+  --border-strong: rgba(25, 24, 23, 0.18);
+  --border-copper: rgba(167, 139, 93, 0.40);
+  --border-stone: rgba(213, 208, 200, 0.50);
+  --border-rose: rgba(167, 139, 93, 0.30);
+  --border-on-dark: rgba(247, 243, 236, 0.16);
 
-  --paper: #F1ECE3;
-  --ivory: #FAF7F1;
-  --ink: #25211F;
-  --oxblood: #51252B;
-  --clay: #A66F65;
-  --copper: #9A684F;
-  --stone: #B9AD9E;
-  --stone-dark: #8A7E6E;
-  --beige: #F1ECE3;
+  --paper: #F7F3EC;
+  --ivory: #F3EFE7;
+  --ink: #191817;
+  --oxblood: #541F24;
+  --clay: #A35F4F;
+  --copper: #A78B5D;
+  --stone: #D5D0C8;
+  --stone-dark: #8A8378;
+  --beige: #F7F3EC;
   --blush: #E8E2D5;
-  --porcelain: #FAF7F1;
-  --rose: #A66F65;
-  --rose-dark: #9A684F;
-  --burgundy: #51252B;
-  --espresso: #25211F;
+  --porcelain: #F3EFE7;
+  --rose: #A35F4F;
+  --rose-dark: #A78B5D;
+  --burgundy: #541F24;
+  --espresso: #191817;
   --charcoal: #4A423D;
-  --on-burgundy-heading: #FAF7F1;
+  --on-burgundy-heading: #F3EFE7;
   --on-burgundy-body: #E8E2D5;
-  --on-burgundy-label: #B9AD9E;
-  --on-burgundy-italic: #A66F65;
+  --on-burgundy-label: #D5D0C8;
+  --on-burgundy-italic: #A35F4F;
 
   /* Legacy aliases */
-  --surface: #F1ECE3;
-  --surface-soft: #FAF7F1;
-  --surface-elevated: #FAF7F1;
-  --fg: #25211F;
+  --surface: #F7F3EC;
+  --surface-soft: #F3EFE7;
+  --surface-elevated: #F3EFE7;
+  --fg: #191817;
   --fg-muted: #4A423D;
-  --fg-subtle: #8A7E6E;
-  --accent: #A66F65;
+  --fg-subtle: #8A8378;
+  --accent: #A35F4F;
 
   color-scheme: light;
 }
@@ -414,7 +414,7 @@
 .field-blush       { background: var(--color-stone);      color: var(--color-ink); }
 .field-porcelain   { background: var(--color-ivory);      color: var(--color-ink); }
 .field-paper       { background: var(--color-paper);      color: var(--color-ink); }
-.field-rose        { background: var(--color-clay);       color: #FAF7F1; }
+.field-rose        { background: var(--color-clay);       color: #F3EFE7; }
 .field-burgundy    { background: var(--color-oxblood);    color: var(--color-ivory); }
 .field-oxblood     { background: var(--color-oxblood);    color: var(--color-ivory); }
 .field-espresso    { background: var(--color-ink);        color: var(--color-ivory); }
@@ -424,9 +424,9 @@
 .field-surface         { background: var(--color-paper);     color: var(--color-ink); }
 .field-surface-soft    { background: var(--color-ivory);     color: var(--color-ink); }
 .field-surface-elevated{ background: var(--color-ivory);    color: var(--color-ink); }
-.field-accent   { background: var(--color-clay);       color: #FAF7F1; }
-.field-coral    { background: var(--color-clay);       color: #FAF7F1; }
-.field-saffron  { background: var(--color-copper);     color: #FAF7F1; }
+.field-accent   { background: var(--color-clay);       color: #F3EFE7; }
+.field-coral    { background: var(--color-clay);       color: #F3EFE7; }
+.field-saffron  { background: var(--color-copper);     color: #F3EFE7; }
 .field-teal     { background: var(--color-oxblood);   color: var(--color-ivory); }
 .field-violet   { background: var(--color-oxblood);   color: var(--color-ivory); }
 
@@ -435,7 +435,7 @@
 .field-burgundy .line-on-color,
 .field-oxblood .line-on-color,
 .field-espresso .line-on-color,
-.field-ink .line-on-color { border-color: rgba(241, 236, 227, 0.22); }
+.field-ink .line-on-color { border-color: rgba(247, 243, 236, 0.22); }
 
 /* ============================================================
    GRAPHIC LANGUAGE — annotation marks, brackets, rules
@@ -471,7 +471,7 @@
 
 /* Highlight mark — solid warm-stone tint background (no gradient) */
 .anno-highlight {
-  background: rgba(185, 173, 158, 0.25);
+  background: rgba(213, 208, 200, 0.25);
   padding: 0 0.15em;
 }
 

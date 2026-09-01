@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
+/**
+ * Contact page. Index 07 — the last page in the seven-page index.
+ * Server component rendering the hero and the contact form + details
+ * grid. The form component itself (ContactForm) handles POST,
+ * honeypot, validation and the toast UI.
+ */
 export default function ContactPage() {
   return (
     <>
@@ -16,8 +22,8 @@ export default function ContactPage() {
       <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone-dark">Index 06 · Contact</span>
-            <span className="folio text-stone-dark">06 / 06</span>
+            <span className="mono-label text-stone-dark">Index 07 · Contact</span>
+            <span className="folio text-stone-dark">07 / 07</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">

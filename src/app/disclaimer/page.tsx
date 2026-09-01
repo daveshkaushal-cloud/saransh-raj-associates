@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { LegalLayout } from "@/components/site/legal-layout";
 import { firm } from "@/data/firm";
 
+// NOTE: Final legal language should be reviewed by the firm's lawyer.
+
 export const metadata: Metadata = {
   title: "Disclaimer",
   description:
@@ -18,8 +20,9 @@ export default function DisclaimerPage() {
         <p>
           This website is the online presence of {firm.name}, a law firm based
           in New Delhi, India. It has been prepared and is maintained solely for
-          informational purposes. Please read this disclaimer carefully before
-          accessing any part of the website.
+          informational purposes. Access to this website is voluntary and
+          initiated by the visitor. The content is provided solely for
+          informational purposes and is subject to this disclaimer.
         </p>
       }
       sections={[
@@ -48,10 +51,11 @@ export default function DisclaimerPage() {
           heading: "Voluntary access",
           body: (
             <p>
-              By entering this website, you confirm that you are accessing it
-              voluntarily and on your own initiative, and that you have read and
-              understood this disclaimer. If you do not agree with these terms,
-              please refrain from accessing the website.
+              Access to this website is voluntary and initiated by the visitor.
+              The content is provided solely for informational purposes and is
+              subject to this disclaimer. The firm has not sought to elicit
+              access through any representation, and the visitor is presumed to
+              have accessed the website on their own initiative.
             </p>
           ),
         },

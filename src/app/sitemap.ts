@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { practiceAreas } from "@/data/practice-areas";
 import { people } from "@/data/people";
+import { perspectives } from "@/data/perspectives";
 
 export const dynamic = "force-static";
 
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/expertise`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/sectors`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/people`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/perspectives`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/careers`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/disclaimer`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
@@ -36,5 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...practiceRoutes, ...peopleRoutes];
+  const perspectiveRoutes: MetadataRoute.Sitemap = perspectives.map((p) => ({
+    url: `${base}/perspectives/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...practiceRoutes, ...peopleRoutes, ...perspectiveRoutes];
 }

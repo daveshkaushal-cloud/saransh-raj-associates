@@ -16,6 +16,7 @@ export type PracticeArea = {
   services: string[];
   serviceDetails: string[];
   accent: "rose" | "burgundy" | "espresso" | "blush" | "beige" | "porcelain";
+  relatedSectors: string[];
 };
 
 export const practiceAreas: PracticeArea[] = [
@@ -39,6 +40,7 @@ export const practiceAreas: PracticeArea[] = [
       "Schemes of arrangement, demergers, amalgamations and internal reorganisations — including NCLT approvals, valuation reports, creditor consents and the regulatory filings required to give effect to the restructuring.",
     ],
     accent: "rose",
+    relatedSectors: ["technology", "manufacturing", "real-estate"],
   },
   {
     slug: "commercial-contracts",
@@ -60,6 +62,7 @@ export const practiceAreas: PracticeArea[] = [
       "Pre-litigation review of contractual positions, drafting and issue of formal notices, cure-period analysis, and strategic counsel on enforcement options, termination consequences and the remedies available under the agreement.",
     ],
     accent: "burgundy",
+    relatedSectors: ["fmcg", "alcoholic-beverages", "technology", "manufacturing"],
   },
   {
     slug: "mergers-and-acquisitions",
@@ -81,6 +84,7 @@ export const practiceAreas: PracticeArea[] = [
       "Legal support for the integration phase — harmonising contracts, employment structures, regulatory registrations and corporate-secretarial records, and advising on the wind-down of residual or dormant entities post-closing.",
     ],
     accent: "espresso",
+    relatedSectors: ["technology", "manufacturing", "real-estate"],
   },
   {
     slug: "dispute-resolution",
@@ -102,6 +106,7 @@ export const practiceAreas: PracticeArea[] = [
       "Early-stage assessment of disputes before proceedings are issued — demand-letter drafting, preservation of evidence, limitation-period analysis, and a candid view on the merits, the likely costs, and the prospects of negotiated resolution.",
     ],
     accent: "blush",
+    relatedSectors: ["real-estate", "construction", "infrastructure"],
   },
   {
     slug: "regulatory-and-compliance",
@@ -123,6 +128,7 @@ export const practiceAreas: PracticeArea[] = [
       "Representation before SEBI, the RBI, the Ministry of Corporate Affairs and sectoral regulators — including responses to show-cause notices, applications for interpretive guidance, consent and settlement applications, and appearances at personal hearings.",
     ],
     accent: "beige",
+    relatedSectors: ["fmcg", "technology", "renewable-energy", "hospitality"],
   },
   {
     slug: "insolvency-and-recovery",
@@ -144,6 +150,7 @@ export const practiceAreas: PracticeArea[] = [
       "Enforcement of decrees, arbitral awards and security interests — including execution petitions, attachment of movable and immovable property, and recovery through the SARFAESI Act, 2002, where the client holds an enforceable security interest.",
     ],
     accent: "porcelain",
+    relatedSectors: ["infrastructure", "real-estate", "manufacturing"],
   },
 ];
 
