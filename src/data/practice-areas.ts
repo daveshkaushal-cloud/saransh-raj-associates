@@ -73,7 +73,7 @@ export const practiceAreas: PracticeArea[] = [
       "Transaction structuring, documentation and due diligence across the M&A lifecycle — from initial structuring and legal due diligence through to negotiation, regulatory approvals and post-closing integration.",
     services: [
       "Transaction structuring & advisory",
-      "Legal & financial due diligence",
+      "Legal due diligence",
       "Regulatory filings & approvals",
       "Post-merger integration support",
     ],
