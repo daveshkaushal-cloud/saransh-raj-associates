@@ -84,7 +84,7 @@ export function SiteHeader() {
                     active ? "text-ink" : "text-charcoal hover:text-ink"
                   }`}
                 >
-                  <span className="mono-num text-[0.8125rem] text-stone group-hover:text-copper transition-colors">
+                  <span className="mono-num text-[0.8125rem] text-stone-dark group-hover:text-copper transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-medium tracking-tight">
@@ -102,7 +102,7 @@ export function SiteHeader() {
 
           {/* Mobile toggle */}
           <div className="flex items-center gap-3">
-            <span className="mono-label text-stone hidden md:inline">
+            <span className="mono-label text-stone-dark hidden md:inline">
               {activeIndex >= 0
                 ? `INDEX ${String(activeIndex + 1).padStart(2, "0")}`
                 : "INDEX"}
@@ -130,7 +130,7 @@ export function SiteHeader() {
         aria-hidden={!open}
       >
         <div className="flex h-full flex-col px-6 pt-20 pb-10 overflow-y-auto">
-          <p className="mono-label text-stone mb-6">Index</p>
+          <p className="mono-label text-stone-dark mb-6">Index</p>
           <nav aria-label="Mobile" className="flex flex-col">
             {primaryNav.map((item, i) => {
               const active = activeIndex === i;
@@ -141,7 +141,7 @@ export function SiteHeader() {
                   className="group flex items-baseline justify-between border-b border-line py-5"
                 >
                   <span className="flex items-baseline gap-5">
-                    <span className="mono-num text-[0.7rem] text-stone">
+                    <span className="mono-num text-[0.7rem] text-stone-dark">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
@@ -153,7 +153,7 @@ export function SiteHeader() {
                     </span>
                   </span>
                   <svg
-                    className="h-5 w-5 text-stone transition-transform group-hover:translate-x-1 group-hover:text-rose"
+                    className="h-5 w-5 text-stone-dark transition-transform group-hover:translate-x-1 group-hover:text-rose"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -167,12 +167,12 @@ export function SiteHeader() {
             })}
           </nav>
           <div className="mt-auto pt-10">
-            <p className="mono-label text-stone mb-2">Office</p>
+            <p className="mono-label text-stone-dark mb-2">Office</p>
             <p className="text-sm text-charcoal">
               {contact_address_line1}<br />
               {contact_address_line2}
             </p>
-            <p className="text-sm text-stone mt-1">
+            <p className="text-sm text-stone-dark mt-1">
               Mon – Sat · 10:00 – 19:00 IST
             </p>
           </div>
