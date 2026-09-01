@@ -387,7 +387,7 @@ function Principles() {
     { bg: "#A35F4F", fg: "#F3EFE7" }, // clay
     { bg: "#541F24", fg: "#F3EFE7" }, // oxblood
     { bg: "#E8E2D5", fg: "#191817" }, // stone tint (dark text)
-    { bg: "#191817", fg: "#F3EFE7" }, // ink
+    { bg: "#ef7d0b", fg: "#F3EFE7" }, // ink
   ];
 
   return (
