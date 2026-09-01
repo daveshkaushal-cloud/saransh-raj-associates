@@ -27,7 +27,7 @@
   --color-clay: #A35F4F;           /* Muted rose clay — small highlights only */
   --color-copper: #A78B5D;          /* Aged copper — borders, numbers, icons, details */
   --color-stone: #D5D0C8;          /* Warm stone — secondary borders, subtle bg */
-  --color-stone-dark: #8A8378;     /* Darker warm stone — secondary text */
+  --color-stone-dark: #625A54;     /* Accessible warm taupe — secondary text */
 
   /* Legacy aliases → map to refined palette for back-compat.
      Old class names (bg-ivory, text-espresso, etc.) now resolve to
@@ -61,7 +61,7 @@
   --color-surface-elevated: #F3EFE7;
   --color-fg: #191817;
   --color-fg-muted: #4A423D;
-  --color-fg-subtle: #8A8378;
+  --color-fg-subtle: #625A54;
   --color-accent: #A35F4F;
   --color-coral: #A35F4F;
   --color-saffron: #A78B5D;
@@ -106,7 +106,7 @@
 
   --text-primary: #191817;          /* Natural ink — primary text */
   --text-body: #4A423D;             /* Softer ink-brown — body */
-  --text-muted: #8A8378;            /* Darker warm stone — secondary text */
+  --text-muted: #625A54;            /* Accessible warm taupe — secondary text */
   --text-on-dark: #F7F3EC;          /* Warm paper on dark bg */
   --text-on-oxblood: #F7F3EC;
   --text-on-rose: #FFFFFF;
@@ -126,7 +126,7 @@
   --clay: #A35F4F;
   --copper: #A78B5D;
   --stone: #D5D0C8;
-  --stone-dark: #8A8378;
+  --stone-dark: #625A54;
   --beige: #F7F3EC;
   --blush: #E8E2D5;
   --porcelain: #F3EFE7;
@@ -146,7 +146,7 @@
   --surface-elevated: #F3EFE7;
   --fg: #191817;
   --fg-muted: #4A423D;
-  --fg-subtle: #8A8378;
+  --fg-subtle: #625A54;
   --accent: #A35F4F;
 
   color-scheme: light;
@@ -269,8 +269,8 @@
   color: var(--color-on-burgundy-italic);
 }
 
-/* Mono labels — folios, index numbers, metadata, eyebrows
-   Minimum 12-13px for readability. Darker stone colour (#6D5F5A). */
+/* Mono labels — folios, index numbers, metadata, eyebrows.
+   Use the accessible warm-taupe token on light surfaces. */
 .mono {
   font-family: var(--font-mono), ui-monospace, monospace;
 }
@@ -280,7 +280,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-stone);
+  color: var(--color-stone-dark);
 }
 @media (min-width: 768px) {
   .mono-label {
@@ -327,7 +327,7 @@
   text-transform: uppercase;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  color: var(--color-stone);
+  color: var(--color-stone-dark);
 }
 
 /* ============================================================
@@ -520,7 +520,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   font-variant-numeric: tabular-nums;
-  color: var(--color-stone);
+  color: var(--color-stone-dark);
 }
 
 /* Section index — oversized number watermark */
@@ -530,7 +530,7 @@
   font-size: clamp(6rem, 16vw, 18rem);
   line-height: 0.8;
   letter-spacing: -0.04em;
-  color: rgba(183, 110, 121, 0.08);
+  color: rgba(84, 31, 36, 0.14);
 }
 
 /* Eyebrow — small section label */
@@ -540,7 +540,16 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-stone);
+  color: var(--color-stone-dark);
+}
+
+/* Restore light metadata on dark editorial colour fields. */
+.field-rose :is(.mono-label, .folio, .eyebrow),
+.field-burgundy :is(.mono-label, .folio, .eyebrow),
+.field-oxblood :is(.mono-label, .folio, .eyebrow),
+.field-espresso :is(.mono-label, .folio, .eyebrow),
+.field-ink :is(.mono-label, .folio, .eyebrow) {
+  color: var(--color-on-burgundy-label);
 }
 
 /* ============================================================
