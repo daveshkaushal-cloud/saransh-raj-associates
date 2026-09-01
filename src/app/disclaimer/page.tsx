@@ -110,7 +110,7 @@ export default function DisclaimerPage() {
             <p>
               Unless otherwise stated, the content, design and visual system of
               this website are the property of {firm.name}. All visuals are
-              original artworks created for this website. Unauthorised
+              original content, design and visual materials appearing on this website are owned by or licensed for use by. Unauthorised
               reproduction or distribution is not permitted.
             </p>
           ),

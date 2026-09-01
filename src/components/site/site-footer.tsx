@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { footerNav, legalNav } from "@/data/navigation";
-import { firm, contact, legalPages } from "@/data/firm";
+import { firm, contact } from "@/data/firm";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
 
@@ -132,12 +132,6 @@ export function SiteFooter() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href={legalPages.disclaimer.path}
-              className="mono-label text-stone hover:text-clay transition-colors"
-            >
-              Revisit Disclaimer
-            </Link>
           </div>
           <p className="mono-label text-stone">
             ©{year ? ` ${year} ` : " "}

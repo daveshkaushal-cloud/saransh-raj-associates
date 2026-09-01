@@ -237,11 +237,6 @@ function Origin() {
                 it operates, and the manner in which it engages with the people
                 and the businesses it advises.
               </p>
-              <p className="body-condensed text-stone-dark italic">
-                [To be confirmed following review: specific founding date,
-                address history and prior professional affiliations of the
-                founder.]
-              </p>
             </div>
           </div>
         </div>

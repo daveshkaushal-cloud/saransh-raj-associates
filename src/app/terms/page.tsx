@@ -72,7 +72,7 @@ export default function TermsPage() {
           body: (
             <p>
               All content on this website — including text, design, the visual
-              system, original artworks and the firm&apos;s name — is the
+              system, original content, design and visual materials and the firm&apos;s name — is the
               property of {firm.name} or its licensors, and is protected by
               applicable intellectual property laws. The firm&apos;s name and
               marks may not be used without prior written consent.

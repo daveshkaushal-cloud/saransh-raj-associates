@@ -409,7 +409,7 @@ export default function HomePage() {
                     />
                     <div className="flex items-start justify-between">
                       <span className="mono-num text-stone-dark">
-                        {String(i + 1).padStart(2, "0")} / 06
+                        {String(i + 1).padStart(2, "0")} / 10
                       </span>
                       <span
                         className="h-2 w-2 rounded-full"

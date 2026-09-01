@@ -78,7 +78,7 @@ export const practiceAreas: PracticeArea[] = [
       "Post-merger integration support",
     ],
     serviceDetails: [
-      "Structuring the transaction as an asset purchase, share purchase, slump sale or scheme of arrangement — optimised for tax efficiency, the regulatory approvals triggered, and the commercial timeline that the parties wish to achieve.",
+      "Structuring the transaction as an asset purchase, share purchase, slump sale or scheme of arrangement — structured with consideration to relevant tax implications, in coordination with tax advisers where appropriate, the regulatory approvals triggered, and the commercial timeline that the parties wish to achieve.",
       "Comprehensive legal due diligence on the target — covering corporate, contractual, employment, regulatory, litigation and intellectual-property matters — culminating in a risk register and direct input into the negotiation of representations, warranties and indemnities.",
       "Identification and procurement of the approvals required from the Competition Commission of India, the Reserve Bank of India, SEBI, sectoral regulators and the courts — including foreign-exchange filings and Forms FC-GPR / FC-TRS where applicable.",
       "Legal support for the integration phase — harmonising contracts, employment structures, regulatory registrations and corporate-secretarial records, and advising on the wind-down of residual or dormant entities post-closing.",

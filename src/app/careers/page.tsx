@@ -102,7 +102,7 @@ export default function CareersPage() {
                 Saransh Raj &amp; Associates is a founder-led practice that
                 welcomes considered enquiries from advocates, law graduates,
                 internship applicants and support professionals who share its
-                commitment to integrity, precision and clarity.
+                commitment to rigorous research, careful writing, precision, clarity and sound professional judgment.
               </p>
             </div>
           </div>

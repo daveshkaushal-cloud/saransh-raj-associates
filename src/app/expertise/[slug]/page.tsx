@@ -792,7 +792,7 @@ function MergersAndAcquisitionsBody({ hex }: { hex: string }) {
           triggered, what the tax cost is, and how long the transaction
           takes. The firm advises on structuring as an asset purchase, a
           share purchase, a slump sale or a scheme of arrangement,
-          optimised for tax efficiency, the regulatory approvals
+          structured with consideration to relevant tax implications, in coordination with tax advisers where appropriate, the regulatory approvals
           triggered, and the commercial timeline the parties wish to
           achieve.
         </Paragraph>
