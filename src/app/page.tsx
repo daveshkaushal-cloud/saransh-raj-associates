@@ -511,11 +511,11 @@ export default function HomePage() {
               {/* Founder portrait */}
               <div className="md:col-span-5 relative min-h-[16rem] md:min-h-[20rem] overflow-hidden bg-blush flex items-center justify-center">
                 <Image
-                  src="/images/saransh-raj-portrait.webp"
+                  src="/images/saransh-raj-landscape.webp"
                   alt={`Portrait of ${founder.name}, Founder and Principal Advocate`}
                   fill
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                   <div className="h-3 w-3 border-l border-t border-copper" />
