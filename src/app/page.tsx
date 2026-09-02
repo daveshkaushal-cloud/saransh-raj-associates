@@ -140,8 +140,8 @@ export default function HomePage() {
                   style={{ aspectRatio: "4 / 5", maxHeight: "620px" }}
                 >
                   <Image
-                    src="/images/hero-architecture-warm.jpg"
-                    alt="Architectural detail reflecting the firm's New Delhi practice"
+                    src="/images/hero-editorial-study.webp"
+                    alt="Editorial still life of legal folios, a writing desk and brass lamp"
                     fill
                     priority
                     fetchPriority="high"
@@ -151,7 +151,7 @@ export default function HomePage() {
                   />
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                     <div className="h-3 w-3 border-l border-t border-copper" />
-                    <span className="mono-label text-copper">New Delhi</span>
+                    <span className="mono-label text-copper">Practice Study</span>
                   </div>
                 </div>
               </div>
