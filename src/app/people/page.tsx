@@ -60,15 +60,15 @@ export default function PeoplePage() {
             className="group relative block bg-ivory border border-line overflow-hidden hover:border-copper transition-colors duration-300"
           >
             <div className="grid grid-cols-1 md:grid-cols-12">
-              {/* SR monogram — elegant neutral placeholder on blush */}
+              {/* Founder portrait */}
               <div className="md:col-span-5 relative min-h-[24rem] md:min-h-[32rem] overflow-hidden bg-blush flex items-center justify-center">
                 <Image
-                  src="/images/sr-monogram.png"
-                  alt="Saransh Raj monogram"
+                  src="/images/saransh-raj-portrait.webp"
+                  alt="Portrait of Saransh Raj, Founder and Principal Advocate"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 {/* Rose-gold annotation bracket */}
                 <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">

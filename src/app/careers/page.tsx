@@ -115,11 +115,11 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-3">
               <p className="mono-label text-stone-dark mb-4">§ 01 · Overview</p>
-              {/* Supporting image — document detail, single, sparingly used */}
+              {/* Supporting research-and-writing image */}
               <div className="mt-6 relative aspect-[4/3] w-full max-w-xs overflow-hidden bg-stone">
                 <Image
-                  src="/images/document-detail.png"
-                  alt="Document detail — layered legal papers reflecting the firm's archival practice"
+                  src="/images/careers-writing.webp"
+                  alt="A quiet legal research and writing desk with notebook, pen and laptop"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 25vw"
@@ -127,7 +127,7 @@ export default function CareersPage() {
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                   <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">Archive · 03</span>
+                  <span className="mono-label text-copper">Practice · 03</span>
                 </div>
               </div>
             </div>

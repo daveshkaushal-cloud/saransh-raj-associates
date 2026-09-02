@@ -74,16 +74,16 @@ export default async function PersonPage({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-            {/* SR monogram — elegant neutral placeholder on blush */}
+            {/* Founder portrait */}
             <div className="md:col-span-5">
-              <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden bg-blush flex items-center justify-center">
+              <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden bg-blush flex items-center justify-center">
                 <Image
-                  src="/images/sr-monogram.png"
-                  alt="Saransh Raj monogram"
+                  src="/images/saransh-raj-portrait.webp"
+                  alt="Portrait of Saransh Raj, Founder and Principal Advocate"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 {/* Rose-gold annotation bracket */}
                 <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">

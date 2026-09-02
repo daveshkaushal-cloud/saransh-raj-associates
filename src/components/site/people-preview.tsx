@@ -4,8 +4,7 @@ import { people } from "@/data/people";
 
 /**
  * People preview — warm editorial founder card.
- * The portrait uses the SR monogram placeholder (no AI face)
- * on a blush field, centered. The details column carries
+ * The founder portrait anchors the card. The details column carries
  * the name, role, summary, focus areas and CTA.
  * Rose-gold accents appear only on the arrow icons, hover
  * states and annotation marks.
@@ -20,15 +19,15 @@ export function PeoplePreview() {
           className="group relative block bg-porcelain border border-line overflow-hidden hover:border-copper transition-colors duration-300"
         >
           <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* SR monogram — elegant neutral placeholder on blush */}
+            {/* Founder portrait */}
             <div className="md:col-span-5 relative min-h-[18rem] md:min-h-[22rem] overflow-hidden bg-blush flex items-center justify-center">
               <Image
-                src="/images/sr-monogram.png"
-                alt="Saransh Raj monogram"
+                src="/images/saransh-raj-portrait.webp"
+                alt="Portrait of Saransh Raj, Founder and Principal Advocate"
                 fill
                 loading="lazy"
                 sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
               {/* Rose-gold annotation bracket */}
               <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">

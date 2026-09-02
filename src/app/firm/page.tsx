@@ -247,7 +247,7 @@ function Origin() {
 
 /* ---------------------------------------------------------------
    03 — How the firm works
-   Includes a supporting document-detail image alongside the narrative.
+   Includes a supporting editorial image alongside the narrative.
    --------------------------------------------------------------- */
 function HowTheFirmWorks() {
   const stages = [
@@ -334,8 +334,8 @@ function HowTheFirmWorks() {
           <div className="md:col-span-5">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone">
               <Image
-                src="/images/document-detail.png"
-                alt="Document detail — layered legal papers reflecting the firm's archival approach"
+                src="/images/firm-process.webp"
+                alt="Organised legal matter files and annotated contract pages on a worktable"
                 fill
                 loading="lazy"
                 sizes="(max-width: 768px) 100vw, 40vw"

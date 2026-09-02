@@ -508,14 +508,14 @@ export default function HomePage() {
             className="group relative block bg-ivory border border-line overflow-hidden"
           >
             <div className="grid grid-cols-1 md:grid-cols-12">
-              {/* SR monogram */}
+              {/* Founder portrait */}
               <div className="md:col-span-5 relative min-h-[16rem] md:min-h-[20rem] overflow-hidden bg-blush flex items-center justify-center">
                 <Image
-                  src="/images/sr-monogram.png"
-                  alt={`${founder.name} monogram`}
+                  src="/images/saransh-raj-portrait.webp"
+                  alt={`Portrait of ${founder.name}, Founder and Principal Advocate`}
                   fill
                   sizes="(max-width: 768px) 100vw, 40vw"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                   <div className="h-3 w-3 border-l border-t border-copper" />
@@ -675,7 +675,7 @@ export default function HomePage() {
               >
                 <Image
                   src="/images/hero-office.png"
-                  alt="Architectural detail of the firm's New Delhi office"
+                  alt="Institutional architectural detail in New Delhi"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
@@ -690,7 +690,7 @@ export default function HomePage() {
                     className="mono-label"
                     style={{ color: "var(--color-on-burgundy-label)" }}
                   >
-                    Office
+                    New Delhi
                   </span>
                 </div>
               </div>

@@ -118,11 +118,11 @@ export default function SectorsPage() {
                   How the firm serves its sectors
                 </h2>
               </div>
-              {/* Supporting image — document detail, single, sparingly used */}
+              {/* Supporting architectural study */}
               <div className="mt-8 relative aspect-[4/3] w-full max-w-md overflow-hidden bg-stone">
                 <Image
-                  src="/images/document-detail.png"
-                  alt="Document detail — layered legal papers reflecting the firm's sector-aware approach"
+                  src="/images/sector-research.webp"
+                  alt="Contemporary institutional architecture in warm sandstone and glass"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -130,7 +130,7 @@ export default function SectorsPage() {
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
                   <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">Archive · 02</span>
+                  <span className="mono-label text-copper">Sector Study · 02</span>
                 </div>
               </div>
             </div>
