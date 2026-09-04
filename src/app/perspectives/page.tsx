@@ -76,10 +76,7 @@ export default function PerspectivesPage() {
                 <span className="col-span-12 md:col-span-2 mono-label text-copper">
                   {article.type}
                 </span>
-                <span className="col-span-6 md:col-span-1 mono-num text-stone-dark">
-                  {article.dateLabel}
-                </span>
-                <div className="col-span-12 md:col-span-7">
+                <div className="col-span-12 md:col-span-8">
                   <h2 className="font-display text-xl md:text-2xl text-ink leading-tight group-hover:text-oxblood transition-colors">
                     {article.title}
                   </h2>
