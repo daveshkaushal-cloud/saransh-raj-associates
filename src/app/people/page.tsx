@@ -25,11 +25,6 @@ export default function PeoplePage() {
       {/* ============== HERO — ivory ============== */}
       <section className="relative bg-sandwash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone-dark">Index 04 · People</span>
-            <span className="folio text-stone-dark">04 / 07</span>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <p className="mono-label text-stone-dark mb-4">Leadership</p>
@@ -70,14 +65,6 @@ export default function PeoplePage() {
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover object-top"
                 />
-                {/* Rose-gold annotation bracket */}
-                <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">SR · 01</span>
-                </div>
-                <div className="absolute bottom-5 right-5 z-10">
-                  <span className="mono-num text-ink/80">{founder.initials}/01</span>
-                </div>
               </div>
 
               {/* Details */}

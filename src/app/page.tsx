@@ -29,7 +29,6 @@ export default function HomePage() {
             <span className="mono-label hidden sm:inline">
               Corporate &amp; Commercial Law
             </span>
-            <span className="folio">HOME</span>
           </div>
         </div>
 
@@ -140,8 +139,8 @@ export default function HomePage() {
                   style={{ aspectRatio: "4 / 5", maxHeight: "620px" }}
                 >
                   <Image
-                    src="/images/hero-editorial-study.webp"
-                    alt="Editorial still life of legal folios, a writing desk and brass lamp"
+                    src="/images/practice-study-v2.webp"
+                    alt="A refined legal study with mahogany bookshelves, working files and brass balance scales"
                     fill
                     priority
                     fetchPriority="high"
@@ -149,10 +148,6 @@ export default function HomePage() {
                     className="object-cover"
                     placeholder="empty"
                   />
-                  <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                    <div className="h-3 w-3 border-l border-t border-copper" />
-                    <span className="mono-label text-copper">Practice Study</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -517,10 +512,6 @@ export default function HomePage() {
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-copper" />
-                  <span className="mono-label text-copper">{founder.initials}</span>
-                </div>
               </div>
               {/* Details */}
               <div className="md:col-span-7 p-6 md:p-10 flex flex-col justify-center">
@@ -674,25 +665,13 @@ export default function HomePage() {
                 style={{ aspectRatio: "4 / 5", maxHeight: "540px" }}
               >
                 <Image
-                  src="/images/hero-office.png"
-                  alt="Institutional architectural detail in New Delhi"
+                  src="/images/new-delhi-office.webp"
+                  alt="Institutional sandstone architecture and landscaped grounds in New Delhi"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover"
                 />
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                  <div
-                    className="h-3 w-3 border-l border-t"
-                    style={{ borderColor: "var(--color-on-burgundy-label)" }}
-                  />
-                  <span
-                    className="mono-label"
-                    style={{ color: "var(--color-on-burgundy-label)" }}
-                  >
-                    New Delhi
-                  </span>
-                </div>
               </div>
             </div>
           </div>

@@ -70,7 +70,6 @@ export default async function PersonPage({
               </svg>
               <span>Back to People</span>
             </Link>
-            <span className="folio text-stone-dark">04 / 07</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -85,14 +84,6 @@ export default async function PersonPage({
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover object-top"
                 />
-                {/* Rose-gold annotation bracket */}
-                <div className="absolute top-5 left-5 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">SR</span>
-                </div>
-                <div className="absolute bottom-5 right-5 z-10">
-                  <span className="mono-num text-ink/80">{person.initials}/01</span>
-                </div>
               </div>
             </div>
 

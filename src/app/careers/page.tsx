@@ -81,11 +81,6 @@ export default function CareersPage() {
       {/* Hero — calm and factual */}
       <section className="relative bg-bluewash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone-dark">Index 06 · Careers</span>
-            <span className="folio text-stone-dark">06 / 07</span>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <p className="mono-label text-stone-dark mb-4">Joining the firm</p>
@@ -125,10 +120,6 @@ export default function CareersPage() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover"
                 />
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">Practice · 03</span>
-                </div>
               </div>
             </div>
             <div className="md:col-span-8 md:col-start-5">

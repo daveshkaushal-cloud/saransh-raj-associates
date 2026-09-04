@@ -109,9 +109,6 @@ function PracticeHero({
             </svg>
             <span>All expertise</span>
           </Link>
-          <span className="folio opacity-60">
-            Practice area {area.index} / 06
-          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">

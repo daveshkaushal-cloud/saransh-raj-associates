@@ -27,10 +27,6 @@ export default function PerspectivesPage() {
       {/* Hero */}
       <section className="relative bg-rosewash pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
-            <span className="mono-label">Index 05 · Perspectives</span>
-            <span className="folio">05 / 07</span>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <p className="mono-label mb-3">Legal Notes & Publications</p>

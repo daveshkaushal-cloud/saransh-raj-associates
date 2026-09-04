@@ -18,13 +18,6 @@ export default function FirmPage() {
       {/* ============== HERO (ivory) ============== */}
       <section className="relative bg-rosewash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone-dark">
-              Index 01 · The Firm
-            </span>
-            <span className="folio text-stone-dark">01 / 07</span>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <div className="flex items-center gap-3 mb-6">
@@ -38,7 +31,6 @@ export default function FirmPage() {
                 A founder-led corporate &amp; commercial legal practice based in
                 New Delhi, India.
               </p>
-              <p className="margin-note mt-4">SRA / 01 · The Firm</p>
             </div>
             <div className="md:col-span-9">
               <h1 className="display-1 text-ink max-w-[18ch]">
@@ -341,13 +333,6 @@ function HowTheFirmWorks() {
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover"
               />
-              <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                <div
-                  className="h-3 w-3 border-l border-t border-copper"
-                  aria-hidden="true"
-                />
-                <span className="mono-label text-copper">Archive · 01</span>
-              </div>
             </div>
           </div>
         </div>

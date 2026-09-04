@@ -18,11 +18,6 @@ export default function SectorsPage() {
       {/* Hero */}
       <section className="relative bg-sagewash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
-            <span className="mono-label text-stone-dark">Index 03 · Sectors</span>
-            <span className="folio text-stone-dark">03 / 07</span>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <div>
@@ -119,19 +114,15 @@ export default function SectorsPage() {
                 </h2>
               </div>
               {/* Supporting architectural study */}
-              <div className="mt-8 relative aspect-[4/3] w-full max-w-md overflow-hidden bg-stone">
+              <div className="mt-8 relative aspect-[16/9] w-full max-w-md overflow-hidden bg-stone">
                 <Image
-                  src="/images/sector-research.webp"
-                  alt="Contemporary institutional architecture in warm sandstone and glass"
+                  src="/images/sector-approach-v2.webp"
+                  alt="Legal professionals discussing a matter in a contemporary, unbranded office"
                   fill
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
                 />
-                <div className="absolute top-4 left-4 flex items-center gap-1.5 z-10">
-                  <div className="h-3 w-3 border-l border-t border-copper" aria-hidden="true" />
-                  <span className="mono-label text-copper">Sector Study · 02</span>
-                </div>
               </div>
             </div>
             <div className="md:col-span-7 md:col-start-6">
