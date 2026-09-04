@@ -187,9 +187,9 @@
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display), ui-serif, Georgia, serif;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.015em;
     color: var(--text-primary);
   }
@@ -210,7 +210,10 @@
    TYPOGRAPHY — editorial system
    Cormorant Garamond display / Manrope body / IBM Plex Mono labels
    ============================================================ */
-.font-display { font-family: var(--font-display), ui-serif, Georgia, serif; }
+.font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 600;
+}
 .font-mono   { font-family: var(--font-mono), ui-monospace, monospace; }
 .text-balance { text-wrap: balance; }
 .text-pretty  { text-wrap: pretty; }
@@ -219,7 +222,7 @@
 /* Homepage hero H1: restrained editorial scale across viewports */
 .display-mega {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(2.75rem, 5vw, 4.5rem);  /* 44px → 72px */
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -228,7 +231,7 @@
 /* Inner-page H1: smaller than the homepage display heading */
 .display-1 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(2.5rem, 4.5vw, 4rem);  /* 40px → 64px */
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -237,7 +240,7 @@
 /* Section H2: clamp(38px, 4vw, 58px) */
 .display-2 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(2.375rem, 4vw, 3.625rem);  /* 38px → 58px */
   line-height: 1.1;
   letter-spacing: -0.016em;
@@ -246,7 +249,7 @@
 /* Large H3: clamp(27px, 2.8vw, 36px) */
 .display-3 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(1.6875rem, 2.8vw, 2.25rem);  /* 27px → 36px */
   line-height: 1.18;
   letter-spacing: -0.012em;
@@ -255,7 +258,7 @@
 /* Card H3: 20–24px */
 .display-4 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(1.25rem, 1.6vw, 1.5rem);  /* 20px → 24px */
   line-height: 1.25;
   letter-spacing: -0.008em;
@@ -268,14 +271,14 @@
 .serif-italic {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--color-rose);
 }
 /* Italic accent on burgundy backgrounds — lighter rose for contrast */
 .serif-italic-on-burgundy {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--color-on-burgundy-italic);
 }
 
