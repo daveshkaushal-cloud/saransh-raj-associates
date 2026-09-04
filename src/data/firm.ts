@@ -63,17 +63,17 @@ export const firm = {
 
 export const contact = {
   address: {
-    line1: "G-14, Basement",
+    line1: "G-14B, Basement",
     line2: "Kalkaji, New Delhi – 110019",
     country: "India",
-    full: "G-14, Basement, Kalkaji, New Delhi – 110019, India",
+    full: "G-14B, Basement, Kalkaji, New Delhi – 110019, India",
   },
   phone: "+91 79067 08411",
   phoneHref: "tel:+917906708411",
   email: "office@saranshrajassociates.co.in",
   emailHref: "mailto:office@saranshrajassociates.co.in",
   hours: "Monday – Saturday, 10:00 AM – 7:00 PM",
-  mapQuery: "G-14, Kalkaji, New Delhi 110019",
+  mapQuery: "G-14B, Kalkaji, New Delhi 110019",
 } as const;
 
 export const legalPages = {

@@ -5,7 +5,7 @@
  *
  * Cohesive but distinguishable warm professional colours:
  *   rose       → Muted rose clay   #A66F65
- *   burgundy   → Deep oxblood      #51252B
+ *   burgundy   → Muted berry       #A94755
  *   espresso   → Natural ink       #25211F
  *   blush      → Aged copper        #9A684F
  *   beige      → Warm stone         #B9AD9E
@@ -22,7 +22,9 @@ export type Accent =
 
 export const accentHex: Record<Accent, string> = {
   rose: "#A35F4F",       // Muted terracotta — Corporate Advisory
-  burgundy: "#541F24",   // Deep oxblood — Commercial Contracts
+  // Kept distinct from the #541F24 oxblood section/footer background so
+  // Commercial Contracts markers remain visible on both light and dark fields.
+  burgundy: "#A94755",   // Muted berry — Commercial Contracts
   espresso: "#191817",   // Natural ink — M&A
   blush: "#A78B5D",      // Antique brass — Dispute Resolution
   beige: "#625A54",      // Accessible warm taupe — Regulatory & Compliance
