@@ -29,6 +29,12 @@
   --color-stone: #D5D0C8;          /* Warm stone — secondary borders, subtle bg */
   --color-stone-dark: #625A54;     /* Accessible warm taupe — secondary text */
 
+  /* Quiet section washes — deliberately pale for restrained page rhythm */
+  --color-rosewash: #F2E9E6;       /* Dusty rose paper */
+  --color-sagewash: #ECEFE8;       /* Mineral sage paper */
+  --color-sandwash: #F2EBDD;       /* Parchment sand */
+  --color-bluewash: #EAEDEF;       /* Cool mineral paper */
+
   /* Legacy aliases → map to refined palette for back-compat.
      Old class names (bg-ivory, text-espresso, etc.) now resolve to
      the new colours so existing markup works without rewriting. */
@@ -127,6 +133,10 @@
   --copper: #A78B5D;
   --stone: #D5D0C8;
   --stone-dark: #625A54;
+  --rosewash: #F2E9E6;
+  --sagewash: #ECEFE8;
+  --sandwash: #F2EBDD;
+  --bluewash: #EAEDEF;
   --beige: #F7F3EC;
   --blush: #E8E2D5;
   --porcelain: #F3EFE7;

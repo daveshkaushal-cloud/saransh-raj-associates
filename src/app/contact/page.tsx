@@ -19,7 +19,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero — quiet, functional */}
-      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+      <section className="relative bg-sandwash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone-dark">Index 07 · Contact</span>
@@ -54,7 +54,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact grid: form + details */}
-      <section className="bg-porcelain py-12 md:py-20 lg:py-24">
+      <section className="bg-bluewash py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
             {/* Form — left, wider */}

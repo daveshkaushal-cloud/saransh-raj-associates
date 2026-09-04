@@ -16,7 +16,7 @@ export default function FirmPage() {
   return (
     <>
       {/* ============== HERO (ivory) ============== */}
-      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+      <section className="relative bg-rosewash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone-dark">
@@ -200,7 +200,7 @@ function Introduction() {
    --------------------------------------------------------------- */
 function Origin() {
   return (
-    <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+    <section className="relative bg-sandwash py-12 md:py-20 lg:py-24 border-b border-line">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-3">
@@ -391,7 +391,7 @@ function Principles() {
   ];
 
   return (
-    <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+    <section className="relative bg-sagewash py-12 md:py-20 lg:py-24 border-b border-line">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8 md:mb-10">
           <div className="md:col-span-3">
@@ -554,7 +554,7 @@ function PracticeFramework() {
    --------------------------------------------------------------- */
 function WorkingRelationships() {
   return (
-    <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+    <section className="relative bg-bluewash py-12 md:py-20 lg:py-24 border-b border-line">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-3">

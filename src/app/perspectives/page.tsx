@@ -25,7 +25,7 @@ export default function PerspectivesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-paper pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
+      <section className="relative bg-rosewash pt-10 md:pt-16 pb-12 md:pb-16 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-10 md:mb-16">
             <span className="mono-label">Index 05 · Perspectives</span>

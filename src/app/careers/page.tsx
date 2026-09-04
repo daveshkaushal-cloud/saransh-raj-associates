@@ -79,7 +79,7 @@ export default function CareersPage() {
   return (
     <>
       {/* Hero — calm and factual */}
-      <section className="relative bg-ivory pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
+      <section className="relative bg-bluewash pt-8 md:pt-12 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex items-center justify-between border-b border-line pb-4 mb-8 md:mb-10">
             <span className="mono-label text-stone-dark">Index 06 · Careers</span>
@@ -162,7 +162,7 @@ export default function CareersPage() {
       </section>
 
       {/* ============== 02 — WHAT WE VALUE — paper ============== */}
-      <section className="bg-paper py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="bg-sagewash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-3">
@@ -206,7 +206,7 @@ export default function CareersPage() {
       </section>
 
       {/* ============== 03 — WHO MAY WRITE — ivory ============== */}
-      <section className="bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="bg-sandwash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-3">
@@ -294,7 +294,7 @@ export default function CareersPage() {
       </section>
 
       {/* ============== 05 — HOW THE FIRM RESPONDS — ivory ============== */}
-      <section className="bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="bg-bluewash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div className="md:col-span-3">

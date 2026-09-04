@@ -174,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 02 — THE FIRM ============== */}
-      <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="relative bg-sagewash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
@@ -308,7 +308,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 04 — FEATURED PERSPECTIVE ============== */}
-      <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="relative bg-rosewash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-3">
@@ -361,7 +361,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 05 — SECTORS ============== */}
-      <section className="bg-paper py-12 md:py-20 lg:py-24 relative overflow-hidden border-y border-line">
+      <section className="bg-bluewash py-12 md:py-20 lg:py-24 relative overflow-hidden border-y border-line">
         <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-10">
             <div>
@@ -434,7 +434,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 06 — APPROACH ============== */}
-      <section className="relative bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="relative bg-sandwash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10 md:mb-12">
             <div className="md:col-span-5">
@@ -553,7 +553,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 08 — LATEST PERSPECTIVES ============== */}
-      <section className="bg-ivory py-12 md:py-20 lg:py-24 border-b border-line">
+      <section className="bg-sagewash py-12 md:py-20 lg:py-24 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-10">
             <div>
@@ -700,7 +700,7 @@ export default function HomePage() {
       </section>
 
       {/* ============== SECTION 10 — CONTACT ============== */}
-      <section className="bg-paper py-12 md:py-20 lg:py-24">
+      <section className="bg-rosewash py-12 md:py-20 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
             <div className="md:col-span-6">
