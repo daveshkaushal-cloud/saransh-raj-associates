@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { DisclaimerGateClient } from "./disclaimer-gate-client";
 
-const STORAGE_KEY = "sra_disclaimer_accepted_v1";
+const STORAGE_KEY = "sra_disclaimer_accepted_v2";
 
 /**
  * Server component disclaimer gate.

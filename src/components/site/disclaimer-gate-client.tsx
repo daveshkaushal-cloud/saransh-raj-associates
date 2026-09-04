@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const STORAGE_KEY = "sra_disclaimer_accepted_v1";
+const STORAGE_KEY = "sra_disclaimer_accepted_v2";
 
 /**
  * Client component for the disclaimer gate interaction.
