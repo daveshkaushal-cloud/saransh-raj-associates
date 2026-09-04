@@ -31,7 +31,6 @@ export async function generateMetadata({
       description: article.abstract,
       url: `/perspectives/${article.slug}`,
       type: "article",
-      publishedTime: article.date,
       authors: [article.author],
     },
   };
@@ -70,7 +69,7 @@ export default async function PerspectiveArticlePage({
       {/* Hero / article header */}
       <section className="relative bg-paper pt-10 md:pt-16 pb-10 md:pb-14 border-b border-line">
         <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-          <div className="flex items-center justify-between border-b border-line pb-4 mb-10">
+          <div className="flex items-center border-b border-line pb-4 mb-10">
             <Link
               href="/perspectives"
               className="group inline-flex items-center gap-2 mono-label text-stone-dark hover:text-copper transition-colors"
@@ -91,14 +90,12 @@ export default async function PerspectiveArticlePage({
               </svg>
               <span>Perspectives</span>
             </Link>
-            <span className="folio">{article.dateLabel}</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <p className="mono-label text-copper mb-2">{article.type}</p>
-              <p className="mono-num text-stone-dark">{article.dateLabel}</p>
-              <p className="mono-label text-stone-dark mt-4">
+              <p className="mono-label text-stone-dark mt-2">
                 {article.readTime}
               </p>
               {practiceArea && (
@@ -206,9 +203,8 @@ export default async function PerspectiveArticlePage({
                 href={`/perspectives/${rel.slug}`}
                 className="group block border border-line bg-ivory p-6 hover:border-copper transition-colors"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center mb-3">
                   <span className="mono-label text-copper">{rel.type}</span>
-                  <span className="mono-num text-stone-dark">{rel.dateLabel}</span>
                 </div>
                 <h3 className="font-display text-lg md:text-xl text-ink leading-tight group-hover:text-oxblood transition-colors">
                   {rel.title}
