@@ -108,7 +108,7 @@ export default function HomePage() {
                   href="/perspectives"
                   className="btn-magnetic group inline-flex items-center gap-2 mono-label text-stone-dark hover:text-copper transition-colors"
                 >
-                  <span className="mono-num text-copper">05</span>
+                  <span className="mono-num text-copper">03</span>
                   <span>Perspectives</span>
                   <svg
                     className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
