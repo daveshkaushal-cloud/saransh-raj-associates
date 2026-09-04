@@ -14,9 +14,9 @@ import { NextResponse } from "next/server";
  *  - Field length caps to prevent payload abuse.
  *  - No submitted information is logged to the console.
  *
- * The enquiry is stored in the local Prisma database if available.
- * The public response is always calm and non-promotional. No test
- * messages are sent to the real office email during development.
+ * Valid enquiries are delivered to the firm's designated office inbox
+ * through Resend. A success response is returned only after the email
+ * provider accepts the message.
  */
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
@@ -34,6 +34,66 @@ function getClientIp(req: Request): string {
 function isValidEmail(email: string): boolean {
   // RFC 5322 simplified pattern — sufficient for server-side validation
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
+}
+
+const CONTACT_EMAIL = "office@saranshrajassociates.co.in";
+
+async function deliverEnquiry({
+  name,
+  email,
+  phone,
+  area,
+  message,
+}: {
+  name: string;
+  email: string;
+  phone: string;
+  area: string;
+  message: string;
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("Email delivery is not configured.");
+  }
+
+  const safeArea = area.replace(/[\r\n]+/g, " ").trim();
+  const subject = safeArea
+    ? `Website enquiry — ${safeArea}`
+    : "Website enquiry";
+  const text = [
+    "New website enquiry",
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone || "Not provided"}`,
+    `Nature of enquiry: ${safeArea || "General enquiry"}`,
+    "",
+    "Message:",
+    message,
+    "",
+    `Received: ${new Date().toISOString()}`,
+  ].join("\n");
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "Idempotency-Key": crypto.randomUUID(),
+    },
+    body: JSON.stringify({
+      from: `Saransh Raj & Associates <${CONTACT_EMAIL}>`,
+      to: [CONTACT_EMAIL],
+      reply_to: email,
+      subject,
+      text,
+    }),
+    signal: AbortSignal.timeout(10_000),
+  });
+
+  if (!response.ok) {
+    throw new Error("The email provider did not accept the enquiry.");
+  }
 }
 
 export async function POST(req: Request) {
@@ -104,15 +164,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Persist if the database layer is available.
     try {
-      const { db } = await import("@/lib/db");
-      await db.contactEnquiry.create({
-        data: { name, email, phone, area, message },
-      });
+      await deliverEnquiry({ name, email, phone, area, message });
     } catch {
-      // Database optional — the public response stays calm.
-      // No console.log of submitted information.
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "We could not send your enquiry. Please email office@saranshrajassociates.co.in directly.",
+        },
+        { status: 503 }
+      );
     }
 
     return NextResponse.json({ ok: true });
