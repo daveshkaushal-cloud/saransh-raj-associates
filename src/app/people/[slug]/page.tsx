@@ -296,10 +296,7 @@ export default async function PersonPage({
                       <span className="col-span-12 md:col-span-3 mono-label text-copper">
                         {article.type}
                       </span>
-                      <span className="col-span-6 md:col-span-2 mono-num text-stone-dark">
-                        {article.dateLabel}
-                      </span>
-                      <div className="col-span-12 md:col-span-5">
+                      <div className="col-span-12 md:col-span-7">
                         <h3 className="font-display text-lg md:text-xl text-ink leading-snug group-hover:text-oxblood transition-colors">
                           {article.title}
                         </h3>
