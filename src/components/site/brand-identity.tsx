@@ -10,19 +10,19 @@ const sizes = {
   compact: {
     mark: "h-7 w-7",
     icon: "h-[18px] w-[18px]",
-    name: "text-[0.72rem] sm:text-[0.82rem]",
+    name: "text-[0.8rem] sm:text-[0.9rem]",
     gap: "gap-2",
   },
   header: {
     mark: "h-8 w-8 md:h-9 md:w-9",
     icon: "h-5 w-5 md:h-[22px] md:w-[22px]",
-    name: "text-[0.76rem] sm:text-[0.9rem] md:text-[0.98rem]",
+    name: "text-[0.84rem] sm:text-[1rem] md:text-[1.08rem]",
     gap: "gap-2.5 md:gap-3",
   },
   footer: {
     mark: "h-10 w-10",
     icon: "h-6 w-6",
-    name: "text-lg sm:text-xl",
+    name: "text-xl sm:text-[1.375rem]",
     gap: "gap-3",
   },
 } as const;
