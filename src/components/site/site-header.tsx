@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { primaryNav } from "@/data/navigation";
 import { firm } from "@/data/firm";
+import { BrandIdentity } from "./brand-identity";
 
 /**
  * Editorial site header — warm ivory, sticky on scroll, with a
@@ -50,23 +51,10 @@ export function SiteHeader() {
           {/* Wordmark */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5"
+            className="group"
             aria-label={`${firm.name} — home`}
           >
-            <span
-              className="grid place-items-center h-7 w-7 bg-oxblood text-ivory"
-              aria-hidden="true"
-            >
-              <span className="font-display text-sm leading-none">S</span>
-            </span>
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-[1.1rem] md:text-[1.2rem] text-ink tracking-tight leading-none">
-                Saransh Raj
-              </span>
-              <span className="mono-label text-stone-dark mt-1 hidden sm:block">
-                &amp; Associates · New Delhi
-              </span>
-            </span>
+            <BrandIdentity />
           </Link>
 
           {/* Desktop nav */}

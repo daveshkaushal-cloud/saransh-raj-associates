@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { BrandIdentity } from "./brand-identity";
 
 const STORAGE_KEY = "sra_disclaimer_accepted_v2";
 
@@ -66,8 +67,8 @@ function DisclaimerContent({ onAgree }: { onAgree: () => void }) {
       <div className="relative z-10 flex-1 flex flex-col">
         {/* Top bar */}
         <div className="px-6 md:px-12 pt-8 md:pt-10 flex items-center justify-between border-b border-line pb-5">
-          <span className="mono-label">Saransh Raj &amp; Associates</span>
-          <span className="mono-label text-stone-dark">Cover Sheet · 01</span>
+          <BrandIdentity size="compact" />
+          <span className="mono-label text-stone-dark hidden sm:inline">Cover Sheet · 01</span>
         </div>
 
         <div className="flex-1 flex items-center px-6 md:px-12 py-10">

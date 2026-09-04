@@ -6,6 +6,7 @@ import { footerNav, legalNav } from "@/data/navigation";
 import { firm, contact } from "@/data/firm";
 import { practiceAreas } from "@/data/practice-areas";
 import { accentHex } from "@/lib/accents";
+import { BrandIdentity } from "./brand-identity";
 
 /**
  * Document-style footer on warm beige: a colour-blocked colophon with
@@ -56,17 +57,8 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
           {/* Brand */}
           <div className="md:col-span-5">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span
-                className="relative grid place-items-center h-9 w-9 bg-copper text-ivory"
-                aria-hidden="true"
-              >
-                <span className="font-display text-lg">S</span>
-              </span>
-              <span className="flex flex-col leading-none">
-                <span className="font-display text-2xl text-ivory">Saransh Raj</span>
-                <span className="mono-label text-stone mt-1">&amp; Associates</span>
-              </span>
+            <Link href="/" aria-label={`${firm.name} — home`}>
+              <BrandIdentity size="footer" tone="light" />
             </Link>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-ivory/80">
               {firm.summary}
