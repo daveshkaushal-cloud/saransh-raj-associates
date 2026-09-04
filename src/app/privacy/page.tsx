@@ -40,8 +40,9 @@ export default function PrivacyPage() {
                   when you submit the contact form, the firm receives the name,
                   email address, phone number (if provided), nature of enquiry
                   (if selected) and message that you provide. This information
-                  is stored in the firm&apos;s local database so that the firm
-                  can read and respond to the enquiry.
+                  is delivered to the firm&apos;s designated email inbox
+                  through a transactional email service so that the firm can
+                  read and respond to the enquiry.
                 </li>
                 <li>
                   <strong>Technical information:</strong> basic, non-identifying
@@ -75,10 +76,10 @@ export default function PrivacyPage() {
           heading: "Retention",
           body: (
             <p>
-              Contact-form enquiries are retained in the firm&apos;s local
-              database only for as long as necessary to respond to and document
-              the enquiry, and are then removed or archived in accordance with
-              the firm&apos;s record-keeping practices.
+              Contact-form enquiries may be retained in the firm&apos;s
+              designated email system only for as long as necessary to respond
+              to and document the enquiry, and are then removed or archived in
+              accordance with the firm&apos;s record-keeping practices.
             </p>
           ),
         },
@@ -88,9 +89,10 @@ export default function PrivacyPage() {
           body: (
             <p>
               The firm does not sell or rent personal information. Information
-              may be shared with service providers who assist in operating the
-              website (such as hosting providers), or where required by law.
-              Such service providers are expected to handle information
+              may be processed by service providers who assist in operating the
+              website and delivering contact-form messages, including hosting
+              and transactional email providers, or where required by law. Such
+              service providers are expected to handle information
               confidentially and securely.
             </p>
           ),
@@ -120,10 +122,12 @@ export default function PrivacyPage() {
           body: (
             <p>
               The firm takes reasonable measures to protect information
-              collected through this website, including the use of a local
-              database for storing contact-form submissions. However, no method
-              of transmission over the internet or of electronic storage is
-              fully secure, and the firm cannot guarantee absolute security.
+              collected through this website, including server-side validation
+              and delivery of contact-form submissions to the firm&apos;s
+              designated inbox through a transactional email service. However,
+              no method of transmission over the internet or of electronic
+              storage is fully secure, and the firm cannot guarantee absolute
+              security.
             </p>
           ),
         },
