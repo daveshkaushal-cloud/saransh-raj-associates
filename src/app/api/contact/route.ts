@@ -37,6 +37,8 @@ function isValidEmail(email: string): boolean {
 }
 
 const CONTACT_EMAIL = "office@saranshrajassociates.co.in";
+const CONTACT_FROM_EMAIL =
+  "Saransh Raj & Associates Website <enquiries@contact.saranshrajassociates.co.in>";
 
 async function deliverEnquiry({
   name,
@@ -82,7 +84,7 @@ async function deliverEnquiry({
       "Idempotency-Key": crypto.randomUUID(),
     },
     body: JSON.stringify({
-      from: `Saransh Raj & Associates <${CONTACT_EMAIL}>`,
+      from: CONTACT_FROM_EMAIL,
       to: [CONTACT_EMAIL],
       reply_to: email,
       subject,
