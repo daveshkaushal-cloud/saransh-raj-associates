@@ -40,6 +40,12 @@ const CONTACT_EMAIL = "office@saranshrajassociates.co.in";
 const CONTACT_FROM_EMAIL =
   "Saransh Raj & Associates Website <enquiries@contact.saranshrajassociates.co.in>";
 
+class EmailDeliveryError extends Error {
+  constructor(public readonly code: string) {
+    super(code);
+  }
+}
+
 async function deliverEnquiry({
   name,
   email,
@@ -53,9 +59,9 @@ async function deliverEnquiry({
   area: string;
   message: string;
 }) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY?.trim();
   if (!apiKey) {
-    throw new Error("Email delivery is not configured.");
+    throw new EmailDeliveryError("EMAIL_SERVICE_NOT_CONFIGURED");
   }
 
   const safeArea = area.replace(/[\r\n]+/g, " ").trim();
@@ -94,7 +100,17 @@ async function deliverEnquiry({
   });
 
   if (!response.ok) {
-    throw new Error("The email provider did not accept the enquiry.");
+    const code =
+      response.status === 401
+        ? "EMAIL_SERVICE_AUTH_FAILED"
+        : response.status === 403
+          ? "EMAIL_DOMAIN_NOT_AUTHORIZED"
+          : response.status === 422
+            ? "EMAIL_REQUEST_REJECTED"
+            : response.status === 429
+              ? "EMAIL_RATE_LIMITED"
+              : "EMAIL_PROVIDER_ERROR";
+    throw new EmailDeliveryError(code);
   }
 }
 
@@ -168,10 +184,15 @@ export async function POST(req: Request) {
 
     try {
       await deliverEnquiry({ name, email, phone, area, message });
-    } catch {
+    } catch (error) {
+      const errorCode =
+        error instanceof EmailDeliveryError
+          ? error.code
+          : "EMAIL_PROVIDER_UNREACHABLE";
       return NextResponse.json(
         {
           ok: false,
+          errorCode,
           error:
             "We could not send your enquiry. Please email office@saranshrajassociates.co.in directly.",
         },
