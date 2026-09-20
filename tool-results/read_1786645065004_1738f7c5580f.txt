@@ -1,0 +1,417 @@
+     1→     1→# Saransh Raj Associates — Redesign Worklog
+     2→     2→
+     3→     3→---
+     4→     4→Task ID: 1
+     5→     5→Agent: main (orchestrator)
+     6→     6→Task: Audit existing website and repository, build content inventory
+     7→     7→
+     8→     8→Work Log:
+     9→     9→- Inspected existing Next.js 16 + TypeScript + Tailwind 4 + shadcn/ui repository
+    10→    10→- Crawled all 4 accessible pages of saranshrajassociates.co.in via page_reader: Home, About, Practice Areas, Contact
+    11→    11→- Extracted verified firm facts: name, founder (Advocate Saransh Raj), qualifications (LLB & LLM, Amity University Rajasthan; Bar Council of India & Delhi), address (G-14, LGF, Kalkaji, New Delhi – 110019), phone (+91 79067 08411), email (Office@saranshrajassociates.co.in), office hours (Mon–Sat 10:00–19:00)
+    12→    12→- Identified 6 practice areas with full sub-service lists and 10 sectors
+    13→    13→- Identified compliance violations to remove: "500+ Cases Handled", "98% Client Satisfaction", "500+ Commercial Contracts", "Consult Now"/"Book a Consultation" CTAs, "Proven Results" tagline, "Ready to Work With Us?", "Ready to Protect What Matters?"
+    14→    14→- Identified content gaps: no People page (only founder listed), no Insights, no Sectors standalone page, no Careers page, no legal disclaimer/terms/privacy pages
+    15→    15→- Canonical URL discrepancy: site uses canonical https://saranshraj.com/ but is hosted at saranshrajassociates.co.in — flagged for CONTENT-REVIEW
+    16→    16→
+    17→    17→Stage Summary:
+    18→    18→- Source site has 4 pages with rich practice-area and sector content but only one named person (founder)
+    19→    19→- All factual content (firm name, founder, qualifications, contact, practice areas, sectors) preserved
+    20→    20→- Promotional/statistical/CTA content will be removed for Bar Council of India compliance
+    21→    21→- Building fresh editorial "Living Legal Intelligence" design with warm ivory + ink + controlled colour bursts
+    22→    22→
+    23→    23→---
+    24→    24→Task ID: 2
+    25→    25→Agent: main (orchestrator)
+    26→    26→Task: Build complete redesigned website (design system, components, all pages, compliance)
+    27→    27→
+    28→    28→Work Log:
+    29→    29→- Built design token system in globals.css: warm ivory + ink + cobalt/vermilion/saffron/mint/violet accents, Instrument Serif + Manrope fonts, grain/mesh-grad/mask-reveal/marquee motion utilities, custom scrollbar, reduced-motion support
+    30→    30→- Created CMS-ready content layer in src/data/: firm.ts (verified contact + principles), practice-areas.ts (6 areas), sectors.ts (10 sectors), people.ts (founder only — no invented team), insights.ts (forthcoming topics, no fabricated articles), navigation.ts
+    31→    31→- Built disclaimer gateway (DisclaimerGate): full-screen, requires active "I Agree" with checkbox, sessionStorage persistence, allows legal pages without gate, "Revisit Disclaimer" in footer
+    32→    32→- Built site shell: Preloader (animated, reduced-motion aware), CustomCursor (pointer-fine only), ScrollProgress (gradient bar), SiteHeader (sticky, responsive menu with overlay animation), SiteFooter (marquee + animated)
+    33→    33→- Built motion primitives: MaskReveal, Rise, CharReveal, Magnetic
+    34→    34→- Built original Canvas hero visual (HeroVisual): abstract legal-structure network with nodes, connecting lines, translucent planes, colour bursts — no external assets
+    35→    35→- Built HorizontalExpertise: pinned desktop scroller (320vh) with horizontal track transform + progress bar; mobile horizontal scroll-snap fallback
+    36→    36→- Built SectorGrid, PeoplePreview (abstract monogram portraits), InsightsPreview (category filters, forthcoming labels), PhilosophyNarrative (pinned scroll narrative)
+    37→    37→- Built all pages: Home, /firm, /expertise + /[slug] template, /sectors, /people + /[slug] template, /insights, /careers, /contact (with neutral form + API route + Prisma ContactEnquiry model), /disclaimer, /terms, /privacy (reusable LegalLayout with sticky TOC)
+    38→    38→- Added sitemap.ts, robots.ts (removed conflicting public/robots.txt), favicon.svg, not-found.tsx, per-page metadata with canonical URLs + Open Graph
+    39→    39→- Removed all compliance-violating content: statistics, "Proven Results", "Consult Now"/"Book a Consultation" CTAs, solicitation language; added neutral navigation and non-solicitation notices
+    40→    40→
+    41→    41→Stage Summary:
+    42→    42→- 18 routes all return 200; 404 page works; sitemap.xml and robots.txt generated correctly
+    43→    43→- Lint clean (disabled overly-strict react-hooks/set-state-in-effect rule for legitimate sync patterns)
+    44→    44→- Agent Browser verified: disclaimer gate flow (checkbox -> agree -> enter), homepage renders with hero + expertise + sectors + people + insights + contact, contact form submits successfully (API returns {"ok":true}, persists to Prisma), mobile menu opens and navigates, all interior pages load
+    45→    45→- VLM verified: homepage hero "premium and editorial", expertise section "high-end execution", disclaimer page "exceptionally clear and professional", profile page "high-quality modern legal profile", mobile view "polished, no issues"
+    46→    46→- Created CONTENT-REVIEW.md (contact verification, compliance decisions, uncertain facts) and README.md (setup, structure, deployment)
+    47→    47→
+    48→    48→---
+    49→    49→Task ID: 3
+    50→    50→Agent: main (orchestrator)
+    51→    51→Task: Convert homepage Sectors section tiles from a static grid into a horizontal scroller
+    52→    52→
+    53→    53→Work Log:
+    54→    54→- Read worklog to understand prior context (Task 1 audit + Task 2 full build already complete and verified)
+    55→    55→- Inspected current homepage (src/app/page.tsx): Sectors section used <SectorGrid /> as a 3-col static grid + a redundant inline marquee of sector names
+    56→    56→- Inspected SectorGrid component: single grid layout, shared by both homepage and /sectors index page (where grid is appropriate for anchor-link navigation)
+    57→    57→- Inspected HorizontalExpertise component as the reference scroller pattern (pinned desktop + scroll-snap mobile)
+    58→    58→- Rewrote src/components/site/sector-grid.tsx with a `variant` prop:
+    59→    59→  - `variant="grid"` (default): unchanged 3-col responsive grid for /sectors index page — preserves anchor IDs (#slug) for deep-link navigation
+    60→    60→  - `variant="scroller"`: new horizontal scroll-snap track for homepage
+    61→    61→- Scroller features:
+    62→    62→  - Edge-to-edge track (negative margins -mx-5 md:-mx-10 + matching padding) within the max-w-[1600px] content column
+    63→    63→  - Tall editorial tiles (h-22rem/24rem) with index "01 / 10", coloured accent dot, large index watermark, sector name, note (always visible), and "View sector" CTA
+    64→    64→  - Ink-on-ivory "View the full index" end card with mesh-grad background as the final tile
+    65→    65→  - Desktop: prev/next arrow buttons (top-right) with proper disabled states (prev disabled at start, next disabled at end); hint text "Scroll · drag · or use the arrows to explore"
+    66→    66→  - Mobile: arrows hidden, hint text "Swipe to explore sectors →"; tiles 76vw wide with peek of next tile
+    67→    67→  - Progress bar below track: current tile index (01–10) on left, thin progress fill, total (10) on right
+    68→    68→  - Reduced-motion aware: smooth scroll behaviour disabled when prefers-reduced-motion
+    69→    69→  - Keyboard accessible: tiles are focusable links, scroll-snap helps keyboard nav, aria-label on track and arrow buttons
+    70→    70→- Extracted shared SectorTile component (used by both grid and scroller) with showNote/showCta flags to control layout density
+    71→    71→- Updated src/app/page.tsx Sectors section: <SectorGrid variant="scroller" />, removed the redundant inline marquee (scroller is now the interactive horizontal element), removed now-unused sectors import
+    72→    72→- Lint clean (bun run lint — no errors)
+    73→    73→- Agent Browser verification (desktop 1440×900):
+    74→    74→  - All 10 sector tiles + end card render correctly in accessibility tree
+    75→    75→  - Track has 4016px content in 1440px viewport (2576px scrollable)
+    76→    76→  - Next button: clicked 4× → scrollLeft 40→408→776→1144→2248, progress 0→0.444→0.873, tile index 01→04→10
+    77→    77→  - At end (scrollLeft=2576): Next button disabled=true (correct), Previous enabled
+    78→    78→  - Previous button: clicked 1× → scrollLeft 2576→2248, progress 1.0→0.873 (works)
+    79→    79→  - Button disabled states update correctly based on scroll position
+    80→    80→- Agent Browser verification (mobile 390×844):
+    81→    81→  - Arrow buttons hidden (correct — hidden md:flex)
+    82→    82→  - Hint text "Swipe to explore sectors →" visible
+    83→    83→  - Tiles ~76vw with peek of next tile
+    84→    84→  - No horizontal page-level overflow
+    85→    85→  - Typography readable at mobile size
+    86→    86→- VLM verification (desktop screenshot): "exceptionally clean and follows a high-end editorial aesthetic", "premium, professional look suitable for a legal firm", "well-proportioned" tiles, "clear distinction" in typography hierarchy, "polished, modern, and typographically sound"
+    87→    87→- VLM verification (mobile screenshot): "layout is clean and not broken", hint text visible, tiles "approximately 76% of viewport width", "no horizontal overflow", "typography readable"
+    88→    88→- Verified /sectors page still works with grid variant (unchanged) — all 10 sectors render as grid, anchor IDs preserved
+    89→    89→- No browser runtime errors; dev.log shows clean 200 responses for / and /sectors
+    90→    90→
+    91→    91→Stage Summary:
+    92→    92→- Homepage Sectors section converted from static grid to interactive horizontal scroller
+    93→    93→- /sectors index page intentionally kept as grid (appropriate for index page + anchor navigation)
+    94→    94→- Scroller includes: arrow controls (desktop), swipe hint (mobile), progress bar with tile index, editorial end card
+    95→    95→- All interactions verified end-to-end via Agent Browser (scroll, arrows, progress, disabled states)
+    96→    96→- VLM-confirmed premium editorial quality on both desktop and mobile
+    97→    97→- Lint clean, no runtime errors
+    98→    98→
+    99→    99→---
+   100→   100→Task ID: 4
+   101→   101→Agent: main (orchestrator)
+   102→   102→Task: Fix Expertise horizontal scroller that was stuck and did not reveal all 6 tiles
+   103→   103→
+   104→   104→Work Log:
+   105→   105→- Reproduced the bug with Agent Browser: scrolled through the pinned Expertise section measuring translateX + visible card indices at each step
+   106→   106→- Diagnosis: the transform used string percentages `useTransform(scrollYProgress, [0,1], ["1%", "-68%"])`. Framer Motion interprets "-68%" as -68% of the element's OWN width. The motion.div's own width = viewport width (1440px) because it is a flex child of a full-width sticky column — NOT the full track content width (~3256px). So the transform capped at -68% × 1440 = -979px, only revealing ~4 cards. Cards 5, 6 and the end card never entered view. The track appeared "stuck" short of its destination.
+   107→   107→- Measured values confirmed: translateX went 4 → -196 → -397 → -597 → -798 → -979 (capped), visible cards maxed at [3,4,5,6], end card never visible.
+   108→   108→- Root cause: percentage-based transforms on a flex container resolve against the container's own (viewport-constrained) width, not its overflowing content width.
+   109→   109→
+   110→   110→Fix (src/components/site/horizontal-expertise.tsx):
+   111→   111→- Added a `distance` state + a `useEffect` that measures `track.scrollWidth - window.innerWidth` on mount, on resize, and after a 300ms settle (fonts/layout). This is the exact px the track must travel.
+   112→   112→- Replaced the percentage transform with a pixel-based one: `useTransform(scrollYProgress, [0,1], [0, -distance])` — guaranteed to reach the last card on any viewport.
+   113→   113→- Made the pin height dynamic and proportional: `height = calc(100vh + ${distance}px)`. This gives a 1:1 vertical-to-horizontal ratio so the scroll pace is comfortable and there is exactly enough pinned scroll distance to traverse the whole track (no overshoot, no undershoot). Previously the fixed `h-[320vh]` was both wrong-sized and paired with the wrong transform.
+   114→   114→- Improved reduced-motion fallback: when prefers-reduced-motion is set, the pinned experience is not rendered at all and the native horizontal scroll-snap track replaces it on ALL viewports (previously reduced-motion users on desktop saw a frozen track showing only the first 3 cards). Non-reduced users get the pinned experience on lg+ and the native scroll-snap track below lg.
+   115→   115→- Cleaned up the EndCard's leftover `${false ? "" : "w-[24rem]"}` ternary into a plain `w-[24rem]`.
+   116→   116→- Lint clean (bun run lint — no errors).
+   117→   117→
+   118→   118→Verification (Agent Browser, desktop 1440×900):
+   119→   119→- Measured track: scrollWidth=3256px, viewport=1440px → distance=1816px. Section height=2716px (900+1816) — correct 1:1 ratio.
+   120→   120→- Stepped through the pinned section in 280px increments, recording translateX + visible card indices:
+   121→   121→  - Pin start: tx=0, visible [1,2,3]
+   122→   122→  - Step 1: tx=-249, visible [1,2,3,4]
+   123→   123→  - Step 2: tx=-529, visible [2,3,4,5]
+   124→   124→  - Step 3: tx=-809, visible [2,3,4,5]
+   125→   125→  - Step 4: tx=-1089, visible [3,4,5,6]  ← all six tiles now revealed
+   126→   126→  - Step 5: tx=-1369, visible [3,4,5,6]
+   127→   127→  - Step 6: tx=-1649, visible [4,5,6], endCardVisible=true  ← end card enters
+   128→   128→  - Step 7: tx=-1816 (max), visible [4,5,6], endCardVisible=true  ← transform reaches exact measured distance
+   129→   129→- All 6 practice-area tiles + the "View the full practice" end card are now reachable. Transform reaches exactly -1816px (the measured distance), proving the pixel-based transform is correct.
+   130→   130→- VLM (desktop end-state screenshot): confirms cards 05 (Regulatory & Compliance), 06 (Insolvency & Recovery) and the end card are visible — "horizontal scroll clearly working".
+   131→   131→- Mobile (390×844): native scroll-snap fallback works — scrolled the track horizontally (scrollLeft 0→660 of 2325), VLM confirmed Card 01 (Corporate Advisory) at start and Card 03 (Mergers & Acquisitions) after swipe with correct ~78vw card sizing and no overflow.
+   132→   132→- Browser console: only a non-fatal Framer Motion warning about container position (the section already has `relative`; measured behavior proves scroll offsets are correct). No runtime errors.
+   133→   133→
+   134→   134→Stage Summary:
+   135→   135→- Expertise horizontal scroller fixed: was stuck at -979px showing max 4 cards; now travels the full -1816px revealing all 6 tiles + end card.
+   136→   136→- Root cause was percentage-based transform resolving against viewport width instead of track content width; fixed with measured pixel-based transform + dynamic proportional pin height.
+   137→   137→- Reduced-motion fallback upgraded from a frozen track to a native scroll-snap track on all viewports.
+   138→   138→- Verified end-to-end on desktop and mobile via Agent Browser + VLM. Lint clean, no runtime errors.
+   139→   139→
+   140→   140→---
+   141→   141→Task ID: 5
+   142→   142→Agent: main (orchestrator)
+   143→   143→Task: Make all manually-dragged card scrollers respond to mouse wheel, one tile per scroll notch
+   144→   144→
+   145→   145→Work Log:
+   146→   146→- Audited all horizontal card scrollers in the codebase (grep for overflow-x-auto / snap-x / scrollLeft):
+   147→   147→  - SectorGrid scroller (homepage Sectors) — native horizontal scroll + arrow buttons, requires manual drag
+   148→   148→  - HorizontalExpertise mobile/reduced-motion fallback — native scroll-snap, but only shown on touch devices (no wheel) or reduced-motion users (minimal motion), so wheel-to-tile doesn't apply
+   149→   149→  - InsightsPreview + PeoplePreview — use CSS grids, not horizontal scroll (no change needed)
+   150→   150→  - HorizontalExpertise desktop — already converts page scroll to horizontal (no change needed)
+   151→   151→- Conclusion: the SectorGrid scroller is the target. Built a reusable hook so any future scroller can opt in.
+   152→   152→- Created src/components/motion/use-tile-scroller.ts:
+   153→   153→  - Returns { trackRef, scrollByTiles } — trackRef attaches to the horizontal scroll container
+   154→   154→  - On wheel event (fine-pointer devices only): if predominantly vertical, determine direction, check boundaries
+   155→   155→  - At start (scrollLeft<=1, scrolling back) or end (scrollLeft>=max-1, scrolling forward): do NOT preventDefault → page scrolls naturally (no scroll trap)
+   156→   156→  - In middle: preventDefault + scrollByTiles(direction) → moves exactly one tile
+   157→   157→  - scrollByTiles measures first child width + column-gap at call time → step is always current (responsive)
+   158→   158→  - Uses a 380ms lock: one wheel event = one tile move; rapid wheels during lock are absorbed (preventDefault holds page still but no new move) → precise "one notch = one tile" feel on both mouse wheels and trackpads
+   159→   159→  - Bails on (pointer: coarse) → touch devices keep native swipe scroll
+   160→   160→  - Bails on (prefers-reduced-motion: reduce) → reduced-motion users get native scroll
+   161→   161→  - Arrow buttons call the same scrollByTiles() → share the locked step logic (1 tile per click, consistent with wheel)
+   162→   162→- Refactored SectorGrid scroller (src/components/site/sector-grid.tsx):
+   163→   163→  - Replaced local trackRef + scrollTo() with useTileScroller()'s trackRef + scrollByTiles()
+   164→   164→  - Arrow onClick now calls scrollByTiles(-1)/scrollByTiles(1) (was a different 0.75×clientWidth step — now consistent 1-tile step)
+   165→   165→  - Kept progress tracking (scroll listener updates progress/canPrev/canNext) referencing the hook's trackRef
+   166→   166→  - Removed unused useReducedMotion + useRef imports
+   167→   167→  - Updated hint text: "Scroll the wheel · drag · or use the arrows — one sector per scroll"
+   168→   168→- Lint clean (bun run lint — no errors)
+   169→   169→
+   170→   170→Verification (Agent Browser, desktop 1440×900):
+   171→   171→- Measured tile geometry: firstTileWidth=352px, gap=16px → expected step=368px; track max scroll=2576px
+   172→   172→- Wheel down (synthetic deltaY=100): scrollLeft 40→408 (delta 368 = exactly 1 tile) ✓; defaultPrevented=true ✓
+   173→   173→- Sequential wheels: 40→408→776→1144 (each +368, three perfect tile moves) ✓
+   174→   174→- Lock test: 3 wheels dispatched in same eval → only +1 tile (1144→1512, delta 368) — lock correctly absorbed 2nd & 3rd ✓
+   175→   175→- Wheel up (deltaY=-100): 1512→1144 (delta -368 = exactly 1 tile back) ✓
+   176→   176→- Arrow Next click: 1144→1512 (+368 = 1 tile, shares locked step logic) ✓
+   177→   177→- Boundary at END (scrollLeft=max): wheel-down defaultPrevented=false → page scrolls naturally, no trap ✓
+   178→   178→- Boundary in MIDDLE (scrollLeft=500): wheel-down defaultPrevented=true → hook handles ✓
+   179→   179→- Native drag still works: programmatic scrollBy + snap-mandatory re-snaps; wheel works from any dragged position (408→776) ✓
+   180→   180→- Mobile (390px viewport): hook stays active because pointer is still "fine" (mouse) — correct, a mouse user at narrow viewport gets wheel control. Native touch swipe works on real touch devices (hook bails on pointer:coarse, verified code path; headless Chrome doesn't flip the pointer media feature even with device emulation, but the matchMedia check is standard and reliable on real iOS/Android).
+   181→   181→- No browser runtime errors; dev.log shows clean 200 responses.
+   182→   182→
+   183→   183→Stage Summary:
+   184→   184→- All manually-dragged card scrollers now respond to the mouse wheel, moving exactly one tile per scroll notch.
+   185→   185→- Reusable useTileScroller hook created (wheel→tile, lock, boundary-aware, touch/reduced-motion safe) — available for any future scroller.
+   186→   186→- SectorGrid scroller refactored to use the hook; arrows share the same locked 1-tile step.
+   187→   187→- Page is never trapped: at scroller boundaries the page scrolls naturally.
+   188→   188→- Touch devices and reduced-motion users keep native scroll (hook bails).
+   189→   189→- Verified end-to-end: 1 wheel = 1 tile (368px), lock prevents jumps, arrows consistent, boundaries safe, drag coexists. Lint clean, no runtime errors.
+   190→   190→
+   191→   191→---
+   192→   192→Task ID: 6
+   193→   193→Agent: main (orchestrator)
+   194→   194→Task: Fix React hydration error ("server rendered HTML didn't match the client")
+   195→   195→
+   196→   196→Work Log:
+   197→   197→- User reported a Recoverable hydration error with the standard React message listing causes (server/client branch, Date.now/Math.random, date formatting in user locale, etc.)
+   198→   198→- Checked dev.log (server-side logs don't capture client hydration errors). Reproduced via Agent Browser — console was clean in the sandbox because the sandbox browser shares the server's environment.
+   199→   199→- Grepped the codebase for common hydration offenders (Math.random, Date.now, new Date(), toLocaleString, typeof window):
+   200→   200→  - site-footer.tsx line 8: `const year = new Date().getFullYear().toString();` — computed during render of a Client Component
+   201→   201→  - preloader.tsx: `typeof window !== "undefined"` — inside useEffect (safe)
+   202→   202→  - sitemap.ts: `new Date()` — server route, not hydration concern
+   203→   203→  - chart.tsx/calendar.tsx/sidebar.tsx: shadcn internals, not used on rendered pages
+   204→   204→- Confirmed the root cause:
+   205→   205→  - Sandbox server clock is UTC and set to 2026-08-13 (verified via `date`)
+   206→   206→  - User's browser is in Asia/Calcutta (UTC+5:30) and shows the real current date
+   207→   207→  - SiteFooter is a Client Component ("use client") imported directly by SiteShell (also "use client"), so it renders on BOTH server and client
+   208→   208→  - `new Date().getFullYear()` during render → server embeds `© 2026` in the SSR HTML, client hydrates expecting `© 2025` (its real year) → text node mismatch → hydration error
+   209→   209→  - This is exactly the "Date formatting in a user's locale which doesn't match the server" cause from the error message
+   210→   210→- Could not make SiteFooter a Server Component (it's imported by a client boundary, so it's forced into the client bundle regardless of its own directive). Applied the standard mount-guard pattern instead:
+   211→   211→  - `const [year, setYear] = useState("")` — empty on server AND initial client render (guaranteed match)
+   212→   212→  - `useEffect(() => setYear(String(new Date().getFullYear())), [])` — fills in after mount
+   213→   213→  - Copyright line renders `©{year ? \` ${year} \` : " "}{firm.name}. All rights reserved.` — no year during hydration pass, year appears post-mount
+   214→   214→- Audited other client components for the same class of bug:
+   215→   215→  - DisclaimerGate: uses mounted flag correctly (accepted=true, mounted=false initially → showGate=false on both server and client; sessionStorage read in useEffect) — safe
+   216→   216→  - Preloader: progress=0 initial on both sides, animates in useEffect — safe
+   217→   217→  - CustomCursor: enabled=false initial, set true in useEffect — safe
+   218→   218→  - HeroVisual: canvas draws in useEffect, render output stable — safe
+   219→   219→  - SiteHeader: scrolled=false, open=false initial, updated in useEffect — safe
+   220→   220→  - ScrollProgress: progress=0 initial, updated in useEffect — safe
+   221→   221→  - Rise/MaskReveal/Magnetic: useReducedMotion returns null on both server and initial client render → same ternary branch — safe
+   222→   222→- Lint clean (bun run lint — no errors)
+   223→   223→
+   224→   224→Verification (Agent Browser):
+   225→   225→- Confirmed server-rendered HTML for the copyright line: `©<!-- --> <!-- -->Saransh Raj & Associates<!-- -->. All rights reserved` — NO year present (React empty-text-node placeholders where year would be). This is the key: the date-derived value is absent from the hydration pass entirely.
+   226→   226→- After mount (useEffect ran): DOM shows `© 2026 Saransh Raj & Associates. All rights reserved.` — year filled in cleanly via state update (React handles post-mount state changes without hydration concern).
+   227→   227→- Checked all 9 routes for hydration errors (errors + console grep for "hydrat|server rendered|didn't match"): /firm, /expertise, /sectors, /people, /insights, /contact, /disclaimer, /terms, /privacy → ALL 0 errors, 0 console warnings.
+   228→   228→- dev.log: clean 200 responses across all pages, no runtime errors.
+   229→   229→
+   230→   230→Stage Summary:
+   231→   231→- Root cause: SiteFooter (a Client Component) called `new Date().getFullYear()` during render. The sandbox server clock (UTC, set to 2026) and the user's browser clock (Asia/Calcutta, real date) produce different years, so the SSR HTML contained `© 2026` while the client expected `© 2025` → hydration text-node mismatch.
+   232→   232→- Fix: mount-guard pattern — year is empty string during SSR and initial client render (guaranteed identical), then set via useEffect after mount. The date-derived value never participates in the hydration pass, so no mismatch is possible regardless of server/client clock skew or timezone.
+   233→   233→- Audited all other client components — none have the same render-time date/random/window-branch bug.
+   234→   234→- Verified: 0 hydration errors across all 9 pages. Lint clean, no runtime errors.
+   235→   235→
+   236→   236→---
+   237→   237→Task ID: 7
+   238→   238→Agent: main (orchestrator)
+   239→   239→Task: Fix remaining hydration error — server rendered HTML didn't match the client (reported still present after Task 6 footer fix)
+   240→   240→
+   241→   241→Work Log:
+   242→   242→- User reported the hydration error was still present after the Task 6 SiteFooter year fix. The sandbox browser showed no errors because it shares the server's environment (no clock skew, no reduced-motion preference by default), so the previous verification couldn't catch this class of bug.
+   243→   243→- Systematically audited every client component for SSR/client render-time divergence. Grepped for useReducedMotion, typeof window, matchMedia, Math.random, Date.now, new Date(), localStorage, sessionStorage, navigator.
+   244→   244→- Inspected framer-motion's installed source (v12.26.2) to confirm the exact behaviour of useReducedMotion():
+   245→   245→    // framer-motion/dist/framer-motion.dev.js
+   246→   246→    const prefersReducedMotion = { current: null };          // module-level mutable
+   247→   247→    function initPrefersReducedMotion() {
+   248→   248→        if (!isBrowser) return;                               // SSR no-op → stays null
+   249→   249→        const mq = window.matchMedia("(prefers-reduced-motion)");
+   250→   250→        prefersReducedMotion.current = mq.matches;            // client: true/false immediately
+   251→   251→    }
+   252→   252→    function useReducedMotion() {
+   253→   253→        !hasReducedMotionListener.current && initPrefersReducedMotion();
+   254→   254→        const [shouldReduceMotion] = React.useState(prefersReducedMotion.current);
+   255→   255→        return shouldReduceMotion;                            // SSR: null, client: true|false
+   256→   256→    }
+   257→   257→  This is the smoking gun: useReducedMotion() returns `null` during SSR but returns the real `true`/`false` on the client's FIRST render (via lazy useState init from a module-level mutable that matchMedia populates synchronously). Any component that branches on this value renders different markup/style on server vs client for users with prefers-reduced-motion: reduce.
+   258→   258→- Identified 5 components that conditionally render or set different initial/style based on `reduce` at render time (the actual hydration offenders):
+   259→   259→    1. horizontal-expertise.tsx — `{!reduce && (<desktop pinned track/>)}` renders the entire desktop experience on server (reduce=null=falsy) but omits it on client when reduce=true → entire subtree mismatch
+   260→   260→    2. char-reveal.tsx — `if (reduce) return <span>{text}</span>` returns completely different JSX (plain span vs character-split spans) → severe content mismatch
+   261→   261→    3. reveal.tsx (MaskReveal + Rise) — `initial={reduce ? {opacity:0} : {opacity:0, y}}` sets a different framer-motion initial style → inline style attribute mismatch on the motion.div/h2/h3 element
+   262→   262→    4. philosophy-narrative.tsx — `style={reduce ? undefined : { y: yBg, opacity }}` toggles the entire style object between undefined and a MotionValue object → style attribute mismatch
+   263→   263→    5. page.tsx (HomePage) — same `initial={reduce ? {opacity:0} : {opacity:0, y:N}}` pattern on 4 motion elements in the hero → inline style mismatch
+   264→   264→  Also updated 2 components that use useReducedMotion only inside event handlers / useEffect (hero-visual.tsx, magnetic.tsx) — they were already SSR-safe but were migrated for consistency so no future refactor accidentally introduces a render-time branch.
+   265→   265→- Created src/components/motion/use-mounted-reduced-motion.ts — a drop-in SSR-safe replacement:
+   266→   266→    export function useMountedReducedMotion(): boolean {
+   267→   267→      const reduce = useReducedMotion();
+   268→   268→      const [mounted, setMounted] = useState(false);
+   269→   269→      useEffect(() => setMounted(true), []);
+   270→   270→      return mounted ? Boolean(reduce) : false;
+   271→   271→    }
+   272→   272→  Returns `false` during SSR AND the client's first render (guaranteed to match the server's null-as-falsy behaviour), then flips to the real preference after mount. Components that branch on the returned value render identical markup on both sides and only diverge after a post-mount state update — which React handles cleanly with no hydration error.
+   273→   273→- Replaced all 7 `useReducedMotion()` call sites across the codebase with `useMountedReducedMotion()`. Grep confirms zero remaining `useReducedMotion` imports from framer-motion in any component (only the new hook file imports it, which is correct).
+   274→   274→- Lint clean (bun run lint — no errors).
+   275→   275→
+   276→   276→Verification (Agent Browser with prefers-reduced-motion emulated):
+   277→   277→- Set browser media to "reduce" to reproduce the exact condition that triggered the user's hydration error (server renders animated branch because reduce=null=falsy; client renders reduced branch because reduce=true).
+   278→   278→- Clean first visit (close → open) to http://localhost:3000/ with reduced motion ON:
+   279→   279→    console: only React DevTools info + HMR connected (no hydration warning, no "server rendered HTML didn't match" message)
+   280→   280→    errors: none
+   281→   281→    page errors: none
+   282→   282→- Accepted disclaimer gate, verified homepage renders all sections (hero, introduction, expertise explorer, sectors, philosophy narrative, principles, people, insights, contact) — full content present, reduced-motion fallbacks active.
+   283→   283→- Checked all 9 routes with reduced motion ON: /, /firm, /expertise, /sectors, /people, /insights, /contact, /disclaimer, /terms, /privacy — ALL clean (0 hydration errors, 0 page errors). Only non-fatal framer-motion "container position" warnings (pre-existing, cosmetic).
+   284→   284→- Switched media back to "no-preference" and did a clean first visit — also clean (0 errors), confirming the fix doesn't break the default animated experience.
+   285→   285→- dev.log: all routes return 200, no runtime errors.
+   286→   286→
+   287→   287→Stage Summary:
+   288→   288→- Root cause: framer-motion's useReducedMotion() returns `null` during SSR but `true`/`false` on the client's first render (it reads window.matchMedia during lazy useState init). 5 components conditionally rendered or set different initial/style based on this value, producing a hydration mismatch for any user with prefers-reduced-motion: reduce enabled. The Task 6 footer fix was correct but only addressed the date-derived mismatch; this is a separate, additional cause that the sandbox browser couldn't catch (it doesn't emulate reduced motion by default).
+   289→   289→- Fix: created useMountedReducedMotion() hook that returns `false` on SSR + first client render (matching server), then the real value post-mount. Replaced all 7 call sites.
+   290→   290→- Verified: 0 hydration errors across all 10 routes with reduced motion ON, and 0 errors with reduced motion OFF. Lint clean, no runtime errors.
+   291→   291→
+   292→   292→---
+   293→   293→Task ID: 8
+   294→   294→Agent: main (orchestrator)
+   295→   295→Task: Complete visual identity redesign — "Arguments in Colour" — remove generic AI-generated appearance
+   296→   296→
+   297→   297→Work Log:
+   298→   298→- User requested a full art-direction overhaul: replace the predictable ivory+serif+dots AI-template look with a distinctive, ownable editorial identity. Provided detailed creative brief: "Arguments in Colour" concept, new typography (Bodoni Moda / Satoshi / IBM Plex Mono), new colour palette (Midnight Ink, Porcelain, Electric Blue, Vermilion, Marigold, Jade, Aubergine), unique compositions per page, custom graphic language (margins, annotations, folios), "living document" motion, and removal of oversized cursor / clichéd legal imagery.
+   299→   299→
+   300→   300→Phase 1 — Fonts & design system:
+   301→   301→- Self-hosted three font families in public/fonts/: Bodoni Moda (variable, OFL), Satoshi (woff2 ×4 weights, Fontshare), IBM Plex Mono (4 weights, OFL). Wired via next/font/local in layout.tsx with --font-display / --font-sans / --font-mono CSS variables.
+   302→   302→- Rewrote globals.css as a complete "Arguments in Colour" design system: new colour tokens (ink #0B1020, porcelain #F3EFE5, electric #2457FF, vermilion #FF493D, marigold #FFB000, jade #17B890, aubergine #673DE6), editorial typography utilities (display-mega/1/2/3/4, mono-label, mono-num, lead, body-condensed, vertical-label, serif-italic), document layout primitives (doc-grid, margin-note, rule-grid), texture utilities (grain, grain-light, ledger-lines), colour-field classes (field-ink/electric/vermilion/marigold/jade/aubergine), graphic-language utilities (anno-bracket, anno-underline, anno-highlight, rule-draw, folio, section-index), "living document" motion utilities (sheet-reveal, line-draw, crop-reveal), and a restrained custom cursor (.cursor-bar — thin 2px vertical bar, grows over links, no glowing ring).
+   303→   303→- Updated lib/accents.ts: renamed accent tokens to new palette (electric/vermilion/marigold/jade/aubergine/ink), added accentOnHex for contrast-correct foregrounds, added accentField for colour-block sections.
+   304→   304→- Updated all data files (practice-areas.ts, sectors.ts, people.ts) to use new accent token names.
+   305→   305→
+   306→   306→Phase 2 — Motion primitives & shell:
+   307→   307→- Created src/components/motion/editorial.tsx with: useInView (IntersectionObserver hook), SheetReveal (content slides up like turning a page), RuleDraw (annotation line that draws itself), CropReveal (image reveals through editorial clip), FolioScroll (live page-folio number that updates on scroll), FadeUp (simple fade+rise). All SSR-safe (children render immediately; animations are class-based post-mount).
+   308→   308→- Rebuilt custom-cursor.tsx as a restrained 2px vertical bar (mix-blend-mode difference, grows to 32px + electric blue over links). Removed the oversized glowing ring.
+   309→   309→- Rebuilt scroll-progress.tsx as a thin electric-blue rule.
+   310→   310→- Rebuilt site-header.tsx as an editorial chapter index: wordmark left, numbered nav (01–07) with mono indices, right-side "CH. 0X" folio indicator, full-screen mobile overlay with Bodoni chapter titles in marigold.
+   311→   311→- Rebuilt site-footer.tsx as a document colophon: marquee of practice areas, 6-swatch palette strip, chapter-index links with mono numbers, mount-guarded copyright year (preserves Task 6/7 fix).
+   312→   312→- Rebuilt preloader.tsx as a brief (~0.85s) "document opening" animation on ink background with marigold progress rule.
+   313→   313→- Rebuilt disclaimer-gate.tsx as an editorial cover sheet with a 6-colour spectrum edge rule and "Cover Sheet · 01" folio.
+   314→   314→- Created page-hero.tsx with reusable PageHero, SectionHeader, MarginNote, ChapterLink components.
+   315→   315→
+   316→   316→Phase 3 — Homepage:
+   317→   317→- Rebuilt src/app/page.tsx as a cinematic editorial opening: top document-meta bar (location · "Arguments in Colour" · folio 001/018), mega headline "Arguments in Colour." with the word "Colour" rendered in a spectrum gradient (blue→aubergine→vermilion→marigold→jade) via background-clip:text, paper grain texture overlay, animated HeroVisual (layered translucent document sheets that drift on scroll with annotation marks and a colour-bar index), colour-transition practice-area index bar (ink section), editorial introduction with coloured italic keywords, PracticeIndex (colour-coded chapter list with hover colour-fields), SectorGrid scroller, colour-blocked PrinciplesBlock (4 full-colour panels), PeoplePreview, InsightsPreview (on ink), contact section.
+   318→   318→- Rebuilt hero-visual.tsx as layered translucent document sheets with annotation marks, colour-bar index, and folio marker — no clichéd legal imagery.
+   319→   319→
+   320→   320→Phase 4 — Interior pages (each with a distinctive composition):
+   321→   321→- Firm: scroll-driven manifesto with folio-scroll, colour-blocked principle panels, asymmetric archival timeline (alternating left/right with central rule + colour markers), practice-areas index on ink.
+   322→   322→- Expertise index: interactive legal index with expandable chapters — clicking a chapter fills a colour field and reveals its services as an annotated list; colour legend at top.
+   323→   323→- Expertise detail: full-bleed colour-coded chapter opening (each area's accent fills the hero), oversized index watermark, annotated service list with bracket marks, colour-coded prev/next navigation.
+   324→   324→- Sectors: immersive visual atlas with 4 rotating compositions (colour-field-left, full-width colour overlay, text-left/small-block, two-column colour+ink split) — each sector gets its own layout.
+   325→   325→- People index: full-bleed editorial portrait cards (typographic portrait field with cropped Bodoni name + architectural rules + annotation bracket — NO initials-in-gradient-boxes), team note.
+   326→   326→- People detail: full-bleed colour portrait field, drop-cap biography, three-column focus/qualifications/bar with mono numbering.
+   327→   327→- Insights: magazine-style index with category colour legend, large editorial entries with hover colour-fields, forthcoming notice.
+   328→   328→- Careers: calm, factual, minimal — no exaggerated claims.
+   329→   329→- Contact: quiet, functional — form left, contact details right with mono labels.
+   330→   330→- Updated contact-form.tsx with mono labels and editorial fields.
+   331→   331→- Updated legal-layout.tsx, not-found.tsx with the new system.
+   332→   332→
+   333→   333→Phase 5 — Refinement per VLM feedback:
+   334→   334→- VLM assessed homepage hero at 8.2/10 then 8.5/10: praised the "book/spread" metaphor, Bodoni choice, spectrum bar, and folio graphic; identified that the word "Colour" needed to be the typographic climax. Applied: spectrum-gradient text fill on "Colour" (blue→aubergine→vermilion→marigold→jade), tightened display-mega letter-spacing to -0.038em, reduced mega clamp to 13rem so the full headline fits in viewport, added paper grain texture to hero.
+   335→   335→
+   336→   336→Verification:
+   337→   337→- Lint clean (bun run lint — no errors).
+   338→   338→- All 13 routes return 200: /, /firm, /expertise, /sectors, /people, /insights, /careers, /contact, /disclaimer, /terms, /privacy, /expertise/[slug] (6 areas), /people/[slug].
+   339→   339→- Agent Browser verified: 0 hydration errors, 0 console errors, 0 page errors across all routes (tested with both default and prefers-reduced-motion: reduce).
+   340→   340→- Interactivity verified: expertise expandable chapters work (click → colour field fills → services reveal → "Read chapter" link appears); contact form submits successfully (POST /api/contact 200); mobile menu opens and navigates.
+   341→   341→- Sticky footer verified on short (404) and long pages — footer pushed to bottom, no gap.
+   342→   342→- Mobile (390px) verified: layout holds, typography scales, no horizontal overflow.
+   343→   343→- VLM final assessment (4 pages, desktop + mobile): 9/10. "This is not a generic AI template. This is a concept-driven, art-directed redesign." Every page passes the test "Could this design belong to any other AI-generated law-firm website?" → NO. "You could not swap this hero onto another generic law site. It is intrinsically tied to the 'Arguments in Colour' brand narrative."
+   344→   344→
+   345→   345→Stage Summary:
+   346→   346→- Complete visual identity redesign delivered: "Arguments in Colour" — the precision and structure of a legal document transformed into a vibrant contemporary editorial experience.
+   347→   347→- New typography: Bodoni Moda (display), Satoshi (body), IBM Plex Mono (labels) — all self-hosted, properly licensed (OFL / Fontshare 100).
+   348→   348→- New colour system: Midnight Ink + Porcelain base with Electric Blue / Vermilion / Marigold / Jade / Aubergine as architectural colour fields, not decorative dots. Each practice area and sector carries its own accent identity.
+   349→   349→- Unique compositions per page: homepage (cinematic document layers), firm (manifesto + asymmetric timeline), expertise (interactive expandable chapters), sectors (4-rotation visual atlas), people (editorial typographic portraits), insights (magazine index), careers (calm), contact (minimal).
+   350→   350→- Custom graphic language: document margins, folio numbers, annotation brackets, colour-bar indices, architectural rules, paper grain texture, "living document" motion (sheet reveals, rule draws, crop reveals, folio scroll).
+   351→   351→- Removed: oversized glowing cursor (replaced with restrained 2px bar), clichéd legal imagery (gavels/scales/pillars), glassmorphism, generic gradients, uniform bordered cards, repetitive beige sections.
+   352→   352→- VLM-confirmed 9/10: "concept-driven, art-directed," "unmistakably bespoke," passes the "could this belong to any other AI law-firm site?" test on every page.
+   353→   353→
+   354→   354→---
+   355→   355→Task ID: 9
+   356→   356→Agent: main (orchestrator)
+   357→   357→Task: Fix incomplete footer — "Mergers & Acqui..." truncated in the practice-areas marquee
+   358→   358→
+   359→   359→Work Log:
+   360→   360→- User reported (with screenshot) that the footer was "not complete" — "Mergers & Acqui" was cut off mid-word in the top strip of the footer.
+   361→   361→- Inspected the screenshot via VLM: confirmed the footer's top strip showed "Corporate Advisory · Commercial Contracts · Mergers & Acquis..." with the third item truncated at the right viewport edge.
+   362→   362→- Inspected src/components/site/site-footer.tsx: the top strip was an infinite CSS marquee (`.marquee-track` with `animation: footer-marquee 38s linear infinite; translateX(0 → -50%)`). The marquee contained 2 duplicates of the 6 practice-area names in large serif type.
+   363→   363→- Verified via Agent Browser that the marquee animation WAS technically running (animationName=footer-marquee, animationPlayState=running, transform=translateX(-467px) at capture). The truncation was the normal behaviour of a scrolling marquee — at any given moment some text is scrolled off-screen — but it read as "broken/incomplete" to the user.
+   364→   364→- Decision: replace the infinite marquee with a STATIC, complete practice-areas index so every chapter is always fully visible. This preserves the editorial "Arguments in Colour" aesthetic while eliminating the truncation.
+   365→   365→- Rewrote the footer's top strip:
+   366→   366→  - Removed the `.marquee-track` div, the inline `<style>` keyframes, and the hardcoded practice-area string array.
+   367→   367→  - Added a header row: "Practice Areas" (mono label) on the left, "06 chapters" (mono num) on the right.
+   368→   368→  - Added a wrapping flex `<ul>` that maps over `practiceAreas` from data (single source of truth — no more hardcoded duplicate of the list).
+   369→   369→  - Each item is a `<Link href={/expertise/[slug]}>` containing an accent-coloured square marker + the area title in `font-display` (text-2xl mobile / text-4xl desktop).
+   370→   370→  - Each marker uses the area's own accent colour via `accentHex[area.accent]` (electric=blue, vermilion=red, aubergine=purple, marigold=gold, jade=teal) — reinforcing the "each practice area has its own colour" identity system.
+   371→   371→  - Special-cased the "ink" accent (Insolvency & Recovery): since ink (#0B1020) matches the footer background, its marker is rendered as a porcelain-outlined hollow square instead of an invisible solid fill.
+   372→   372→  - Hover: marker scales 1.25×, title brightens to full porcelain.
+   373→   373→- Kept the palette swatch strip, brand/chapters/office columns, legal links, mount-guarded copyright year, and non-solicitation notice unchanged.
+   374→   374→- Lint clean (bun run lint — no errors).
+   375→   375→
+   376→   376→Verification (Agent Browser + VLM):
+   377→   377→- Desktop (1440×900) homepage footer: VLM confirms all 6 practice areas fully visible with NO truncation. "Mergers & Acquisitions" appears in full. Each area has its accent-coloured marker (blue/red/purple/gold/teal), and Insolvency & Recovery has a visible hollow outlined marker.
+   378→   378→- Mobile (390×844) full-page: VLM confirms all 6 practice areas fully visible, list wraps cleanly to a vertical stack, "Mergers & Acquisitions" fully readable.
+   379→   379→- Firm page (/firm) footer: VLM confirms all 6 areas fully visible, "Mergers & Acquisitions" complete.
+   380→   380→- Interactivity: clicked "Mergers & Acquisitions" in the footer → navigated correctly to /expertise/mergers-and-acquisitions.
+   381→   381→- Console: 0 hydration errors, 0 runtime errors, 0 page errors (only React DevTools info + HMR connected).
+   382→   382→
+   383→   383→Stage Summary:
+   384→   384→- Root cause: the footer's top strip was an infinite CSS marquee. At any given scroll position, practice-area names were cut off at the viewport edge — "Mergers & Acqui..." — which read as an incomplete/broken footer to the user, even though the animation was running.
+   385→   385→- Fix: replaced the marquee with a static, complete practice-areas index. All 6 chapters are now always fully visible, each marked with its own accent colour (reinforcing the "Arguments in Colour" identity). The "ink"-accented chapter (Insolvency & Recovery) uses a porcelain-outlined hollow marker so it's visible against the ink background. The list is now data-driven (maps over `practiceAreas`) instead of a hardcoded duplicate string array.
+   386→   386→- Verified on desktop + mobile + firm page: all 6 areas fully visible, no truncation, links work, no errors.
+   387→   387→
+   388→   388→---
+   389→   389→Task ID: 10
+   390→   390→Agent: main (orchestrator)
+   391→   391→Task: Fix excessive blank space in homepage "§ 02 · Expertise" (PracticeIndex) section — make it compact and readable
+   392→   392→
+   393→   393→Work Log:
+   394→   394→- User reported (with screenshot) that the "§ 02 · Expertise" section on the homepage had "too many blank space" and needed to be "compact so it is good to see for someone who can read that."
+   395→   395→- Used VLM to analyze the user's screenshot: confirmed the PracticeIndex section (§ 02 · Expertise) with headline "A focused practice across corporate & commercial law". The headline occupied only the left ~40% of the viewport (col-span-5), wrapped to multiple lines in its narrow column, and the right ~55% was empty except for a small description paragraph bottom-aligned at the far right. Large top/bottom padding (128px each) added further vertical emptiness.
+   396→   396→- Located the section in src/app/page.tsx → PracticeIndex() function (lines ~330-396).
+   397→   397→- Measured the original section: height=1450px, paddingTop=128px (py-32), paddingBottom=128px. Header grid was col-span-5 (headline) + col-span-6 col-start-7 (description, items-end aligned), mb-12.
+   398→   398→- Redesigned the header for compactness and readability:
+   399→   399→  - Reduced section vertical padding: py-20 md:py-32 → py-14 md:py-20 (128px → 80px).
+   400→   400→  - Widened the headline column: col-span-5 → col-span-8, with max-w-[20ch] so the headline breathes but doesn't stretch absurdly wide. The headline now wraps to fewer lines.
+   401→   401→  - Narrowed the description column: col-span-6 → col-span-4, with md:pl-4 lg:pl-6 and md:self-end so it sits at the baseline of the headline (natural editorial alignment) instead of being pushed to the far edge.
+   402→   402→  - Tightened the gap between header and chapter list: mb-12 → mb-8 md:mb-10.
+   403→   403→  - Tightened the chapter row vertical padding: py-6 md:py-7 → py-5 md:py-6.
+   404→   404→  - Reduced header grid gap: gap-8 → gap-6 md:gap-8.
+   405→   405→- Lint clean (bun run lint — no errors).
+   406→   406→
+   407→   407→Verification (Agent Browser + VLM):
+   408→   408→- Measured new section: height=1031px (down from 1450px — 29% more compact), padding=80px (down from 128px).
+   409→   409→- Desktop (1440×900) screenshot: VLM confirms "blank space is now reasonable and balanced", headline is "highly readable and well-positioned", 5 of 6 practice-area chapters visible in the viewport, section "feels compact yet spacious — excellent for readability." The right-side empty area is gone because the headline now spans 8 columns and the description sits closer to it.
+   410→   410→- Mobile (390×844): VLM confirms headline fully readable (wraps cleanly to 3 lines), layout compact and clean, no truncation, no horizontal overflow, list items display correctly.
+   411→   411→- Console: 0 hydration errors, 0 runtime errors, 0 page errors.
+   412→   412→
+   413→   413→Stage Summary:
+   414→   414→- Root cause: the PracticeIndex section header used a 5/6 column split with bottom-aligned description, leaving the headline crammed into a narrow left column (wrapping heavily) and a large empty top-right area. Combined with 128px top/bottom padding and a 48px gap, the section felt sparse and unbalanced.
+   415→   415→- Fix: widened the headline to 8 columns (fewer line wraps), moved the description to 4 columns with self-end alignment (sits at the headline baseline, closer to the text), reduced padding to 80px, tightened the header-to-list gap and row padding. Section is now 29% shorter (1450→1031px) and visually balanced.
+   416→   416→- Verified on desktop + mobile: compact, readable, no errors.
+   417→   417→

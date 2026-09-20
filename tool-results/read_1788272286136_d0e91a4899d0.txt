@@ -1,0 +1,202 @@
+  1700→- Hero image: 4:5, max 620px, ~38% width, authentic Delhi office interior.
+  1701→- Founder portrait: loads correctly (founder-portrait.png), no blank rectangle.
+  1702→- Section padding reduced (desktop 80-110px, tablet 64-80px, mobile 48-64px). Paragraphs 55-70ch.
+  1703→- Practice area colours: 6 distinguishable warm professional colours.
+  1704→- Numbering: 01/06 system, Careers=05, Contact=06.
+  1705→- "Editorial Counsel" removed. "Further profiles will be added" removed.
+  1706→- Firm page shortened (combined Philosophy+Principles+Approach).
+  1707→- Expertise page has unique SEO title/description.
+  1708→- Rose-gold italic limited to major headings only.
+  1709→- Supporting visuals added to Firm, Sectors, Careers (1 each).
+  1710→- All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
+  1711→- VLM-confirmed: "warm, premium, editorial... excellent contrast".
+  1712→
+  1713→---
+  1714→Task ID: 26
+  1715→Agent: subagent (final corrections)
+  1716→Task: Fix founder image (SR monogram), page numbers, italic rose overuse, people page text
+  1717→
+  1718→Work Log:
+  1719→- Read worklog.md (Tasks 1–25) to confirm warm-palette context and the existing "01/06" numbering scheme plus the homepage already referencing `/images/sr-monogram.png`.
+  1720→- Generated a new `/public/images/sr-monogram.png` (864×1152 PNG, 37 KB) using PIL with Liberation Serif Bold. Composition: blush (#E3C8BE) field with a soft vertical gradient, double-rule rose-dark border with corner ticks, an oversized "SR" monogram in burgundy (#603A40) with a subtle espresso shadow, an eyebrow label "FOUNDER · PRINCIPAL ADVOCATE" in rose-dark, a small flourish rule with three rose dots under the monogram, the name "Saransh Raj" in espresso, the firm line "Saransh Raj & Associates" in rose-dark, and footer mono-num marks "SR / 01" and "EST · NEW DELHI". Also exported a JPEG variant (sr-monogram.jpg) at the same size for parity with the other (actually-JPEG) `.png` images. VLM (glm-5v-turbo) confirmed the result reads as a "professional business card or personal branding graphic… sophisticated and legal/professional in tone".
+  1721→- Replaced the founder image references in three files:
+  1722→  • `src/app/people/page.tsx` — `src="/images/founder-portrait.png"` → `src="/images/sr-monogram.png"`, alt "Portrait of ${name} — ${role}" → "Saransh Raj monogram"; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait · 01" → "SR · 01"; corner-tick border `border-rose` → `border-rose-dark`.
+  1723→  • `src/app/people/[slug]/page.tsx` — same image+alt swap on the hero portrait; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait" → "SR"; corner-tick border `border-rose` → `border-rose-dark`.
+  1724→  • `src/components/site/people-preview.tsx` — same image+alt swap; container `bg-blush` → `bg-blush flex items-center justify-center`; annotation label "Portrait" → "SR"; corner-tick border `border-rose` → `border-rose-dark`; updated the file's docstring to reflect the SR-monogram placeholder instead of "polished architectural composition".
+  1725→- Fixed the folio counter on every interior page to match the canonical 6-page numbering (homepage shows "HOME"):
+  1726→  • `src/app/firm/page.tsx` — folio `02 / 06` → `01 / 06` (already had "Index 01 · The Firm").
+  1727→  • `src/app/expertise/page.tsx` — folio `03 / 06` → `02 / 06` (already had "Index 02 · Expertise").
+  1728→  • `src/app/sectors/page.tsx` — folio `04 / 06` → `03 / 06` (already had "Index 03 · Sectors").
+  1729→  • `src/app/people/page.tsx` — folio `05 / 06` → `04 / 06` (already had "Index 04 · People").
+  1730→  • `src/app/people/[slug]/page.tsx` — folio `Profile · 01` → `04 / 06` (kept the "Back to People" link).
+  1731→  • `src/app/careers/page.tsx` — folio `06 / 06` → `05 / 06` (already had "Index 05 · Careers").
+  1732→  • `src/app/contact/page.tsx` — already `06 / 06` (no change needed; "Index 06 · Contact" already correct).
+  1733→  • `src/app/insights/page.tsx` — Insights is hidden from primaryNav; folio `06 / 06` → `— / —` (label "Notes · Publications" preserved).
+  1734→  • Legal pages (disclaimer/terms/privacy) use LegalLayout with the existing "DOC" counter — untouched per spec.
+  1735→- Reduced `.serif-italic` overuse. After audit, removed the class from every section H2/H3 heading while preserving it on each inner-page hero H1 (one accent word) and on the burgundy contact strips (`.serif-italic-on-burgundy`):
+  1736→  • `firm/page.tsx` — removed from "Six practice areas" (section H2), "The firm's working philosophy" (section H2), "Four principles shape every engagement" (H3).
+  1737→  • `expertise/[slug]/page.tsx` — removed from "Methodical, attentive, considered" (section H2, kept the inline `color: hex` accent), "Questions about {area}?" (section H2, kept the inline `color: hex` accent).
+  1738→  • `sectors/page.tsx` — removed from "The practice behind the sectors" (section H2).
+  1739→  Remaining `.serif-italic` usages (all verified in scope): inner-page hero H1 accent words — `expertise` "index", `firm` "principle", `careers` "practice", `people` "people", `insights` "notebook", `contact` "firm", `sectors` "atlas"; plus homepage "Legal Counsel." (untouched, in scope) and `not-found.tsx` "found" (large display-mega accent, retained per Task 25 spec).
+  1740→- Removed the team-expansion copy from `src/app/people/page.tsx`. The hero paragraph "Below is the founder and principal advocate; the team expands as colleagues are introduced to the practice." was rewritten to "The firm's work is shaped by the people who carry it. The founder and principal advocate leads the practice." The trailing "A note on the team" beige block with "The firm works as an integrated team under the guidance of its founder. The team will expand as colleagues are introduced to the practice." was deleted entirely. Verified `rg "will expand|colleagues are introduced|team expands as|A note on the team"` on the rendered `/people` HTML returns 0 matches.
+  1741→- Audited `text-rose` vs `text-rose-dark` on small text. All in-scope small text/buttons/hovers already use `text-rose-dark`. The remaining `text-rose` (lighter #B76E79) usages are: (a) `not-found.tsx` on the large display-mega "found" accent (intentional per Task 25 spec); (b) `lib/accents.ts:73` accent token definition; (c) `disclaimer-gate-client.tsx`, `site-header.tsx`, `site-footer.tsx` — all explicitly in the "Do NOT touch" list. No in-scope small-text `text-rose` instances to fix.
+  1742→- Ran `bun run lint` → 0 errors, 0 warnings. Ran `bun run build` → ✓ Compiled successfully in 10.1s, all 24 routes generated, 24/24 static pages.
+  1743→- Live HTTP verification via the standalone server (`.next/standalone/server.js`): every interior route (/firm, /expertise, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy) and the homepage return 200. The new `/images/sr-monogram.png` returns 200. The legacy `/images/founder-portrait.png` also still returns 200 (kept for backward compat — no longer referenced anywhere in src/).
+  1744→- Verified rendered HTML for each page via `rg -c` on saved HTML:
+  1745→  • `/people` — 1 match for `sr-monogram`, 0 for `founder-portrait`, 0 for `will expand`, 0 for `colleagues are introduced`, 0 for `team expands as`, 0 for `A note on the team`, 1 for `04 / 06`, 1 for `Index 04`.
+  1746→  • `/people/saransh-raj` — 1 for `sr-monogram`, 0 for `founder-portrait`, 1 for `Saransh Raj monogram` (alt), 0 for `Portrait of`, 1 for `04 / 06`.
+  1747→  • `/firm` — 1 for `01 / 06`, 0 for `02 / 06`, 0 for `>working<` italic span, 1 for `serif-italic-on-burgundy`.
+  1748→  • `/expertise` — 1 for `02 / 06`, 0 for `03 / 06`.
+  1749→  • `/sectors` — 1 for `03 / 06`, 0 for `04 / 06`.
+  1750→  • `/careers` — 1 for `05 / 06`, 0 for `06 / 06`.
+  1751→  • `/contact` — 1 for `06 / 06`.
+  1752→  • `/insights` — 1 for `— / —`, 0 for `06 / 06`.
+  1753→- Constraints honoured: did not touch `src/app/page.tsx` (homepage — already references `/images/sr-monogram.png` from Task 25), `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/disclaimer-gate.tsx`, `disclaimer-gate-client.tsx`, `site-shell.tsx`, `site-header.tsx`, `site-footer.tsx`, `hero-visual.tsx`, `scroll-progress.tsx`, `src/app/api/*`, `contact-form.tsx`, `legal-layout.tsx`. Did not change the contact form, the burgundy contact section, the email layout, the Firm page structure, or the Expertise SEO title. All bio, qualifications, practice areas, sectors and disclaimer text preserved.
+  1754→
+  1755→Stage Summary:
+  1756→- Founder image: `/images/founder-portrait.png` references replaced with `/images/sr-monogram.png` (new 864×1152 PNG generated) in `people/page.tsx`, `people/[slug]/page.tsx`, `people-preview.tsx`. Alt text → "Saransh Raj monogram", annotation label → "SR", container centred with `flex items-center justify-center`, corner-tick border → `border-rose-dark`.
+  1757→- Page numbers: firm `01 / 06`, expertise `02 / 06`, sectors `03 / 06`, people `04 / 06`, people/[slug] `04 / 06`, careers `05 / 06`, contact `06 / 06`, insights `— / —`, homepage `HOME`, legal pages unchanged (DOC).
+  1758→- Italic rose: `.serif-italic` removed from every section H2/H3 (firm "areas", "working", "engagement"; expertise/[slug] "considered", "area.title.toLowerCase()?"; sectors "the sectors"). Retained only on inner-page hero H1 accent words (one per page) and `.serif-italic-on-burgundy` on the three burgundy contact strips.
+  1759→- People page copy: removed "team expands as colleagues are introduced" hero clause and the "A note on the team / The team will expand as colleagues are introduced to the practice" beige block. Replaced with a concise two-sentence introduction: "The firm's work is shaped by the people who carry it. The founder and principal advocate leads the practice."
+  1760→- Small-text readability: audited `text-rose` vs `text-rose-dark`. All in-scope small text/buttons/hovers use `text-rose-dark`. No `text-rose` on small text in any editable file.
+  1761→- Lint: 0 errors / 0 warnings. Build: ✓ 24/24 routes generated. All interior routes return HTTP 200; `/images/sr-monogram.png` returns 200. Rendered-HTML grep verification confirms every numeric/italic/text change applied correctly.
+  1762→- Files changed (8): `src/app/people/page.tsx`, `src/app/people/[slug]/page.tsx`, `src/components/site/people-preview.tsx`, `src/app/firm/page.tsx`, `src/app/expertise/page.tsx`, `src/app/sectors/page.tsx`, `src/app/careers/page.tsx`, `src/app/insights/page.tsx`, `src/app/expertise/[slug]/page.tsx`. Plus new assets: `public/images/sr-monogram.png` (and `.jpg`).
+  1763→
+  1764→---
+  1765→Task ID: 27
+  1766→Agent: main (orchestrator)
+  1767→Task: Final correction pass — typography, founder image, image loading, page numbers, sticky header, people page, italic reduction, small-text readability
+  1768→
+  1769→Work Log:
+  1770→- Phase 1 (Typography globally): Corrected globals.css display classes to exact spec:
+  1771→  • display-mega (hero H1): clamp(56px, 6.5vw, 92px) — was clamp(54px, 7vw, 96px)
+  1772→  • display-1 (inner H1): clamp(48px, 5.5vw, 78px) — was clamp(48px, 6vw, 82px)
+  1773→  • display-2 (section H2): clamp(38px, 4vw, 58px) — was clamp(38px, 4.5vw, 60px)
+  1774→  • display-3 (large H3): clamp(27px, 2.8vw, 36px) — was clamp(26px, 3vw, 38px)
+  1775→  • display-4 (card H3): clamp(20px, 1.6vw, 24px) — was clamp(20px, 2vw, 24px)
+  1776→  • line-heights adjusted for compactness (1.05-1.25)
+  1777→  Hero H1 now "Corporate & Commercial / Legal Counsel." on 3 lines max. "&" stays attached to "Corporate". No isolated "&". "Legal Counsel." stays together.
+  1778→- Phase 2 (Replace false founder image): Generated SR monogram (sr-monogram.png) — elegant neutral editorial placeholder with "SR" lettering, warm ivory/blush background, rose-gold accents. NOT an AI person, NOT a camera/notebook. Replaced ALL references to founder-portrait.png (the false camera image) with sr-monogram.png across homepage, people/page, people/[slug]/page, people-preview. Alt text changed from "Founder portrait — Saransh Raj" to "Saransh Raj monogram". Annotation label changed from "Portrait" to "SR".
+  1779→- Phase 3 (Fix image loading): Hero image was JPEG saved with .png extension → Next.js Image optimizer rejected it (404/400). Renamed to hero-architecture-warm.jpg and updated reference. Added fetchPriority="high" to hero Image. Hero image now loads immediately (naturalWidth > 0, complete=true). VLM-confirmed: "high-quality architectural photograph... definitely not a blank rectangle".
+  1780→- Phase 4 (Page numbers): Homepage folio changed from "01 / 06" to "HOME". Interior pages verified:
+  1781→  • Firm: 01 / 06, Index 01
+  1782→  • Expertise: 02 / 06, Index 02
+  1783→  • Sectors: 03 / 06, Index 03
+  1784→  • People: 04 / 06, Index 04
+  1785→  • Careers: 05 / 06, Index 05
+  1786→  • Contact: 06 / 06, Index 06
+  1787→  Header INDEX counter matches page label + right-side counter.
+  1788→- Phase 5 (Sticky header): Header height 72px (h-16 md:h-[72px]). Background changed from bg-transparent (when not scrolled) to bg-ivory/80 backdrop-blur-sm — always opaque/blurred, never transparent. Added scroll-padding-top: 80px to html and scroll-margin-top: 80px to all [id] elements so headings never hide under sticky header. z-[110] maintained.
+  1789→- Phase 6 (People page): Removed "The team will expand as colleagues are introduced to the practice." and the entire "A note on the team" beige block. Page now has a concise introduction followed by the founder profile.
+  1790→- Phase 7 (Reduce italic rose): Removed .serif-italic from:
+  1791→  • Homepage Introduction H2 (companies/individuals/families) — now standard espresso
+  1792→  • Homepage Practice Index H2 (corporate) — standard espresso
+  1793→  • Homepage Sectors H2 (India's) — standard espresso
+  1794→  • Homepage Principles H2 (stands for) — standard espresso
+  1795→  • Homepage Founder H2 (founder) — standard espresso
+  1796→  • Firm page: "Six practice areas", "working philosophy", "Four principles" — standard espresso
+  1797→  • Expertise [slug]: "Methodical, attentive", "Questions" — kept inline accentHex color
+  1798→  • Sectors: "practice behind the sectors" — standard espresso
+  1799→  .serif-italic now ONLY on: homepage hero "Legal Counsel." + inner-page hero H1 (one accent word) + burgundy contact "firm" (.serif-italic-on-burgundy).
+  1800→- Phase 8 (Small-text readability): All metadata/labels use text-stone (#6D5F5A — already dark). All small rose text uses text-rose-dark (#9B5964), not text-rose (#B76E79). mono-label is 13px minimum. No pale taupe on blush/beige.
+  1801→
+  1802→Verification (agent-browser + node fetch + VLM):
+  1803→- bun run lint: clean, 0 errors.
+  1804→- All 13 routes return HTTP 200.
+  1805→- Homepage: H1 "Corporate & Commercial\nLegal Counsel." at 92px (within 56-92px spec), 3 lines, "&" attached to "Corporate". Folio "HOME". Hero image hero-architecture-warm.jpg loads (naturalWidth 547, fetchPriority="high"). Founder image sr-monogram.png (no old founder-portrait). bg #F7F1E8. headerHeight 73px, headerBgOpaque true. bodyHeight 5290px. Insights NOT in nav. "team will expand" removed. No errors.
+  1806→- Page numbers verified: Firm=01/06, Expertise=02/06, Sectors=03/06, People=04/06, Careers=05/06, Contact=06/06. All match Index labels.
+  1807→- Responsive: 1440px (no overflow), 1024px (no overflow), 768px (no overflow), 390px (no overflow).
+  1808→- VLM (desktop): "hero image loaded correctly... high-quality architectural photograph featuring ornate stone arches... definitely not a blank rectangle... heading on three lines... sticky header opaque... no obvious visual bugs or errors... design appears to be functioning as intended".
+  1809→- No page errors, no console errors.
+  1810→
+  1811→Stage Summary:
+  1812→- Typography scale exactly per spec: hero H1 56-92px, inner H1 48-78px, H2 38-58px, H3 27-36px, card H3 20-24px, body 16-18px, nav 14-15px, metadata 13px.
+  1813→- Hero headline "Corporate & Commercial Legal Counsel." on 3 lines max, no isolated "&".
+  1814→- False founder image replaced with elegant SR monogram (no AI person, no camera/notebook, correct alt text).
+  1815→- Hero image loads immediately (fetchPriority="high", correct .jpg extension, no blank rectangle).
+  1816→- Page numbers: HOME on homepage, 01-06/06 on interior pages, all matching.
+  1817→- Sticky header: opaque/blurred warm-ivory, 72px, scroll-padding-top 80px.
+  1818→- People page: "team will expand" removed, concise intro + founder profile.
+  1819→- Italic rose limited to hero + 1-2 section headings + inner heroes only.
+  1820→- Small text: #6D5F5A or darker, no pale taupe on blush/beige.
+  1821→- All completed improvements preserved (burgundy contact, email layout, Firm structure, Expertise SEO, warm palette).
+  1822→- All 13 routes 200, lint clean, no errors, responsive at all breakpoints.
+  1823→
+  1824→---
+  1825→Task ID: 28
+  1826→Agent: subagent (refined palette + remove AI appearance)
+  1827→Task: Update all pages with refined editorial palette, remove gradients/glassmorphism/repetitive italic
+  1828→
+  1829→Work Log:
+  1830→- Read worklog.md (Tasks 1–27) to confirm the warm-palette context, the "01/06" numbering scheme, the existing SR-monogram placeholder image, and the inline `var(--color-on-burgundy-X)` pattern already in use on the homepage contact section, firm contact strip and people/[slug] contact strip.
+  1831→- Read globals.css to confirm the refined editorial palette tokens (paper #F1ECE3, ivory #FAF7F1, ink #25211F, oxblood #51252B, clay #A66F65, copper #9A684F, stone #B9AD9E, stone-dark #8A7E6E), the legacy alias mappings (rose → clay, rose-dark → copper, burgundy → oxblood, espresso → ink, beige → paper, porcelain → ivory, blush → warm-stone-tint #E8E2D5), and the on-burgundy inline style tokens already defined.
+  1832→- Audited all 25 in-scope .tsx files (page-hero, homepage page.tsx, firm, expertise, expertise/[slug], expertise-accordion, expandable-service-list, sectors, sector-list, sector-grid, people, people/[slug], people-preview, insights, insights-preview, careers, contact, contact-form, legal-layout, disclaimer, terms, privacy, not-found, site-footer, disclaimer-gate-client) for the 12 colour/texture issues in scope: text-stone (small text), backdrop-blur, gradients, bg-blush cards, bg-rose/bg-rose-dark buttons, hover:text-rose/hover:text-rose-dark, border-rose/border-rose-dark, bg-burgundy section contrast tokens, repetitive .serif-italic on section headings, decorative grain overlays, footer oxblood + copper strip + clay legal-link hovers, and disclaimer-gate oxblood button + copper checkbox accent.
+  1833→
+  1834→- Per-file colour edits (renamed legacy tokens to refined palette, kept content unchanged):
+  1835→  • `page-hero.tsx` — `text-stone` → `text-stone-dark` (chapter, folio, eyebrow, mono-num index); `text-espresso` → `text-ink` (h1/h2); `hover:text-rose-dark` → `hover:text-copper`; `group-hover:text-rose-dark` → `group-hover:text-copper`.
+  1836→  • `app/page.tsx` (homepage) — `bg-ivory/80` → `bg-paper` (solid bottom meta strip, no backdrop-blur); `bg-rose-dark text-white hover:bg-burgundy` → `bg-oxblood text-ivory hover:bg-ink` (primary CTA); `hover:border-rose-dark hover:text-rose-dark` → `hover:border-copper hover:text-copper` (secondary CTA); `border-rose` annotation bracket → `border-copper`; `text-rose-dark` annotations → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`; `hover:border-rose-dark` → `hover:border-copper`; `text-stone` (small) → `text-stone-dark`; `text-espresso` → `text-ink`; `bg-burgundy` → `bg-oxblood` (ContactPreview); `bg-rose hover:text-white` CTA on contact card → `bg-copper hover:text-ivory`; `mono-num text-rose-dark` principles counter → `text-copper`; `font-display text-3xl text-blush` large decorative number → `text-stone` (kept as decorative per spec).
+  1837→  • `firm/page.tsx` — `text-stone` → `text-stone-dark`; `bg-rose` manifesto dot → `bg-clay`; `text-rose-dark` practice label → `text-copper`; `bg-burgundy` contact strip → `bg-oxblood`; `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `text-espresso` → `text-ink` on all H2/H3. PhilosophyAndApproach `fields[]` colour-blocked principle cards re-tinted to refined palette: clay #A66F65, oxblood #51252B, stone-tint #E8E2D5 (dark text), ink #25211F (with ivory text).
+  1838→  • `expertise/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on hero H1.
+  1839→  • `expertise/[slug]/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on H2/H2/contact strip/prev-next nav; `hover:text-rose-dark` → `hover:text-copper` (Firm link, email, phone); `bg-beige text-espresso` contact strip → `bg-paper text-ink`.
+  1840→  • `expertise-accordion.tsx` — `var(--color-stone)` → `var(--color-stone-dark)` for closed-row mono-num, mono-label, and chevron svg; `var(--color-espresso)` → `var(--color-ink)` for closed-row area title; `hover:text-rose-dark` → `hover:text-copper`; `var(--color-stone)` → `var(--color-stone-dark)` for expanded-panel service index numbers.
+  1841→  • `expandable-service-list.tsx` — `focus-visible:ring-rose-dark` → `focus-visible:ring-copper`; `var(--color-stone)` → `var(--color-stone-dark)` for closed-row mono-num, mono-label, chevron; `var(--color-espresso)` → `var(--color-ink)` for closed-row service title; `var(--color-stone)` → `var(--color-stone-dark)` for expanded-panel service-detail label.
+  1842→  • `sectors/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` on H1/H2/H3; `group-hover:text-espresso` legend hover → `group-hover:text-ink`; `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`.
+  1843→  • `sector-list.tsx` — `text-stone` (mono-num index) → `text-stone-dark`; `text-espresso` H3 → `text-ink`; `group-hover:text-rose-dark` chevron → `group-hover:text-copper`.
+  1844→  • `sector-grid.tsx` — `text-stone` (mono-label, mono-num, arrow button) → `text-stone-dark`; `bg-blush` end-card CTA → `bg-stone` (kept warm stone tint for visual variation); `text-espresso` → `text-ink` (end-card text + tile names); `group-hover:text-rose-dark` end-card → `group-hover:text-copper`; `bg-rose-dark` progress bar → `bg-copper`; `hover:border-rose-dark focus-visible:border-rose-dark` card hover → `hover:border-copper focus-visible:border-copper`; `group-hover:text-rose-dark` card CTA → `group-hover:text-copper`; `hover:text-espresso hover:bg-ivory` arrow → `hover:text-ink hover:bg-ivory`.
+  1845→  • `people/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` H1/H2 → `text-ink`; `hover:border-rose-dark` → `hover:border-copper`; `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR · NN" label → `text-copper`; `text-white/80` initials badge → `text-ink/80`; `group-hover:text-rose-dark` CTA → `group-hover:text-copper`.
+  1846→  • `people/[slug]/page.tsx` — `text-stone` → `text-stone-dark`; `hover:text-rose-dark` → `hover:text-copper` (Back-to-People link, email, phone); `text-espresso` → `text-ink` (H1/H1 links/list items); `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR" label → `text-copper`; `text-white/80` initials → `text-ink/80`; `text-rose-dark` mono-num counters (Scope/Qualifications/Bar) → `text-copper`; `bg-burgundy` contact strip → `bg-oxblood`.
+  1847→  • `people-preview.tsx` — `hover:border-rose-dark` → `hover:border-copper`; `border-rose-dark` annotation bracket → `border-copper`; `text-rose-dark` "SR" label → `text-copper`; `text-white/80` initials → `text-ink/80`; `text-stone` (mono-num counter) → `text-stone-dark`; `text-espresso` H3 → `text-ink`; `group-hover:text-rose-dark` CTA → `group-hover:text-copper`.
+  1848→  • `insights/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1/H1 display-3 status notice); `bg-rose` status dot → `bg-clay`; `text-rose-dark` "Status" label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper`.
+  1849→  • `insights-preview.tsx` — `text-rose-dark` "Status" label → `text-copper`; `text-espresso` H3 → `text-ink`; `text-stone` (mono-label link) → `text-stone-dark`; `hover:text-rose-dark` → `hover:text-copper`.
+  1850→  • `careers/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1); `bg-blush` document-detail image container → `bg-stone`; `border-rose` annotation bracket → `border-copper`; `text-rose-dark` archive label → `text-copper`; `hover:text-rose-dark` → `hover:text-copper` (email); `bg-rose-dark text-white hover:bg-burgundy` visit-contact button → `bg-oxblood text-ivory hover:bg-ink`.
+  1851→  • `contact/page.tsx` — `text-stone` → `text-stone-dark`; `text-espresso` → `text-ink` (H1, address, phone, email, hours); `border-rose-dark` (form + details top rules) → `border-copper`; `hover:text-rose-dark` → `hover:text-copper` (phone, email).
+  1852→  • `contact-form.tsx` — `mono-label text-stone` → `text-stone-dark` (all field labels); `text-espresso` input/textarea/select text → `text-ink`; `focus:border-rose-dark` → `focus:border-copper`; `border-rose-dark` (error state) → `border-copper`; `text-rose-dark` required asterisks + error messages → `text-copper`; `hover:text-rose-dark` disclaimer link → `hover:text-copper`; `bg-rose-dark text-white hover:bg-burgundy` submit button → `bg-oxblood text-ivory hover:bg-ink`. Form POST logic, honeypot, validation, submittingRef guard, toast, router.refresh — all preserved untouched.
+  1853→  • `legal-layout.tsx` — `text-stone` → `text-stone-dark` (all mono-label, mono-num, folio); `text-espresso` → `text-ink` (H1, H2, contact email/phone); `hover:text-rose-dark` → `hover:text-copper` (TOC links, contact email/phone).
+  1854→  • `disclaimer/page.tsx` — content unchanged (uses LegalLayout which was updated).
+  1855→  • `terms/page.tsx` — content unchanged (uses LegalLayout which was updated).
+  1856→  • `privacy/page.tsx` — content unchanged (uses LegalLayout which was updated); the inline contact email/phone links within the "Contact" section updated: `text-espresso hover:text-rose-dark` → `text-ink hover:text-copper`.
+  1857→  • `not-found.tsx` — `bg-ivory text-espresso` → `bg-ivory text-ink`; `text-stone` → `text-stone-dark`; `serif-italic text-rose` on "found" → bare `serif-italic` (the class itself now defaults to #A66F65 clay, no need for text-rose override); `bg-rose-dark text-white hover:bg-burgundy` Return-home button → `bg-oxblood text-ivory hover:bg-ink`; `hover:border-rose-dark hover:text-rose-dark` Contact button → `hover:border-copper hover:text-copper`; decorative colour bar `bg-rose / bg-burgundy / bg-blush / bg-beige` swatches → `bg-clay / bg-oxblood / bg-stone / bg-paper` (refined-palette swatch bar).
+  1858→  • `site-footer.tsx` — `bg-beige text-espresso` footer container → `bg-oxblood text-ivory` (deep oxblood); `bg-rose` accent strip → `bg-copper` (aged copper); `bg-rose text-white` "S" monogram → `bg-copper text-ivory`; `text-espresso/90 group-hover:text-rose` practice-area titles → `text-ivory/90 group-hover:text-clay`; `hover:text-rose` (nav, office, legal links) → `hover:text-clay`; `text-charcoal` body text → `text-ivory/80`; `text-stone` mono-labels kept on dark bg (provides appropriate muted-contrast on oxblood); `group-hover:text-rose` (mono-num counters) → `group-hover:text-clay`. Practice-area swatch squares still use accentHex from `@/lib/accents` — preserved.
+  1859→  • `disclaimer-gate-client.tsx` — `bg-ivory text-espresso` overlay → `bg-paper text-ink`; `bg-rose` top accent rule → `bg-copper`; `text-rose` "Please read carefully" label → `text-copper`; `text-espresso` H1 + "Saransh Raj & Associates" inline highlight → `text-ink`; `text-stone` (Cover Sheet · 01, BCI paragraph, bottom note) → `text-stone-dark`; `text-espresso` Terms/Privacy links → `text-ink`; `accent-rose` checkbox → `accent-copper`; `border-rose bg-rose` (checked state) → `border-copper bg-copper`; `group-hover:border-rose` (unchecked hover) → `group-hover:border-copper`; `bg-rose text-white enabled:hover:bg-burgundy` Acknowledge-and-Proceed button → `bg-oxblood text-ivory enabled:hover:bg-ink`; `hover:border-rose hover:text-rose` Read-full-disclaimer link → `hover:border-copper hover:text-copper`. The white checkmark svg kept `text-white` (correct on copper fill). Form submission logic, storage key, cookie/localStorage writes, legal-page bypass — all preserved untouched.
+  1860→
+  1861→- Constraints honoured: did NOT touch `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/site-shell.tsx`, `src/components/site/site-header.tsx`, `src/components/site/hero-visual.tsx`, `src/components/site/scroll-progress.tsx`, `src/app/api/*`. The site-header.tsx (already updated to use refined tokens by a prior task) was left untouched. Content, text, structure, contact-form POST logic, honeypot field, validate() function, submittingRef guard, toast notifications, router.refresh, form.reset — all preserved.
+  1862→
+  1863→- Verification:
+  1864→  • `bun run lint` → 0 errors, 0 warnings (eslint . returned no output; exit code 0).
+  1865→  • `bun run build` → ✓ Compiled successfully in 9.2s. All 24 routes generated. Static pages: 24/24 in 186ms.
+  1866→  • Live HTTP verification (dev server on :3000): all 13 routes (/, /firm, /expertise, /sectors, /people, /people/saransh-raj, /insights, /careers, /contact, /disclaimer, /terms, /privacy, /non-existent-page) return correct status codes (200 for valid, 404 for non-existent).
+  1867→  • Rendered-HTML grep verification:
+  1868→    – Homepage: 38 `text-ink`, 24 `text-stone-dark`, 20 `hover:text-copper`, 14 `border-copper`, 10 `bg-oxblood`, 10 `bg-ivory`, 7 `text-copper`, 5 `bg-paper`, 3 `bg-copper`, 2 `bg-clay`, 1 `bg-stone` — all refined-palette tokens present. Zero legacy tokens (`bg-rose-dark`, `bg-burgundy`, `hover:bg-burgundy`, `text-rose-dark`, `hover:text-rose-dark`, `accent-rose`, `text-stone"`).
+  1869→    – Firm page: 35 `text-ink`, 24 `text-stone-dark`, 9 `hover:text-copper`, 8 `bg-oxblood`, 5 `border-copper`, 4 `bg-paper`, 3 `text-copper`, 3 `bg-ivory`, 3 `bg-clay`, 2 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+  1870→    – Contact page: 17 `text-ink`, 13 `text-stone-dark`, 7 `bg-oxblood`, 6 `border-copper`, 5 `hover:text-copper`, 4 `bg-paper`, 2 `bg-ivory`, 2 `bg-clay`, 1 `text-copper`, 1 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+  1871→    – People page: 14 `text-ink`, 8 `text-stone-dark`, 7 `border-copper`, 7 `bg-oxblood`, 4 `hover:text-copper`, 4 `bg-paper`, 4 `bg-ivory`, 2 `text-copper`, 2 `bg-clay`, 1 `bg-stone`, 1 `bg-copper`. Zero legacy tokens.
+  1872→    – Homepage `serif-italic` count: 1 (hero H1 "Legal Counsel.") + 1 `serif-italic-on-burgundy` (contact section "firm") + 1 bundled-`serif-italic` from not-found "found" in the JS payload — matches spec exactly (hero + inner-page hero H1 accent + burgundy contact "firm").
+  1873→    – Firm page `serif-italic` count: 1 (hero H1 "principle") + 1 `serif-italic-on-burgundy` (contact strip "firm") + 1 bundled not-found "found" — matches spec.
+  1874→    – Contact page `serif-italic` count: 1 (hero H1 "firm") + 1 bundled not-found "found" — matches spec.
+  1875→    – People page `serif-italic` count: 1 (hero H1 "people") + 1 bundled not-found "found" — matches spec.
+  1876→    – No `backdrop-blur` or `linear-gradient` or `bg-gradient` or `radial-gradient` or `bg-ivory/80` or `bg-ivory/95` instances in any in-scope .tsx file (only globals.css has the `rule-grid` and `ledger-lines` SVG-style background-image gradients, which are out of scope).
+  1877→    – `grain` class present only on homepage hero section (page.tsx line 13) — removed from all other sections (none existed anyway, so verified clean).
+  1878→    – `bg-blush` retained only on SR monogram containers (homepage FounderPreview, people/page, people/[slug], people-preview) per spec; `bg-blush` as a card background replaced with `bg-ivory` or `bg-stone` everywhere else.
+  1879→    – `bg-burgundy` section background replaced with `bg-oxblood` on all three dark sections (homepage ContactPreview, firm contact strip, people/[slug] contact strip) — all keep their inline `style={{ color: "var(--color-on-burgundy-X)" }}` tokens for proper on-oxblood contrast (heading #FAF7F1, body #E8E2D5, label #B9AD9E, italic #A66F65).
+  1880→    – Footer is now `bg-oxblood text-ivory` with `bg-copper` accent strip, `bg-copper text-ivory` "S" monogram, `group-hover:text-clay` practice-area titles + legal links (per spec).
+  1881→
+  1882→Stage Summary:
+  1883→- 25 in-scope .tsx files updated to use refined editorial palette tokens (paper / ivory / ink / oxblood / clay / copper / stone / stone-dark). Legacy alias classes (bg-rose, bg-rose-dark, bg-burgundy, text-espresso, text-rose-dark, border-rose-dark, hover:text-rose-dark, hover:bg-burgundy, accent-rose, bg-blush cards) all replaced with refined tokens (bg-oxblood / bg-copper / bg-clay / text-ink / text-copper / border-copper / hover:text-copper / hover:bg-ink / accent-copper / bg-ivory cards).
+  1884→- Glassmorphism removed: `bg-ivory/80` bottom meta strip on homepage hero → solid `bg-paper`. No `backdrop-blur` instances remain in any in-scope .tsx file.
+  1885→- Gradients removed: no `linear-gradient`, `bg-gradient`, or `radial-gradient` instances in any in-scope .tsx file. The `.anno-underline` (solid 2px copper) and `.anno-highlight` (solid warm-stone tint) CSS classes were already fixed in globals.css.
+  1886→- Repetitive rose-gold italic reduced: `.serif-italic` (now muted rose clay #A66F65) is now ONLY on (a) homepage hero H1 "Legal Counsel.", (b) inner-page hero H1 one-word accents (firm "principle", expertise "index", sectors "atlas", people "people", careers "practice", insights "notebook", contact "firm"), (c) the not-found hero H1 "found" (large display-mega accent), and (d) `.serif-italic-on-burgundy` on the three oxblood contact strips (homepage, firm, people/[slug]). All section H2/H3, card titles, prev/next nav use standard natural-ink serif.
+  1887→- Decorative `grain` overlay kept ONLY on homepage hero section (page.tsx line 13). No other section uses grain (verified).
+  1888→- Footer migrated to oxblood: `bg-oxblood text-ivory` container, `bg-copper` accent strip (was `bg-rose`), `bg-copper text-ivory` "S" monogram (was `bg-rose text-white`), `group-hover:text-clay` on practice-area titles + nav links + office links + legal links (per spec — legal links use clay, not copper). Practice-area accent swatches still use `accentHex` from `@/lib/accents` — preserved.
+  1889→- Disclaimer gate migrated: `bg-paper text-ink` overlay (was `bg-ivory text-espresso`), `bg-copper` top rule (was `bg-rose`), `text-copper` "Please read carefully" label (was `text-rose`), `bg-oxblood text-ivory enabled:hover:bg-ink` Acknowledge button (was `bg-rose text-white enabled:hover:bg-burgundy`), `accent-copper` checkbox accent (was `accent-rose`), `border-copper bg-copper` checked state (was `border-rose bg-rose`), `hover:border-copper hover:text-copper` secondary link (was `hover:border-rose hover:text-rose`). Form submission logic, cookie/localStorage writes, legal-page bypass, year mounting — all preserved.
+  1890→- Burgundy/oxblood contrast preserved: the three dark sections (homepage ContactPreview, firm contact strip, people/[slug] contact strip) all retain their inline `style={{ color: "var(--color-on-burgundy-X)" }}` tokens for proper heading/body/label/italic contrast on the dark oxblood background.
+  1891→- text-stone / text-stone-dark migration: small mono-label, mono-num, folio, eyebrow, vertical-label and small-body instances all migrated from `text-stone` (#B9AD9E, too light for small text on light bg) to `text-stone-dark` (#8A7E6E, appropriate for muted secondary text on light bg). `text-stone` retained only on (a) the footer's dark oxblood bg (where #B9AD9E provides appropriate muted-against-dark contrast and matches `--color-on-burgundy-label`), and (b) large decorative numbers like the homepage Principles `font-display text-3xl text-stone` watermark — per the spec exception "Keep `text-stone` only for large decorative elements or borders."
+  1892→- Lint clean (0 errors / 0 warnings). Build clean (24/24 routes generated in 9.2s). All 12 valid routes return HTTP 200 on dev server; /non-existent-page returns 404. Rendered-HTML grep verification confirms all new refined-palette tokens are present, all legacy tokens removed, `.serif-italic` count is exactly per spec on every page.
+  1893→- Files changed (25 total): `src/components/site/page-hero.tsx`, `src/components/site/expertise-accordion.tsx`, `src/components/site/expandable-service-list.tsx`, `src/components/site/sector-list.tsx`, `src/components/site/sector-grid.tsx`, `src/components/site/people-preview.tsx`, `src/components/site/insights-preview.tsx`, `src/components/site/contact-form.tsx`, `src/components/site/legal-layout.tsx`, `src/components/site/site-footer.tsx`, `src/components/site/disclaimer-gate-client.tsx`, `src/app/page.tsx`, `src/app/firm/page.tsx`, `src/app/expertise/page.tsx`, `src/app/expertise/[slug]/page.tsx`, `src/app/sectors/page.tsx`, `src/app/people/page.tsx`, `src/app/people/[slug]/page.tsx`, `src/app/insights/page.tsx`, `src/app/careers/page.tsx`, `src/app/contact/page.tsx`, `src/app/disclaimer/page.tsx` (uses LegalLayout — verified unchanged structure), `src/app/terms/page.tsx` (uses LegalLayout — verified unchanged structure), `src/app/privacy/page.tsx` (uses LegalLayout — inline contact links retinted), `src/app/not-found.tsx`.
+  1894→- Did NOT touch (per constraints): `src/app/globals.css`, `src/app/layout.tsx`, `src/lib/accents.ts`, `src/data/*`, `src/components/site/site-shell.tsx`, `src/components/site/site-header.tsx` (already updated to refined tokens by prior task), `src/components/site/hero-visual.tsx`, `src/components/site/scroll-progress.tsx`, `src/app/api/*`.
+  1895→- Did NOT change any content, text, structure, contact-form POST logic, honeypot field, validation rules, submittingRef guard, toast notifications, router.refresh, form.reset, generateStaticParams, generateMetadata, or alternates.canonical URLs.
+  1896→
+  1897→---
+  1898→Task ID: 29
+  1899→Agent: main (orchestrator)
+
+[showing lines 1700-1899 of 1950; use offset=1900 with limit to continue reading]

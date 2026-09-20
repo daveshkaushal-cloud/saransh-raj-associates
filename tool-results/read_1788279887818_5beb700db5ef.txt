@@ -1,0 +1,1536 @@
+     1→You are performing the FINAL QUALITY ASSURANCE, CONTENT CORRECTION, CONSISTENCY, AND LAUNCH-READINESS PASS for the website of:
+     2→
+     3→SARANSH RAJ & ASSOCIATES
+     4→
+     5→Current preview:
+     6→https://preview-chat-14de7e69-f538-4f7e-ad5b-584f6221d23f.space-z.ai/
+     7→
+     8→IMPORTANT:
+     9→
+    10→DO NOT redesign the website.
+    11→
+    12→DO NOT replace the current visual identity.
+    13→
+    14→DO NOT introduce new visual concepts unless required to fix a genuine usability issue.
+    15→
+    16→The current website has already improved substantially and now has a strong editorial/legal publication identity.
+    17→
+    18→The purpose of this task is:
+    19→
+    20→* fix implementation inconsistencies
+    21→* remove remaining placeholders
+    22→* correct grammar and editorial mistakes
+    23→* fix navigation inconsistencies
+    24→* fix inaccurate or potentially misleading wording
+    25→* improve legal-content caution
+    26→* verify all cross-links
+    27→* improve Perspectives classification/content
+    28→* clean up old disclaimer remnants
+    29→* fix form UX
+    30→* perform a complete route-by-route QA pass
+    31→
+    32→The website should be launch-ready after this pass.
+    33→
+    34→==================================================
+    35→
+    36→1. DO NOT DISTURB WHAT IS ALREADY WORKING
+    37→   ==================================================
+    38→
+    39→PRESERVE:
+    40→
+    41→* current homepage architecture
+    42→* numbered navigation
+    43→* editorial typography
+    44→* warm institutional palette
+    45→* thin rules
+    46→* Index language
+    47→* practice numbering
+    48→* Perspectives section
+    49→* cross-linking system
+    50→* Sectors atlas concept
+    51→* Founder-led People structure
+    52→* Careers tone
+    53→* Practice-area content depth
+    54→* Previous / Next navigation
+    55→* current responsive layout unless broken
+    56→* restrained legal/professional tone
+    57→* current footer structure except issues specifically listed below
+    58→
+    59→Do NOT restart the design.
+    60→
+    61→This is a correction pass.
+    62→
+    63→==================================================
+    64→2. FIX GLOBAL NAVIGATION INCONSISTENCY
+    65→======================================
+    66→
+    67→There is a critical inconsistency on the Sectors page.
+    68→
+    69→Most pages use:
+    70→
+    71→01 Firm
+    72→02 Expertise
+    73→03 Sectors
+    74→04 People
+    75→05 Perspectives
+    76→06 Careers
+    77→07 Contact
+    78→
+    79→But the Sectors page still uses the old navigation:
+    80→
+    81→01 Firm
+    82→02 Expertise
+    83→03 Sectors
+    84→04 People
+    85→05 Careers
+    86→06 Contact
+    87→
+    88→FIX THIS.
+    89→
+    90→The exact same global navigation component must be used across EVERY page.
+    91→
+    92→Required navigation:
+    93→
+    94→01 Firm
+    95→02 Expertise
+    96→03 Sectors
+    97→04 People
+    98→05 Perspectives
+    99→06 Careers
+   100→07 Contact
+   101→
+   102→Check:
+   103→
+   104→* homepage
+   105→* Firm
+   106→* Expertise
+   107→* all 6 Expertise subpages
+   108→* Sectors
+   109→* People
+   110→* Saransh Raj profile
+   111→* Perspectives
+   112→* every Perspective article
+   113→* Careers
+   114→* Contact
+   115→* Disclaimer
+   116→* Terms
+   117→* Privacy
+   118→
+   119→No route should have old navigation.
+   120→
+   121→Do not manually duplicate navigation components.
+   122→
+   123→Use one shared navigation system/component.
+   124→
+   125→==================================================
+   126→3. FIX GLOBAL 06 / 07 NUMBERING
+   127→===============================
+   128→
+   129→The Sectors page currently contains old numbering such as:
+   130→
+   131→03 / 06
+   132→
+   133→This is wrong now that the primary navigation has seven sections.
+   134→
+   135→Change global index numbering where appropriate to:
+   136→
+   137→03 / 07
+   138→
+   139→Also scan ALL pages for:
+   140→
+   141→/ 06
+   142→
+   143→where the value refers to the global site navigation count.
+   144→
+   145→Do not blindly change practice-specific numbering such as:
+   146→
+   147→Practice Area 03 / 06
+   148→
+   149→because there are genuinely six practice areas.
+   150→
+   151→Distinguish between:
+   152→
+   153→GLOBAL NAVIGATION COUNT = 7
+   154→
+   155→PRACTICE AREA COUNT = 6
+   156→
+   157→SECTOR COUNT = 10
+   158→
+   159→==================================================
+   160→4. FIX HOMEPAGE SECTOR NUMBERING
+   161→================================
+   162→
+   163→The homepage currently shows sector numbering such as:
+   164→
+   165→01 / 06
+   166→02 / 06
+   167→...
+   168→06 / 06
+   169→
+   170→while the website actually contains TEN sectors.
+   171→
+   172→This creates incorrect information.
+   173→
+   174→Choose ONE of these approaches:
+   175→
+   176→OPTION A — RECOMMENDED
+   177→
+   178→If only six sectors are intentionally shown on the homepage, label the section clearly:
+   179→
+   180→FEATURED SECTORS
+   181→
+   182→and use:
+   183→
+   184→01
+   185→02
+   186→03
+   187→04
+   188→05
+   189→06
+   190→
+   191→without implying that six is the total number of sectors.
+   192→
+   193→Then add:
+   194→
+   195→View all 10 sectors →
+   196→
+   197→OR:
+   198→
+   199→OPTION B
+   200→
+   201→Use the true count:
+   202→
+   203→01 / 10
+   204→02 / 10
+   205→etc.
+   206→
+   207→Do not imply that there are only six sectors.
+   208→
+   209→==================================================
+   210→5. REMOVE PUBLIC EDITORIAL PLACEHOLDER
+   211→======================================
+   212→
+   213→The Firm page currently contains:
+   214→
+   215→"[To be confirmed following review: specific founding date, address history and prior professional affiliations of the founder.]"
+   216→
+   217→REMOVE THIS IMMEDIATELY.
+   218→
+   219→Internal editorial notes must never appear publicly.
+   220→
+   221→Do not fabricate the missing information.
+   222→
+   223→If the facts have not been provided, simply remove the entire placeholder paragraph.
+   224→
+   225→The page must read naturally without it.
+   226→
+   227→==================================================
+   228→6. VERIFY FIRM ORIGIN LANGUAGE
+   229→==============================
+   230→
+   231→The Firm page currently contains factual chronology about the firm's establishment and Saransh Raj's education/enrolment.
+   232→
+   233→Review the wording carefully.
+   234→
+   235→Do not invent:
+   236→
+   237→* founding date
+   238→* prior employment
+   239→* prior firm affiliations
+   240→* address history
+   241→* number of years in practice
+   242→* professional history
+   243→
+   244→If a fact has not explicitly been supplied in the website content/database, use neutral language.
+   245→
+   246→For example, instead of fabricating an origin story, use:
+   247→
+   248→"Saransh Raj & Associates is a founder-led corporate and commercial legal practice based in New Delhi."
+   249→
+   250→Do not add unsupported history.
+   251→
+   252→==================================================
+   253→7. FIX M&A INDEX CARD
+   254→=====================
+   255→
+   256→The detailed M&A page has correctly been changed to:
+   257→
+   258→Legal Due Diligence
+   259→
+   260→and explains that financial diligence is ordinarily undertaken by financial advisers/auditors.
+   261→
+   262→However, the main Expertise index still contains:
+   263→
+   264→"Legal & financial due diligence"
+   265→
+   266→REMOVE THIS.
+   267→
+   268→Change it to:
+   269→
+   270→"Legal due diligence"
+   271→
+   272→or:
+   273→
+   274→"Legal due diligence and transaction review"
+   275→
+   276→The language must be consistent everywhere.
+   277→
+   278→Perform a global search for:
+   279→
+   280→"financial due diligence"
+   281→
+   282→Any remaining use must be reviewed and justified.
+   283→
+   284→The firm must not appear to provide financial diligence unless explicitly confirmed.
+   285→
+   286→==================================================
+   287→8. FIX CORPORATE ADVISORY GRAMMAR
+   288→=================================
+   289→
+   290→Find this sentence:
+   291→
+   292→"A poorly drafted articles can quietly undermine an otherwise careful shareholders' agreement."
+   293→
+   294→Replace it with:
+   295→
+   296→"Poorly drafted articles of association can quietly undermine an otherwise carefully structured shareholders' agreement."
+   297→
+   298→Then perform a complete grammar and copyediting pass on the Corporate Advisory page.
+   299→
+   300→==================================================
+   301→9. FIX SARANSH RAJ BIOGRAPHY
+   302→============================
+   303→
+   304→The founder biography currently contains wording similar to:
+   305→
+   306→"He reads law at Amity University, Rajasthan, completing both the LLB and LLM..."
+   307→
+   308→This is incorrect if the degrees have already been completed.
+   309→
+   310→Replace with:
+   311→
+   312→"He studied law at Amity University, Rajasthan, where he completed both his LLB and LLM."
+   313→
+   314→Review surrounding wording so that past and present tense are consistent.
+   315→
+   316→Do not invent dates.
+   317→
+   318→==================================================
+   319→10. FIX RESERVED MATTERS ARTICLE TYPO
+   320→=====================================
+   321→
+   322→One Perspective article contains:
+   323→
+   324→"Reserved matters, or reserved matters, are decisions..."
+   325→
+   326→Correct this.
+   327→
+   328→Use:
+   329→
+   330→"Reserved matters are decisions that require specified shareholder or board approval under a governance arrangement."
+   331→
+   332→Then proofread the entire article for repeated phrases.
+   333→
+   334→==================================================
+   335→11. FIX ARTICLE CLASSIFICATION
+   336→==============================
+   337→
+   338→The Perspective:
+   339→
+   340→"Pre-litigation strategy in commercial disputes"
+   341→
+   342→is currently classified as:
+   343→
+   344→CASE NOTE
+   345→
+   346→This is incorrect because it does not analyse a specific reported judgment or decision.
+   347→
+   348→Change category to:
+   349→
+   350→EXPLAINER
+   351→
+   352→or preferably:
+   353→
+   354→PRACTICE NOTE
+   355→
+   356→If adding PRACTICE NOTE as a category, ensure it works consistently across:
+   357→
+   358→* Perspectives archive
+   359→* article metadata
+   360→* filtering if applicable
+   361→* related content
+   362→* article page header
+   363→
+   364→A CASE NOTE should be reserved for content analysing a specific court/tribunal judgment.
+   365→
+   366→==================================================
+   367→12. REVIEW ALL PERSPECTIVES READING TIMES
+   368→=========================================
+   369→
+   370→Current articles display reading times such as:
+   371→
+   372→6 min read
+   373→
+   374→despite some articles containing relatively short substantive text.
+   375→
+   376→Fix this in one of two ways:
+   377→
+   378→A. Expand the article sufficiently so the reading time is realistic.
+   379→
+   380→OR
+   381→
+   382→B. Dynamically calculate reading time from actual word count.
+   383→
+   384→RECOMMENDED:
+   385→
+   386→Calculate automatically at approximately:
+   387→
+   388→200–230 words per minute.
+   389→
+   390→Do not hardcode inaccurate reading times.
+   391→
+   392→==================================================
+   393→13. LEGAL CONTENT MUST NOT BE WRITTEN TOO ABSOLUTELY
+   394→====================================================
+   395→
+   396→This is extremely important.
+   397→
+   398→Some Perspective copy currently contains broad legal statements such as:
+   399→
+   400→"Liability for fraud, wilful default and gross negligence is not subject to limitation or exclusion."
+   401→
+   402→This type of wording may be too categorical depending on context, governing law, contractual language and applicable precedent.
+   403→
+   404→Review the entire Perspectives library.
+   405→
+   406→Avoid absolute legal formulations such as:
+   407→
+   408→"is always"
+   409→"cannot"
+   410→"is invalid"
+   411→"is unenforceable"
+   412→"will be"
+   413→"must"
+   414→"is not permitted"
+   415→
+   416→unless the proposition is genuinely clear and universally applicable in the stated context.
+   417→
+   418→Prefer appropriately qualified informational wording such as:
+   419→
+   420→"Certain categories of liability may be treated differently under applicable law and contractual arrangements, including issues concerning fraud, wilful misconduct or other conduct that may not be capable of exclusion in particular circumstances."
+   421→
+   422→or:
+   423→
+   424→"The enforceability of exclusions and liability caps depends on the governing law, the contractual wording and the circumstances in which the clause is relied upon."
+   425→
+   426→The website is informational.
+   427→
+   428→It should educate without pretending every issue has a universal answer.
+   429→
+   430→==================================================
+   431→14. REVIEW LIMITATION-OF-LIABILITY ARTICLE
+   432→==========================================
+   433→
+   434→Specifically review the article:
+   435→
+   436→"Understanding limitation-of-liability clauses in commercial contracts"
+   437→
+   438→Check statements concerning:
+   439→
+   440→* fraud
+   441→* wilful default
+   442→* gross negligence
+   443→* enforceability
+   444→* liability caps
+   445→* foreseeable risk
+   446→* reasonableness
+   447→* exclusion clauses
+   448→
+   449→Avoid making broad universal claims without context.
+   450→
+   451→Add a clear educational qualification where necessary.
+   452→
+   453→Do NOT turn the article into legal advice.
+   454→
+   455→==================================================
+   456→15. HUMAN LEGAL REVIEW PLACEHOLDER
+   457→==================================
+   458→
+   459→Do NOT publish internal text saying:
+   460→
+   461→"AI generated"
+   462→"needs lawyer review"
+   463→"verify later"
+   464→
+   465→Instead, ensure the public-facing article contains a footer disclaimer such as:
+   466→
+   467→"This publication is intended for general informational purposes only. It does not constitute legal advice and should not be relied upon as a substitute for advice based on specific facts and circumstances."
+   468→
+   469→Use the same wording consistently across all Perspective articles.
+   470→
+   471→==================================================
+   472→16. ADD AT LEAST ONE REGULATORY PERSPECTIVE
+   473→===========================================
+   474→
+   475→The Regulatory & Compliance practice currently says:
+   476→
+   477→"No perspectives have been published for this practice area yet."
+   478→
+   479→This makes the practice feel incomplete.
+   480→
+   481→Create one general educational Perspective.
+   482→
+   483→Suggested title:
+   484→
+   485→"Building a regulatory map before entering a new sector"
+   486→
+   487→Suggested category:
+   488→
+   489→EXPLAINER
+   490→
+   491→Suggested subject matter:
+   492→
+   493→* identifying applicable regulators
+   494→* licences and approvals
+   495→* operating conditions
+   496→* ongoing compliance
+   497→* reporting obligations
+   498→* sector-specific considerations
+   499→* change monitoring
+   500→
+   501→Keep it general and informational.
+   502→
+   503→DO NOT invent client experience.
+   504→
+   505→DO NOT claim expertise before named regulators unless already supported by the firm's actual practice content.
+   506→
+   507→Add this article to:
+   508→
+   509→* Perspectives archive
+   510→* Regulatory & Compliance practice page
+   511→* related sector pages where appropriate
+   512→* Saransh Raj's publications if he is shown as the author
+   513→
+   514→==================================================
+   515→17. REVIEW TAX LANGUAGE ON M&A PAGE
+   516→===================================
+   517→
+   518→The M&A page includes wording related to:
+   519→
+   520→"optimised for tax efficiency"
+   521→
+   522→and references tax considerations such as Section 50B.
+   523→
+   524→Unless the firm directly provides tax advice, this language should be more careful.
+   525→
+   526→Use wording such as:
+   527→
+   528→"structured with consideration to relevant tax implications, in coordination with tax advisers where appropriate."
+   529→
+   530→Do not imply that Saransh Raj & Associates is providing specialist tax advice unless this is factually accurate.
+   531→
+   532→Review all references to:
+   533→
+   534→* tax efficiency
+   535→* tax structuring
+   536→* tax consequences
+   537→* Section 50B
+   538→* tax advisory
+   539→
+   540→and qualify appropriately.
+   541→
+   542→==================================================
+   543→18. REVIEW ALL REGULATORS, STATUTES AND FORUMS
+   544→==============================================
+   545→
+   546→The website references legal/regulatory subjects including:
+   547→
+   548→* SEBI
+   549→* RBI
+   550→* CCI
+   551→* Companies Act
+   552→* Insolvency and Bankruptcy Code
+   553→* NCLT
+   554→* SARFAESI
+   555→* Arbitration
+   556→* commercial courts
+   557→* state excise regulation
+   558→* regulatory authorities
+   559→* tribunals
+   560→
+   561→DO NOT automatically remove these.
+   562→
+   563→Instead:
+   564→
+   565→1. review every occurrence
+   566→2. ensure the surrounding wording does not claim representation/expertise beyond what the firm actually handles
+   567→3. avoid claims like "specialist", "leading" or "extensive experience"
+   568→4. keep references informational
+   569→5. do not invent case experience
+   570→
+   571→If a claim says:
+   572→
+   573→"the firm regularly represents..."
+   574→
+   575→and that is not confirmed, change it to:
+   576→
+   577→"the practice may involve..."
+   578→
+   579→or factual service-language that does not overstate experience.
+   580→
+   581→==================================================
+   582→19. REVIEW "ACROSS INDIA" CLAIM
+   583→===============================
+   584→
+   585→The website states that the firm serves/advises clients across India.
+   586→
+   587→Do not remove this automatically.
+   588→
+   589→But ensure the wording is intentionally factual.
+   590→
+   591→If unsupported, use a more neutral statement such as:
+   592→
+   593→"based in New Delhi and advising on corporate and commercial matters arising across India."
+   594→
+   595→Avoid implying a multi-office national presence.
+   596→
+   597→==================================================
+   598→20. REVIEW FAMILY-LED ENTERPRISE POSITIONING
+   599→============================================
+   600→
+   601→The website uses:
+   602→
+   603→"businesses, individuals and family-led enterprises"
+   604→
+   605→This is better than the previous generic "families" wording, but it still implies a specific capability.
+   606→
+   607→If the practice genuinely advises family-owned/promoter-led businesses, retain it.
+   608→
+   609→Where appropriate, explain the connection through areas such as:
+   610→
+   611→* promoter arrangements
+   612→* shareholder governance
+   613→* ownership structures
+   614→* succession in business ownership
+   615→* restructuring
+   616→* exits
+   617→* family-business governance
+   618→
+   619→DO NOT imply:
+   620→
+   621→* private wealth management
+   622→* estate planning
+   623→* family law
+   624→* matrimonial work
+   625→
+   626→unless actually provided.
+   627→
+   628→If family-led enterprises are not a genuine focus, reduce or remove the phrase globally.
+   629→
+   630→==================================================
+   631→21. FIX CAREERS LANGUAGE CONSISTENCY
+   632→====================================
+   633→
+   634→Careers currently refers to values such as:
+   635→
+   636→"integrity, precision and clarity"
+   637→
+   638→while the new Firm framework uses:
+   639→
+   640→Context
+   641→Precision
+   642→Clarity
+   643→Continuity
+   644→
+   645→Avoid creating two competing value systems.
+   646→
+   647→Rewrite the Careers sentence to focus on actual candidate qualities.
+   648→
+   649→Suggested:
+   650→
+   651→"The firm is interested in people who value rigorous research, careful writing, precision, clarity and sound professional judgment."
+   652→
+   653→This is stronger than forcing the Firm principles into Careers.
+   654→
+   655→==================================================
+   656→22. CONTACT HONEYPOT FIELD
+   657→==========================
+   658→
+   659→The contact form contains:
+   660→
+   661→"Company (leave blank)"
+   662→
+   663→This appears to be an anti-spam honeypot.
+   664→
+   665→KEEP the anti-spam functionality.
+   666→
+   667→But ensure legitimate users do NOT visibly see this field.
+   668→
+   669→Requirements:
+   670→
+   671→* visually hidden from normal users
+   672→* not presented as a normal form field
+   673→* accessible implementation
+   674→* autocomplete disabled as appropriate
+   675→* does not interfere with keyboard navigation
+   676→* spam detection continues working
+   677→
+   678→Do not simply delete anti-spam protection.
+   679→
+   680→==================================================
+   681→23. VERIFY CONTACT FORM STATES
+   682→==============================
+   683→
+   684→Check the complete form flow:
+   685→
+   686→* validation
+   687→* required fields
+   688→* invalid email
+   689→* missing required fields
+   690→* successful submission
+   691→* server failure
+   692→* network failure
+   693→* duplicate submission prevention
+   694→* loading state
+   695→* accessibility
+   696→* keyboard interaction
+   697→
+   698→Provide clear messages.
+   699→
+   700→Do not use aggressive marketing language.
+   701→
+   702→Success example:
+   703→
+   704→"Your enquiry has been submitted."
+   705→
+   706→Secondary text:
+   707→
+   708→"Submission does not create a lawyer-client relationship."
+   709→
+   710→Do not automatically expose confidential content after submission.
+   711→
+   712→==================================================
+   713→24. REMOVE "REVISIT DISCLAIMER"
+   714→===============================
+   715→
+   716→The footer currently contains:
+   717→
+   718→Disclaimer
+   719→Revisit Disclaimer
+   720→Terms of Use
+   721→Privacy Policy
+   722→
+   723→The entry disclaimer gate has been removed.
+   724→
+   725→Therefore:
+   726→
+   727→REMOVE "Revisit Disclaimer"
+   728→
+   729→Keep only:
+   730→
+   731→Disclaimer
+   732→Terms of Use
+   733→Privacy Policy
+   734→
+   735→Ensure this is updated in the shared footer component so every page changes consistently.
+   736→
+   737→==================================================
+   738→25. REVIEW DISCLAIMER VISUALS CLAIM
+   739→===================================
+   740→
+   741→The Disclaimer currently contains wording similar to:
+   742→
+   743→"All visuals are original artworks created for this website."
+   744→
+   745→This may be inaccurate if the site uses:
+   746→
+   747→* photography
+   748→* licensed imagery
+   749→* third-party imagery
+   750→* commissioned photography
+   751→* AI-generated imagery
+   752→* purchased assets
+   753→
+   754→Replace with safer neutral wording unless 100% verified.
+   755→
+   756→Suggested:
+   757→
+   758→"Unless otherwise stated, the original content, design and visual materials appearing on this website are owned by or licensed for use by Saransh Raj & Associates."
+   759→
+   760→Mark final legal wording for professional review internally, but do NOT display internal review notes publicly.
+   761→
+   762→==================================================
+   763→26. REVIEW PRIVACY POLICY
+   764→=========================
+   765→
+   766→The old disclaimer-gate local-storage wording appears to have been removed.
+   767→
+   768→Verify once more that the Privacy Policy describes ONLY functionality that actually exists.
+   769→
+   770→Check:
+   771→
+   772→* enquiry form
+   773→* server logs
+   774→* analytics
+   775→* cookies
+   776→* local storage
+   777→* anti-spam mechanisms
+   778→* contact data
+   779→* retention
+   780→* third-party providers
+   781→
+   782→Do not claim:
+   783→
+   784→"we do not use cookies"
+   785→
+   786→if analytics or other tools set them.
+   787→
+   788→Do not claim:
+   789→
+   790→"we do not share information"
+   791→
+   792→if a hosting/email/form provider processes it.
+   793→
+   794→Keep the privacy policy accurate to actual implementation.
+   795→
+   796→==================================================
+   797→27. PEOPLE / FOUNDER IMAGE
+   798→==========================
+   799→
+   800→The Founder page currently appears to use an:
+   801→
+   802→"SR monogram"
+   803→
+   804→rather than a real founder portrait.
+   805→
+   806→Do not generate a fake lawyer image.
+   807→
+   808→If a real portrait asset is already available in the project, use it.
+   809→
+   810→If no real portrait has been supplied:
+   811→
+   812→KEEP the monogram temporarily.
+   813→
+   814→Do NOT substitute AI-generated photography.
+   815→
+   816→Make the implementation easy to replace later with:
+   817→
+   818→real professional editorial portrait photography.
+   819→
+   820→Add no fake headshots.
+   821→
+   822→==================================================
+   823→28. PEOPLE PAGE LANGUAGE
+   824→========================
+   825→
+   826→Keep:
+   827→
+   828→LEADERSHIP
+   829→
+   830→and founder-led positioning.
+   831→
+   832→Do not revert to:
+   833→
+   834→"THE TEAM"
+   835→
+   836→unless additional real professional profiles have been provided.
+   837→
+   838→Do not invent associates or staff.
+   839→
+   840→==================================================
+   841→29. ARTICLE CROSS-LINKING
+   842→=========================
+   843→
+   844→The current cross-linking system is strong.
+   845→
+   846→Preserve it.
+   847→
+   848→Verify all links:
+   849→
+   850→Practice page →
+   851→Related sectors
+   852→Related perspectives
+   853→Previous practice
+   854→Next practice
+   855→
+   856→Sector →
+   857→Related expertise
+   858→Related perspectives
+   859→
+   860→Perspective →
+   861→Author
+   862→Relevant practice
+   863→Relevant sectors
+   864→Related articles
+   865→
+   866→Founder →
+   867→Perspectives authored
+   868→Practice areas
+   869→Sectors
+   870→
+   871→Check every one for:
+   872→
+   873→* correct route
+   874→* no 404
+   875→* no incorrect article
+   876→* no self-linking
+   877→* no duplicate link cards
+   878→* no empty related sections unless intentionally handled
+   879→
+   880→==================================================
+   881→30. CHECK ALL SECTOR LINKS
+   882→==========================
+   883→
+   884→Current Sectors operate as one atlas-style page rather than ten separate sector routes.
+   885→
+   886→KEEP this architecture for now.
+   887→
+   888→Verify that homepage sector links correctly jump or navigate to the intended section.
+   889→
+   890→If anchor IDs are used, they must be stable and human-readable.
+   891→
+   892→Examples:
+   893→
+   894→/sectors#technology
+   895→
+   896→/sectors#hospitality
+   897→
+   898→/sectors#alcoholic-beverages
+   899→
+   900→Ensure:
+   901→
+   902→* anchor scroll position is correct
+   903→* sticky header does not cover the section heading
+   904→* browser back works properly
+   905→* mobile works properly
+   906→
+   907→==================================================
+   908→31. PERSPECTIVES ARCHIVE QA
+   909→===========================
+   910→
+   911→Verify:
+   912→
+   913→* all articles appear
+   914→* category labels are correct
+   915→* dates are correct
+   916→* reading times are accurate
+   917→* titles match article pages
+   918→* abstracts are unique
+   919→* author links resolve
+   920→* practice links resolve
+   921→* related sectors resolve
+   922→
+   923→Avoid fake publication dates if not intentionally set.
+   924→
+   925→==================================================
+   926→32. TYPOGRAPHIC COPYEDITING PASS
+   927→================================
+   928→
+   929→Perform a global prose QA pass.
+   930→
+   931→Search for:
+   932→
+   933→* repeated words
+   934→* malformed plural/singular grammar
+   935→* inconsistent apostrophes
+   936→* inconsistent ampersand usage
+   937→* duplicated sentences
+   938→* awkward AI-style constructions
+   939→* unnecessary adjectives
+   940→* repetitive sentence openings
+   941→* inconsistent capitalisation
+   942→* double spaces
+   943→* missing punctuation
+   944→* excessively long sentences
+   945→
+   946→Do not rewrite strong passages unnecessarily.
+   947→
+   948→Edit only where needed.
+   949→
+   950→==================================================
+   951→33. REMOVE AI WRITING SIGNALS
+   952→=============================
+   953→
+   954→Search for content patterns such as:
+   955→
+   956→"The firm approaches..."
+   957→"Each engagement begins..."
+   958→"At every stage..."
+   959→"Legal advice should..."
+   960→"requires careful consideration..."
+   961→"complex and evolving..."
+   962→"commercial realities..."
+   963→
+   964→These phrases are not automatically bad.
+   965→
+   966→But if the same structure repeatedly appears across pages, rewrite it.
+   967→
+   968→Each page should feel individually authored.
+   969→
+   970→Do not introduce forced thesaurus language.
+   971→
+   972→Keep prose natural and precise.
+   973→
+   974→==================================================
+   975→34. CHECK EVERY CLICKABLE ELEMENT
+   976→=================================
+   977→
+   978→Crawl EVERY visible clickable element.
+   979→
+   980→Check:
+   981→
+   982→* logo
+   983→* navigation
+   984→* mobile menu
+   985→* homepage CTAs
+   986→* Practice Areas
+   987→* sectors
+   988→* founder profile
+   989→* Perspectives
+   990→* article cards
+   991→* Careers contact links
+   992→* Contact
+   993→* email
+   994→* phone
+   995→* address/map if linked
+   996→* footer
+   997→* Disclaimer
+   998→* Terms
+   999→* Privacy
+  1000→* previous/next links
+  1001→* breadcrumbs if present
+  1002→* related articles
+  1003→* related practices
+  1004→* related sectors
+  1005→
+  1006→No dead links.
+  1007→
+  1008→No links to `#` unless intentionally handled.
+  1009→
+  1010→No empty `href`.
+  1011→
+  1012→No accidental refresh links.
+  1013→
+  1014→No route pointing to the old site.
+  1015→
+  1016→==================================================
+  1017→35. EXTERNAL LINKS
+  1018→==================
+  1019→
+  1020→For any external link:
+  1021→
+  1022→* use HTTPS
+  1023→* open in a new tab only where appropriate
+  1024→* use rel="noopener noreferrer" where required
+  1025→* do not open internal site navigation in a new tab
+  1026→
+  1027→Email links:
+  1028→
+  1029→mailto:
+  1030→
+  1031→Phone links:
+  1032→
+  1033→tel:
+  1034→
+  1035→Check formatting.
+  1036→
+  1037→==================================================
+  1038→36. MOBILE QA
+  1039→=============
+  1040→
+  1041→Check common mobile widths:
+  1042→
+  1043→320px
+  1044→375px
+  1045→390px
+  1046→430px
+  1047→
+  1048→Check:
+  1049→
+  1050→* navigation
+  1051→* typography
+  1052→* practice pages
+  1053→* Perspective articles
+  1054→* sector atlas
+  1055→* forms
+  1056→* legal pages
+  1057→* tables if any
+  1058→* article metadata
+  1059→* footer
+  1060→
+  1061→No horizontal overflow.
+  1062→
+  1063→No clipped text.
+  1064→
+  1065→No heading behind sticky nav.
+  1066→
+  1067→No overlapping section labels.
+  1068→
+  1069→No invisible buttons.
+  1070→
+  1071→No tiny link tap targets.
+  1072→
+  1073→==================================================
+  1074→37. TABLET QA
+  1075→=============
+  1076→
+  1077→Check approximately:
+  1078→
+  1079→768px
+  1080→820px
+  1081→1024px
+  1082→
+  1083→Pay particular attention to:
+  1084→
+  1085→* asymmetric layouts
+  1086→* editorial margins
+  1087→* two-column sections
+  1088→* Perspective archive
+  1089→* practice cross-links
+  1090→* Founder profile
+  1091→
+  1092→Do not let tablet feel like broken desktop.
+  1093→
+  1094→==================================================
+  1095→38. DESKTOP QA
+  1096→==============
+  1097→
+  1098→Check approximately:
+  1099→
+  1100→1280px
+  1101→1440px
+  1102→1728px
+  1103→
+  1104→Ensure:
+  1105→
+  1106→* content does not become excessively wide
+  1107→* paragraphs maintain readable measure
+  1108→* headings do not become disproportionately large
+  1109→* margins remain balanced
+  1110→* section numbering aligns properly
+  1111→
+  1112→==================================================
+  1113→39. HOVER / FOCUS / KEYBOARD
+  1114→============================
+  1115→
+  1116→Verify every interactive element.
+  1117→
+  1118→Hover state must be subtle.
+  1119→
+  1120→Focus state must be visible.
+  1121→
+  1122→Keyboard users must be able to navigate:
+  1123→
+  1124→* menus
+  1125→* links
+  1126→* Perspective filters
+  1127→* forms
+  1128→* footer
+  1129→* buttons
+  1130→
+  1131→Do not remove focus outlines without replacing them with an accessible focus style.
+  1132→
+  1133→==================================================
+  1134→40. REDUCED MOTION
+  1135→==================
+  1136→
+  1137→Respect:
+  1138→
+  1139→prefers-reduced-motion
+  1140→
+  1141→Disable or simplify:
+  1142→
+  1143→* reveals
+  1144→* scroll animation
+  1145→* image motion
+  1146→* smooth navigation effects
+  1147→
+  1148→Content must remain fully accessible without animation.
+  1149→
+  1150→==================================================
+  1151→41. SEO METADATA CONSISTENCY
+  1152→============================
+  1153→
+  1154→Check every route.
+  1155→
+  1156→Each route needs:
+  1157→
+  1158→* unique title
+  1159→* unique meta description
+  1160→* one H1
+  1161→* canonical URL
+  1162→* OpenGraph title
+  1163→* OpenGraph description
+  1164→* appropriate OpenGraph image
+  1165→* Twitter metadata where implemented
+  1166→
+  1167→Check Perspectives articles individually.
+  1168→
+  1169→Do not reuse the same meta description site-wide.
+  1170→
+  1171→==================================================
+  1172→42. STRUCTURED DATA
+  1173→===================
+  1174→
+  1175→Review current structured data.
+  1176→
+  1177→Where appropriate:
+  1178→
+  1179→Organization / LegalService
+  1180→Person
+  1181→Article
+  1182→BreadcrumbList
+  1183→
+  1184→Do not add:
+  1185→
+  1186→AggregateRating
+  1187→Review
+  1188→ratingValue
+  1189→awards
+  1190→
+  1191→unless factual and professionally appropriate.
+  1192→
+  1193→Do not use schema to imply reviews or ratings.
+  1194→
+  1195→==================================================
+  1196→43. PREVIEW SITE MUST NOT INDEX
+  1197→===============================
+  1198→
+  1199→Current preview domain:
+  1200→
+  1201→space-z.ai
+  1202→
+  1203→must remain:
+  1204→
+  1205→noindex, nofollow
+  1206→
+  1207→Ensure staging protection is active through appropriate robots/meta configuration.
+  1208→
+  1209→Do not accidentally apply noindex to the final production domain.
+  1210→
+  1211→Use environment-aware logic.
+  1212→
+  1213→STAGING:
+  1214→noindex, nofollow
+  1215→
+  1216→PRODUCTION:
+  1217→index, follow
+  1218→
+  1219→==================================================
+  1220→44. SITEMAP / ROBOTS
+  1221→====================
+  1222→
+  1223→Verify:
+  1224→
+  1225→robots.txt
+  1226→sitemap.xml
+  1227→
+  1228→Sitemap should include production URLs only where applicable.
+  1229→
+  1230→Do not include:
+  1231→
+  1232→* staging URLs
+  1233→* obsolete pages
+  1234→* broken routes
+  1235→* duplicate URLs
+  1236→* hash anchors as separate sitemap pages
+  1237→
+  1238→==================================================
+  1239→45. ACCESSIBILITY
+  1240→=================
+  1241→
+  1242→Check:
+  1243→
+  1244→* semantic headings
+  1245→* labels
+  1246→* form errors
+  1247→* alt text
+  1248→* link names
+  1249→* contrast
+  1250→* focus states
+  1251→* keyboard
+  1252→* aria attributes only where necessary
+  1253→* no duplicate IDs
+  1254→
+  1255→Do not use generic alt text like:
+  1256→
+  1257→"image"
+  1258→
+  1259→or:
+  1260→
+  1261→"picture"
+  1262→
+  1263→==================================================
+  1264→46. PERFORMANCE
+  1265→===============
+  1266→
+  1267→Do not harm the current performance while making these fixes.
+  1268→
+  1269→Use:
+  1270→
+  1271→* optimized images
+  1272→* lazy loading
+  1273→* minimal scripts
+  1274→* shared components
+  1275→* no unnecessary animation packages
+  1276→* optimized font loading
+  1277→
+  1278→Do not add large JS libraries for simple QA fixes.
+  1279→
+  1280→==================================================
+  1281→47. SEARCH FOR SPECIFIC OLD/INCORRECT STRINGS
+  1282→=============================================
+  1283→
+  1284→Perform a global source/content search for all of the following:
+  1285→
+  1286→"03 / 06"
+  1287→
+  1288→"Legal & financial due diligence"
+  1289→
+  1290→"A poorly drafted articles"
+  1291→
+  1292→"He reads law"
+  1293→
+  1294→"Reserved matters, or reserved matters"
+  1295→
+  1296→"Revisit Disclaimer"
+  1297→
+  1298→"All visuals are original artworks"
+  1299→
+  1300→"No perspectives have been published for this practice area yet"
+  1301→
+  1302→"Case Note"
+  1303→
+  1304→Review every match in context.
+  1305→
+  1306→Also search for:
+  1307→
+  1308→"[To be confirmed"
+  1309→
+  1310→"[TODO"
+  1311→
+  1312→"TODO"
+  1313→
+  1314→"PLACEHOLDER"
+  1315→
+  1316→"Lorem"
+  1317→
+  1318→"Coming Soon"
+  1319→
+  1320→"To be updated"
+  1321→
+  1322→"Needs review"
+  1323→
+  1324→"Insert"
+  1325→
+  1326→No internal development/editorial notes should appear publicly.
+  1327→
+  1328→==================================================
+  1329→48. FINAL ROUTE CRAWL
+  1330→=====================
+  1331→
+  1332→After implementation, crawl all routes programmatically.
+  1333→
+  1334→At minimum:
+  1335→
+  1336→/
+  1337→
+  1338→/firm
+  1339→
+  1340→/expertise
+  1341→
+  1342→/expertise/corporate-advisory
+  1343→
+  1344→/expertise/commercial-contracts
+  1345→
+  1346→/expertise/mergers-and-acquisitions
+  1347→
+  1348→/expertise/dispute-resolution
+  1349→
+  1350→/expertise/regulatory-and-compliance
+  1351→
+  1352→/expertise/insolvency-and-recovery
+  1353→
+  1354→/sectors
+  1355→
+  1356→/people
+  1357→
+  1358→/people/saransh-raj
+  1359→
+  1360→/perspectives
+  1361→
+  1362→ALL Perspective article routes
+  1363→
+  1364→/careers
+  1365→
+  1366→/contact
+  1367→
+  1368→/disclaimer
+  1369→
+  1370→/terms
+  1371→
+  1372→/privacy
+  1373→
+  1374→Check every route for:
+  1375→
+  1376→HTTP success
+  1377→page rendering
+  1378→navigation
+  1379→footer
+  1380→metadata
+  1381→broken internal links
+  1382→
+  1383→==================================================
+  1384→49. DO NOT INVENT CONTENT DURING QA
+  1385→===================================
+  1386→
+  1387→This is essential.
+  1388→
+  1389→Do NOT fabricate:
+  1390→
+  1391→* professional experience
+  1392→* case experience
+  1393→* courts
+  1394→* tribunals
+  1395→* clients
+  1396→* transaction values
+  1397→* years of practice
+  1398→* awards
+  1399→* team members
+  1400→* offices
+  1401→* qualifications
+  1402→* bar registration details
+  1403→* previous firms
+  1404→* publication history
+  1405→* testimonials
+  1406→* success rates
+  1407→
+  1408→Where information is unavailable:
+  1409→
+  1410→use restrained wording
+  1411→
+  1412→OR
+  1413→
+  1414→omit it.
+  1415→
+  1416→Never expose placeholder editorial notes.
+  1417→
+  1418→==================================================
+  1419→50. FINAL GOAL
+  1420→==============
+  1421→
+  1422→After this correction pass, the website should feel:
+  1423→
+  1424→* complete
+  1425→* consistent
+  1426→* authoritative
+  1427→* factually cautious
+  1428→* editorially polished
+  1429→* professionally restrained
+  1430→* human-written
+  1431→* responsive
+  1432→* accessible
+  1433→* launch-ready
+  1434→
+  1435→This is no longer a design experiment.
+  1436→
+  1437→Treat this as a REAL PUBLIC-FACING WEBSITE FOR A LEGAL PRACTICE.
+  1438→
+  1439→Accuracy, restraint, consistency and credibility matter more than adding more content or animation.
+  1440→
+  1441→==================================================
+  1442→FINAL EXECUTION CHECKLIST
+  1443→=========================
+  1444→
+  1445→Before finishing, confirm all of the following:
+  1446→
+  1447→[ ] Sectors uses 7-item navigation
+  1448→
+  1449→[ ] No old 6-item global navigation remains
+  1450→
+  1451→[ ] Sector numbering is correct
+  1452→
+  1453→[ ] No public editorial placeholders remain
+  1454→
+  1455→[ ] M&A index no longer says financial due diligence
+  1456→
+  1457→[ ] Corporate Advisory grammar error fixed
+  1458→
+  1459→[ ] Saransh biography tense fixed
+  1460→
+  1461→[ ] Reserved matters typo fixed
+  1462→
+  1463→[ ] Pre-litigation article is no longer incorrectly labelled Case Note
+  1464→
+  1465→[ ] Reading times reflect real content length
+  1466→
+  1467→[ ] Legal statements are appropriately qualified
+  1468→
+  1469→[ ] Tax language is appropriately qualified
+  1470→
+  1471→[ ] Regulatory/statutory claims reviewed for overstatement
+  1472→
+  1473→[ ] Careers wording aligns with current brand language
+  1474→
+  1475→[ ] Contact honeypot is hidden from normal users
+  1476→
+  1477→[ ] Contact form validation/success/error states work
+  1478→
+  1479→[ ] Revisit Disclaimer removed
+  1480→
+  1481→[ ] Disclaimer visual-ownership wording corrected
+  1482→
+  1483→[ ] Privacy Policy reflects actual functionality
+  1484→
+  1485→[ ] Regulatory & Compliance has at least one relevant Perspective
+  1486→
+  1487→[ ] All article routes work
+  1488→
+  1489→[ ] All practice cross-links work
+  1490→
+  1491→[ ] All sector links/anchors work
+  1492→
+  1493→[ ] All footer links work
+  1494→
+  1495→[ ] Email/phone links work
+  1496→
+  1497→[ ] Mobile checked
+  1498→
+  1499→[ ] Tablet checked
+  1500→
+  1501→[ ] Desktop checked
+  1502→
+  1503→[ ] Keyboard navigation checked
+  1504→
+  1505→[ ] Reduced motion checked
+  1506→
+  1507→[ ] Metadata checked
+  1508→
+  1509→[ ] Structured data checked
+  1510→
+  1511→[ ] Preview site remains noindex
+  1512→
+  1513→[ ] Sitemap checked
+  1514→
+  1515→[ ] robots.txt checked
+  1516→
+  1517→[ ] No TODO / placeholder / internal notes remain
+  1518→
+  1519→[ ] Production build compiles without errors
+  1520→
+  1521→[ ] No console errors on primary routes
+  1522→
+  1523→IMPORTANT FINAL INSTRUCTION:
+  1524→
+  1525→DO NOT RETURN A LONG EXPLANATION OF WHAT YOU PLAN TO DO.
+  1526→
+  1527→IMPLEMENT THE FIXES IN THE ACTUAL WEBSITE.
+  1528→
+  1529→After implementation, run the complete QA checks above and provide only a concise summary of:
+  1530→
+  1531→1. Issues fixed
+  1532→2. Any issues that could not safely be changed because factual/legal confirmation is required
+  1533→3. Build status
+  1534→4. Routes tested
+  1535→5. Any remaining launch blockers
+  1536→

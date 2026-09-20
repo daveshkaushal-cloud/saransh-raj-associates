@@ -1,0 +1,228 @@
+  1320→- All 18 routes 200, lint clean, no errors, mobile responsive.
+  1321→
+  1322→---
+  1323→Task ID: 23-c
+  1324→Agent: subagent-C (contact + careers + legal + 404 warm theme)
+  1325→Task: Update contact, careers, legal-layout, disclaimer/terms/privacy pages, not-found for warm editorial palette
+  1326→
+  1327→Work Log:
+  1328→- Read worklog.md (Task 22 context) and verified warm palette tokens already defined in src/app/globals.css: bg-ivory #F7F1E8, bg-beige #E8D8C8, bg-blush #E3C8BE, bg-porcelain #FFFDF9, bg-rose #B76E79, bg-burgundy #603A40, bg-espresso #2B2422; text-espresso/charcoal/stone/rose/burgundy; border-line/border-line-strong. The dark-theme aliases (--color-surface, --color-fg, etc.) are mapped to warm values, but the task explicitly required canonical warm token class names.
+  1329→- Verified the do-not-touch list (globals.css, layout.tsx, accents.ts, data files, disclaimer-gate, site-shell, site-header, site-footer, hero-visual, scroll-progress, api routes, homepage, people files, firm page, expertise files, sectors files, insights files) — none of the files I edited are on it. (page-hero.tsx is NOT hero-visual.tsx — distinct file, explicitly listed as file #9 in the task brief.)
+  1330→
+  1331→- Edited src/app/contact/page.tsx (server component, kept "Index 07 · Contact" folio):
+  1332→  • Hero section bg-surface -> bg-ivory; form/details section bg-surface -> bg-porcelain.
+  1333→  • h1 text-fg -> text-espresso; serif-italic accent on "firm" text-vermilion -> text-rose.
+  1334→  • Mono-labels text-fg-muted -> text-stone (Offices, § Enquiry, Address, Phone, Email, Office hours, Based in).
+  1335→  • Folio "008 / 018" text-fg-subtle -> text-stone.
+  1336→  • margin-note "A neutral enquiry form..." got explicit text-charcoal (was inheriting).
+  1337→  • Lead paragraph text-fg-muted -> text-charcoal.
+  1338→  • Address/phone/email/hours values text-fg -> text-espresso; phone/email links hover:text-accent -> hover:text-rose.
+  1339→  • "Based in" value text-fg-muted -> text-charcoal.
+  1340→  • Section column top borders border-accent -> border-rose (Enquiry + Details columns).
+  1341→  • ContactForm import + <ContactForm /> usage untouched. G-14 Basement address untouched (inherited from contact data).
+  1342→- Edited src/components/site/contact-form.tsx (client component, "use client" preserved — COLOURS ONLY, no logic changes):
+  1343→  • All input/select/textarea: bg-surface-soft -> bg-porcelain, text-fg -> text-espresso, focus:border-accent -> focus:border-rose, error state border-coral -> border-burgundy. The `border border-line` base, `outline-none transition-colors`, `resize-y` on textarea, and the `errors.message ? "border-..." : "border-line"` ternary all preserved.
+  1344→  • Labels (Field component + area select label + message label): text-fg-muted -> text-stone.
+  1345→  • Required asterisks: text-fg-subtle -> text-rose.
+  1346→  • Error <p role="alert"> elements: text-coral -> text-burgundy.
+  1347→  • Disclaimer note text-fg-subtle -> text-stone; disclaimer link text-fg-muted hover:text-accent -> text-charcoal hover:text-rose.
+  1348→  • Submit button bg-accent text-white hover:bg-coral -> bg-rose text-white hover:bg-burgundy. (className "group inline-flex ...", disabled:opacity-50, svg arrow icon, transition-colors all preserved.)
+  1349→  • UNCHANGED: "use client" directive; useState/useRef state; submittingRef double-submit guard; validate() function (name min 2, email regex, message min 10); onSubmit() handler; method="post" attribute; action="/api/contact" attribute; noValidate; fetch("/api/contact", { method: "POST", ... }); toast.success/error; router.refresh(); form.reset(); the entire honeypot block (id="company", name="company", tabIndex={-1}, aria-hidden, position absolute left -9999px). Verified via rg: line 98 method="post", line 99 action="/api/contact", lines 175-178 honeypot input, line 74 fetch method:"POST".
+  1350→- Edited src/app/careers/page.tsx (server component, kept "Index 06 · Careers" folio):
+  1351→  • Hero bg-surface -> bg-ivory; body section bg-surface -> bg-porcelain.
+  1352→  • h1 text-fg -> text-espresso; serif-italic accent on "practice" text-jade -> text-rose.
+  1353→  • Folio "007 / 018" text-fg-subtle -> text-stone; mono-labels (Joining the firm, § Overview, § How to reach) text-fg-muted -> text-stone.
+  1354→  • Margin-note "A calm, factual note..." got explicit text-charcoal (was inheriting).
+  1355→  • Lead + body paragraphs text-fg-muted -> text-charcoal (Overview intro, "Write to the firm..." line, address.full line).
+  1356→  • Email link text-fg hover:text-accent -> text-espresso hover:text-rose.
+  1357→  • Visit-contact-page button bg-accent text-white hover:bg-coral -> bg-rose text-white hover:bg-burgundy.
+  1358→  • Kept the small "The firm does not respond to generic applications..." note text-charcoal (was text-fg-muted text-sm).
+  1359→  • No promotional/client-first wording added or removed — content preserved verbatim.
+  1360→- Edited src/components/site/legal-layout.tsx (server component):
+  1361→  • Hero section bg-surface -> bg-ivory; body section bg-surface -> bg-porcelain.
+  1362→  • h1 text-fg -> text-espresso (display-1); section <h2> headings text-fg -> text-espresso (display-3).
+  1363→  • Hero folio "DOC" + "Legal · Informational" + "Legal document" labels: text-fg-muted/text-fg-subtle -> text-stone.
+  1364→  • Intro lead text-fg-muted -> text-charcoal.
+  1365→  • TOC list links: text-fg-muted hover:text-fg -> text-charcoal hover:text-rose; mono-num index text-fg-subtle -> text-stone.
+  1366→  • Section mono-num index text-fg-subtle -> text-stone; section body div text-fg-muted -> text-charcoal.
+  1367→  • Contact-note "Questions" label text-fg-muted -> text-stone; contact-note body text-fg-muted -> text-charcoal; contact-note email/phone links text-fg -> text-espresso hover:text-rose.
+  1368→  • OPTIONAL `updated` prop preserved (line 18 `updated?: string;`, line 39 `{updated && (...)}`) — when not passed (current state for all three legal pages), no "Last Updated" row renders.
+  1369→  • The pre-existing comment "Content renders immediately (no FadeUp/SheetReveal wrappers) so the legal text is visible on first paint — no blank reveal delay." left intact (it's documentation, not a wrapper usage — flagged in Task 21-a's verification).
+  1370→- Verified src/app/disclaimer/page.tsx, src/app/terms/page.tsx, src/app/privacy/page.tsx:
+  1371→  • None of them pass `updated` prop to <LegalLayout /> (rg confirmed: 0 matches for `updated=`). No "Last Updated" row renders on any legal page.
+  1372→  • None of them contain any direct colour class names — all colour/typography flows through LegalLayout. The bare `link-underline` links in privacy/page.tsx's "Contact" section inherit `text-charcoal` from the LegalLayout body container — perfectly readable on the porcelain body bg.
+  1373→  • All legal content (Disclaimer sections, Terms of Use sections, Privacy Policy sections) preserved verbatim.
+  1374→- Edited src/app/not-found.tsx:
+  1375→  • Outer section bg-surface text-fg -> bg-ivory text-espresso (added text-espresso to outer for inheritance).
+  1376→  • mono-label "Error · 404" text-fg-muted -> text-stone.
+  1377→  • display-mega h1 text-fg -> text-espresso; serif-italic accent on "found" text-vermilion -> text-rose.
+  1378→  • Lead paragraph text-fg-muted -> text-charcoal.
+  1379→  • Return-home button bg-accent text-white hover:bg-coral -> bg-rose text-white hover:bg-burgundy.
+  1380→  • Contact button border-line-strong text-fg hover:border-fg -> border-line-strong text-espresso hover:border-rose.
+  1381→  • Colour bar rebuilt as a rose-gold palette: cells now bg-rose, bg-burgundy, bg-blush, bg-beige, bg-rose, bg-burgundy (was bg-accent, bg-coral, bg-saffron, bg-teal, bg-violet, bg-surface-soft — the dark-theme accent aliases that all resolved to rose/burgundy anyway).
+  1382→- Edited src/components/site/page-hero.tsx (server component):
+  1383→  • PageHero section bg-surface -> bg-ivory; chapter/folio mono-labels text-fg-muted/text-fg-subtle -> text-stone; eyebrow mono-label text-fg-muted -> text-stone.
+  1384→  • h1 text-fg -> text-espresso; intro lead text-fg-muted -> text-charcoal.
+  1385→  • SectionHeader watermark fallback color "rgba(245,241,232,0.06)" (warm ivory at 6% alpha, invisible on ivory bg) -> "rgba(183, 110, 121, 0.08)" (rose at 8% alpha, matching .section-index CSS default).
+  1386→  • SectionHeader eyebrow mono-label text-fg-muted -> text-stone; h2 display-2 text-fg -> text-espresso.
+  1387→  • ChapterLink text-fg hover:text-accent -> text-espresso hover:text-rose; mono-num index text-fg-subtle group-hover:text-accent -> text-stone group-hover:text-rose.
+  1388→  • Server-component directive preserved (no "use client"). Accent-hex dot rendering (style={{ background: accentHex }}) untouched.
+  1389→
+  1390→Verification:
+  1391→- rg "bg-surface|text-fg|text-accent|bg-accent|bg-coral|bg-saffron|bg-teal|bg-violet|text-jade|text-vermilion|border-accent|hover:border-fg" against all 6 edited files (contact/page.tsx, contact-form.tsx, careers/page.tsx, legal-layout.tsx, not-found.tsx, page-hero.tsx) -> 0 matches. All canonical warm token class names now in use.
+  1392→- rg "bg-surface|text-fg|text-accent|bg-accent|bg-coral|bg-saffron|text-jade|text-vermilion|border-accent|updated=" against disclaimer/terms/privacy -> 0 matches. No `updated` prop passed.
+  1393→- rg "FadeUp|SheetReveal|CropReveal|RuleDraw|FolioScroll" against all 9 target files -> only the pre-existing legal-layout.tsx comment ("Content renders immediately (no FadeUp/SheetReveal wrappers) so the"). Not a wrapper usage. Left as documentation.
+  1394→- rg contact-form logic preservation: line 12 docstring "method=\"post\"", line 15 honeypot docstring, line 46 onSubmit handler, line 61 company honeypot payload, line 73 fetch /api/contact, line 74 method:"POST", line 97 onSubmit={onSubmit}, line 98 method="post", line 99 action="/api/contact", lines 175-178 honeypot field input. All intact.
+  1395→- bun run lint -> exit code 0, clean, no errors, no warnings.
+  1396→- bun run build -> Compiled successfully in 9.9s. All 24 routes generated. /careers, /contact, /disclaimer, /privacy, /terms, /_not-found all present.
+  1397→
+  1398→Stage Summary:
+  1399→- 9 files updated for warm editorial palette (contact/page.tsx, contact-form.tsx, careers/page.tsx, legal-layout.tsx, disclaimer/page.tsx verified, terms/page.tsx verified, privacy/page.tsx verified, not-found.tsx, page-hero.tsx).
+  1400→- All dark-theme tokens (bg-surface, bg-surface-soft, text-fg, text-fg-muted, text-fg-subtle, text-accent, bg-accent, bg-coral, bg-saffron, bg-teal, bg-violet, text-jade, text-vermilion, border-accent, hover:border-fg) replaced with canonical warm tokens (bg-ivory, bg-porcelain, bg-beige, bg-blush, bg-rose, bg-burgundy, text-espresso, text-charcoal, text-stone, text-rose, border-line, border-line-strong, border-rose).
+  1401→- Design rules honoured: alternating backgrounds (ivory hero / porcelain body across contact, careers, legal-layout, not-found, page-hero); rose-gold reserved for accents only (asterisks, hover states, button bg, link hover, italic display word, colour-bar cells); espresso headings, charcoal body, stone labels — no rose-gold paragraph text.
+  1402→- Contact form LOGIC fully preserved: POST method on form element + fetch, action="/api/contact", honeypot "company" field hidden via absolute positioning, validate() function, submittingRef double-submit guard, toast success/error, router.refresh, form.reset. Only colour classes changed.
+  1403→- Legal pages: no `updated` prop passed to LegalLayout on any of the three (disclaimer/terms/privacy) -> no "Last Updated" row renders anywhere.
+  1404→- not-found: rose-gold themed colour bar (rose / burgundy / blush / beige / rose / burgundy) replaces the old multi-accent bar.
+  1405→- Lint clean (exit 0). Build clean (24/24 pages generated, 9.9s compile).
+  1406→
+  1407→---
+  1408→Task ID: 23-a
+  1409→Agent: subagent-A (people + firm warm theme)
+  1410→Task: Update people-preview, people/page, people/[slug], firm/page for warm editorial palette
+  1411→
+  1412→Work Log:
+  1413→- Read worklog.md + globals.css + accents.ts to confirm the warm palette tokens (ivory #F7F1E8, beige #E8D8C8, blush #E3C8BE, porcelain #FFFDF9, rose #B76E79, burgundy #603A40, espresso #2B2422; espresso/charcoal/stone text; .serif-italic / .mono-label / .display-* / .btn-magnetic / .link-underline / .grain utilities).
+  1414→- Verified portrait asset exists at /public/images/portrait-composition.png (polished neutral abstract architectural composition — no placeholder text, no AI face). Used with next/image fill + object-cover on bg-blush containers.
+  1415→- Rewrote /src/components/site/people-preview.tsx: removed "use client" (no hooks used, pure server component). Founder card uses bg-porcelain border border-line, hover:border-rose. Left md:col-span-5 column on bg-blush holds Image fill object-cover with rose-gold annotation bracket ("Portrait" mono-label text-rose + h-3 w-3 border-l border-t border-rose) and bottom-right initials/01 mono-num text-white/80. Right md:col-span-7 column: mono-label role + index N/N, display-2 name text-espresso, lead summary text-charcoal, mono-label focus list, "View profile" CTA with arrow that translates-x-1 and color group-hover:text-rose on hover. No "PROFESSIONAL PORTRAIT TO BE ADDED" text. No FadeUp/CropReveal wrappers.
+  1416→- Rewrote /src/app/people/page.tsx (server component, no hooks, no "use client"). Hero bg-ivory with "Index 04 · People" mono-label eyebrow + 005/018 folio + 3/9 grid (margin-note The Team + display-1 "The people behind the counsel" with .serif-italic "people" + lead text-charcoal). People list section bg-porcelain: founder card on bg-ivory border border-line hover:border-rose, left col-span-5 portrait (Image fill object-cover on bg-blush, rose-gold annotation bracket), right col-span-7 details with mono-label role + index, display-2 name, lead summary, focus list, "View full profile" CTA. Team note tile bg-beige border border-line. No FadeUp/SheetReveal/RuleDraw wrappers.
+  1417→- Rewrote /src/app/people/[slug]/page.tsx (server component, kept generateStaticParams + generateMetadata). Removed unused accentOnHex import (kept accentHex for the role dot/drop-cap). Hero bg-ivory: "Back to People" link (rose hover, arrow translates -x-1) + Profile · 01 folio; 5/7 grid: left portrait Image fill object-cover on bg-blush with rose-gold annotation bracket; right identity with role dot (style bg=hex) + mono-label role + display-1 name text-espresso + lead summary text-charcoal + Quick-facts dl (Based in: New Delhi, India / Practice: Corporate & Commercial / Bar: Enrolled advocate / Focus areas: 6 practice areas). Biography section bg-porcelain (3 paragraphs, lead text-charcoal, first paragraph has rose drop cap with style color=hex). Scope of Practice + Qualifications + Bar memberships section bg-beige (3-col grid, mono-label headings text-stone, list items text-espresso with mono-num text-rose numbered prefix). Contact the Firm strip bg-burgundy text-ivory with display-2 heading + serif-italic "Firm" coloured blush #E3C8BE + ivory link-underline email/phone + mono-label hours text-ivory/70. No FadeUp/SheetReveal/RuleDraw wrappers. No "PROFESSIONAL PORTRAIT" text.
+  1418→- Rewrote /src/app/firm/page.tsx (server component). Hero bg-ivory with "Index 01 · The Firm" + 002/018 folio + Manifesto dot (bg-rose) + margin-note + display-1 "Counsel built on principle." (with .serif-italic "principle") + lead text-charcoal + bg-line divider. PhilosophyManifesto() bg-porcelain: 3-col grid header (§ Philosophy + display-2 with .serif-italic "working") + 3 steps each with left colour block (rose/burgundy/espresso with oversized number + label + PHIL/0i mono-num) and right display-3 title text-espresso + lead body text-charcoal. Principles section bg-beige: 4-card grid using warm palette alternation (rose #B76E79 white text / burgundy #603A40 ivory text / blush #E3C8BE espresso text / espresso #2B2422 ivory text) — each card has mono-num index + faded display number + font-display title + body opacity-85. ApproachTimeline() bg-ivory: 4 asymmetric timeline milestones (Origin/Practice/Approach/Sectors) with markers in rose/burgundy/espresso/blush, content cards on bg-porcelain border border-line. KEPT "Methodical, attentive, considered" milestone title. Practice Areas Index bg-porcelain: 5/6 grid header with § Practice mono-label text-rose + display-2 "Six practice areas" with .serif-italic "areas" + body-condensed text-charcoal; list with mono-num index text-stone group-hover:text-espresso, font-display titles text-espresso, short text-charcoal, accent dot style=hex, arrow text-stone group-hover:text-rose + translate-x-1, hover:bg-ivory. KEPT "Six practice areas" wording. Contact strip bg-burgundy text-ivory with display-2 "Reach the firm" (.serif-italic "firm" coloured blush #E3C8BE) + ivory link-underline email/phone + mono-label hours text-ivory/70. No FolioScroll/FadeUp/SheetReveal/RuleDraw wrappers. Removed all legacy hard-coded #4169FF/#FF6B5C/#F0A050/#0FA98C/#8E7BFF cool palette hexes.
+  1419→- Ran `bun run lint` — 0 errors, 0 warnings (eslint . returned no output). 
+  1420→- Ran `bun run build` — Compiled successfully in 13.2s, all 24 routes generated, /firm, /people, /people/[slug] all present and dynamic. No type errors.
+  1421→
+  1422→Stage Summary:
+  1423→- All 4 target files migrated to the warm editorial palette (ivory/beige/blush/porcelain/rose/burgundy/espresso). Cool dark theme (bg-surface, text-fg, text-ink, #4169FF, #FF6B5C, #F0A050, #0FA98C) is fully removed from people-preview, people/page, people/[slug], firm/page.
+  1424→- Section background alternation enforced: people hero bg-ivory → people list bg-porcelain → team note bg-beige → profile hero bg-ivory → biography bg-porcelain → scope/qualifications/bar bg-beige → contact strip bg-burgundy; firm hero bg-ivory → philosophy bg-porcelain → principles bg-beige → approach bg-ivory → practice areas bg-porcelain → contact bg-burgundy.
+  1425→- Founder card design unified across people-preview, people/page, and people/[slug]: 5/7 grid with polished portrait-composition.png Image fill object-cover on bg-blush + rose-gold annotation bracket ("Portrait" mono-label text-rose + border-rose corner mark + bottom-right mono-num initials/index in text-white/80), right column with role mono-label, display-1/2 name text-espresso, lead summary text-charcoal, mono-label focus list, rose-gold "View profile" CTA arrow.
+  1426→- "PROFESSIONAL PORTRAIT TO BE ADDED" placeholder text eliminated everywhere — replaced with the polished abstract architectural composition image as instructed.
+  1427→- Rose-gold used only for: annotation brackets/labels, hover borders, hover arrow icons, hover CTA text colors, mono-num numbering in scope/qualifications/bar lists, § Practice eyebrow. Never used for body paragraph text. Espresso on light bgs; ivory on burgundy sections.
+  1428→- All content preserved exactly: bio (3 paragraphs), qualifications (LLB/LLM Amity Rajasthan), focus areas (6: Corporate structuring, Commercial contracts, M&A, Dispute resolution, Regulatory compliance, Insolvency & recovery), bar wording ("Enrolled advocate — Bar Council details available on request"), "Back to People", "Scope of Practice", "Qualifications", "Bar memberships", "Contact the Firm", "Reach the firm", "Methodical, attentive, considered", "Six practice areas", "Index 01 · The Firm", "Index 04 · People". Canonical URLs + metadata preserved.
+  1429→- No FadeUp/SheetReveal/CropReveal/RuleDraw/FolioScroll animation wrappers remain in any of the 4 files. people-preview.tsx converted from "use client" to server component (no hooks used). All other 3 files remain server components.
+  1430→- Did not touch globals.css, layout.tsx, accents.ts, data files (people.ts, firm.ts, practice-areas.ts), disclaimer-gate, site-shell, site-header, site-footer, contact-form, hero-visual, scroll-progress, api routes, legal-layout, page-hero, expertise-accordion, sector-grid, sector-list, expandable-service-list, insights-preview.
+  1431→- Lint clean (0 errors, 0 warnings). Build succeeds (24/24 static pages generated, /firm + /people + /people/[slug] all render).
+  1432→
+  1433→---
+  1434→Task ID: 23-b
+  1435→Agent: subagent-B (expertise + sectors + insights warm theme)
+  1436→Task: Update expertise, sectors, insights pages + components for warm editorial palette
+  1437→
+  1438→Work Log:
+  1439→- Read worklog.md (Task 22) and confirmed globals.css already has the warm editorial palette tokens (`bg-ivory` #F7F1E8, `bg-beige` #E8D8C8, `bg-blush` #E3C8BE, `bg-porcelain` #FFFDF9, `bg-rose` #B76E79, `bg-burgundy` #603A40, `bg-espresso` #2B2422, `text-espresso`/`text-charcoal`/`text-stone`, `border-line`/`border-line-strong`, `.serif-italic`/`.mono-label`/`.display-1`/`.display-2`/`.display-3`/`.btn-magnetic`/`.link-underline`/`.grain`). Also confirmed `accentHex`/`accentOnHex` in `@/lib/accents` already return warm colours (rose/burgundy/espresso/blush/beige/porcelain) and that legacy aliases (`--color-fg`, `--color-surface`, etc.) map through to the warm palette — so even unmigrated files still render warm, but the task asked for explicit Tailwind class names + explicit CSS var usage.
+  1440→- Rewrote `/home/z/my-project/src/components/site/expertise-accordion.tsx` (kept "use client" + useState + aria-expanded + open-first behaviour):
+  1441→  • Closed header `hover:bg-surface-soft` → `hover:bg-porcelain`.
+  1442→  • Open header colour field still uses accentHex via inline style (untouched) — gives each practice area its warm identity (rose/burgundy/espresso/blush/beige/porcelain).
+  1443→  • Inline text colours on closed rows: `var(--color-fg-muted)` → `var(--color-charcoal)`, `var(--color-fg-subtle)` → `var(--color-stone)`, `var(--color-fg)` → `var(--color-espresso)`. Open rows still use `onHex` (the accessible on-accent colour).
+  1444→  • Expanded panel `bg-surface-elevated` → `bg-porcelain` (kept `border-t border-line`). Inline text on expanded panel: `var(--color-fg)` → `var(--color-espresso)`, `var(--color-fg-muted)` → `var(--color-charcoal)`, `var(--color-fg-subtle)` → `var(--color-stone)`.
+  1445→  • "Read area" link: `hover:opacity-70` → `hover:text-rose` (rose-gold accent on hover).
+  1446→- Rewrote `/home/z/my-project/src/app/expertise/page.tsx`:
+  1447→  • Removed unused `Link` import (the page links out via ExpertiseAccordion / the [slug] detail page).
+  1448→  • Hero & section `bg-surface` → `bg-ivory`. Headings `text-fg` → `text-espresso`. Body / lead `text-fg-muted` → `text-charcoal`. Mono labels / folios `text-fg-muted`/`text-fg-subtle` → `text-stone`. Hero accent word `text-accent` → `text-rose`.
+  1449→  • Kept "Index 02 · Expertise" mono label, the colour legend (with practice-area accent dots), and the ExpertiseAccordion import.
+  1450→- Rewrote `/home/z/my-project/src/app/expertise/[slug]/page.tsx`:
+  1451→  • Kept `generateStaticParams`, `generateMetadata`, `notFound()`, all practice-area content (overview, services, serviceDetails, prev/next nav, contact strip).
+  1452→  • Hero is still colour-coded with the practice area's accentHex (`background: hex; color: onHex`) — that's the colour identity, untouched.
+  1453→  • Alternating warm backgrounds: Hero (accent) → Services `bg-ivory` → Approach `bg-beige` → Contact strip `bg-beige` → Prev/Next nav `bg-ivory`. (Before, it was Hero → `bg-surface` → `bg-surface-soft` → `bg-surface-soft` → `bg-surface`.)
+  1454→  • All `text-fg` → `text-espresso`, all `text-fg-muted` → `text-charcoal`, all `text-fg-subtle` → `text-stone` on the warm-bg sections. Inline link in Approach (`link-underline text-fg`) → `link-underline text-espresso`. Prev/Next nav mono-num accents still use `accentHex[prev.accent]`/`accentHex[next.accent]` (warm practice-area identity).
+  1455→  • No FadeUp/SheetReveal/RuleDraw wrappers in the file (already removed by Task 21-a). The static `<div className="mt-8 max-w-md h-px bg-line" />` after the ExpandableServiceList is preserved.
+  1456→- Rewrote `/home/z/my-project/src/components/site/expandable-service-list.tsx` (kept "use client" + useState + single-open accordion + aria-expanded/aria-controls):
+  1457→  • Closed row `hover:bg-surface-soft` → `hover:bg-porcelain`. Focus ring `focus-visible:ring-accent` → `focus-visible:ring-rose`.
+  1458→  • Inline text on closed rows: `var(--color-fg-muted)` → `var(--color-stone)`, `var(--color-fg)` → `var(--color-espresso)`. Open rows still use `hex` (practice-area accent) for the number/title/glyph.
+  1459→  • Expanded panel `bg-surface-elevated` → `bg-porcelain` (kept `border-t border-line`). Inline text on expanded panel: `var(--color-fg-muted)` → `var(--color-charcoal`, `var(--color-fg-subtle)` → `var(--color-stone)`. Accent rule still uses inline `background: hex`.
+  1460→  • Updated the JSDoc comment to describe the warm palette instead of the old dark editorial system.
+  1461→- Rewrote `/home/z/my-project/src/app/sectors/page.tsx` (server component, kept `metadata` export):
+  1462→  • Hero & two warm-bg sections: `bg-surface` → `bg-ivory`. The "How the firm serves sectors" section + its three-note grid: `bg-surface-soft` → `bg-beige` (with the note tiles also `bg-beige` so they sit on the section background).
+  1463→  • All `text-fg` → `text-espresso`, all `text-fg-muted` → `text-charcoal`, all `text-fg-subtle` → `text-stone`. Hero accent word `text-teal` → `text-rose`. Cross-link "the sectors" accent word `text-teal` → `text-rose`. Legend hover `group-hover:text-fg` → `group-hover:text-espresso`. CTA `hover:text-accent` → `hover:text-rose`.
+  1464→  • Kept "Index 03 · Sectors" mono label, the SectorList import + usage, the colour legend, and the static `<div className="mt-8 max-w-md h-px bg-line" />` divider.
+  1465→- Rewrote `/home/z/my-project/src/components/site/sector-list.tsx` (kept "use client" + useState/useEffect/useCallback hashchange listener + aria-expanded/aria-controls + grid-rows 0fr→1fr CSS-only animation):
+  1466→  • Row `hover:bg-surface-soft` → `hover:bg-porcelain`. Number `text-fg-subtle` → `text-stone`, hover `group-hover:text-fg-muted` → `group-hover:text-charcoal`. Name `text-fg` → `text-espresso`. Note `text-fg-muted` → `text-charcoal`. Chevron `text-fg-subtle` → `text-stone`, hover `group-hover:text-fg` → `group-hover:text-espresso`.
+  1467→  • Expanded description panel `bg-surface-soft` → `bg-porcelain`. Description text `text-fg-muted` → `text-charcoal`. Border-left accent still uses inline `borderColor: hex` (practice-area identity).
+  1468→- Rewrote `/home/z/my-project/src/components/site/sector-grid.tsx` (kept "use client" + SectorGridLayout/SectorScroller/SectorCard/SectorTile/SectorArrow structure + the scroll-snap track, scrollByTiles, progress bar):
+  1469→  • SectorCard: `bg-surface-soft` → `bg-porcelain`, `hover:border-line-strong` → `hover:border-rose`, `focus-visible:border-accent` → `focus-visible:border-rose`. Number `text-fg-subtle` → `text-stone`. Name `text-fg` → `text-espresso`. Note `text-fg-muted` → `text-charcoal`. "View sector" `text-fg-muted` → `text-charcoal`, hover `group-hover:text-fg` → `group-hover:text-rose`.
+  1470→  • SectorTile (homepage scroller): same warm-palette swap as SectorCard (`bg-surface-soft` → `bg-porcelain`, hover `border-rose`, `text-stone`/`text-espresso`/`text-charcoal`).
+  1471→  • End card (homepage scroller CTA): `bg-surface-elevated text-fg` → `bg-blush text-espresso`. Mono label `text-fg-muted` → `text-espresso/70` (70% opacity on the warm blush field). Heading `text-fg` → `text-espresso`. "See all" `text-fg-muted group-hover:text-saffron` → `text-espresso/70 group-hover:text-rose`.
+  1472→  • SectorArrow: `text-fg-muted hover:text-fg hover:bg-surface-elevated` → `text-stone hover:text-espresso hover:bg-ivory`. (Kept `border border-line-strong` per spec.)
+  1473→  • Scroller meta label `text-fg-subtle` → `text-stone`. Progress-bar markers `text-fg-subtle` → `text-stone`. Progress bar `bg-accent` → `bg-rose` (rose-gold progress fill on warm hairline track).
+  1474→- Rewrote `/home/z/my-project/src/app/insights/page.tsx` (server component, kept `metadata` export + the empty-state notice text from `@/data/insights`):
+  1475→  • Hero `bg-surface` → `bg-ivory`. Notice card `bg-surface-elevated` → `bg-porcelain` (kept `border border-line`). Mono labels / folio `text-fg-muted`/`text-fg-subtle` → `text-stone`. Hero accent word `text-saffron` → `text-rose`. Status dot `bg-saffron` → `bg-rose`. Status label `text-saffron` → `text-rose`. Notice headline `text-fg` → `text-espresso`. Notice body `text-fg-muted` → `text-charcoal`. "Return to the homepage" `text-fg-muted hover:text-accent` → `text-stone hover:text-rose`.
+  1476→  • Route still works at `/insights` even though it's removed from the primary nav (per navigation.ts).
+  1477→- Rewrote `/home/z/my-project/src/components/site/insights-preview.tsx` (kept "use client" — even though the component is no longer imported by the homepage, kept it as a route-independent preview pattern, per spec option to update rather than delete):
+  1478→  • Notice card `bg-surface-elevated` → `bg-porcelain` (kept `border border-line`). Status label `text-saffron` → `text-rose`. Notice headline `text-fg` → `text-espresso`. Notice body `text-fg-muted` → `text-charcoal`. CTA `text-fg-muted hover:text-saffron` → `text-stone hover:text-rose`.
+  1479→  • Updated the JSDoc comment block to note the warm palette and that the component is no longer imported by the homepage.
+  1480→- Verification:
+  1481→  • `rg "bg-surface|text-fg|text-accent|text-teal|text-saffron|bg-saffron|bg-surface-soft|bg-surface-elevated" src/app/expertise src/app/sectors src/app/insights src/components/site/expertise-accordion.tsx src/components/site/expandable-service-list.tsx src/components/site/sector-list.tsx src/components/site/sector-grid.tsx src/components/site/insights-preview.tsx` → 0 matches. (Only `hero-visual.tsx` still uses legacy aliases — and hero-visual is on the do-not-touch list.)
+  1482→  • `bun run lint` → clean, exit code 0, no errors, no warnings.
+  1483→  • `bun run build` → ✓ Compiled successfully in 9.5s. All 24 static pages generated successfully (/, /expertise, /expertise/[slug] for all 6 practice areas, /sectors, /insights, plus the other routes). No TypeScript errors, no missing imports.
+  1484→- Did NOT touch: globals.css, layout.tsx, accents.ts, data files (firm.ts, practice-areas.ts, sectors.ts, insights.ts), disclaimer-gate, disclaimer-gate-client, site-shell, site-header, site-footer, contact-form, hero-visual, scroll-progress, api routes, legal-layout, page-hero, homepage (page.tsx), people files, firm page.
+  1485→- Did NOT change any content: practice-area descriptions, service titles, service detail copy, sector names/notes/descriptions, insightsNotice / insightsEmpty empty-state text, contact info, prev/next labels, mono-label text, "Index 02 · Expertise" / "Index 03 · Sectors" / "Index 05 · Insights" folios all preserved verbatim.
+  1486→- Did NOT reintroduce FadeUp/SheetReveal/RuleDraw wrappers (already removed by Task 21-a) — content renders directly in SSR HTML on all 9 files updated.
+  1487→
+  1488→Stage Summary:
+  1489→- 9 files updated to the warm editorial palette (ivory/porcelain/beige/blush backgrounds with espresso/charcoal/stone text, rose-gold for accents only):
+  1490→  • src/components/site/expertise-accordion.tsx
+  1491→  • src/app/expertise/page.tsx
+  1492→  • src/app/expertise/[slug]/page.tsx
+  1493→  • src/components/site/expandable-service-list.tsx
+  1494→  • src/app/sectors/page.tsx
+  1495→  • src/components/site/sector-list.tsx
+  1496→  • src/components/site/sector-grid.tsx
+  1497→  • src/app/insights/page.tsx
+  1498→  • src/components/site/insights-preview.tsx
+  1499→- All "use client" components retained their client directive + interactivity (accordion useState, hashchange listener, scroll-snap scroller, arrow navigation, progress bar).
+  1500→- All server components retained server-only rendering + generateStaticParams/generateMetadata where applicable.
+  1501→- Practice-area and sector colour identity preserved via accentHex/accentOnHex from `@/lib/accents` (rose / burgundy / espresso / blush / beige / porcelain — already warm).
+  1502→- Hero of /expertise/[slug] still uses the practice area's accent colour field (warm rose, burgundy, espresso, blush, beige or porcelain) as its identity. Insights empty-state notice still uses rose-gold for the status dot/label.
+  1503→- Lint clean (0 errors). Build clean (24/24 static pages, 9.5s compile). No content changes. No data files touched.
+  1504→
+  1505→---
+  1506→Task ID: 23
+  1507→Agent: main (orchestrator)
+  1508→Task: Redesign entire website with warm sophisticated editorial aesthetic (ivory/beige/blush/rose-gold/burgundy/espresso)
+  1509→
+  1510→Work Log:
+  1511→- Phase 1 (globals.css): Complete rewrite with warm editorial palette. New tokens: ivory #F7F1E8, beige #E8D8C8, blush #E3C8BE, porcelain #FFFDF9, rose #B76E79, burgundy #603A40, espresso #2B2422, charcoal #514846, stone #8A7E76. Updated all colour fields, grain texture (warm tone), typography utilities, motion CSS, scrollbar. Native cursor restored everywhere (cursor:auto, cursor:pointer on interactive).
+  1512→- Phase 2 (layout.tsx): Switched from Instrument Serif to Cormorant Garamond (300-600 weights, normal+italic). Manrope body, IBM Plex Mono labels. body bg-ivory text-charcoal. themeColor #F7F1E8.
+  1513→- Phase 3 (accents.ts): New accent tokens: rose/burgundy/espresso/blush/beige/porcelain. All accentHex/accentOnHex/accentSoftHex updated to warm palette.
+  1514→- Phase 4 (data files): Updated practice-areas.ts and sectors.ts accent values (electric→rose, vermilion→burgundy, aubergine→espresso, marigold→blush, jade→beige, ink→porcelain). Updated people.ts accent type + founder accent to "rose". Updated navigation.ts to hide Insights from primaryNav and footerNav.
+  1515→- Phase 5 (image generation): Generated 3 warm-themed images via z-ai image CLI: delhi-architecture.png (864x1152 architectural facade), portrait-composition.png (768x1344 polished neutral abstract for founder), document-texture.png (1344x768 abstract document layers). All saved to public/images/.
+  1516→- Phase 6 (homepage): Complete rewrite with 7 sections: Hero (warm ivory + architectural image right), Introduction (porcelain), Practice Areas (ivory index), Selected Sectors (beige horizontal scroller), Firm Principles (porcelain 4-card grid), Founder/Profile (ivory + portrait image), Contact (burgundy strip). Rose-gold italic on accent words. No Insights section. No placeholder text — uses polished portrait image.
+  1517→- Phase 7 (header + footer): Warm ivory header, rose-gold wordmark + active underline. Mobile menu bg-ivory. Footer bg-beige with rose accent strip, practice-area index, warm colour swatches.
+  1518→- Phase 8 (disclaimer gate): Warm ivory gate, rose-gold top rule, espresso text, rose button. Server component reads cookie → SSR HTML contains gate immediately (no blank screen). Client component handles checkbox + proceed (immediate, no setTimeout).
+  1519→- Phase 9 (parallel subagents): Dispatched 3 subagents (23-a, 23-b, 23-c) to update all interior pages:
+  1520→  - 23-a: people-preview, people/page, people/[slug], firm/page — warm theme, portrait images, no placeholder text
+  1521→  - 23-b: expertise-accordion, expertise/page, expertise/[slug], expandable-service-list, sectors/page, sector-list, sector-grid, insights/page, insights-preview — warm colours throughout
+  1522→  - 23-c: contact/page, contact-form (POST preserved), careers/page, legal-layout, disclaimer/terms/privacy pages, not-found, page-hero — warm theme, no Last Updated row
+  1523→
+  1524→Verification (agent-browser + node fetch + VLM):
+  1525→- bun run lint: clean, 0 errors.
+  1526→- All 13 routes return HTTP 200.
+  1527→- SSR HTML: warm bg #F7F1E8, rose accent #B76E79, hero "Corporate & Commercial Legal Counsel.", label present, "A boutique law firm advising" present, delhi-architecture.png + portrait-composition.png images present. No old dark bg #080D18, no Loading document, no client-first, no Six chapters, no PROFESSIONAL PORTRAIT placeholder text.
+  1528→- Disclaimer gate: SSR HTML contains "Before you enter" + checkbox + proceed button immediately (no blank screen). bodyBg rgb(247,241,232)=#F7F1E8, bodyColor rgb(81,72,70)=#514846. Checkbox unchecked → button disabled. Click checkbox → enabled. Click proceed → homepage loads immediately.
+  1529→- Homepage: H1 "Corporate & Commercial Legal Counsel.", warm ivory bg, all content present, image present, Insights NOT in nav, bodyHeight 7364px, no errors.
+  1530→- Profile: warm bg, H1 "Saransh Raj", Back to People, Scope of Practice, Contact the Firm, portrait image, no placeholder text, no Representative Engagements.
+  1531→- Contact: method="post", action="/api/contact", honeypot present, address "G-14, Basement", warm bg.
+  1532→- Legal: no "Last Updated" row, warm bg, H1 "Terms of Use".
+  1533→- VLM (desktop homepage): "warm, soft light ivory or off-white (beige) background", "Corporate & Commercial Legal Counsel" heading, "& Commercial" in "rose-gold/dusty pink italicized serif", "warm, premium, editorial design feel", "architectural image on the right side of the hero section", "no visible broken elements".
+  1534→- Mobile: 390x844, no horizontal overflow.
+  1535→- No page errors, no console errors.
+  1536→
+  1537→Stage Summary:
+  1538→- Complete warm editorial redesign achieved. 65% warm ivory/beige, 20% porcelain white, 10% espresso/burgundy, 5% rose-gold accents.
+  1539→- Alternating section backgrounds: ivory, porcelain, beige, blush, occasional burgundy (contact strip). No single background throughout.
+  1540→- Rose-gold used only for: important italic accent words, thin borders, buttons, icons, numbering, decorative details. Never for paragraph text.
+  1541→- Cormorant Garamond display + Manrope body + IBM Plex Mono labels. Body text 17px min. Increased nav label size and contrast.
+  1542→- 3 AI-generated images: Delhi architectural facade (hero), polished neutral portrait composition (founder), abstract document texture.
+  1543→- No generic gavels/scales/pillars. No "Professional Portrait to Be Added" text. No Insights in primary nav.
+  1544→- Compliance preserved: Bar Council disclaimer, contact-form confidentiality notice, no testimonials/success rates/promotional claims.
+  1545→- All 13 routes 200, lint clean, no errors, mobile responsive.
+  1546→- VLM-confirmed: "warm, premium, editorial design feel".
+  1547→
